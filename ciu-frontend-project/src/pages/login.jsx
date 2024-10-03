@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./login.css";
+import "./Login.css";
 import { BiSolidUserRectangle } from "react-icons/bi";
 import { FaLock, FaUser } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
