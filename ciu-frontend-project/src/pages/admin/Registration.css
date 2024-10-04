@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 body{
     background: #ebebeb;
     text-align: center;
@@ -64,6 +65,7 @@ button{
     padding: 10px 15px;
     /* border-radius: 6px; */
     margin: 15px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border: none;
     color: #fff;
     cursor: pointer;
@@ -75,3 +77,31 @@ button{
 button:hover{
     background-color: #0c890c;
 }
+
+.button-group {
+    display: flex;
+    justify-content: space-around; 
+    margin-bottom: 15px;
+    gap: 10px; 
+  }
+  
+  .button-group button {
+    padding: 10px 15px; /* Smaller padding */
+    border: none;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    font-size: 12px; /* Smaller font size */
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-group button.active {
+    background-color: #106010;
+    color: #fff;
+  }
+  
+  .button-group button:hover {
+    background-color: #0c890c;
+    color: #fff;
+  }
+  

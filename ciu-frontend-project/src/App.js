@@ -1,12 +1,12 @@
-import Registration from './admin/Registration';
-import './App.css';
 
-function App() {
-  return (
-    <div>
-      <Registration/>
-    </div>
-  );
-}
+// import './App.css';
 
-export default App;
+// function App() {
+//   return (
+//     <div>
+//       <Registration/>
+//     </div>
+//   );
+// }
+
+// export default App;
