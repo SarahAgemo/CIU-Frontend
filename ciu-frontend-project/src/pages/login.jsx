@@ -8,8 +8,10 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState("Select User");
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState(""); // Changed from email to identifier
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
+  const [successMessage, setSuccessMessage] = useState(""); // State for success messages
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -21,7 +23,7 @@ const Login = () => {
   };
 
   const placeholderText =
-    selectedUser === "Student" ? "Student Number" : "Email";
+    selectedUser === "Student" ? "Registration Number" : "Email";
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -29,32 +31,37 @@ const Login = () => {
 
     // Determine the endpoint based on selected user
     let endpoint = "";
+    let userPayload = {};
+
     if (selectedUser === "Lecturer") {
-      endpoint = "http://localhost:3000/auth/login"; // Lecturer login
+      endpoint = "http://localhost:3000/auth/login"; // Lecturer login endpoint
+      userPayload = { email: identifier, password }; // Email for lecturer
     } else if (selectedUser === "Administrator") {
       endpoint = "http://localhost:3000/auth/admin/login"; // Admin login endpoint
+      userPayload = { email: identifier, password }; // Email for admin
     } else if (selectedUser === "Student") {
-      endpoint = "http://localhost:3000/auth/student/login"; // Student login endpoint
+      endpoint = "http://localhost:3000/students/login"; // Correct student login endpoint
+      userPayload = { registrationNo: identifier, password }; // Registration number for student
     } else {
       alert("Please select a valid user role.");
       return;
     }
 
     try {
-      const response = await axios.post(endpoint, {
-        email,
-        password,
-      });
+      const response = await axios.post(endpoint, userPayload);
+      console.log(response.data); // Log the response data for debugging
 
       // Handle success response
       if (response.status === 200) {
         console.log("Login successful:", response.data);
-        alert("Login successful!");
-        // You can redirect or perform further actions here
+        setSuccessMessage("Login successful!"); // Set success message
+        setErrorMessage(""); // Clear any previous error messages
       }
     } catch (error) {
-      console.error("Login failed:", error.response ? error.response.data : error.message);
-      alert("Login failed. Please check your credentials.");
+      const errorResponse = error.response ? error.response.data : error.message;
+      console.error("Login failed:", errorResponse);
+      setErrorMessage("Login failed. Please check your credentials."); // Set error message state
+      setSuccessMessage(""); // Clear any previous success messages
     }
   };
 
@@ -97,8 +104,8 @@ const Login = () => {
               type="text"
               placeholder={placeholderText}
               required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={identifier} // Changed from email to identifier
+              onChange={(e) => setIdentifier(e.target.value)} // Adjusted for identifier
             />
             <FaUser className="icon" />
           </div>
@@ -119,6 +126,8 @@ const Login = () => {
             </label>
           </div>
           <button type="submit">LOGIN</button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error messages */}
+          {successMessage && <p className="success-message">{successMessage}</p>} {/* Display success messages */}
           <div className="forgot-password">
             <a href="">Forgot Password?</a>
           </div>
