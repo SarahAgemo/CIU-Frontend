@@ -1,11 +1,9 @@
-import React from 'react';
-import './App.css';
-import Registration from './pages/admin/Registration';
+import Login from "./pages/login.jsx";
 
 function App() {
   return (
     <div>
-      <Registration/>
+      <Login />
     </div>
   );
 }
