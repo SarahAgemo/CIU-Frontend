@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios"; // Import axios
+import axios from "axios";
 import "./login.css";
 import { BiSolidUserRectangle } from "react-icons/bi";
 import { FaLock, FaUser } from "react-icons/fa";
@@ -8,10 +8,11 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 const Login = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState("Select User");
-  const [identifier, setIdentifier] = useState(""); // Changed from email to identifier
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // State for error messages
-  const [successMessage, setSuccessMessage] = useState(""); // State for success messages
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -22,53 +23,64 @@ const Login = () => {
     setIsOpen(false);
   };
 
-  const placeholderText =
-    selectedUser === "Student" ? "Registration Number" : "Email";
+  const placeholderText = selectedUser === "Student" ? "Registration Number" : "Email";
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Determine the endpoint based on selected user
+    // Prevent further submissions if already submitting
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+
     let endpoint = "";
     let userPayload = {};
 
+    // Set the endpoint and payload based on selected user
     if (selectedUser === "Lecturer") {
-      endpoint = "http://localhost:3000/auth/login"; // Lecturer login endpoint
-      userPayload = { email: identifier, password }; // Email for lecturer
+      endpoint = "http://localhost:3000/auth/login";
+      userPayload = { email: identifier, password };
     } else if (selectedUser === "Administrator") {
-      endpoint = "http://localhost:3000/auth/admin/login"; // Admin login endpoint
-      userPayload = { email: identifier, password }; // Email for admin
+      endpoint = "http://localhost:3000/auth/admin/login";
+      userPayload = { email: identifier, password };
     } else if (selectedUser === "Student") {
-      endpoint = "http://localhost:3000/students/login"; // Correct student login endpoint
-      userPayload = { registrationNo: identifier, password }; // Registration number for student
+      endpoint = "http://localhost:3000/students/login";
+      userPayload = { registrationNo: identifier, password };
     } else {
       alert("Please select a valid user role.");
+      setIsSubmitting(false);
       return;
     }
 
     try {
       const response = await axios.post(endpoint, userPayload);
-      console.log(response.data); // Log the response data for debugging
+      console.log("Response Data:", response.data);
 
-      // Handle success response
-      if (response.status === 200) {
+      // Check for token in different response formats
+      const accessToken = response.data.access_token || (response.data.token && response.data.token.access_token);
+
+      // Handle successful response
+      if (accessToken) {
         console.log("Login successful:", response.data);
         setSuccessMessage("Login successful!"); // Set success message
         setErrorMessage(""); // Clear any previous error messages
+      } else {
+        setErrorMessage("Login failed. No token received."); // Handle missing token error
+        setSuccessMessage("");
       }
     } catch (error) {
+      console.error("Error during login:", error);
       const errorResponse = error.response ? error.response.data : error.message;
-      console.error("Login failed:", errorResponse);
       setErrorMessage("Login failed. Please check your credentials."); // Set error message state
       setSuccessMessage(""); // Clear any previous success messages
+    } finally {
+      setIsSubmitting(false); // Reset submitting state after request
     }
   };
 
   return (
     <div className="wrapper">
       <div className="top-section">
-        <img src="./src/assets/images/ciu-logo-login.png" alt="" />
+        <img src="./src/assets/images/ciu-logo-login.png" alt="Logo" />
         <h1>ONLINE EXAMINATION SYSTEM</h1>
       </div>
       <div className="form-box login">
@@ -77,7 +89,6 @@ const Login = () => {
             <div className="icon-div">
               <BiSolidUserRectangle className="icon" size={40} />
             </div>
-
             <div className="select" onClick={toggleDropdown}>
               <div className="select-field">
                 <p>{selectedUser}</p>
@@ -85,15 +96,9 @@ const Login = () => {
               </div>
               {isOpen && (
                 <ul className="option-list">
-                  <li onClick={() => handleUserSelection("Student")}>
-                    Student
-                  </li>
-                  <li onClick={() => handleUserSelection("Administrator")}>
-                    Administrator
-                  </li>
-                  <li onClick={() => handleUserSelection("Lecturer")}>
-                    Lecturer
-                  </li>
+                  <li onClick={() => handleUserSelection("Student")}>Student</li>
+                  <li onClick={() => handleUserSelection("Administrator")}>Administrator</li>
+                  <li onClick={() => handleUserSelection("Lecturer")}>Lecturer</li>
                 </ul>
               )}
             </div>
@@ -104,8 +109,8 @@ const Login = () => {
               type="text"
               placeholder={placeholderText}
               required
-              value={identifier} // Changed from email to identifier
-              onChange={(e) => setIdentifier(e.target.value)} // Adjusted for identifier
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
             />
             <FaUser className="icon" />
           </div>
@@ -125,11 +130,11 @@ const Login = () => {
               Remember Me
             </label>
           </div>
-          <button type="submit">LOGIN</button>
-          {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error messages */}
-          {successMessage && <p className="success-message">{successMessage}</p>} {/* Display success messages */}
+          <button type="submit" disabled={isSubmitting}>LOGIN</button>
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          {successMessage && <p className="success-message">{successMessage}</p>}
           <div className="forgot-password">
-            <a href="">Forgot Password?</a>
+            <a href="#">Forgot Password?</a>
           </div>
         </form>
       </div>
