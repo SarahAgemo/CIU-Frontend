@@ -1,80 +1,53 @@
 
-/* Center the table on the page */
-table {
-  margin: 0 auto; /* Center the table horizontally */
-  border-collapse: collapse;
-  width: 100%; /* Adjust the width as needed */
-}
-
-/* Styling for the table header cells */
-th {
-  background-color: #b7d1c8; /* Pale Greenish-Gray background for table header */
-  padding: 10px;
-  text-align: center; /* Center the text in the header */
-  color: #000; /* Optional: Change text color if needed */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for the header cells */
-}
-
-/* Styling for the table data cells */
-td {
-  padding: 8px;
-  text-align: center; /* Center the text in the cells */
-}
-
-/* Center the table heading and add a shadow */
-h1, h3 {
-  text-align: center; /* Center the heading */
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add a shadow for a 3D effect */
-  font-weight: bold;
-  color: #333; /* Optional: Darker color for the heading */
-}
-
-/* Optional: Styling the table container */
-.container {
-  padding-top: 20px; /* Space above the table */
-}
-
 
 /* dont mind about this css */
 
-/* .container {
+/* Container styling */
+.container {
   padding-top: 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-
+/* Table styling */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  background-color: white; /* White background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border: none; /* Remove borders */
 }
 
-
+/* Header (th) styling */
 th {
-  background-color: #4caf50; /
-  color: white;
+  background-color: #f5f5f5; /* Neutral background instead of green */
+  color: #333; /* Darker text color */
   padding: 12px 15px;
   text-align: center;
   font-weight: bold;
   text-transform: uppercase;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow on header */
 }
 
-
+/* Data cells (td) styling */
 td {
   padding: 10px 15px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #ddd; /* Light bottom border */
 }
 
+/* Remove left border on first column */
+td:first-child {
+  border-left: none;
+}
 
+/* Row hover effect */
 tr:hover {
   background-color: #f5f5f5;
 }
 
-
+/* Button styling */
 button.btn {
   padding: 6px 12px;
   border-radius: 4px;
@@ -84,6 +57,7 @@ button.btn {
   transition: background-color 0.3s ease;
 }
 
+/* Button primary style */
 button.btn-primary {
   background-color: #007bff;
   color: white;
@@ -93,6 +67,7 @@ button.btn-primary:hover {
   background-color: #0056b3;
 }
 
+/* Button danger style */
 button.btn-danger {
   background-color: #dc3545;
   color: white;
@@ -102,6 +77,14 @@ button.btn-danger:hover {
   background-color: #c82333;
 }
 
+/* Align buttons horizontally in actions column */
+td:last-child {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+}
+
+/* Button secondary style */
 button.btn-secondary {
   background-color: #6c757d;
   color: white;
@@ -111,7 +94,7 @@ button.btn-secondary:hover {
   background-color: #5a6268;
 }
 
-
+/* Responsive styling for mobile */
 @media (max-width: 768px) {
   table {
     display: block;
@@ -119,9 +102,8 @@ button.btn-secondary:hover {
     white-space: nowrap;
   }
 
-  
   button.btn {
     font-size: 12px;
     padding: 4px 8px;
   }
-} */
+}
