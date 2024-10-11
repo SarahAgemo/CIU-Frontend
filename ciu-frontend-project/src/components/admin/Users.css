@@ -1,0 +1,127 @@
+
+/* Center the table on the page */
+table {
+  margin: 0 auto; /* Center the table horizontally */
+  border-collapse: collapse;
+  width: 100%; /* Adjust the width as needed */
+}
+
+/* Styling for the table header cells */
+th {
+  background-color: #b7d1c8; /* Pale Greenish-Gray background for table header */
+  padding: 10px;
+  text-align: center; /* Center the text in the header */
+  color: #000; /* Optional: Change text color if needed */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Light shadow for the header cells */
+}
+
+/* Styling for the table data cells */
+td {
+  padding: 8px;
+  text-align: center; /* Center the text in the cells */
+}
+
+/* Center the table heading and add a shadow */
+h1, h3 {
+  text-align: center; /* Center the heading */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add a shadow for a 3D effect */
+  font-weight: bold;
+  color: #333; /* Optional: Darker color for the heading */
+}
+
+/* Optional: Styling the table container */
+.container {
+  padding-top: 20px; /* Space above the table */
+}
+
+
+/* dont mind about this css */
+
+/* .container {
+  padding-top: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+
+th {
+  background-color: #4caf50; /
+  color: white;
+  padding: 12px 15px;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+td {
+  padding: 10px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+
+button.btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+button.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+
+button.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+button.btn-danger {
+  background-color: #dc3545;
+  color: white;
+}
+
+button.btn-danger:hover {
+  background-color: #c82333;
+}
+
+button.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+button.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  
+  button.btn {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+} */
