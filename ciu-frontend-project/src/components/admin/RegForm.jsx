@@ -44,7 +44,8 @@ const UserForm = () => {
           maxWidth: '600px',
         }}
       >
-        <h2 style={{ textAlign: 'center', color: '#065c4c' }}>User Registration</h2>
+        
+        <h2 style={{ textAlign: 'center', color: '#065c4c', textTransform: 'uppercase', marginBottom: '1em'  }}>USER REGISTRATION</h2>
         <form onSubmit={handleSubmit}>
           {/* First Name and Last Name */}
           <div style={{ display: 'flex', marginBottom: '20px' }}>
@@ -191,22 +192,29 @@ const UserForm = () => {
           </div>
 
           <button
-            type="submit"
-            style={{
-              width: '100%',
-              padding: '12px',
-              backgroundColor: '#065c4c',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer',
-              fontSize: '16px',
-              transition: 'background-color 0.3s',
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#b7d1c8')}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#065c4c')}
-          >
-            Register User
-          </button>
+  type="submit"
+  style={{
+    width: '100%',
+    padding: '12px',
+    backgroundColor: '#065c4c',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '16px',
+    transition: 'background-color 0.3s, color 0.3s',
+  }}
+  onMouseOver={(e) => {
+    e.currentTarget.style.backgroundColor = '#b7d1c8';
+    e.currentTarget.style.color = '#065c4c'; 
+  }}
+  onMouseOut={(e) => {
+    e.currentTarget.style.backgroundColor = '#065c4c';
+    e.currentTarget.style.color = 'white'; 
+  }}
+>
+  Register User
+</button>
+
         </form>
       </div>
     </div>
