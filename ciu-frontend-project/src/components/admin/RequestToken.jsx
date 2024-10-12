@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const RequestToken = () => {
+const RequestTokenForm = () => {
   const [formData, setFormData] = useState({
     token: '',
     newPassword: '',
@@ -162,4 +162,4 @@ const RequestToken = () => {
   );
 };
 
-export default RequestToken;
+export default RequestTokenForm;
