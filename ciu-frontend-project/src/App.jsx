@@ -6,6 +6,7 @@ import Registration from "./pages/admin/Registration.jsx";
 import Dashboard from "./pages/admin/Dashboard.jsx";
 import ManageUsers from "./pages/admin/ManageUsers.jsx";
 import Header from "./components/admin/Header.jsx";
+import RequestToken from "./components/admin/RequestToken.jsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/header" element={<Header/>} />
+        <Route path="/request-token" element={<RequestToken />} />
       </Routes>
     </Router>
   );
