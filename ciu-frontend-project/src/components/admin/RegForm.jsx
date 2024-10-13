@@ -2,12 +2,14 @@ import React, { useState } from 'react';
 
 const UserForm = () => {
   const [user, setUser] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     program: '',
     registrationNo: '',
     password: '',
     role: '',
+    dateTime: ''
   });
 
   const handleChange = (e) => {
@@ -30,41 +32,60 @@ const UserForm = () => {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
-        backgroundImage: 'url("/exam.jpg")', // Light teal background
       }}
     >
       <div
         style={{
           padding: '30px',
           borderRadius: '12px',
-          backgroundColor: 'rgba(255, 255, 255, 0.95)', // Semi-transparent white
-          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)', // Deeper shadow
-          width: '80%', // Set a max width for the form
-          maxWidth: '600px', // Adjust this as needed
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+          width: '80%',
+          maxWidth: '600px',
         }}
       >
         <h2 style={{ textAlign: 'center', color: '#065c4c' }}>User Registration</h2>
         <form onSubmit={handleSubmit}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '20px' }}>
-            <div style={{ flex: '1', marginRight: '35px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Name:</label>
+          {/* First Name and Last Name */}
+          <div style={{ display: 'flex', marginBottom: '20px' }}>
+            <div style={{ flex: '1', marginRight: '20px' }}>
+              <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>First Name:</label>
               <input
                 type="text"
-                name="name"
-                value={user.name}
+                name="firstName"
+                value={user.firstName}
                 onChange={handleChange}
                 required
                 style={{
                   width: '100%',
                   padding: '12px',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
+                  border: '1px solid #106053',
                   fontSize: '16px',
                 }}
               />
             </div>
+            <div style={{ flex: '1' }}>
+              <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Last Name:</label>
+              <input
+                type="text"
+                name="lastName"
+                value={user.lastName}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #106053',
+                  fontSize: '16px',
+                }}
+              />
+            </div>
+          </div>
+
+          {/* Email and Program */}
+          <div style={{ display: 'flex', marginBottom: '20px' }}>
             <div style={{ flex: '1', marginRight: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Email:</label>
+              <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Email:</label>
               <input
                 type="email"
                 name="email"
@@ -74,16 +95,13 @@ const UserForm = () => {
                 style={{
                   width: '100%',
                   padding: '12px',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
+                  border: '1px solid #106053',
                   fontSize: '16px',
                 }}
               />
             </div>
-          </div>
-          <div style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '20px' }}>
-            <div style={{ flex: '1', marginRight: '35px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Program:</label>
+            <div style={{ flex: '1' }}>
+              <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Program:</label>
               <input
                 type="text"
                 name="program"
@@ -93,14 +111,17 @@ const UserForm = () => {
                 style={{
                   width: '100%',
                   padding: '12px',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
+                  border: '1px solid #106053',
                   fontSize: '16px',
                 }}
               />
             </div>
+          </div>
+
+          {/* Registration No and Password */}
+          <div style={{ display: 'flex', marginBottom: '20px' }}>
             <div style={{ flex: '1', marginRight: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Registration No:</label>
+              <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Registration No:</label>
               <input
                 type="text"
                 name="registrationNo"
@@ -110,49 +131,65 @@ const UserForm = () => {
                 style={{
                   width: '100%',
                   padding: '12px',
-                  borderRadius: '8px',
-                  border: '1px solid #ccc',
+                  border: '1px solid #106053',
+                  fontSize: '16px',
+                }}
+              />
+            </div>
+            <div style={{ flex: '1' }}>
+              <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Password:</label>
+              <input
+                type="password"
+                name="password"
+                value={user.password}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #106053',
                   fontSize: '16px',
                 }}
               />
             </div>
           </div>
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Password:</label>
-            <input
-              type="password"
-              name="password"
-              value={user.password}
-              onChange={handleChange}
-              required
-              style={{
-                width: '97%',
-                padding: '12px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                fontSize: '16px',
-              }}
-            />
+
+          {/* Role and DateTime */}
+          <div style={{ display: 'flex', marginBottom: '20px' }}>
+            <div style={{ flex: '1', marginRight: '20px' }}>
+              <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Role:</label>
+              <input
+                type="text"
+                name="role"
+                value={user.role}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #106053',
+                  fontSize: '16px',
+                }}
+              />
+            </div>
+            <div style={{ flex: '1' }}>
+              <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>DateTime:</label>
+              <input
+                type="datetime-local"
+                name="dateTime"
+                value={user.dateTime}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '12px',
+                  border: '1px solid #106053',
+                  fontSize: '16px',
+                }}
+              />
+            </div>
           </div>
-          <div style={{ marginBottom: '20px' }}>
-            <label style={{ display: 'block', marginBottom: '5px', color: '#333' }}>Role:</label>
-            <select
-              name="role"
-              value={user.role}
-              onChange={handleChange}
-              required
-              style={{
-                width: '100%',
-                padding: '12px',
-                borderRadius: '8px',
-                border: '1px solid #ccc',
-                fontSize: '16px',
-              }}
-            >
-              <option value="student">Student</option>
-              
-            </select>
-          </div>
+
           <button
             type="submit"
             style={{
@@ -161,12 +198,11 @@ const UserForm = () => {
               backgroundColor: '#065c4c',
               color: 'white',
               border: 'none',
-              borderRadius: '8px',
               cursor: 'pointer',
               fontSize: '16px',
               transition: 'background-color 0.3s',
             }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#048f87')} // Lighten on hover
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#b7d1c8')}
             onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#065c4c')}
           >
             Register User
