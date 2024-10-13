@@ -1,12 +1,24 @@
 import React, { useState } from 'react';
 
-const ResetPasswordForm = () => {
-  const [studentNumber, setStudentNumber] = useState('');
-  const [isHovered, setIsHovered] = useState(false); 
+const RequestTokenForm = () => {
+  const [formData, setFormData] = useState({
+    token: '',
+    newPassword: '',
+    confirmPassword: '',
+  });
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Token requested for student number:', studentNumber);
+    console.log('Password reset data:', formData);
   };
 
   const styles = {
@@ -25,7 +37,6 @@ const ResetPasswordForm = () => {
       marginBottom: '10px',
     },
     title: {
-      fontFamily: 'Exo',
       fontSize: '1.8rem',
       marginBottom: '15px',
       marginTop: '15px',
@@ -42,7 +53,6 @@ const ResetPasswordForm = () => {
       width: '100%',
     },
     heading: {
-      fontFamily: "'Roboto', sans-serif",
       fontSize: '13px',
       marginBottom: '20px',
       textAlign: 'center',
@@ -51,7 +61,6 @@ const ResetPasswordForm = () => {
     input: {
       width: '80%',
       padding: '12px',
-      borderRadius: '5px',
       border: '2px solid #065c4c',
       marginBottom: '20px',
       marginLeft: '25px',
@@ -75,7 +84,6 @@ const ResetPasswordForm = () => {
       color: '#106053',
     },
     legend: {
-      fontFamily: "'Roboto', sans-serif",
       fontSize: '1rem',
       marginBottom: '8px',
       color: ' #8dc642',
@@ -88,22 +96,54 @@ const ResetPasswordForm = () => {
     <div style={styles.container}>
       {/* Logo */}
       <img src='/ciu-logo-2.png' alt="Logo" style={styles.logo} />
-      <h1 style={styles.title}>CLERK INERNATIONAL UNIVERSITY</h1> 
+      <h1 style={styles.title}>CLERK INTERNATIONAL UNIVERSITY</h1>
 
       <div style={styles.formContainer}>
-        <h2 style={styles.heading}>ENTER YOUR STUDENT NUMBER AND A PASSWORD RESET TOKEN WILL BE SENT TO YOUR STUDENT'S EMAIL TO RESET YOUR PASSWORD</h2>
+        <h2 style={styles.heading}>RESET YOUR PASSWORD USING THE TOKEN SENT TO YOUR EMAIL</h2>
         <form onSubmit={handleSubmit}>
+          {/* Enter Token */}
           <fieldset>
-            <legend style={styles.legend}>Student Number</legend>
+            <legend style={styles.legend}>Enter Token</legend>
             <input
               type="text"
-              placeholder="Eg. 0123456789"
-              value={studentNumber}
-              onChange={(e) => setStudentNumber(e.target.value)}
+              name="token"
+              placeholder="Enter your token"
+              value={formData.token}
+              onChange={handleChange}
               required
               style={styles.input}
             />
           </fieldset>
+
+          {/* Enter New Password */}
+          <fieldset>
+            <legend style={styles.legend}>Enter New Password</legend>
+            <input
+              type="password"
+              name="newPassword"
+              placeholder="Enter new password"
+              value={formData.newPassword}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+          </fieldset>
+
+          {/* Confirm Password */}
+          <fieldset>
+            <legend style={styles.legend}>Confirm Password</legend>
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm new password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+              style={styles.input}
+            />
+          </fieldset>
+
+          {/* Reset Password Button */}
           <button
             type="submit"
             style={{
@@ -114,7 +154,7 @@ const ResetPasswordForm = () => {
             onMouseOver={() => setIsHovered(true)}
             onMouseOut={() => setIsHovered(false)}
           >
-            Request Token
+            Reset Password
           </button>
         </form>
       </div>
@@ -122,4 +162,4 @@ const ResetPasswordForm = () => {
   );
 };
 
-export default ResetPasswordForm;
+export default RequestTokenForm;
