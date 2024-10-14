@@ -1,0 +1,82 @@
+.instructions-overall {
+  display: flex;
+  /* justify-content: center;
+  align-items: center; */
+  min-height: 100vh;
+  background-color: white;
+  width: 100%;
+}
+
+.examination-details {
+  width: 20%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 0px;
+}
+
+.exam-img-div img {
+  max-width: 100%;
+  height: auto;
+}
+.wrap-details {
+  width: 90%;
+  background: #ebebeb;
+  padding: 10px;
+  color: #106053;
+  border-radius: 10px;
+}
+
+.wrap-details h1 {
+  font-size: 1.5rem;
+  margin-top: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.wrap-details p {
+  font-size: 1rem;
+  text-align: center;
+}
+
+.instructions-page {
+  width: 80%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.instructions-page h2 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.instructions-content p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.next-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #106053;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.next-button:hover {
+  background-color: #004d47;
+}
+
+@media screen and (max-width: 800px) {
+  .wrap-details {
+    width: 95%;
+    justify-content: center;
+  }
+}
