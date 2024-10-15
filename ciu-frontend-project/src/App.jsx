@@ -13,6 +13,7 @@ import RequestToken from "./components/admin/RequestToken.jsx"; // Incoming chan
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
 import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
 import AddQuestions from "./pages/lecturer/AddQuestions.jsx";
+import RegCourse from "./pages/lecturer/RegCourse.jsx"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/register" element={<RegForm />} />
+        <Route path="/regCourse" element={<RegCourse />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/header" element={<Header />} />
