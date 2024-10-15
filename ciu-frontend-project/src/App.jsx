@@ -10,6 +10,9 @@ import Users from './components/admin/Users.jsx'; // Your change
 import EditUser from './components/admin/EditUser.jsx'; // Your change
 import Layout from "./components/admin/Layout.jsx"; // Your change
 import RequestToken from "./components/admin/RequestToken.jsx"; // Incoming change
+import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
+import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
+import AddQuestions from "./pages/lecturer/AddQuestions.jsx";
 
 function App() {
   return (
@@ -26,6 +29,9 @@ function App() {
         <Route path="/edit/:id" element={<EditUser />} />  {/* Edit User Route */}
         <Route path="/layout" element={<Layout />} /> {/* Layout Page */}
         <Route path="/request-token" element={<RequestToken />} /> {/* Incoming change */}
+        <Route path="schedule-upload-exams" element={<ScheduleUploadExams />} />
+        <Route path="schedule-create-exams" element={<ScheduleCreateExams />} />
+        <Route path="add-questions" element={<AddQuestions />} />
       </Routes>
     </Router>
   );
