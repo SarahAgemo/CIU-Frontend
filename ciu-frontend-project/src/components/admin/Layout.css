@@ -30,3 +30,33 @@ Layout.css
   font-weight: bold;
   color: #007bff;
 }
+
+.option-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.select-correct {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: -20px;  /* Adjusts the vertical position above the input */
+  width: 100%;
+  left: 0;
+}
+
+.select-correct label {
+  font-weight: normal;
+  color: #6c757d; /* Optional: for styling the label text */
+}
+
+.radio-btn {
+  float: right; /* Aligns the radio button to the right */
+}
+
+.form-control {
+  margin-top: 20px; /* Adds space between the input field and the "select as correct" section */
+}
+
+
+
