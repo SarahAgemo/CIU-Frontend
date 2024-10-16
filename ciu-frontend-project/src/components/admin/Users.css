@@ -1,0 +1,248 @@
+/* Container styling */
+.container {
+    padding-top: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white; /* White background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border: none; /* Remove borders */
+  }
+  
+  /* Header (th) styling */
+  th {
+    background-color: #f5f5f5; /* Neutral background instead of green */
+    color: #333; /* Darker text color */
+    padding: 12px 15px;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow on header */
+  }
+  
+  /* Data cells (td) styling */
+  td {
+    padding: 10px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd; /* Light bottom border */
+  }
+  
+  /* Remove left border on first column */
+  td:first-child {
+    border-left: none;
+  }
+  
+  /* Row hover effect */
+  tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Button styling */
+  button.btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Button primary style */
+  button.btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  button.btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Button danger style */
+  button.btn-danger {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  button.btn-danger:hover {
+    background-color: #c82333;
+  }
+  
+  /* Align buttons horizontally in actions column */
+  td:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between buttons */
+  }
+  
+  /* Button secondary style */
+  button.btn-secondary {
+     background-color: ; 
+    
+  }
+  
+  button.btn-secondary:hover {
+    background-color: #108c0c;
+  }
+  
+  /* Responsive styling for mobile */
+  @media (max-width: 768px) {
+    table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+  
+    button.btn {
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+  }
+  
+  
+  /* new styles */
+  
+  .layout-container {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+  }
+  
+  .header {
+      width: 100%;
+      background-color: #f8f9fa;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  }
+  
+  .main-content {
+      display: flex;
+      flex: 1;
+  }
+  
+  .sidebar {
+      width: 250px;
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+  }
+  
+  .users-content {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+  }
+  
+  .table {
+      width: 100%;
+      margin-top: 20px;
+  }
+  
+  .icon-button {
+      background: none;
+      border: none;
+      margin-left: 10px;
+      cursor: pointer;
+      color: #000;
+  }
+  
+  .user-controls {
+      display: flex;
+      align-items: center;
+  }
+  
+  .user-info {
+      display: flex;
+      align-items: center;
+  }
+  
+  .user-details {
+      margin-left: 10px;
+  }
+  
+  .sidebar-link {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      text-decoration: none;
+      color: white;
+  }
+  
+  .sidebar-link:hover, .sidebar .active .sidebar-link {
+      background-color: white;
+  }
+  
+  .menu-text {
+      margin-left: 10px;
+  }
+  
+  .active {
+      background-color: #989da1;
+  }
+  
+  /* src/components/admin/Users.module.css */
+  
+  .layoutContainer {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+  }
+  
+  .mainContent {
+      display: flex;
+      flex-grow: 1;
+  }
+  
+  .studentsContent {
+      flex: 1;
+      padding: 20px;
+      display: flex;
+      justify-content: center; /* Horizontally center */
+      align-items: center;    /* Vertically center */
+  }
+  
+  .tableContainer {
+      width: 100%;
+      max-width: 800px; /* Adjust as needed */
+  }
+  
+  .customTable {
+      width: 100%;
+      margin: 0 auto; /* Center table horizontally */
+      border-collapse: collapse;
+  }
+  
+  .customTable th, .customTable td {
+      padding: 15px;
+      text-align: left;
+      border: 1px solid #ddd;
+  }
+  
+  .customTable th {
+      background-color: #f2f2f2;
+  }
+  
+  .customTable tbody tr:hover {
+      background-color: #f1f1f1;
+  }
+  
+  .customButton {
+      min-width: 80px;
+  }
+  
+  .textCenter {
+      text-align: center;
+  }
+  
+  .mb4 {
+      margin-bottom: 1.5rem;
+  }
+  
+

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom"; // Import Link for navigation
 import "./login.css";
 import { BiSolidUserRectangle } from "react-icons/bi";
 import { FaLock, FaUser } from "react-icons/fa";
@@ -13,6 +14,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false); // Track submission state
+  const navigate = useNavigate(); // Hook for navigation
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -31,6 +33,8 @@ const Login = () => {
     // Prevent further submissions if already submitting
     if (isSubmitting) return;
     setIsSubmitting(true);
+    setErrorMessage(""); // Clear previous error messages
+    setSuccessMessage(""); // Clear previous success messages
 
     let endpoint = "";
     let userPayload = {};
@@ -40,7 +44,7 @@ const Login = () => {
       endpoint = "http://localhost:3000/auth/login";
       userPayload = { email: identifier, password };
     } else if (selectedUser === "Administrator") {
-      endpoint = "http://localhost:3000/auth/admin/login";
+      endpoint = "http://localhost:3000/adminauth/login";
       userPayload = { email: identifier, password };
     } else if (selectedUser === "Student") {
       endpoint = "http://localhost:3000/students/login";
@@ -134,7 +138,13 @@ const Login = () => {
           {errorMessage && <p className="error-message">{errorMessage}</p>}
           {successMessage && <p className="success-message">{successMessage}</p>}
           <div className="forgot-password">
-            <a href="#">Forgot Password?</a>
+            {/* Link for forgot password */}
+            <Link 
+              to={selectedUser === "Student" ? "/reset-password" : "#"}
+              onClick={selectedUser !== "Student" ? () => alert("Please contact support for password reset instructions.") : undefined}
+            >
+              Forgot Password?
+            </Link>
           </div>
         </form>
       </div>
