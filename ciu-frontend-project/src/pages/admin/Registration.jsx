@@ -12,6 +12,7 @@ const Registration = () => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -80,7 +81,7 @@ const Registration = () => {
             password: formData.password,
           };
         } else if (selectedUser === "Administrator") {
-          endpoint = 'http://localhost:3000/adminReg';
+          endpoint = '/api/register/administrator';
           payload = {
             first_name: formData.firstName,
             last_name: formData.lastName,
