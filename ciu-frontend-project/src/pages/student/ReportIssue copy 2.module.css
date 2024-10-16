@@ -1,0 +1,64 @@
+
+:root {
+  --primary-color: #1a8754;
+  --secondary-color: #e6f7ef;
+  --text-color: #333;
+  --sidebartext-color: #105F53;
+  --background-color: #f8f8f8;
+  --other-color: #F9FFFC;
+  --card-background: #ffffff;
+  --sidebar-width: 240px;
+  --header-height: 64px;
+}
+
+.reportissue-page {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--other-color);
+  color: var(--text-color);
+  height:min-content;
+}
+
+.reportissue {
+  display: flex;
+  flex-direction: column;
+}
+
+.header1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background-color: var(--card-background);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+@media (max-width: 768px) {
+  .reportissue-content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 8px;
+  }
+
+  .main-content {
+    padding: 16px;
+    flex-direction: column;
+  }
+
+  .not-found-content {
+    grid-template-columns: 1fr;
+    position:fixed;
+  }
+}

@@ -13,6 +13,11 @@ import RequestToken from "./components/admin/RequestToken.jsx"; // Incoming chan
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
 import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
 import AddQuestions from "./pages/lecturer/AddQuestions.jsx";
+import StudentDashboard from "./pages/student/StudentDashboard.jsx";
+import DoExam from "./pages/student/DoExam.jsx";
+import SupportPage from "./pages/student/SupportPage.jsx";
+import Questions from "./pages/student/FAQpage.jsx";
+import ReportIssue from "./pages/student/ReportIssue.jsx";
 
 function App() {
   return (
@@ -32,6 +37,13 @@ function App() {
         <Route path="schedule-upload-exams" element={<ScheduleUploadExams />} />
         <Route path="schedule-create-exams" element={<ScheduleCreateExams />} />
         <Route path="add-questions" element={<AddQuestions />} />
+        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/manage-users" element={<ManageUsers />} />
+        <Route path="/student" element={<StudentDashboard />} />
+        <Route path="/student/do-exam" element={<DoExam/>} />
+        <Route path="/student/support" element={<SupportPage/>} />
+        <Route path="/student/support/faqs" element={<Questions/>} />
+        <Route path="/student/support/report-issue" element={<ReportIssue/>} />
       </Routes>
     </Router>
   );
