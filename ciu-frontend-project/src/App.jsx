@@ -27,6 +27,11 @@ import Students from './components/admin/students.jsx';
  import EditStudent from './components/admin/EditStudent.jsx'; 
  import Adminuser from "./components/admin/Adminuser.jsx";
  import Editadmin from "./components/admin/Editadmin.jsx";
+import StudentDashboard from "./pages/student/StudentDashboard.jsx";
+import DoExam from "./pages/student/DoExam.jsx";
+import SupportPage from "./pages/student/SupportPage.jsx";
+import Questions from "./pages/student/FAQpage.jsx";
+import ReportIssue from "./pages/student/ReportIssue.jsx";
 
 function App() {
   return (
@@ -58,7 +63,13 @@ function App() {
         <Route path="/edit-student/:id" element={<EditStudent />} /> 
         <Route path="/adminuser" element={<Adminuser />} />
         <Route path="/editadmin/:id" element={<Editadmin />} />
-
+        <Route path="/admin" element={<Dashboard />} />
+        <Route path="/admin/manage-users" element={<ManageUsers />} />
+        <Route path="/student" element={<StudentDashboard />} />
+        <Route path="/student/do-exam" element={<DoExam/>} />
+        <Route path="/student/support" element={<SupportPage/>} />
+        <Route path="/student/support/faqs" element={<Questions/>} />
+        <Route path="/student/support/report-issue" element={<ReportIssue/>} />
       </Routes>
     </Router>
   );
