@@ -14,6 +14,7 @@ import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
 import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
 import AddQuestions from "./pages/lecturer/AddQuestions.jsx";
 import RegCourse from "./pages/lecturer/RegCourse.jsx"
+import Courses from "./pages/lecturer/Courses.jsx";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/register" element={<RegForm />} />
         <Route path="/regCourse" element={<RegCourse />} />
+        <Route path="/courses" element={<Courses />} />  
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/header" element={<Header />} />

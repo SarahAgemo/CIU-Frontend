@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import './RegCourse.css';
+import Header from '../../components/admin/Header';  // Import the Header
+import Sidebar1 from '../../components/lecturer/SideBar';  // Import the Sidebar
 
 const RegCourse = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState("Select User");
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    emailOrStudentNumber: '',
-    password: ''
+    facultyName: '',
+    courseName: '',
+    courseUnits: '',
+    courseUnitsCode: ''
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
@@ -37,25 +39,27 @@ const RegCourse = () => {
   const validate = () => {
     let errors = {};
 
-    if (!formData.firstName.trim()) {
-      errors.firstName = 'First Name is required';
+    if (!formData.facultyName.trim()) {
+      errors.facultyName = 'Faculty Name is required';
     }
 
-    if (!formData.lastName.trim()) {
-      errors.lastName = 'Last Name is required';
+    if (!formData.courseName.trim()) {
+      errors.courseName = 'Course Name is required';
     }
 
-    if (!formData.emailOrStudentNumber.trim()) {
-      errors.emailOrStudentNumber = 'Email is required'; // Only require email for lecturers and administrators
-    } else if (!/\S+@\S+\.\S+/.test(formData.emailOrStudentNumber)) {
-      errors.emailOrStudentNumber = 'Email is invalid';
-    }
+    if (!formData.courseUnits.trim()) {
+      errors.courseUnits = 'Course Units is required'; // Only require email for lecturers and administrators
+     } 
+    //  else if (!/\S+@\S+\.\S+/.test(formData.emailOrStudentNumber)) {
+    //    errors.emailOrStudentNumber = 'Email is invalid';
+    //  }
 
-    if (!formData.password.trim()) {
-      errors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters long';
-    }
+    if (!formData.courseUnitsCode.trim()) {
+      errors.courseUnitsCode = 'Course Unit Code is required';
+    } 
+    // else if (formData.password.length < 6) {
+    //   errors.password = 'Password must be at least 6 characters long';
+    // }
 
     return errors;
   };
@@ -72,22 +76,22 @@ const RegCourse = () => {
         if (selectedUser === "Lecturer") {
           endpoint = 'http://localhost:3000/lecturerReg';
           payload = {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            student_number: null, // No student number for lecturer
-            email: formData.emailOrStudentNumber, // Email for lecturer
-            role: selectedUser,
-            password: formData.password,
+            faculty_name: formData.facultytName,
+            course_name: formData.courseName,
+            // course_units: null, // No student number for lecturer
+            course_units: formData.courseUnits, // Email for lecturer
+            course_units_code: formData.courseUnitsCode,
+            // password: formData.password,
           };
         } else if (selectedUser === "Administrator") {
           endpoint = '/api/register/administrator';
           payload = {
-            first_name: formData.firstName,
-            last_name: formData.lastName,
-            student_number: null, // No student number for administrator
-            email: formData.emailOrStudentNumber, // Email for administrator
+            faculty_name: formData.facultyName,
+            course_name: formData.courseName,
+            // student_number: null, // No student number for administrator
+            course_units: formData.courseUnits, // Email for administrator
             role: selectedUser,
-            password: formData.password,
+            course_units_code:formData.courseUnitsCode ,
           };
         }
 
@@ -102,7 +106,7 @@ const RegCourse = () => {
         if (response.ok) {
           const data = await response.json();
           setSuccessMessage(`${selectedUser} successfully registered!`);
-          setFormData({ firstName: '', lastName: '', emailOrStudentNumber: '', password: '' }); // Clear the form
+          setFormData({ facultyName: '', courseName: '', courseUnits: '', courseUnitsCode: '' }); // Clear the form
           setErrors({});
         } else {
           const errorData = await response.json();
@@ -172,7 +176,19 @@ const RegCourse = () => {
         {errors.server && <span className='error'>{errors.server}</span>} {/* Server error display */}
       </form>
     </div>
+    
   );
+
+  
+  return (
+    <div className="layout-container">  {/* New layout container */}
+        <Header />  {/* Render Header */}
+        <div className="main-content">  {/* Flex container for sidebar and content */}
+            <Sidebar1 />  {/* Render Sidebar */}
+           
+        </div>
+    </div>
+   );
 };
 
 export default RegCourse;

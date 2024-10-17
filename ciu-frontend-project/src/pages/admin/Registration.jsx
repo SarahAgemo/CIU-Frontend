@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Registration.css';
 
+
 const Registration = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState("Select User");
