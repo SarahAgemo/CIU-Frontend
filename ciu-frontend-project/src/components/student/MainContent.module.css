@@ -1,0 +1,318 @@
+/* function DashboardCard({ icon, title, badge, onClick, isActive }) {
+  return (
+    <div className={`dashboard-card ${isActive ? 'active' : ''}`} onClick={onClick}>
+      <div className="card-icon">{icon}</div>
+      <h3>{title}</h3>
+      {badge && <span className="badge">{badge}</span>}
+    </div>
+  );
+}
+
+export default function MainContent() {
+  const [activeModal, setActiveModal] = useState(null);
+  const [upcomingExams, setUpcomingExams] = useState([]);
+  const [completedExams, setCompletedExams] = useState([]);
+
+  useEffect(() => {
+    const loadExams = async () => {
+      const upcoming = await fetchUpcomingExams();
+      const completed = await fetchCompletedExams();
+      setUpcomingExams(upcoming);
+      setCompletedExams(completed);
+    };
+    loadExams();
+  }, []);
+
+  const handleCardClick = (modalType) => {
+    setActiveModal(modalType);
+  };
+
+  return (
+    <main className="main-content">
+      <div className="welcome-banner">
+        <div className="image-group">
+          <img src="977A9972-min.jpg" alt="Students" className="banner-image" />
+        </div>
+        <div className="welcome-overlay">
+          <h2>Welcome back Cole!</h2>
+          <p>Do your exams from anywhere</p>
+          <div className="search-bar">
+            <Search size={20} />
+            <input type="text" placeholder="Search..." />
+          </div>
+        </div>
+      </div>
+      <div className="dashboard-cards">
+        <DashboardCard 
+          icon={<FileText size={48} />} 
+          title="Upcoming Exams" 
+          onClick={() => handleCardClick('upcoming')}
+          isActive={activeModal === 'upcoming'}
+        />
+        <DashboardCard 
+          icon={<ClipboardList size={48} />} 
+          title="Completed Exams" 
+          onClick={() => handleCardClick('completed')}
+          isActive={activeModal === 'completed'}
+        />
+        <DashboardCard icon={<MessageSquare size={48} />} title="Messages" badge="1" />
+      </div>
+      <Modal 
+        isOpen={activeModal === 'upcoming'} 
+        onClose={() => setActiveModal(null)}
+        title="UPCOMING EXAMS"
+      >
+        <UpcomingExamsTable exams={upcomingExams} />
+      </Modal>
+      <Modal 
+        isOpen={activeModal === 'completed'} 
+        onClose={() => setActiveModal(null)}
+        title="COMPLETED EXAMS"
+      >
+        <CompletedExamsTable exams={completedExams} />
+      </Modal>
+    </main>
+  );
+} */
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+  background-color: #ffffff;
+}
+
+.welcome-banner h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 8px 16px;
+}
+
+.search-bar input {
+  background: none;
+  border: none;
+  color: white;
+  margin-left: 8px;
+  outline: none;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.badge {
+  position: absolute;
+  top: 16px;
+  right: 158px;
+  background-color: #105F53;
+  color: white;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.welcome-banner {
+  position: relative;
+  height: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.image-group {
+  width: 100%;
+  height: 100%;
+}
+
+.banner-image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.welcome-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.welcome-overlay h2 {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 8px 16px;
+}
+
+.search-bar svg {
+  color: white;
+}
+
+.search-bar input {
+  background: none;
+  border: none;
+  color: white;
+  margin-left: 8px;
+  outline: none;
+  width: 200px;
+}
+
+.search-bar input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.5);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+
+.modal-content {
+background-color: white;
+padding: 24px;
+border-radius: 8px;
+max-width: 800px;
+width: 90%;
+max-height: 80vh;
+overflow-y: auto;
+position: relative;
+}
+
+.modal-close {
+position: absolute;
+top: 16px;
+right: 16px;
+background: none;
+border: none;
+cursor: pointer;
+color: #666;
+}
+
+.modal-title {
+color: #1a8754;
+margin-bottom: 16px;
+}
+
+.exams-table {
+margin-top: 16px;
+}
+
+.exams-table table {
+width: 100%;
+border-collapse: collapse;
+}
+
+.exams-table th,
+.exams-table td {
+padding: 12px;
+text-align: left;
+border-bottom: 1px solid #e0e0e0;
+}
+
+.exams-table th {
+background-color: #f0f0f0;
+font-weight: bold;
+}
+
+
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 24px;
+}
+
+.dashboard-card {
+  background-color: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+.dashboard-card:hover,
+.dashboard-card.active {
+transform: translateY(-5px);
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card.active {
+border: 2px solid #1a8754;
+}
+
+.card-icon {
+  color: #105F53;
+  margin-bottom: 16px;
+}
+
+.view-results {
+padding: 4px 8px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+font-weight: bold;
+}
+
+.view-results.graded {
+background-color: #1a8754;
+color: white;
+}
+
+.view-results.reviewing {
+background-color: #f0f0f0;
+color: #666;
+}
+
+@media (max-width: 768px) {
+  .welcome-banner {
+    height: 150px;
+  }
+
+  .welcome-overlay h2 {
+    font-size: 24px;
+  }
+
+  .search-bar {
+    width: 80%;
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+}
