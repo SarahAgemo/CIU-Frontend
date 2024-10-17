@@ -1,10 +1,8 @@
 
-
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from './Header';
 import Sidebar1 from './SideBar1';
-import './Users.css';  // Ensure the correct CSS is applied
 
 function EditUser() {
     const { id } = useParams();
