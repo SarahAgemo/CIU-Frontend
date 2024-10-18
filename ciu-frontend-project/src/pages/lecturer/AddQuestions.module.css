@@ -378,7 +378,7 @@ header {
   background-color: #f1f1f0;
 }
 
-header {
+.header {
   position: fixed;
   top: 0;
   left: 0;

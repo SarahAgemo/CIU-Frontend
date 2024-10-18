@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Search, FileText, ClipboardList, MessageSquare, X } from 'lucide-react';
+import Main from './MainContent.module.css'
 
 // Mock API call to fetch upcoming exam data
 const fetchUpcomingExams = async () => {
@@ -21,7 +22,7 @@ const fetchCompletedExams = async () => {
 };
 
 const UpcomingExamsTable = ({ exams }) => (
-  <div className="exams-table">
+  <div className={Main["exams-table"]}>
     <table>
       <thead>
         <tr>
@@ -44,7 +45,7 @@ const UpcomingExamsTable = ({ exams }) => (
 );
 
 const CompletedExamsTable = ({ exams }) => (
-  <div className="exams-table">
+  <div className={Main["exams-table"]}>
     <table>
       <thead>
         <tr>
@@ -78,12 +79,12 @@ const Modal = ({ isOpen, onClose, children, title }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <button className="modal-close" onClick={onClose}>
+    <div className={Main["modal-overlay"]}>
+      <div className={Main["modal-content"]}>
+        <button className={Main["modal-close"]} onClick={onClose}>
           <X size={24} />
         </button>
-        <h2 className="modal-title">{title}</h2>
+        <h2 className={Main["modal-title"]}>{title}</h2>
         {children}
       </div>
     </div>
@@ -92,10 +93,11 @@ const Modal = ({ isOpen, onClose, children, title }) => {
 
 function DashboardCard({ icon, title, badge, onClick, isActive }) {
   return (
-    <div className={`dashboard-card ${isActive ? 'active' : ''}`} onClick={onClick}>
-      <div className="card-icon">{icon}</div>
+    <div className={`${Main["dashboard-card"]} ${isActive ? Main["active"] : ''}`}
+    onClick={onClick}>
+      <div className={Main["card-icon"]}>{icon}</div>
       <h3>{title}</h3>
-      {badge && <span className="badge">{badge}</span>}
+      {badge && <span className={Main["badge"]}>{badge}</span>}
     </div>
   );
 }
@@ -120,21 +122,21 @@ export default function MainContent() {
   };
 
   return (
-    <main className="main-content">
-      <div className="welcome-banner">
-        <div className="image-group">
-          <img src="977A9972-min.jpg" alt="Students" className="banner-image" />
+    <main className={Main["main-content"]}>
+      <div className={Main["welcome-banner"]}>
+        <div className={Main["image-group"]}>
+          <img src="977A9972-min.jpg" alt="Students" className={Main["banner-image"]} />
         </div>
-        <div className="welcome-overlay">
-          <h2>Welcome back Cole!</h2>
-          <p>Do your exams from anywhere</p>
-          <div className="search-bar">
+        <div className={Main["welcome-overlay"]}>
+          <h2>Welcome back!</h2>
+          <p>Do your exams from wherever you are</p>
+          <div className={Main["search-bar"]}>
             <Search size={20} />
             <input type="text" placeholder="Search..." />
           </div>
         </div>
       </div>
-      <div className="dashboard-cards">
+      <div className={Main["dashboard-cards"]}>
         <DashboardCard 
           icon={<FileText size={48} />} 
           title="Upcoming Exams" 
