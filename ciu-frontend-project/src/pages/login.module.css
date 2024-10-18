@@ -4,20 +4,21 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
+.overall {
   font-family: "Roboto", sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background: #ebebeb;
+  padding: 20px 0;
 }
 .wrapper {
   position: relative;
   width: 420px;
   height: 588px;
   background: white;
-  border-radius: 10px;
+  border-radius: 0px;
   color: #106053;
 }
 .wrapper .form-box {
@@ -179,4 +180,4 @@ form .forgot-password {
   .wrapper {
     width: 75vw;
   }
-}
+} 
