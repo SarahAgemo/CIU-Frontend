@@ -8,7 +8,6 @@ import ManageUsers from "./pages/admin/ManageUsers.jsx";
 import Header from "./components/admin/Header.jsx";
 import Users from './components/admin/Users.jsx';
 import EditUser from './components/admin/EditUser.jsx';
-import Layout from "./components/admin/Layout.jsx";
 import RequestToken from "./components/admin/RequestToken.jsx";
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
 import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
@@ -37,7 +36,6 @@ function App() {
         <Route path="/header" element={<Header />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<EditUser />} />
-        <Route path="/layout" element={<Layout />} />
         <Route path="/request-token" element={<RequestToken />} />
         <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
         <Route path="/schedule-create-exams" element={<ScheduleCreateExams />} />

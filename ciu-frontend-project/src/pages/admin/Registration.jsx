@@ -14,7 +14,7 @@ const Registration = () => {
   const [successMessage, setSuccessMessage] = useState('');
   
 
-  const toggleDropdown = () => {
+  const toggleDropdown = () => { 
     setIsOpen(!isOpen);
   };
 
