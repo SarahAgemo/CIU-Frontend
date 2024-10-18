@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Registration.css';
+// import './Registration.css';
+import Register from './Registration.module.css'
 
 const Registration = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -119,6 +120,7 @@ const Registration = () => {
   };
 
   return (
+    <main className={Register["Registration"]}>
     <div className='container'>
       <h2>Register</h2>
 
@@ -173,6 +175,7 @@ const Registration = () => {
         {errors.server && <span className='error'>{errors.server}</span>} {/* Server error display */}
       </form>
     </div>
+    </main>
   );
 };
 
