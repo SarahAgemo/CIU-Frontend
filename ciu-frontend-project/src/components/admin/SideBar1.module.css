@@ -1,10 +1,12 @@
-/* export default function Sidebar() {
+/* import React from 'react';
+import { LayoutDashboard, Users, Lock, Key, Calendar, LogOut } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+export default function Sidebar1() {
   const menuItems = [
-    { icon: <LayoutDashboard size={20} />, text: 'Dashboard', path: '/student', active: true  },
-    { icon: <FileText size={20} />, text: 'Do Exam', path: '/student/do-exam'},
-    { icon: <ClipboardList size={20} />, text: 'Results', path: '/student/results' },
-    { icon: <Calendar size={20} />, text: 'Calendar', path: '/student/calendar' },
-    { icon: <HelpCircle size={20} />, text: 'Support', path: '/student/support' },
+    { icon: <LayoutDashboard size={20} />, text: 'Dashboard', path: '/admin/'},
+    { icon: <Users size={20} />, text: 'Manage Users', path: '/users', active: true  },
+    { icon: <Calendar size={20} />, text: 'Calendar', path: '/admin/calendar' },
     { icon: <LogOut size={20} />, text: 'Logout', path: '/' }
   ];
 
@@ -30,8 +32,6 @@
   width: 256px;
   background-color: #f0f0f0;
   padding: 16px;
-  height: auto;
-  overflow:auto;
 }
 
 .sidebar ul {
@@ -43,7 +43,11 @@
   margin-bottom: 8px;
 }
 
-.sidebar-link {
+.sidebar .menu-text {
+  flex-grow: 1;
+}
+
+.sidebar a {
   display: flex;
   align-items: center;
   padding: 8px;
@@ -52,8 +56,8 @@
   border-radius: 4px;
 }
 
-.sidebar li.active .sidebar-link,
-.sidebar-link:hover {
+.sidebar li.active a,
+.sidebar a:hover {
   background-color: white;
   color: #1a8754;
 }

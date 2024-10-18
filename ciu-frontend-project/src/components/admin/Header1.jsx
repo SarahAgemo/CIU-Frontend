@@ -4,6 +4,8 @@ import { useAuth } from './adminUseAuth' // For use when integrating the backend
 import Heads from './Header1.module.css'
 
 export default function Header() {
+  const { user } = useAuth()
+
   return (
     <header className={Heads["header"]}>
       <div className={Heads["logo-container"]}>

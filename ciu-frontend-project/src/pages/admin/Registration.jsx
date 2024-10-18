@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Registration.css';
+import Register from './Registration.module.css';
 
 const Registration = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +13,7 @@ const Registration = () => {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
   
+  // const [successMessage, setSuccessMessage] = useState('');
 
   const toggleDropdown = () => { 
     setIsOpen(!isOpen);
@@ -119,13 +120,13 @@ const Registration = () => {
   };
 
   return (
-    <div className='container'>
+    <div className={Register['container']}>
       <h2>Register</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="button-group">
-          <button type="button" className={selectedUser === "Administrator" ? "active" : ""} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
-          <button type="button" className={selectedUser === "Lecturer" ? "active" : ""} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
+        <div className={Register["button-group"]}>
+          <button type="button" className={selectedUser === Register["Administrator"] ? Register["active"] : Register[""]} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
+          <button type="button" className={selectedUser === Register["Lecturer"] ? Register["active"] : Register[""]} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
         </div>
 
         <label htmlFor='firstName'>First Name</label>
@@ -136,7 +137,7 @@ const Registration = () => {
           value={formData.firstName}
           onChange={handleInputChange}
         />
-        {errors.firstName && <span className='error'>{errors.firstName}</span>}
+        {errors.firstName && <span className={Register['error']}>{errors.firstName}</span>}
 
         <label htmlFor='lastName'>Last Name</label>
         <input
@@ -156,7 +157,7 @@ const Registration = () => {
           value={formData.emailOrStudentNumber}
           onChange={handleInputChange}
         />
-        {errors.emailOrStudentNumber && <span className='error'>{errors.emailOrStudentNumber}</span>}
+        {errors.emailOrStudentNumber && <span className={Register['error']}>{errors.emailOrStudentNumber}</span>}
 
         <label htmlFor='password'>Password</label>
         <input
@@ -166,11 +167,11 @@ const Registration = () => {
           value={formData.password}
           onChange={handleInputChange}
         />
-        {errors.password && <span className='error'>{errors.password}</span>}
+        {errors.password && <span className={Register['error']}>{errors.password}</span>}
 
         <button type='submit'>Register</button>
-        {successMessage && <p className='success'>{successMessage}</p>} {/* Success message display */}
-        {errors.server && <span className='error'>{errors.server}</span>} {/* Server error display */}
+        {successMessage && <p className={Register['success']}>{successMessage}</p>} {/* Success message display */}
+        {errors.server && <span className={Register['error']}>{errors.server}</span>} {/* Server error display */}
       </form>
     </div>
   );

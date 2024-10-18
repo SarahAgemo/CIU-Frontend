@@ -36,7 +36,7 @@ export default function Sidebar5() {
   --primary-color: #1a8754;
   --secondary-color: #e6f7ef;
   --text-color: #333;
-  --sidebartext-color: #105F53;
+  --sidebartext-color: #333;
   --background-color: #f8f8f8;
   --other-color: #F9FFFC;
   --card-background: #ffffff;
@@ -46,20 +46,27 @@ export default function Sidebar5() {
 
 .sidebar {
   width: 256px;
+  min-height: 150%;
   background-color: #f0f0f0;
   padding: 16px;
-  height: fit-content;
-  overflow-y: auto;
+  overflow: auto;
+  height: auto;
   position:absolute;
   left: 0;
   top: 80px;
 }
 
+.menu-text {
+  color:#333
+}
+
+.menu-text li.active  {
+  color:#1a8754;
+}
 
 .sidebar ul {
   list-style-type: none;
   padding: 0;
-  margin: 0;
 }
 
 .sidebar li {
@@ -70,34 +77,11 @@ export default function Sidebar5() {
   display: flex;
   align-items: center;
   padding: 8px;
-  color: var(--sidebartext-color);
+  color: #333;;
   text-decoration: none;
   border-radius: 4px;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* .sidebar li.active .sidebar-link,
-.sidebar-link:hover {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-.sidebar-link:hover, .sidebar-link.active {
-  background-color: var(--secondary-color);
-  color: var(--primary-color);
-}
-
-.sidebar li.active .sidebar-link[href="/support"],
-.sidebar-link[href="/support"]:hover {
-  background-color: var(--secondary-color);
-  color: white;
-}
-  
-.sidebar li.active .sidebar-link[href="/support"] .icon,
-.sideba-link[href="/support"]:hover .icon {
-  color: white;
-} */
-  
 .sidebar li.active .sidebar-link,
 .sidebar-link:hover {
   background-color: white;
@@ -105,6 +89,6 @@ export default function Sidebar5() {
 }
 
 .sidebar .icon {
-  margin-right: 12px;
-  color: var(--sidebartext-color);
+  margin-right: 8px;
+  color: #105F53;
 }

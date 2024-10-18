@@ -1,11 +1,13 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Globe, Phone, Mail } from 'lucide-react'
 import Message from './MessageSupport.module.css'
 
 export default function MessageSupport() {
+  const navigate = useNavigate()
   return (
     <main className={Message["main-content"]}>
-      <button className={Message["back-button"]} aria-label="Go back">
+      <button className={Message["back-button"]} aria-label="Go back" onClick={() => navigate('/student/support')}>
         <ArrowLeft size={24} />
       </button>
       <div className={Message["not-found-content"]}>

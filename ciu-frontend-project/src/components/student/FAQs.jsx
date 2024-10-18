@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Search, ChevronDown, ChevronUp, ArrowLeft, Globe, Phone, Mail } from 'lucide-react'
 import FAQuestions from './FAQs.module.css'
 
@@ -11,12 +12,14 @@ const FAQItem = ({ question, answer }) => {
         <span>{question}</span>
         {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
       </button>
-      {isOpen && <div className="faq-answer">{answer}</div>}
+      {isOpen && <h6 className="faq-answer">{answer}</h6>}
     </div>
   )
 }
 
 export default function SupportContent() {
+  const navigate = useNavigate()
+
   const faqData = [
     {
       question: "Vitae orci proin lectus posuere eget lectus purus massa diam?",
@@ -42,7 +45,7 @@ export default function SupportContent() {
 
   return (
     <main className={FAQuestions["main-content"]}>
-      <div className={FAQuestions["welcome-banner"]}>
+      {/* <div className={FAQuestions["welcome-banner"]}>
         <div className={FAQuestions["welcome-illustration"]}>
           <img src="/call-center-concept-flat-design (2).png" alt="Support Illustration" />
         </div>
@@ -53,10 +56,10 @@ export default function SupportContent() {
             <Search size={20} />
           </div>
         </div>
-      </div>
+      </div> */}
       
       <div className={FAQuestions["faq-section"]}>
-        <button className={FAQuestions["back-button"]} aria-label="Go back">
+        <button className={FAQuestions["back-button"]} aria-label="Go back" onClick={() => navigate('/student/support')}>
           <ArrowLeft size={24} />
         </button>
         <h2>FREQUENTLY ASKED QUESTIONS</h2>
