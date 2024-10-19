@@ -23,6 +23,7 @@ import DoExam from "./pages/student/DoExam.jsx";
 import SupportPage from "./pages/student/SupportPage.jsx";
 import Questions from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
+import EditCourse from "./pages/lecturer/EditCourses.jsx";
 
 // import './components/admin/users.css';
 
@@ -36,6 +37,7 @@ function App() {
         <Route path="/register" element={<RegForm />} />
         <Route path="/regCourse" element={<RegCourse />} />
         <Route path="/courses" element={<Courses />} />  
+        <Route path="/editcourse/:id" element={<EditCourse />} />  
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/users" element={<Users />} />  {/* User List Route */}
