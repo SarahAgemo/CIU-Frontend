@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import Message from './MessageSupport.module.css'
@@ -38,7 +39,7 @@ export default function MessageSupport() {
 
   return (
     <main className={Message["main-content"]}>
-      <button className={Message["back-button"]} aria-label="Go back">
+      <button className={Message["back-button"]} aria-label="Go back" onClick={() => navigate('/student/support')}>
         <ArrowLeft size={24} />
       </button>
       <div className={Message["not-found-content"]}>

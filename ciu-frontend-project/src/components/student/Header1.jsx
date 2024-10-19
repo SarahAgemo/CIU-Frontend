@@ -1,73 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { Settings, Bell, User } from 'lucide-react';
 import axios from 'axios';
-import Heads from './Header1.module.css';
+import Head from './Header.module.css'; // Assuming you have CSS modules for styling
 
 export default function Header() {
-  const [userInfo, setUserInfo] = useState({ name: '', role: '' });
-  const [tokenError, setTokenError] = useState(false); // New state for token error
+  const [userInfo, setUserInfo] = useState({ name: '', role: '' }); // Default values
+  const [error, setError] = useState(''); // To handle any errors
 
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const token = localStorage.getItem('token');
+        // Retrieve the token from local storage
+        const token = localStorage.getItem('token'); 
 
         if (!token) {
           console.error('No token found');
-          setTokenError(true);
-          return;
+          setError('Please log in.'); // Set error message if no token is found
+          return; // Exit if there is no token
         }
 
+        // Fetch the user profile
         const response = await axios.get('http://localhost:3000/faqs/profile', {
           headers: {
             Authorization: `Bearer ${token}`, // Use the token for authorization
           },
         });
 
-        // Check if the response structure is as expected
-        const { message, user } = response.data;
+        // Extract user information from the response
+        const { first_name, last_name, role } = response.data;
 
-        if (message && user) {
-          const userName = message.split(', ')[1]; // Adjust this according to your actual response
-          const role = user.role || 'Unknown'; // Fallback in case role is not provided
-
-          setUserInfo({ name: userName, role });
-          setTokenError(false); // Clear any previous token error
-        } else {
-          console.error('Unexpected response structure:', response.data);
-          setTokenError(true); // Set token error if the structure is unexpected
-        }
+        // Update state with user information
+        setUserInfo({ name: `${first_name} ${last_name}`, role: role || 'User' }); // Set full name and role
       } catch (error) {
         console.error('Error fetching user profile:', error);
-        setTokenError(true); // Handle any errors during fetch
+        setError('Failed to fetch user profile.'); // Set error message if fetching fails
       }
     };
 
     fetchUserProfile(); // Call the function to fetch user data
-  }, []);
+  }, []); // Empty dependency array to run only on mount
 
   return (
-    <header className={Heads["header"]}>
-      <div className={Heads["logo-container"]}>
-        <img src="/CIU exam system logo.png" alt="Clarke University Logo" className={Heads["logo"]} />
+    <header className={Head["header"]}>
+      <div className={Head["logo-container"]}>
+        <img src="/CIU exam system logo.png" alt="Clarke University Logo" className={Head["logo"]} />
       </div>
-      <div className={Heads["user-controls"]}>
-        <button className={Heads["icon-button"]}>
+      <div className={Head["user-controls"]}>
+        <button className={Head["icon-button"]}>
           <Settings size={24} />
         </button>
-        <button className={Heads["icon-button"]}>
+        <button className={Head["icon-button"]}>
           <Bell size={24} />
         </button>
-        <div className={Heads["user-info"]}>
+        <div className={Head["user-info"]}>
           <User size={24} />
-          <div className={Heads["user-details"]}>
-            {/* Check for token error and show message if token is missing */}
-            {tokenError ? (
-              <span className={Heads["user-name"]}>No token found. Please log in.</span>
+          <div className={Head["user-details"]}>
+            {error ? ( // Display error message if there is an error
+              <span className="error-message">{error}</span>
             ) : (
               <>
-                <span className={Heads["user-name"]}>{userInfo.name}</span>
-                <span className={Heads["user-role"]}>{userInfo.role}</span>
+                <span className={Head["user-name"]}>{userInfo.name || 'Guest'}</span>
+                <span className={Head["user-role"]}>{userInfo.role || 'User'}</span>
               </>
             )}
           </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Settings, Bell, User } from 'lucide-react';
 import axios from 'axios';
+import Head from './Header.module.css'; // Assuming you have CSS modules for styling
 
 export default function Header() {
   const [userInfo, setUserInfo] = useState({ name: '', role: '' }); // Default values
@@ -25,7 +26,7 @@ export default function Header() {
           },
         });
 
-        // Use the correct structure of the response based on your provided data
+        // Extract user information from the response
         const { first_name, last_name, role } = response.data;
 
         // Update state with user information
@@ -40,26 +41,26 @@ export default function Header() {
   }, []); // Empty dependency array to run only on mount
 
   return (
-    <header className="header">
-      <div className="logo-container">
-        <img src="/CIU exam system logo.png" alt="Clarke University Logo" className="logo" />
+    <header className={Head["header"]}>
+      <div className={Head["logo-container"]}>
+        <img src="/CIU exam system logo.png" alt="Clarke University Logo" className={Head["logo"]} />
       </div>
-      <div className="user-controls">
-        <button className="icon-button">
+      <div className={Head["user-controls"]}>
+        <button className={Head["icon-button"]}>
           <Settings size={24} />
         </button>
-        <button className="icon-button">
+        <button className={Head["icon-button"]}>
           <Bell size={24} />
         </button>
-        <div className="user-info">
+        <div className={Head["user-info"]}>
           <User size={24} />
-          <div className="user-details">
+          <div className={Head["user-details"]}>
             {error ? ( // Display error message if there is an error
               <span className="error-message">{error}</span>
             ) : (
               <>
-                <span className="user-name">{userInfo.name || 'Guest'}</span>
-                <span className="user-role">{userInfo.role || 'User'}</span>
+                <span className={Head["user-name"]}>{userInfo.name || 'Guest'}</span>
+                <span className={Head["user-role"]}>{userInfo.role || 'User'}</span>
               </>
             )}
           </div>

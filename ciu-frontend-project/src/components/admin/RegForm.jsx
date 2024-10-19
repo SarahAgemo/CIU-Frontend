@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import Header from './Header';
+import Header from './Header1';
 import Sidebar1 from './SideBar1';
 
 const RegForm = () => {

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Header from './Header';
+import Header from './Header1';
 import Sidebar1 from './SideBar1';
 import './users.css'; // Ensure you have corresponding CSS if needed
 
