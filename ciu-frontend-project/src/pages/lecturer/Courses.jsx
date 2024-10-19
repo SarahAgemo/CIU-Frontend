@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../../components/admin/Header';  // Import the Header
-import Sidebar1 from '../../components/lecturer/SideBar';  // Import the Sidebar
+import Header from '../../components/lecturer/Header';  // Import the Header
+import Sidebar1 from '../../components/lecturer/SideBarAddQuestion';  // Import the Sidebar
 import './Courses.css';
 
 // Table component

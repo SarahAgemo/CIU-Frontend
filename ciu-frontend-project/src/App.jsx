@@ -11,10 +11,8 @@ import RequestToken from "./components/admin/RequestToken.jsx";
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
 import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
 import AddQuestions from "./pages/lecturer/AddQuestions.jsx";
-<<<<<<< HEAD
 import RegCourse from "./pages/lecturer/RegCourse.jsx"
 import Courses from "./pages/lecturer/Courses.jsx";
-=======
 import ResetPassword from './components/admin/ResetPassword.jsx';
 import Students from './components/admin/students.jsx';
 import EditStudent from './components/admin/EditStudent.jsx';
@@ -25,11 +23,9 @@ import DoExam from "./pages/student/DoExam.jsx";
 import SupportPage from "./pages/student/SupportPage.jsx";
 import Questions from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
-<<<<<<< HEAD
+
 // import './components/admin/users.css';
->>>>>>> 0d1dacb550caa8ecda0d53319f136f93a26259ba
-=======
->>>>>>> 71d6d88dae5ebe327f0637f8d54b067e0ad480a7
+
 
 function App() {
   return (
@@ -38,7 +34,6 @@ function App() {
         {/* Authentication */}
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<RegForm />} />
-<<<<<<< HEAD
         <Route path="/regCourse" element={<RegCourse />} />
         <Route path="/courses" element={<Courses />} />  
         <Route path="/dashboard" element={<Dashboard />} />
@@ -53,8 +48,6 @@ function App() {
         <Route path="/registers" element={<Registration />} />  
         <Route path="/manage" element={<ManageUsers />} /> 
         <Route path="/admin" element={<Dashboard />} /> 
-=======
->>>>>>> 71d6d88dae5ebe327f0637f8d54b067e0ad480a7
         <Route path="/reset-password" element={<ResetPassword />} />
 
         {/* Admin */}
