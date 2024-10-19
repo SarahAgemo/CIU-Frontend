@@ -1,3 +1,4 @@
+
 // import React, { useState, useEffect } from 'react';
 // import { useNavigate } from 'react-router-dom'; // Updated to use useNavigate
 // import './Users.css';
@@ -111,8 +112,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header';  // Import the Header
-import Sidebar1 from './SideBar1';  // Import the Sidebar
+import Header from './Header1'; 
+import Sidebar1 from './SideBar1'; 
 import './Users.css';
 
 // Table component
@@ -217,7 +218,7 @@ function Users() {
                         <UserList users={users} deleteUser={deleteUser} />
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
     );
 }

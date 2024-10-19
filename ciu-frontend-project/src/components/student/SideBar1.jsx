@@ -1,6 +1,7 @@
 import React from 'react';
 import { LayoutDashboard, FileText, ClipboardList, Calendar, HelpCircle, LogOut } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Sides from './SideBar1.module.css'
 
 export default function Sidebar() {
   const menuItems = [
@@ -13,14 +14,14 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="sidebar">
+    <aside className={Sides["sidebar"]}>
       <nav>
         <ul>
           {menuItems.map((item, index) => (
-            <li key={index} className={item.active ? 'active' : ''}>
-              <Link to={item.path} className="sidebar-link">
-                <span className="icon">{item.icon}</span>
-                <span className="menu-text">{item.text}</span>
+            <li key={index} className={item.active ? Sides['active'] : ''}>
+              <Link to={item.path} className={Sides["sidebar-link"]}>
+                <span className={Sides["icon"]}>{item.icon}</span>
+                <span className={Sides["menu-text"]}>{item.text}</span>
               </Link>
             </li>
           ))}

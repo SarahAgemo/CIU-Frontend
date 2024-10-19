@@ -30,7 +30,6 @@ const ResetPasswordForm = () => {
       marginBottom: '15px',
       marginTop: '15px',
       color: '#106053',
-      fontFamily: "'Roboto', sans-serif",
       transition: 'color 0.3s ease',
     },
     formContainer: {
@@ -91,7 +90,7 @@ const ResetPasswordForm = () => {
       <h1 style={styles.title}>CLERK INERNATIONAL UNIVERSITY</h1> 
 
       <div style={styles.formContainer}>
-        <h2 style={styles.heading}>ENTER YOUR STUDENT NUMBER AND A PASSWORD RESET TOKEN WILL BE SENT TO YOUR STUDENT'S EMAIL TO RESET YOUR PASSWORD</h2>
+        <h2 style={styles.heading}>ENTER YOUR STUDENT NUMBER AND A PASSWORD RESET TOKEN WILL BE SENT TO YOUR STUDENTS EMAIL TO RESET YOUR PASSWORD</h2>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend style={styles.legend}>Student Number</legend>

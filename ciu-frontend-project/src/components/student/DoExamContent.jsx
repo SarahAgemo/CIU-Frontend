@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Clock } from 'lucide-react';
+import DoExam from './DoExamContent.module.css'
 
 // Mock API call to fetch available exams
 const fetchAvailableExams = async () => {
@@ -30,9 +31,9 @@ const fetchAvailableExams = async () => {
   };
 
 const ExamCard = ({ exam }) => (
-    <div className="exam-card">
+    <div className={DoExam["exam-card"]}>
       <h3>{exam.title}</h3>
-      <div className="exam-details">
+      <div className={DoExam["exam-details"]}>
         <p><strong>Program:</strong> {exam.program}</p>
         <p><strong>Date Published:</strong> {exam.datePublished}</p>
         <p><strong>Starting Date:</strong> {exam.startingDate}</p>
@@ -40,9 +41,9 @@ const ExamCard = ({ exam }) => (
         <p><strong>Duration:</strong> {exam.duration}</p>
         <p><strong>Status:</strong> {exam.status}</p>
       </div>
-      <div className="exam-actions">
-        <button className="do-exam-btn">DO EXAM</button>
-        <a href="#" className="schedule-reminder">
+      <div className={DoExam["exam-actions"]}>
+        <button className={DoExam["do-exam-btn"]}>DO EXAM</button>
+        <a href="#" className={DoExam["schedule-reminder"]}>
           Schedule Reminder <Clock size={16} />
         </a>
       </div>
@@ -62,9 +63,9 @@ export default function MainContent() {
     }, []);
   
     return (
-      <main className="main-content">
-        <h2 className="page-title">AVAILABLE EXAMS</h2>
-        <div className="exam-list">
+      <main className={DoExam["main-content"]}>
+        <h2 className={DoExam["page-title"]}>AVAILABLE EXAMS</h2>
+        <div className={DoExam["exam-list"]}>
           {availableExams.map(exam => (
             <ExamCard key={exam.id} exam={exam} />
           ))}
@@ -72,3 +73,4 @@ export default function MainContent() {
       </main>
     );
 };
+

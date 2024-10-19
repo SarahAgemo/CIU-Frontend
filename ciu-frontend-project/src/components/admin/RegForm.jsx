@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import Header from './Header1';
+import Sidebar1 from './SideBar1';
 
-const UserForm = () => {
+const RegForm = () => {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -12,17 +15,67 @@ const UserForm = () => {
     dateTime: ''
   });
 
+  const navigate = useNavigate(); // Initialize navigate
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser((prevUser) => ({
-      ...prevUser,
-      [name]: value,
-    }));
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('User data submitted:', user);
+
+    const userData = {
+      first_name: user.firstName,
+      last_name: user.lastName,
+      email: user.email,
+      program: user.program,
+      registrationNo: user.registrationNo,
+      password: user.password,
+      role: user.role,
+      dateTime: user.dateTime
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/students', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Network response was not ok');
+      }
+
+      const result = await response.json();
+      console.log('User created successfully:', result);
+
+      alert('User registered successfully!');
+
+      // Navigate to the table page after successful registration
+      navigate('/table');
+
+      setUser({
+        firstName: '',
+        lastName: '',
+        email: '',
+        program: '',
+        registrationNo: '',
+        password: '',
+        role: '',
+        dateTime: ''
+      });
+
+    } catch (error) {
+      console.error('Error creating user:', error);
+      alert(`Error creating user: ${error.message}`);
+    }
   };
 
   return (
@@ -213,4 +266,4 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+export default RegForm;

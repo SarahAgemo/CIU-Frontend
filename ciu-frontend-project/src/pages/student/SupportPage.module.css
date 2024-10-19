@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+  
+  :root {
+    --primary-color: #105F53;
+    --secondary-color: #e6f7ef;
+    --text-color: #333;
+    --background-color: #f8f8f8;
+    --card-background: #ffffff;
+    --sidebar-width: 240px;
+    --header-height: 64px;
+    --footer-height: 60px;
+    --other-color: #F9FFFC;
+    --highlight-color: #1a8754;
+  }
+  
+  
+  .support-page {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--other-color);
+    color: var(--text-color);
+  }
+  
+  .support {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .support-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+ 
+  @media (max-width: 768px) {
+    .support-content {
+      flex-direction: column;
+    }
+
+    .main-content {
+      flex-direction: column;
+      padding: 16px;
+    }
+  
+    .sidebar {
+      width: 100vh;
+      height: auto;
+      padding: 8px;
+    }
+  
+    .contact-info {
+      grid-template-columns: 1fr;
+      position:fixed;
+    }
+
+    .support-banner {
+      flex-direction: column;
+      display: flex;
+      padding: 16px
+    }
+  }
