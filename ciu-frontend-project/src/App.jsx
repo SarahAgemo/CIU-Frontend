@@ -24,8 +24,6 @@ import SupportPage from "./pages/student/SupportPage.jsx";
 import Questions from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
 
-// import './components/admin/users.css';
-
 
 function App() {
   return (
@@ -38,10 +36,10 @@ function App() {
         <Route path="/courses" element={<Courses />} />  
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/manage" element={<ManageUsers />} />
-        <Route path="/users" element={<Users />} />  {/* User List Route */}
-        <Route path="/edit/:id" element={<EditUser />} />  {/* Edit User Route */}
-        <Route path="/layout" element={<Layout />} /> {/* Layout Page */}
-        <Route path="/request-token" element={<RequestToken />} /> {/* Incoming change */}
+        <Route path="/users" element={<Users />} /> 
+        <Route path="/edit/:id" element={<EditUser />} />  
+        <Route path="/layout" element={<Layout />} /> 
+        <Route path="/request-token" element={<RequestToken />} /> 
         <Route path="schedule-upload-exams" element={<ScheduleUploadExams />} />
         <Route path="schedule-create-exams" element={<ScheduleCreateExams />} />
         <Route path="add-questions" element={<AddQuestions />} />
@@ -64,11 +62,14 @@ function App() {
         <Route path="/edit-student/:id" element={<EditStudent />} />
         <Route path="/adminuser" element={<Adminuser />} />
         <Route path="/editadmin/:id" element={<Editadmin />} />
+        <Route path="/regCourse" element={<RegCourse />} /> 
+        <Route path="/courses" element={<Courses />} /> 
 
         {/* Lecturer */}
         <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
         <Route path="/schedule-create-exams" element={<ScheduleCreateExams />} />
         <Route path="/add-questions" element={<AddQuestions />} />
+      
 
         {/* Student */}
         <Route path="/student" element={<StudentDashboard />} />
