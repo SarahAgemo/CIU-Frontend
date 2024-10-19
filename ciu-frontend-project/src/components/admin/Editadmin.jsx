@@ -16,7 +16,7 @@ function Editadmin() {
         last_name: '',
         email: '',
         role: '',
-        password: '',
+        
     });
 
     // State to manage loading and error states
@@ -53,7 +53,7 @@ function Editadmin() {
                     last_name: last_name || '',
                     email: email || '',
                     role: role || '',
-                    password: '', // Typically, you don't pre-fill passwords for security reasons
+                     // Typically, you don't pre-fill passwords for security reasons
                 });
 
             } catch (err) {
@@ -197,19 +197,7 @@ function Editadmin() {
                                     required
                                 />
                             </div>
-                            <div className="form-group mb-3">
-                                <label htmlFor="password">Password</label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    className="form-control"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    placeholder="Enter new password (optional)"
-                                    // Password update is optional
-                                />
-                            </div>
+                           
                             <button type="submit" className="btn btn-secondary">
                                 Save Changes
                             </button>
