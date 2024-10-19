@@ -362,9 +362,11 @@ header {
   margin-bottom: 20px;
 } */
 
+
+/* most recent work  */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
 
-* {
+/* * {
   box-sizing: border-box;
   
 }
@@ -392,7 +394,7 @@ header {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Main content area below header */
+
 .main-content {
   flex-grow: 1;
   display: flex;
@@ -402,20 +404,20 @@ header {
 
 .sidebar {
   position:fixed;
-  top: 60px; /* Below header */
+  top: 60px; 
   left: 0;
-  background-color: white; /* Match form background */
+  background-color: white; 
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  height: calc(100vh - 60px); /* Full height minus header */
+  height: calc(100vh - 60px);
   padding: 20px;
-  width: auto; /* Fit content */
-  min-width: 200px; /* Ensure there's enough space for sidebar content */
-}
+  width: auto; 
+  min-width: 200px; 
+} */
 
 .form-wrapper {
-  margin-left: auto; /* Push form-wrapper to the right side */
+  margin-left: auto;
   padding: 20px;
-  width: calc(100% - 240px); /* Remaining width */
+  width: calc(100% - 240px); 
   min-height: calc(100vh - 60px); 
   background-color: #ebebeb;
   overflow-y: auto;
