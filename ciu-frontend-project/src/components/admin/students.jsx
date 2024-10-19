@@ -75,15 +75,22 @@ function StudentList({ students, deleteStudent }) {
 // Main Students component
 function Students() {
     const [students, setStudents] = useState([]);
+    const [searchTerm, setSearchTerm] = useState(''); // New state for search term
     const navigate = useNavigate(); // Use navigate to redirect
 
     useEffect(() => {
-        fetch('http://localhost:3000/students') // Adjust the endpoint accordingly
-            .then((response) => response.json())
-            .then((data) => setStudents(data))
-            .catch((error) => console.error('Error fetching students:', error));
+        // Fetch initial list of students
+        fetchStudents();
     }, []);
 
+    // Fetch students from the API
+    const fetchStudents = async (name = '') => {
+        const response = await fetch(`http://localhost:3000/faqs/search?name=${name}`);
+        const data = await response.json();
+        setStudents(data);
+    };
+
+    // Delete a student
     const deleteStudent = (id) => {
         fetch(`http://localhost:3000/students/${id}`, {
             method: 'DELETE', // Deleting the student by ID
@@ -99,6 +106,13 @@ function Students() {
             .catch((error) => console.error('Error deleting student:', error));
     };
 
+    // Handle search input change
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearchTerm(value);
+        fetchStudents(value); // Fetch students based on search input
+    };
+
     return (
         <div className="layout-container">
             <Header />
@@ -106,7 +120,7 @@ function Students() {
                 <Sidebar1 />
                 <div className="students-content">
                     <div className='row justify-content-between pt-5'>
-                        <h2 className="col">Students</h2>
+                        <h2 className="col">Lists of Student</h2>
                         <button
                             onClick={() => navigate('/register')} // Redirect to register page
                             type="button"
@@ -117,6 +131,13 @@ function Students() {
                         </button>
                     </div>
                     <div className='row justify-content-center'>
+                        <input
+                            type="text"
+                            placeholder="Search by name..."
+                            value={searchTerm}
+                            onChange={handleSearchChange}
+                            className="form-control mb-3"
+                        />
                         <StudentList students={students} deleteStudent={deleteStudent} />
                     </div>
                 </div>

@@ -1,5 +1,3 @@
-// Adminuser.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from './Header'; 
@@ -75,6 +73,7 @@ function UserList({ users, deleteUser }) {
 
 // Main Adminuser component
 function Adminuser() {
+    const navigate = useNavigate(); // Add useNavigate here
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -154,6 +153,15 @@ function Adminuser() {
                 <Sidebar1 />
                 <div className="users-content">
                     <div className='row justify-content-center pt-5'>
+                        <h2 className="col">Lists of Admin</h2>
+                        <button
+                            onClick={() => navigate('/registers')} // Redirect to register page
+                            type="button"
+                            className="custom-button col-auto" // Use custom class for button
+                            style={{ marginLeft: 'auto' }} // Ensures button is at the right
+                        >
+                            Add New Admin
+                        </button>
                         <UserList users={users} deleteUser={deleteUser} />
                     </div>
                 </div>

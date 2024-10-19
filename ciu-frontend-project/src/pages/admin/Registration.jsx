@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 import './Registration.css';
 
 const Registration = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState("Select User");
   const [formData, setFormData] = useState({
@@ -12,7 +14,6 @@ const Registration = () => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
-  
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -81,7 +82,7 @@ const Registration = () => {
             password: formData.password,
           };
         } else if (selectedUser === "Administrator") {
-          endpoint = '/api/register/administrator';
+          endpoint = 'http://localhost:3000/adminReg';
           payload = {
             first_name: formData.firstName,
             last_name: formData.lastName,
@@ -105,6 +106,13 @@ const Registration = () => {
           setSuccessMessage(`${selectedUser} successfully registered!`);
           setFormData({ firstName: '', lastName: '', emailOrStudentNumber: '', password: '' }); // Clear the form
           setErrors({});
+
+          // Redirect based on the user type
+          if (selectedUser === "Administrator") {
+            navigate('/adminuser'); // Redirect to the admin user page
+          } else if (selectedUser === "Lecturer") {
+            navigate('/users'); // Redirect to the lecturer user page
+          }
         } else {
           const errorData = await response.json();
           setErrors(errorData.errors || {});

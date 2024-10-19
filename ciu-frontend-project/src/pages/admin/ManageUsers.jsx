@@ -13,8 +13,10 @@ export default function ManageUsers() {
         <main className="main-content">
           <h2 className="dashboard-title">Manage Users</h2>
           <div className="management-cards">
-            <ManagementCard title="Manage Lecturers" icon="users" />
-            <ManagementCard title="Manage Students" icon="user" />
+          <ManagementCard title="Manage Students" icon="user" link="/table" />
+            <ManagementCard title="Manage Lecturers" icon="users" link="/users" />
+             
+            <ManagementCard title="Manage Admin" icon="users" link="/adminuser" />
           </div>
         </main>
       </div>

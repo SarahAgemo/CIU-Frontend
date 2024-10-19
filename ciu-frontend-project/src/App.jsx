@@ -43,7 +43,6 @@ function App() {
         <Route path="/schedule-create-exams" element={<ScheduleCreateExams />} />
         <Route path="/add-questions" element={<AddQuestions />} />
         <Route path="/registers" element={<Registration />} />
-        <Route path="/student" element={<MainContent />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/table" element={<Students />} />
         <Route path="/edit-student/:id" element={<EditStudent />} />
