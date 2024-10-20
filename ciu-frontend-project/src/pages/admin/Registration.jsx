@@ -12,8 +12,9 @@ const Registration = () => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
+  
 
-  const toggleDropdown = () => {
+  const toggleDropdown = () => { 
     setIsOpen(!isOpen);
   };
 

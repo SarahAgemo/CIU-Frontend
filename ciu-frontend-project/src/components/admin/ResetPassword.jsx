@@ -30,7 +30,6 @@ const ResetPasswordForm = () => {
       marginBottom: '15px',
       marginTop: '15px',
       color: '#106053',
-      fontFamily: "'Roboto', sans-serif",
       transition: 'color 0.3s ease',
     },
     formContainer: {
