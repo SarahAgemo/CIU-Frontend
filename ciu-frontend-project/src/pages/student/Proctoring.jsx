@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Proctoring.css";
+import { ExamDetails } from "../../components/student/ExamDetails";
 import { TbDeviceComputerCamera } from "react-icons/tb";
 import { IoExitOutline } from "react-icons/io5";
 const Proctoring = () => {
@@ -127,19 +128,7 @@ const Proctoring = () => {
   return (
     <div className="proctoring-overall">
       <div className="examination-details">
-        <div className="wrap-details">
-          <div className="exam-img-div">
-            <img src="./src/assets/images/CIU-exam-logo.png" alt="" />
-          </div>
-
-          <h1>ONLINE EXAMINATION SYSTEM</h1>
-          <p>
-            <strong>Subject:</strong> Macro Economics
-          </p>
-          <p>
-            <strong>Duration:</strong> 1 Hour
-          </p>
-        </div>
+        <ExamDetails />
       </div>
 
       <div className="proctoring">

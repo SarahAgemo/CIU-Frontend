@@ -15,30 +15,6 @@
   margin-right: 0px;
 }
 
-.exam-img-div img {
-  max-width: 100%;
-  height: auto;
-}
-.wrap-details {
-  width: 90%;
-  background: #ebebeb;
-  padding: 10px;
-  color: #106053;
-  border-radius: 10px;
-}
-
-.wrap-details h1 {
-  font-size: 1.5rem;
-  margin-top: 15px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.wrap-details p {
-  font-size: 1rem;
-  text-align: center;
-}
-
 .proctoring {
   width: 80%;
   background-color: white;
@@ -102,8 +78,7 @@
   gap: 10px; /* Adds space between the checkbox and the label */
 }
 
-.verification-box label,
-.consent-section label {
+.verification-box label {
   white-space: nowrap;
   color: #106053;
 }
@@ -132,4 +107,54 @@
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
+}
+@media screen and (max-width: 800px) {
+  .proctoring-overall {
+    flex-direction: column; /* Stack elements vertically */
+    width: 100%; /* Ensure full width */
+  }
+
+  .examination-details {
+    width: 100%; /* Full width on small screens */
+    box-shadow: none; /* Remove shadow */
+    border-bottom: 1px solid #ccc; /* Nav bar effect */
+    box-sizing: border-box; /* Ensure padding doesn't push content out */
+  }
+
+  .proctoring {
+    width: 100%; /* Ensure the page takes the full width */
+    padding: 15px;
+    box-shadow: none;
+    justify-content: center;
+  }
+
+  .proctoring h2 {
+    font-size: 1.5rem;
+  }
+  .video-container {
+    width: 80%;
+    justify-content: center;
+    padding-top: 60%; /* 4/5 of the width */
+    height: 0; /* Set height to 0 and use padding to control the height */
+    position: relative;
+  }
+
+  .verification-boxes {
+    flex-direction: column;
+    width: 80%;
+  }
+
+  .verification-box {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .button-wrapper {
+    text-align: center;
+  }
+
+  .exit-btn {
+    position: static;
+    margin-top: 20px;
+  }
 }

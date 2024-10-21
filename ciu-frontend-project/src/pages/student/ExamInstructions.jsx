@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ExamInstructions.css";
+import { ExamDetails } from "../../components/student/ExamDetails";
 const ExamInstructions = () => {
   const navigate = useNavigate();
 
@@ -11,19 +12,7 @@ const ExamInstructions = () => {
   return (
     <div className="instructions-overall">
       <div className="examination-details">
-        <div className="wrap-details">
-          <div className="exam-img-div">
-            <img src="./src/assets/images/CIU-exam-logo.png" alt="" />
-          </div>
-
-          <h1>ONLINE EXAMINATION SYSTEM</h1>
-          <p>
-            <strong>Subject:</strong> Macro Economics
-          </p>
-          <p>
-            <strong>Duration:</strong> 1 Hour
-          </p>
-        </div>
+        <ExamDetails />
       </div>
       <div className="instructions-page">
         <h2>EXAM INSTRUCTIONS</h2>

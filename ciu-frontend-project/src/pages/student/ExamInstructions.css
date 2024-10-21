@@ -1,42 +1,18 @@
 .instructions-overall {
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
+  flex-direction: row; /* Default layout */
   min-height: 100vh;
   background-color: white;
   width: 100%;
+  box-sizing: border-box; /* Ensure padding/margins are included in width */
 }
 
 .examination-details {
-  width: 20%;
+  width: 20%; /* Default width for large screens */
   background-color: white;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-right: 0px;
-}
-
-.exam-img-div img {
-  max-width: 100%;
-  height: auto;
-}
-.wrap-details {
-  width: 90%;
-  background: #ebebeb;
-  padding: 10px;
-  color: #106053;
-  border-radius: 10px;
-}
-
-.wrap-details h1 {
-  font-size: 1.5rem;
-  margin-top: 15px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.wrap-details p {
-  font-size: 1rem;
-  text-align: center;
+  margin-right: 0;
 }
 
 .instructions-page {
@@ -74,9 +50,27 @@
   background-color: #004d47;
 }
 
+/* Adjust layout for small screens */
 @media screen and (max-width: 800px) {
-  .wrap-details {
-    width: 95%;
-    justify-content: center;
+  .instructions-overall {
+    flex-direction: column; /* Stack elements vertically */
+    width: 100%; /* Ensure full width */
+  }
+
+  .examination-details {
+    width: 100%; /* Full width on small screens */
+    box-shadow: none; /* Remove shadow */
+    border-bottom: 1px solid #ccc; /* Nav bar effect */
+    box-sizing: border-box; /* Ensure padding doesn't push content out */
+  }
+
+  .instructions-page {
+    width: 100%; /* Ensure the page takes the full width */
+    padding: 15px;
+    box-shadow: none;
+  }
+
+  .instructions-page h2 {
+    font-size: 1.5rem;
   }
 }
