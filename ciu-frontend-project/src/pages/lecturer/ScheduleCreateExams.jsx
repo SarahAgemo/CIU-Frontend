@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
 import Header from '../../components/lecturer/Header';
-import SideBar from '../../components/lecturer/SideBar';
-import '../../components/admin/Users.css';
+import SideBar from '../../components/lecturer/SideBarAddQuestion';
+// import './ScheduleCreateExams.module.css';
 
 function ScheduleCreateExams() {
     const [examData, setExamData] = useState({
