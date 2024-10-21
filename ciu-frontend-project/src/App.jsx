@@ -25,45 +25,27 @@ import Questions from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
 
-// import './components/admin/users.css';
-
-
 function App() {
   return (
     <Router>
       <Routes>
         {/* Authentication */}
         <Route path="/" element={<Login />} />
+        <Route path="/reset-password" element={<ResetPassword />} /> 
+        <Route path="/request-token" element={<RequestToken />} />
+
+          //  Admin
         <Route path="/register" element={<RegForm />} />
         <Route path="/regCourse" element={<RegCourse />} />
         <Route path="/courses" element={<Courses />} />  
         <Route path="/editcourse/:id" element={<EditCourse />} />  
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/manage" element={<ManageUsers />} />
-        <Route path="/users" element={<Users />} />  {/* User List Route */}
-        <Route path="/edit/:id" element={<EditUser />} />  {/* Edit User Route */}
-        <Route path="/layout" element={<Layout />} /> {/* Layout Page */}
-        <Route path="/request-token" element={<RequestToken />} /> {/* Incoming change */}
-        <Route path="schedule-upload-exams" element={<ScheduleUploadExams />} />
-        <Route path="schedule-create-exams" element={<ScheduleCreateExams />} />
-        <Route path="add-questions" element={<AddQuestions />} />
+        <Route path="/users" element={<Users />} /> 
+        <Route path="/edit/:id" element={<EditUser />} />  
+        <Route path="/layout" element={<Layout />} /> 
         <Route path="/registers" element={<Registration />} />  
-        <Route path="/manage" element={<ManageUsers />} /> 
-        <Route path="/admin" element={<Dashboard />} /> 
-        <Route path="/reset-password" element={<ResetPassword />} />
-
-        {/* Admin */}
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/manage-users" element={<ManageUsers />} />
-        <Route path="/registers" element={<Registration />} />
-        <Route path="/manage" element={<ManageUsers />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/edit/:id" element={<EditUser />} />
-        <Route path="/layout" element={<Layout />} />
-        <Route path="/request-token" element={<RequestToken />} />
-        <Route path="/table" element={<Students />} />
-        <Route path="/edit-student/:id" element={<EditStudent />} />
+        <Route path="/admin" element={<Dashboard />} />              
         <Route path="/adminuser" element={<Adminuser />} />
         <Route path="/editadmin/:id" element={<Editadmin />} />
 
@@ -78,6 +60,8 @@ function App() {
         <Route path="/student/support" element={<SupportPage />} />
         <Route path="/student/support/faqs" element={<Questions />} />
         <Route path="/student/support/report-issue" element={<ReportIssue />} />
+        <Route path="/table" element={<Students />} />
+        <Route path="/edit-student/:id" element={<EditStudent />} />
       </Routes>
     </Router>
   );
