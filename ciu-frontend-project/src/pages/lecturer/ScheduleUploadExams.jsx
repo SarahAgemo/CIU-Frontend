@@ -1,201 +1,193 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useHistory for redirection
 import Header from '../../components/lecturer/Header';
 import SideBar from '../../components/lecturer/SideBar';
-import '../../components/admin/Layout.css'; // Assuming layout CSS is applied
+import '../../components/admin/Layout.css';
 
 function ScheduleUploadExams() {
+  const navigate = useNavigate(); // Initialize useHistory for redirection
   const [examData, setExamData] = useState({
-    examTitle: '',
-    course: '',
+    title: '',
+    description: '',
     courseId: '',
-    courseUnitName: '',
+    courseUnit: '',
     courseUnitCode: '',
-    examDate: '',
+    scheduledDate: '',
     duration: '',
     startTime: '',
     endTime: '',
     createdBy: '',
-    createdAt: '',
-    examRules: '', // Moved to the end of the form
-    csvFile: null, // CSV File to upload
   });
+  const [csvFile, setCsvFile] = useState(null);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setExamData({ ...examData, [name]: value });
   };
 
-  // Handle CSV upload
   const handleFileUpload = (e) => {
-    setExamData({ ...examData, csvFile: e.target.files[0] });
+    setCsvFile(e.target.files[0]);
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Scheduled Exam Data:', examData);
-    // Logic to upload the form and the CSV file to the backend
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(':');
+    return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}:00`;
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setError('');
+    setSuccess('');
+
+    const formData = new FormData();
+    formData.append('file', csvFile);
+    Object.keys(examData).forEach((key) => {
+      let value = examData[key];
+      if (key === 'startTime' || key === 'endTime') {
+        value = formatTime(value);
+      }
+      formData.append(key, value);
+    });
+
+    try {
+      const response = await fetch('http://localhost:3000/exam-paper/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) throw new Error('Failed to upload exam paper');
+      const data = await response.json();
+      setSuccess('Exam paper uploaded successfully!');
+
+      // Redirect to ExamPaperPreview after successful upload
+      // Redirect to ExamPaperPreview after successful upload
+      navigate('/schedule-upload-exams/exam-list', { state: { examData: data } }); // Corrected line
+    } catch (error) {
+      setError('Error uploading exam paper: ' + error.message);
+    }
   };
 
   return (
     <div className="layout-container">
-      <Header /> {/* Render Header at the top */}
+      <Header />
       <div className="main-content">
-        <SideBar /> {/* Render Sidebar on the left */}
+        <SideBar />
         <div className="users-content">
           <div className="container mt-5">
             <h2>Schedule Upload Exams</h2>
+            {error && <div className="alert alert-danger">{error}</div>}
+            {success && <div className="alert alert-success">{success}</div>}
             <form onSubmit={handleSubmit}>
-
-              {/* Exam Title, Course, Course ID */}
-              <div className="form-row">
-                <div className="form-group col-md-4">
-                  <label>Exam Title</label>
-                  <input
-                    type="text"
-                    name="examTitle"
-                    className="form-control"
-                    value={examData.examTitle}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form-group col-md-4">
-                  <label>Course</label>
-                  <input
-                    type="text"
-                    name="course"
-                    className="form-control"
-                    value={examData.course}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form-group col-md-4">
-                  <label>Course ID</label>
-                  <input
-                    type="text"
-                    name="courseId"
-                    className="form-control"
-                    value={examData.courseId}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Course Unit Name, Course Unit Code */}
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label>Course Unit Name</label>
-                  <input
-                    type="text"
-                    name="courseUnitName"
-                    className="form-control"
-                    value={examData.courseUnitName}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label>Course Unit Code</label>
-                  <input
-                    type="text"
-                    name="courseUnitCode"
-                    className="form-control"
-                    value={examData.courseUnitCode}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Exam Date, Duration, Start Time, End Time */}
-              <div className="form-row">
-                <div className="form-group col-md-3">
-                  <label>Exam Date</label>
-                  <input
-                    type="date"
-                    name="examDate"
-                    className="form-control"
-                    value={examData.examDate}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form-group col-md-3">
-                  <label>Exam Duration</label>
-                  <input
-                    type="text"
-                    name="duration"
-                    className="form-control"
-                    value={examData.duration}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form-group col-md-3">
-                  <label>Start Time</label>
-                  <input
-                    type="time"
-                    name="startTime"
-                    className="form-control"
-                    value={examData.startTime}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-                <div className="form-group col-md-3">
-                  <label>End Time</label>
-                  <input
-                    type="time"
-                    name="endTime"
-                    className="form-control"
-                    value={examData.endTime}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              {/* Created By, Created At */}
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label>Created By</label>
-                  <input
-                    type="text"
-                    name="createdBy"
-                    className="form-control"
-                    value={examData.createdBy}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group col-md-6">
-                  <label>Created At</label>
-                  <input
-                    type="datetime-local"
-                    name="createdAt"
-                    className="form-control"
-                    value={examData.createdAt}
-                    onChange={handleChange}
-                  />
-                </div>
-              </div>
-
-              {/* Exam Rules (Description) moved to the end */}
               <div className="form-group">
-                <label>Exam Rules</label>
-                <textarea
-                  name="examRules"
+                <label>Exam Title</label>
+                <input
+                  type="text"
+                  name="title"
                   className="form-control"
-                  value={examData.examRules}
+                  value={examData.title}
                   onChange={handleChange}
                   required
                 />
               </div>
-
-              {/* CSV File Upload */}
+              <div className="form-group">
+                <label>Description</label>
+                <textarea
+                  name="description"
+                  className="form-control"
+                  value={examData.description}
+                  onChange={handleChange}
+                  required
+                ></textarea>
+              </div>
+              <div className="form-group">
+                <label>Course ID</label>
+                <input
+                  type="text"
+                  name="courseId"
+                  className="form-control"
+                  value={examData.courseId}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Course Unit</label>
+                <input
+                  type="text"
+                  name="courseUnit"
+                  className="form-control"
+                  value={examData.courseUnit}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Course Unit Code</label>
+                <input
+                  type="text"
+                  name="courseUnitCode"
+                  className="form-control"
+                  value={examData.courseUnitCode}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Scheduled Date</label>
+                <input
+                  type="datetime-local"
+                  name="scheduledDate"
+                  className="form-control"
+                  value={examData.scheduledDate}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Duration (minutes)</label>
+                <input
+                  type="number"
+                  name="duration"
+                  className="form-control"
+                  value={examData.duration}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Start Time</label>
+                <input
+                  type="time"
+                  name="startTime"
+                  className="form-control"
+                  value={examData.startTime}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>End Time</label>
+                <input
+                  type="time"
+                  name="endTime"
+                  className="form-control"
+                  value={examData.endTime}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Created By</label>
+                <input
+                  type="text"
+                  name="createdBy"
+                  className="form-control"
+                  value={examData.createdBy}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
               <div className="form-group">
                 <label>Upload CSV File</label>
                 <input
@@ -206,25 +198,9 @@ function ScheduleUploadExams() {
                   required
                 />
               </div>
-
-              {/* Action Buttons - Inline Style Fix */}
-              <div className="form-row d-flex justify-content-start">
-                <button
-                  type="submit"
-                  style={{ padding: '10px 20px', marginRight: '10px', display: 'inline-block' }}
-                  className="btn btn-secondary"
-                >
-                  Save
-                </button>
-                {/* <button
-                  type="button"
-                  style={{ padding: '10px 20px', display: 'inline-block' }}
-                  className="btn btn-outline-secondary"
-                >
-                  Upload CSV
-                </button> */}
-              </div>
-
+              <button type="submit" className="btn btn-primary">
+                Upload Exam Paper
+              </button>
             </form>
           </div>
         </div>
