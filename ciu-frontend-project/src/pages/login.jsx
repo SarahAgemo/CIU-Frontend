@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import "./login.css";
-import { Link, useNavigate } from "react-router-dom"; // Import Link for navigation
-import log from "./login.module.css";
+import axios from "axios";
+import log from "./login.module.css"; // Make sure this file exists and is styled correctly
 import { BiSolidUserRectangle } from "react-icons/bi";
 import { FaLock, FaUser } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
@@ -42,13 +40,13 @@ const Login = () => {
 
     // Set the endpoint and payload based on selected user
     if (selectedUser === "Lecturer") {
-      endpoint = "http://localhost:3000/auth/login";
+      endpoint = "http://localhost:3000/auth/login"; // Adjust according to your backend
       userPayload = { email: identifier, password };
     } else if (selectedUser === "Administrator") {
-      endpoint = "http://localhost:3000/adminauth/login";
+      endpoint = "http://localhost:3000/adminauth/login"; // Adjust according to your backend
       userPayload = { email: identifier, password };
     } else if (selectedUser === "Student") {
-      endpoint = "http://localhost:3000/students/login";
+      endpoint = "http://localhost:3000/students/login"; // Adjust according to your backend
       userPayload = { registrationNo: identifier, password };
     } else {
       alert("Please select a valid user role.");
@@ -60,7 +58,6 @@ const Login = () => {
       const response = await axios.post(endpoint, userPayload);
       console.log("Response Data:", response.data);
 
-      // Check for token in response (adjust according to your backend response structure)
       const accessToken = response.data.access_token || response.data.token?.access_token;
 
       if (accessToken) {
@@ -90,76 +87,78 @@ const Login = () => {
 
   return (
     <div className={log["overall"]}>
-    <div className={log["wrapper"]}>
-      <div className={log["top-section"]}>
-        <img src="./src/assets/images/ciu-logo-login.png" alt="Logo" />
-        <h1>ONLINE EXAMINATION SYSTEM</h1>
-      </div>
-      <div className={log["form-box"]}>
-        <form onSubmit={handleSubmit}>
-          <div className={log["personel-dropdown"]}>
-            <div className={log["icon-div"]}>
-              <BiSolidUserRectangle className={log["icon"]} size={40} />
-            </div>
-            <div className={log["select"]} onClick={toggleDropdown}>
-              <div className={log["select-field"]}>
-                <p>{selectedUser}</p>
-                <RiArrowDropDownLine size={40} />
+      <div className={log["wrapper"]}>
+        <div className={log["top-section"]}>
+          <img src="./src/assets/images/ciu-logo-login.png" alt="Logo" />
+          <h1>ONLINE EXAMINATION SYSTEM</h1>
+        </div>
+        <div className={log["form-box"]}>
+          <form onSubmit={handleSubmit}>
+            <div className={log["personel-dropdown"]}>
+              <div className={log["icon-div"]}>
+                <BiSolidUserRectangle className={log["icon"]} size={40} />
               </div>
-              {isOpen && (
-                <ul className={log["option-list"]}>
-                  <li onClick={() => handleUserSelection("Student")}>Student</li>
-                  <li onClick={() => handleUserSelection("Administrator")}>Administrator</li>
-                  <li onClick={() => handleUserSelection("Lecturer")}>Lecturer</li>
-                </ul>
-              )}
+              <div className={log["select"]} onClick={toggleDropdown}>
+                <div className={log["select-field"]}>
+                  <p>{selectedUser}</p>
+                  <RiArrowDropDownLine size={40} />
+                </div>
+                {isOpen && (
+                  <ul className={log["option-list"]}>
+                    <li onClick={() => handleUserSelection("Student")}>Student</li>
+                    <li onClick={() => handleUserSelection("Administrator")}>Administrator</li>
+                    <li onClick={() => handleUserSelection("Lecturer")}>Lecturer</li>
+                  </ul>
+                )}
+              </div>
             </div>
-          </div>
 
-          <div className={log["input-box"]}>
-            <input
-              type="text"
-              placeholder={placeholderText}
-              required
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
-            />
-            <FaUser className={log["icon"]} />
-          </div>
-          <div className={log["input-box"]}>
-            <input
-              type="password"
-              placeholder="Password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <FaLock className={log["icon"]} />
-          </div>
-          <div className={log["remember-forgot"]}>
-            <label>
-              <input type="checkbox" />
-              Remember Me
-            </label>
-          </div>
-          <button type="submit" disabled={isSubmitting}>LOGIN</button>
-          {errorMessage && <p className="error-message">{errorMessage}</p>}
-          {successMessage && <p className="success-message">{successMessage}</p>}
-          <div className="forgot-password">
-
-            <Link 
-              to={selectedUser === "Student" ? "/reset-password" : "#"}
-              onClick={selectedUser !== "Student" ? () => alert("Please contact support for password reset instructions.") : undefined}
-            >
-              Forgot Password?
-            </Link>
-          </div>
-        </form>
+            <div className={log["input-box"]}>
+              <input
+                type="text"
+                placeholder={placeholderText}
+                required
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+              />
+              <FaUser className={log["icon"]} />
+            </div>
+            <div className={log["input-box"]}>
+              <input
+                type="password"
+                placeholder="Password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <FaLock className={log["icon"]} />
+            </div>
+            <div className={log["remember-forgot"]}>
+              <label>
+                <input type="checkbox" />
+                Remember Me
+              </label>
+            </div>
+            <button type="submit" disabled={isSubmitting}>LOGIN</button>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+            {successMessage && <p className="success-message">{successMessage}</p>}
+            <div className="forgot-password">
+              <Link 
+                to={selectedUser === "Student" ? "/reset-password" : "#"}
+                onClick={selectedUser !== "Student" ? () => alert("Please contact support for password reset instructions.") : undefined}
+              >
+                Forgot Password?
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </div>
   );
 };
+
+export default Login;
+
 
 
 
