@@ -11,19 +11,20 @@ function QuestionsPreview() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
+        console.log('Fetching questions for exam paper ID:', id);
         const response = await fetch(`http://localhost:3000/exam-paper/${id}/questions`);
         if (!response.ok) throw new Error('Failed to fetch questions');
 
         const data = await response.json();
-        console.log('Fetched questions:', data); // Log the fetched data
+        console.log('Fetched questions:', data);
 
-        // Ensure that data is in the expected format
         if (Array.isArray(data)) {
           setQuestions(data);
         } else {
           throw new Error('Unexpected data format');
         }
       } catch (error) {
+        console.error('Error fetching questions:', error);
         setError('Error fetching questions: ' + error.message);
       }
     };
@@ -34,17 +35,28 @@ function QuestionsPreview() {
   const handleDeleteQuestion = async (questionId) => {
     if (window.confirm('Are you sure you want to delete this question?')) {
       try {
-        const idToDelete = Number(questionId); // Ensure questionId is an integer
-        const response = await fetch(`http://localhost:3000/exam-paper/${examPaperId}/question/${idToDelete}`, {
+        console.log(`Attempting to delete question ID: ${questionId} from exam paper ID: ${id}`);
+        const response = await fetch(`http://localhost:3000/exam-paper/${id}/question/${questionId}`, {
           method: 'DELETE',
         });
-        if (!response.ok) throw new Error('Failed to delete question');
-        setQuestions(questions.filter(q => q.id !== idToDelete)); // Filter by integer id
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`Failed to delete question: ${errorData.message || response.statusText}`);
+        }
+        
+        setQuestions(questions.filter(q => q.id !== questionId));
+        console.log(`Question ${questionId} deleted successfully`);
       } catch (error) {
+        console.error('Error deleting question:', error);
         setError('Error deleting question: ' + error.message);
       }
     }
   };
+
+  if (error) {
+    return <div className="alert alert-danger">{error}</div>;
+  }
   
 
   const handleEditQuestion = (questionId) => {
