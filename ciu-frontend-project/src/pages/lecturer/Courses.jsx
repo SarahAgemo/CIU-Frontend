@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from '../../components/lecturer/Header';  // Import the Header
-import Sidebar1 from '../../components/lecturer/SideBarAddQuestion';  // Import the Sidebar
+import Header from '../../components/lecturer/Header'; // Import the Header
+import Sidebar1 from '../../components/lecturer/SideBarAddQuestion'; // Import the Sidebar
 import './Courses.css';
 
 // Table component
@@ -31,19 +30,19 @@ function TableBody({ children }) {
 
 // UserList component
 function UserList({ users, deleteUser }) {
-    const cols = ["#", "Faculty Name", "Course Name", "Course Units", "Course Units Code", "Actions"];
+    const cols = ["#", "Faculty Name", "Course Name", "Course Units", "Course Unit Code", "Actions"];
     const navigate = useNavigate();
 
     const userList = users.map((user, index) => (
         <tr key={user.id}>
             <th scope="row">{index + 1}</th>
-            <td>{user.faculty_name}</td>
-            <td>{user.course_name}</td>
-            <td>{user.course_units}</td>
-            <td>{user.course_units_code}</td>
+            <td>{user.facultyName}</td>
+            <td>{user.courseName}</td>
+            <td>{user.courseUnits}</td>
+            <td>{user.courseUnitCode}</td>
             <td>
                 <button
-                    onClick={() => navigate(`/edit/${user.id}`)}
+                    onClick={() => navigate(`/editcourse/${user.id}`)}
                     type="button"
                     className="btn btn-secondary"
                 >
@@ -51,7 +50,7 @@ function UserList({ users, deleteUser }) {
                 </button>
                 <button
                     onClick={() => {
-                        if (window.confirm('Are you sure you want to delete this user?')) {
+                        if (window.confirm('Are you sure you want to delete this course?')) {
                             deleteUser(user.id);
                         }
                     }}
@@ -72,19 +71,27 @@ function UserList({ users, deleteUser }) {
     );
 }
 
-// Main Users component
+// Main Courses component
 function Courses() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/lecturerReg')
-            .then((response) => response.json())
-            .then((data) => setUsers(data))
+        fetch('http://localhost:3000/coursesAdd')
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                console.log(data); 
+                setUsers(data);
+            })
             .catch((error) => console.error('Error fetching users:', error));
     }, []);
-
+    
     const deleteUser = (id) => {
-        fetch(`http://localhost:3000/lecturerReg/${id}`, {
+        fetch(`http://localhost:3000/coursesAdd/${id}`, {
             method: 'DELETE',
         })
             .then((response) => {
@@ -104,7 +111,7 @@ function Courses() {
                 <Sidebar1 />  {/* Render Sidebar */} 
                 <div className="users-content">  {/* Content for the Users page */}
                     <div className='row justify-content-center pt-5'>
-                        <UserList users={users} deleteUser={deleteUser} />
+                        <UserList users={users} deleteUser={deleteUser} /> {/* Fixed prop name */}
                     </div>
                 </div>
             </div>
