@@ -67,7 +67,7 @@ function App() {
         <Route path="/exam-paper/:id" element={<ExamPaperPreview />} />
         <Route path="/schedule-upload-exams/exam-list" element={<ExamList />} />
         <Route path="/exam-paper/:id/questions" element={<QuestionsPreview/>} />
-        <Route path="/questions/:id/edit" element={<EditExamPaper />} /> {/* Use 'element' prop here */}
+        <Route path="/exam-paper/:id/question/:questionId" element={<EditExamPaper />} /> {/* Use 'element' prop here */}
         <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} /> 
 
 

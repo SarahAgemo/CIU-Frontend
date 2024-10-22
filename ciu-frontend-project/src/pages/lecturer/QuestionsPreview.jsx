@@ -60,8 +60,10 @@ function QuestionsPreview() {
   
 
   const handleEditQuestion = (questionId) => {
-    navigate(`/questions/${questionId}/edit`);
-  };
+    navigate(`/exam-paper/${id}/question/${questionId}`);
+};
+
+
 
   if (error) return <div className="alert alert-danger">{error}</div>;
   if (!questions.length) return <div>No questions found.</div>;
