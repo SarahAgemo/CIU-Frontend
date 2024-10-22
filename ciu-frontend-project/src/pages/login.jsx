@@ -40,7 +40,7 @@ const Login = () => {
 
     // Set the endpoint and payload based on selected user
     if (selectedUser === "Lecturer") {
-      endpoint = "http://localhost:3000/auth/login"; // Adjust according to your backend
+      endpoint = "http://localhost:3000/lecturer_auth/login"; // Adjust according to your backend
       userPayload = { email: identifier, password };
     } else if (selectedUser === "Administrator") {
       endpoint = "http://localhost:3000/adminauth/login"; // Adjust according to your backend
