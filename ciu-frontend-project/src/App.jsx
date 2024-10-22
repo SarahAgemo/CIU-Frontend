@@ -24,6 +24,10 @@ import SupportPage from "./pages/student/SupportPage.jsx";
 import Questions from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
+import ResetAdminPassword from "./components/admin/ResetAdminPassword.jsx";
+import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx";
+import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
+import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 
 function App() {
   return (
@@ -34,7 +38,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} /> 
         <Route path="/request-token" element={<RequestToken />} />
 
-          //  Admin
+      {/* admin */}
         <Route path="/register" element={<RegForm />} />
         <Route path="/regCourse" element={<RegCourse />} />
         <Route path="/courses" element={<Courses />} />  
@@ -48,11 +52,18 @@ function App() {
         <Route path="/admin" element={<Dashboard />} />              
         <Route path="/adminuser" element={<Adminuser />} />
         <Route path="/editadmin/:id" element={<Editadmin />} />
+        <Route path="/adminPassword" element={<ResetAdminPassword />} />
+        <Route path="/lecturerPassword" element={<ResetLecturerPassword />} />
+        <Route path="/RequestAdminToken" element={<RequestAdminToken />} />
+        <Route path="/RequestLecturerToken" element={<RequestLecturerToken />} />
+
+
 
         {/* Lecturer */}
         <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
         <Route path="/schedule-create-exams" element={<ScheduleCreateExams />} />
         <Route path="/add-questions" element={<AddQuestions />} />
+        <Route path="/lecturerPassword" element={<lecturerPassword />} />
 
         {/* Student */}
         <Route path="/student" element={<StudentDashboard />} />
