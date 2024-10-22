@@ -29,6 +29,16 @@ import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx"
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 
+import  ExamPaperPreview from "./pages/lecturer/ExamPaperPreview.jsx";
+import  ExamList from "./pages/lecturer/ExamList.jsx";
+import  QuestionsPreview from "./pages/lecturer/QuestionsPreview.jsx";
+import  EditExamPaper from "./pages/lecturer/EditExamPaper.jsx";
+import EditExamInterface from "./pages/lecturer/EditExamInterface.jsx";
+
+
+
+
+
 function App() {
   return (
     <Router>
@@ -60,10 +70,17 @@ function App() {
 
 
         {/* Lecturer */}
-        <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
+        
         <Route path="/schedule-create-exams" element={<ScheduleCreateExams />} />
         <Route path="/add-questions" element={<AddQuestions />} />
-        <Route path="/lecturerPassword" element={<lecturerPassword />} />
+        <Route path="/lecturerPassword" element={<lecturerPassword />} 
+        <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
+        <Route path="/exam-paper/:id" element={<ExamPaperPreview />} />
+        <Route path="/schedule-upload-exams/exam-list" element={<ExamList />} />
+        <Route path="/exam-paper/:id/questions" element={<QuestionsPreview/>} />
+        <Route path="/questions/:id/edit" element={<EditExamPaper />} /> {/* Use 'element' prop here */}
+        <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} /> 
+
 
         {/* Student */}
         <Route path="/student" element={<StudentDashboard />} />

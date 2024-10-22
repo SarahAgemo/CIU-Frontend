@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '../../components/lecturer/Header';
 import SideBar from '../../components/lecturer/SideBar';
@@ -26,11 +25,28 @@ function ScheduleCreateExams() {
         setExamData({ ...examData, [name]: value });
     };
 
+    // Format time to HH:MM:SS
+    const formatTime = (time) => {
+        const hours = time?.hours?.toString().padStart(2, '0') || '00';
+        const minutes = time?.minutes?.toString().padStart(2, '0') || '00';
+        return `${hours}:${minutes}`;
+      }
+      
+
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('Scheduled Exam Data:', examData);
         // Add logic to send form data to backend API
+    };
+
+    // Format the times and duration
+    const formattedData = {
+        ...examData,
+        duration: `${examData.duration}`, // Keep duration as entered (string with 'minutes')
+        examDate: examData.examDate ? examData.examDate.replace('T', ' ') + ':00' : '', // Format as 'YYYY-MM-DD HH:MM:SS'
+        startTime: formatTime(examData.startTime), // Ensure it's in 'HH:MM:SS' format
+        endTime: formatTime(examData.endTime), // Ensure it's in 'HH:MM:SS' format
     };
 
     return (
@@ -180,7 +196,7 @@ function ScheduleCreateExams() {
 
                             {/* Exam Rules (Description) moved to the end */}
                             <div className="form-group">
-                                <label>Exam Rules</label>  {/* Changed from Course Description */}
+                                <label>Exam Rules</label>
                                 <textarea
                                     name="examRules"
                                     className="form-control"
@@ -190,7 +206,7 @@ function ScheduleCreateExams() {
                                 />
                             </div>
 
-                            {/* Action Buttons - Inline Style Fix */}
+                            {/* Action Buttons */}
                             <div className="form-row d-flex justify-content-start">
                                 <button
                                     type="submit"
