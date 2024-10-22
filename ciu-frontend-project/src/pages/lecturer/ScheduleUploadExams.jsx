@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useHistory for redirection
+import { useNavigate } from 'react-router-dom'; // Import useNavigation for redirection
 import Header from '../../components/lecturer/Header';
 import SideBar from '../../components/lecturer/SideBar';
 import '../../components/admin/Layout.css';
