@@ -1,3 +1,35 @@
-h1 {
-  color: #000;
+.ExamPage {
+  display: flex;
+  flex-direction: column;
+}
+.ExamTopbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #ebebeb;
+  padding: 0px 10px;
+}
+.quiz-content {
+  padding: 20px;
+}
+.navigation-buttons {
+  display: flex;
+}
+.exam-next-button,
+.exam-prev-button,
+.exam-submit-button {
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #106053;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.exam-next-button:hover,
+.exam-prev-button:hover,
+.exam-submit-button:hover {
+  background-color: #004d47;
 }
