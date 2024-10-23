@@ -40,7 +40,7 @@
 
      // Set the endpoint and payload based on selected user
     if (selectedUser === "Lecturer") {
-       endpoint = "http://localhost:3000/auth/login"; // Adjust according to your backend
+       endpoint = "http://localhost:3000/lecturer_auth/login"; // Adjust according to your backend
        userPayload = { email: identifier, password };
      } else if (selectedUser === "Administrator") {
        endpoint = "http://localhost:3000/adminauth/login"; // Adjust according to your backend
@@ -143,12 +143,18 @@
              {errorMessage && <p className={log["error-message"]}>{errorMessage}</p>}
              {successMessage && <p className={log["success-message"]}>{successMessage}</p>}
              <div className={log["forgot-password"]}>
-               <Link 
-                 to={selectedUser === "Student" ? "/reset-password" : "#"}
-                 onClick={selectedUser !== "Student" ? () => alert("Please contact support for password reset instructions.") : undefined}
-               >
-                 Forgot Password?
-               </Link>
+             <Link 
+                to={selectedUser === "Student" ? "/reset-password" : 
+                    selectedUser === "Administrator" ? "/adminPassword" :
+                    selectedUser === "Lecturer" ? "/lecturerPassword" : "#"}
+                onClick={
+                  (selectedUser !== "Student" && selectedUser !== "Administrator" && selectedUser !== "Lecturer") ? 
+                  () => alert("Please contact support for password reset instructions.") : 
+                  undefined
+                }
+              >
+                Forgot Password?
+              </Link>
              </div>
            </form>
          </div>

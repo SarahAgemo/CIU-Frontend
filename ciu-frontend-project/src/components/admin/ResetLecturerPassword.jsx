@@ -16,22 +16,22 @@ const ResetlecturerForm= () => {
 
     try {
       // Make POST request to backend API
-      const response = await axios.post('http://localhost:3000/students/forgot-password', {
-        registrationNo: studentNumber,
+      const response = await axios.post('http://localhost:3000/lecturer_auth/forgot-pass', {
+        email: studentNumber,
       });
       
       // Handle successful response
       console.log('Token requested successfully:', response.data);
-      setSuccessMessage('Token sent to your student email.');
+      setSuccessMessage('Token sent to your Lecturer email.');
 
       // Redirect to '/request-token' after successful response
       setTimeout(() => {
-        navigate('/request-token'); // Redirects after 2 seconds
+        navigate('/RequestLecturerToken'); // Redirects after 2 seconds
       }, 2000); // Delay to show success message before redirecting
 
     } catch (error) {
       console.error('Error requesting token:', error);
-      setErrorMessage('Failed to request token. Please check your student number and try again.');
+      setErrorMessage('Failed to request token. Please check your Lecturer email and try again.');
     }
   };
 
