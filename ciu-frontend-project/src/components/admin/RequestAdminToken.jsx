@@ -193,7 +193,7 @@ const RequestAdminTokenForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/students/reset-password', {
+      const response = await fetch('http://localhost:3000/adminauth/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
