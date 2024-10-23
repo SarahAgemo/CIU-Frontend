@@ -108,7 +108,7 @@
   font-size: 1rem;
   cursor: pointer;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 940px) {
   .proctoring-overall {
     flex-direction: column; /* Stack elements vertically */
     width: 100%; /* Ensure full width */
@@ -134,7 +134,7 @@
   .video-container {
     width: 80%;
     justify-content: center;
-    padding-top: 60%; /* 4/5 of the width */
+    padding-top: 60%;
     height: 0; /* Set height to 0 and use padding to control the height */
     position: relative;
   }

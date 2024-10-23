@@ -24,7 +24,7 @@
 }
 
 /* Adjust layout for small screens */
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 940px) {
   .exam-img-div {
     display: none; /* Hide logo */
   }

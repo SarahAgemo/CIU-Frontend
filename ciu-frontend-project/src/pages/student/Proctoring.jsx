@@ -217,7 +217,6 @@ const Proctoring = () => {
           <button
             className="exit-btn"
             onClick={() => (window.location.href = "/instructions")}
-            style={{ position: "absolute", bottom: "20px", right: "20px" }}
           >
             <IoExitOutline />
             Exit
