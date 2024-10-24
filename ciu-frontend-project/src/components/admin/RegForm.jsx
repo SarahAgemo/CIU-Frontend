@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from './Header1';
 import Sidebar1 from './SideBar1';
+import './RegForm.css'; 
 
 const RegForm = () => {
   const [user, setUser] = useState({
@@ -11,11 +12,30 @@ const RegForm = () => {
     program: '',
     registrationNo: '',
     password: '',
-    role: '',
+    role: 'student',
     dateTime: '',
+    courseId: '', 
   });
 
-  const navigate = useNavigate(); // Initialize navigate
+  const [courses, setCourses] = useState([]); 
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/coursesAdd');
+        if (!response.ok) {
+          throw new Error('Failed to fetch courses');
+        }
+        const data = await response.json();
+        setCourses(data);
+      } catch (error) {
+        console.error('Error fetching courses:', error);
+      }
+    };
+
+    fetchCourses();
+  }, []);
 
   const handleChange = (e) => {
     setUser({
@@ -26,17 +46,21 @@ const RegForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('User data submitted:', user);
+
+    if (!user.courseId) {
+      alert('Course ID should not be empty');
+      return;
+    }
 
     const userData = {
       first_name: user.firstName,
       last_name: user.lastName,
       email: user.email,
-      program: user.program,
       registrationNo: user.registrationNo,
       password: user.password,
       role: user.role,
       dateTime: user.dateTime,
+      courseId: parseInt(user.courseId),
     };
 
     try {
@@ -53,26 +77,20 @@ const RegForm = () => {
         throw new Error(errorData.message || 'Network response was not ok');
       }
 
-      const result = await response.json();
-      console.log('User created successfully:', result);
-
       alert('User registered successfully!');
-
-      // Navigate to the table page after successful registration
       navigate('/table');
 
       setUser({
         firstName: '',
         lastName: '',
         email: '',
-        program: '',
         registrationNo: '',
         password: '',
-        role: '',
+        role: 'students',
         dateTime: '',
+        courseId: '',
       });
     } catch (error) {
-      console.error('Error creating user:', error);
       alert(`Error creating user: ${error.message}`);
     }
   };
@@ -82,24 +100,8 @@ const RegForm = () => {
       <Header />
       <div className="main-content">
         <Sidebar1 />
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            minHeight: '100vh',
-          }}
-        >
-          <div
-            style={{
-              padding: '30px',
-              borderRadius: '12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.95)',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-              width: '80%',
-              maxWidth: '600px',
-            }}
-          >
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+          <div style={{ padding: '30px', borderRadius: '12px', backgroundColor: 'rgba(255, 255, 255, 0.95)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)', width: '80%', maxWidth: '600px' }}>
             <h2 style={{ textAlign: 'center', color: '#065c4c' }}>User Registration</h2>
             <form onSubmit={handleSubmit}>
               {/* First Name and Last Name */}
@@ -138,7 +140,7 @@ const RegForm = () => {
                 </div>
               </div>
 
-              {/* Email and Program */}
+              {/* Email and Course ID */}
               <div style={{ display: 'flex', marginBottom: '20px' }}>
                 <div style={{ flex: '1', marginRight: '20px' }}>
                   <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Email:</label>
@@ -157,20 +159,34 @@ const RegForm = () => {
                   />
                 </div>
                 <div style={{ flex: '1' }}>
-                  <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Program:</label>
-                  <input
-                    type="text"
-                    name="program"
-                    value={user.program}
+                  <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Course:</label>
+                  <select
+                    name="courseId"
+                    value={user.courseId}
                     onChange={handleChange}
                     required
+                    className="course-select"
                     style={{
                       width: '100%',
                       padding: '12px',
                       border: '1px solid #106053',
                       fontSize: '16px',
+                      borderRadius: '4px',
+                      backgroundColor: '#fff',
+                      color: '#333',
                     }}
-                  />
+                  >
+                    <option value="">Select a Course</option>
+                    {courses.length > 0 ? (
+                      courses.map((course) => (
+                        <option key={course.id} value={course.id}>
+                          {course.courseName} 
+                        </option>
+                      ))
+                    ) : (
+                      <option disabled>Loading courses...</option>
+                    )}
+                  </select>
                 </div>
               </div>
 
@@ -246,22 +262,9 @@ const RegForm = () => {
                 </div>
               </div>
 
-              <button
-                type="submit"
-                style={{
-                  width: '100%',
-                  padding: '12px',
-                  backgroundColor: '#065c4c',
-                  color: 'white',
-                  border: 'none',
-                  cursor: 'pointer',
-                  fontSize: '16px',
-                  transition: 'background-color 0.3s',
-                }}
-                onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#b7d1c8')}
-                onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#065c4c')}
-              >
-                Register User
+              {/* Submit Button */}
+              <button type="submit" style={{ width: '100%', padding: '12px', backgroundColor: '#106053', color: '#fff', fontSize: '18px', textTransform: 'uppercase', cursor: 'pointer' }}>
+                Register
               </button>
             </form>
           </div>
