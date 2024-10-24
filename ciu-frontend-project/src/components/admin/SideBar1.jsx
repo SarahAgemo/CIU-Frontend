@@ -5,8 +5,8 @@ import AdminSide from './SideBar1.module.css';
 
 export default function Sidebar1() {
   const menuItems = [
-    { icon: <LayoutDashboard size={20} />, text: 'Dashboard', path: '/dashboard' },
-    { icon: <Users size={20} />, text: 'Manage Users', path: '/manage', active: true },
+    { icon: <LayoutDashboard size={20} />, text: 'Dashboard', path: '/admin/' },
+    { icon: <Users size={20} />, text: 'Manage Users', path: '/users', active: true },
     { icon: <Lock size={20} />, text: 'Create FAQ', path: '/admin/authentication' },
     { icon: <Calendar size={20} />, text: 'Calendar', path: '/admin/calendar' },
     { icon: <LogOut size={20} />, text: 'Logout', path: '/' }
