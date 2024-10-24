@@ -58,6 +58,7 @@ function App() {
         <Route path="/register" element={<RegForm />} />
         <Route path="/regCourse" element={<RegCourse />} />
         <Route path="/courses" element={<Courses />} />  
+        <Route path="/EditCourse" element={<EditCourse />} />  
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/users" element={<Users />} /> 
@@ -88,6 +89,7 @@ function App() {
         <Route path="/editadmin/:id" element={<Editadmin />} />
         <Route path="/regCourse" element={<RegCourse />} /> 
         <Route path="/courses" element={<Courses />} /> 
+        <Route path="/editcourse/:id" element={<EditCourse />} />
 
         {/* Lecturer */}
         <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
