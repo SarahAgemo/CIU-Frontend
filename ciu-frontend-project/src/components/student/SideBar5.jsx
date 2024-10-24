@@ -7,7 +7,6 @@ export default function Sidebar() {
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, text: 'Dashboard', path: '/student' },
     { icon: <FileText size={20} />, text: 'Do Exam', path: '/student/do-exam'},
-    { icon: <ClipboardList size={20} />, text: 'Results', path: '/student/results' },
     { icon: <Calendar size={20} />, text: 'Calendar', path: '/student/calendar' },
     { icon: <HelpCircle size={20} />, text: 'Support', path: '/student/support', active: true  },
     { icon: <LogOut size={20} />, text: 'Logout', path: '/' }

@@ -166,7 +166,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
-const RequestTokenForm = () => {
+const RequestAdminTokenForm = () => {
   const [formData, setFormData] = useState({
     token: '',
     newPassword: '',
@@ -193,7 +193,7 @@ const RequestTokenForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/students/reset-password', {
+      const response = await fetch('http://localhost:3000/adminauth/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -361,4 +361,4 @@ const RequestTokenForm = () => {
   );
 };
 
-export default RequestTokenForm;
+export default RequestAdminTokenForm;

@@ -480,33 +480,42 @@ header {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width:fit-content;
 }
 
 .add-option-btn:hover {
-  background-color: #08362f;
+  background-color: #0c890c;
 }
 
 .btn-primary {
-  background-color: #106053;
-  color: white;
+  
+  
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  background-color: transparent;
+  color: #106053;
+  padding: 10px 20px;
+  border: 2px solid #106053; 
+  width:fit-content;
 }
 
 .btn-primary:hover {
-  background-color: #08362f;
+  background-color: #106053;
+  color: white;
 }
 
 .btn-secondary {
   background-color: transparent;
   color: #106053;
   padding: 10px 20px;
-  border: 2px solid #106053;
+  border: 2px solid #106053; 
   border-radius: 4px;
   margin-left: 10px;
+  width:fit-content;
 }
+/* #0c890c */
 
 .btn-secondary:hover {
   background-color: #106053;

@@ -244,14 +244,15 @@ const RegCourse = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       try {
-        let endpoint = 'http://localhost:3000/lecturerReg';  // Adjust endpoint as needed
+        let endpoint = 'http://localhost:3000/coursesAdd'; // Adjust endpoint as needed
+        
         const payload = {
-          faculty_name: formData.facultyName,
-          course_name: formData.courseName,
-          course_units: formData.courseUnits,
-          course_units_code: formData.courseUnitsCode,
+          facultyName: formData.facultyName, // Ensure it matches the DTO property
+          courseName: formData.courseName, // Ensure it matches the DTO property
+          courseUnits: formData.courseUnits.split(','), // Split the input string into an array of strings
+          courseUnitCode: formData.courseUnitsCode, // Ensure it matches the DTO property
         };
-
+  
         const response = await fetch(endpoint, {
           method: 'POST',
           headers: {
@@ -259,11 +260,13 @@ const RegCourse = () => {
           },
           body: JSON.stringify(payload),
         });
-
+  
         if (response.ok) {
           setSuccessMessage('Course successfully registered!');
-          setFormData({ facultyName: '', courseName: '', courseUnits: '', courseUnitsCode: '' });
+          setFormData({ facultyName: '', courseName: '', courseUnits: '', courseUnitCode: '' });
           setErrors({});
+          navigate('/courses'); 
+        
         } else {
           const errorData = await response.json();
           setErrors(errorData.errors || {});
@@ -276,6 +279,7 @@ const RegCourse = () => {
       setErrors(validationErrors);
     }
   };
+  
 
   return (
     <div className="layout-container">
