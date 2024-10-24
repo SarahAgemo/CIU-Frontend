@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
 import '../../components/admin/CsvQuestionsPreview.css'; // Import the CSS file for styling
 
 function QuestionsPreview() {
@@ -7,6 +8,7 @@ function QuestionsPreview() {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState('');
+  const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -54,13 +56,15 @@ function QuestionsPreview() {
     }
   };
 
-  if (error) {
-    return <div className="alert alert-danger">{error}</div>;
-  }
-  
-
   const handleEditQuestion = (questionId) => {
-    navigate(`/questions/${questionId}/edit`);
+    navigate(`/exam-paper/${id}/question/${questionId}`);
+  };
+
+  const handleOptionChange = (questionId, selectedOption) => {
+    setSelectedAnswers((prevSelectedAnswers) => ({
+      ...prevSelectedAnswers,
+      [questionId]: selectedOption,
+    }));
   };
 
   if (error) return <div className="alert alert-danger">{error}</div>;
@@ -71,24 +75,38 @@ function QuestionsPreview() {
       <h3>Questions Preview</h3>
       <p>Total Questions: {questions.length}</p>
       {questions.map((question) => (
-        <div key={question.id} className="question-card">
+        <div key={question.id} className="question-card mb-3">
           <div className="question-content">
             <strong>Q{question.id}: </strong> {question.content}
           </div>
-          <div className="question-options">
-            <strong>Options:</strong>
-            <ul>
-              {question.options.map((option, index) => (
-                <li key={index}>{String.fromCharCode(97 + index)}){option}</li>
-              ))}
-            </ul>
-          </div>
+          <form className="question-options">
+            {question.options.map((option, index) => (
+              <div key={index} className="form-check d-flex align-items-center">
+                <input
+                  className="form-check-input me-2" // Add space between radio button and label
+                  type="radio"
+                  name={`question-${question.id}`} // Group radio buttons by question ID
+                  id={`question-${question.id}-option-${index}`}
+                  value={option}
+                  checked={selectedAnswers[question.id] === option} // Only check if user selects this option
+                  onChange={() => handleOptionChange(question.id, option)} // Handle user selection
+                />
+                <label className="form-check-label" htmlFor={`question-${question.id}-option-${index}`}>
+                  {option}
+                </label>
+              </div>
+            ))}
+          </form>
           <div className="question-answer">
-            <strong>Answer:</strong> {question.answer}
+            <strong>Correct Answer:</strong> {question.answer}
           </div>
-          <div className="question-actions">
-            <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning">Edit</button>
-            <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-danger">Delete</button>
+          <div className="question-actions d-flex justify-content-end mt-2">
+            <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning me-2">
+              <FaEdit />
+            </button>
+            <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-warning me-2">
+              <FaTrash />
+            </button>
           </div>
         </div>
       ))}
