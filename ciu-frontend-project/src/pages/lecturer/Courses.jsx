@@ -30,19 +30,19 @@ function TableBody({ children }) {
 
 // UserList component
 function UserList({ users, deleteUser }) {
-    const cols = ["#", "Faculty Name", "Course Name", "Course Units", "Course Unit Code", "Actions"];
+    const cols = ["#", "Faculty Name", "Course Name", "Course Units", "Course Units Code", "Actions"];
     const navigate = useNavigate();
 
     const userList = users.map((user, index) => (
         <tr key={user.id}>
             <th scope="row">{index + 1}</th>
-            <td>{user.facultyName}</td>
-            <td>{user.courseName}</td>
-            <td>{user.courseUnits}</td>
-            <td>{user.courseUnitCode}</td>
+            <td>{user.faculty_name}</td>
+            <td>{user.course_name}</td>
+            <td>{user.course_units}</td>
+            <td>{user.course_units_code}</td>
             <td>
                 <button
-                    onClick={() => navigate(`/editcourse/${user.id}`)}
+                    onClick={() => navigate(`/edit/${user.id}`)}
                     type="button"
                     className="btn btn-secondary"
                 >
@@ -50,7 +50,7 @@ function UserList({ users, deleteUser }) {
                 </button>
                 <button
                     onClick={() => {
-                        if (window.confirm('Are you sure you want to delete this course?')) {
+                        if (window.confirm('Are you sure you want to delete this user?')) {
                             deleteUser(user.id);
                         }
                     }}
@@ -71,27 +71,19 @@ function UserList({ users, deleteUser }) {
     );
 }
 
-// Main Courses component
+// Main Users component
 function Courses() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/coursesAdd')
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data); 
-                setUsers(data);
-            })
+        fetch('http://localhost:3000/lecturerReg')
+            .then((response) => response.json())
+            .then((data) => setUsers(data))
             .catch((error) => console.error('Error fetching users:', error));
     }, []);
-    
+
     const deleteUser = (id) => {
-        fetch(`http://localhost:3000/coursesAdd/${id}`, {
+        fetch(`http://localhost:3000/lecturerReg/${id}`, {
             method: 'DELETE',
         })
             .then((response) => {
@@ -111,7 +103,7 @@ function Courses() {
                 <Sidebar1 />  {/* Render Sidebar */} 
                 <div className="users-content">  {/* Content for the Users page */}
                     <div className='row justify-content-center pt-5'>
-                        <UserList users={users} deleteUser={deleteUser} /> {/* Fixed prop name */}
+                        <UserList users={users} deleteUser={deleteUser} />
                     </div>
                 </div>
             </div>
