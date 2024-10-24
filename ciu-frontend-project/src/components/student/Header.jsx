@@ -10,35 +10,35 @@ export default function Header() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        // Retrieve the token from local storage
+        
         const token = localStorage.getItem('token'); 
 
         if (!token) {
           console.error('No token found');
-          setError('Please log in.'); // Set error message if no token is found
-          return; // Exit if there is no token
+          setError('Please log in.'); 
+          return; 
         }
 
-        // Fetch the user profile
+        
         const response = await axios.get('http://localhost:3000/faqs/profile', {
           headers: {
             Authorization: `Bearer ${token}`, // Use the token for authorization
           },
         });
 
-        // Extract user information from the response
+        
         const { first_name, last_name, role } = response.data;
 
-        // Update state with user information
-        setUserInfo({ name: `${first_name} ${last_name}`, role: role || 'User' }); // Set full name and role
+       
+        setUserInfo({ name: `${first_name} ${last_name}`, role: role || 'User' }); 
       } catch (error) {
         console.error('Error fetching user profile:', error);
-        setError('Failed to fetch user profile.'); // Set error message if fetching fails
+        setError('Failed to fetch user profile.'); 
       }
     };
 
-    fetchUserProfile(); // Call the function to fetch user data
-  }, []); // Empty dependency array to run only on mount
+    fetchUserProfile(); 
+  }, []); 
 
   return (
     <header className={Head["header"]}>
