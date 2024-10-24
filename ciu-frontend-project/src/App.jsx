@@ -41,6 +41,9 @@ import DoExam from "./pages/student/DoExam.jsx";
 import SupportPage from "./pages/student/SupportPage.jsx";
 import FAQpage from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
+import ExamInstructions from "./pages/student/ExamInstructions";
+import Proctoring from "./pages/student/Proctoring";
+import Quiz from "./pages/student/Quiz";
 
 function App() {
   return (
