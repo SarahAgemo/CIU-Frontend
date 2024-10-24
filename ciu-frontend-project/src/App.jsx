@@ -4,15 +4,9 @@ import Login from "./pages/login.jsx";
 import RegForm from "./components/admin/RegForm";
 import Registration from "./pages/admin/Registration.jsx";
 import React from "react";
-
-// import ExamSchedule from "./pages/student/ExamSchedule";
 import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";
-// import SystemOutage from "./pages/student/SystemOutage";
-// import TimeOut from "./pages/student/TimeOut";
-// import Results from "./pages/student/Results";
-// import Support from "./pages/student/Support";
 
 function App() {
   return (
