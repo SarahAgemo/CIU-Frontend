@@ -6,40 +6,40 @@ import { BiSolidUserRectangle } from "react-icons/bi";
 import { FaLock, FaUser } from "react-icons/fa";
 import { RiArrowDropDownLine } from "react-icons/ri";
 
-const Login = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState("Select User");
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [successMessage, setSuccessMessage] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
+ const Login = () => {
+   const [isOpen, setIsOpen] = useState(false);
+   const [selectedUser, setSelectedUser] = useState("Select User");
+   const [identifier, setIdentifier] = useState("");
+   const [password, setPassword] = useState("");
+   const [errorMessage, setErrorMessage] = useState("");
+   const [successMessage, setSuccessMessage] = useState("");
+   const [isSubmitting, setIsSubmitting] = useState(false);
+   const navigate = useNavigate();
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
+   const toggleDropdown = () => {
+     setIsOpen(!isOpen);
+   };
 
-  const handleUserSelection = (user) => {
-    setSelectedUser(user);
-    setIsOpen(false);
-  };
+   const handleUserSelection = (user) => {
+     setSelectedUser(user);
+     setIsOpen(false);
+   };
 
-  const placeholderText = selectedUser === "Student" ? "Registration Number" : "Email";
+   const placeholderText = selectedUser === "Student" ? "Registration Number" : "Email";
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+   const handleSubmit = async (e) => {
+     e.preventDefault();
 
-    if (isSubmitting) return;
-    setIsSubmitting(true);
-    setErrorMessage("");
-    setSuccessMessage("");
+     if (isSubmitting) return;
+     setIsSubmitting(true);
+     setErrorMessage("");
+     setSuccessMessage("");
 
-    let endpoint = "";
-    let userPayload = {};
+     let endpoint = "";
+     let userPayload = {};
 
     if (selectedUser === "Lecturer") {
-      endpoint = "http://localhost:3000/auth/login";
+      endpoint = "http://localhost:3000/lecturer_auth/login";
       userPayload = { email: identifier, password };
     } else if (selectedUser === "Administrator") {
       endpoint = "http://localhost:3000/adminauth/login";
