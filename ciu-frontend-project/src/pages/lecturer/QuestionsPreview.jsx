@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
-import '../../components/admin/CsvQuestionsPreview.css'; // Import the CSS file for styling
 
 function QuestionsPreview() {
   const { id } = useParams();
@@ -75,21 +74,22 @@ function QuestionsPreview() {
       <h3>Questions Preview</h3>
       <p>Total Questions: {questions.length}</p>
       {questions.map((question) => (
-        <div key={question.id} className="question-card mb-3">
-          <div className="question-content">
+        <div key={question.id} className="question-card mb-3" style={{ textAlign: 'left' }}> {/* Ensured text aligns to the left */}
+          <div className="question-content" style={{ display: 'flex', alignItems: 'center' }}>
             <strong>Q{question.id}: </strong> {question.content}
           </div>
-          <form className="question-options">
+          <form className="question-options" style={{ display: 'flex', flexDirection: 'column', marginBottom: '0' }}>
             {question.options.map((option, index) => (
-              <div key={index} className="form-check d-flex align-items-center">
+              <div key={index} className="form-check" style={{ display: 'flex', alignItems: 'center', marginBottom: '2px' }}>
                 <input
-                  className="form-check-input me-2" // Add space between radio button and label
+                  className="form-check-input me-1" // Adjusted margin to reduce space
                   type="radio"
                   name={`question-${question.id}`} // Group radio buttons by question ID
                   id={`question-${question.id}-option-${index}`}
                   value={option}
                   checked={selectedAnswers[question.id] === option} // Only check if user selects this option
                   onChange={() => handleOptionChange(question.id, option)} // Handle user selection
+                  style={{ marginRight: '2px' }} // Further reduced space between radio button and label
                 />
                 <label className="form-check-label" htmlFor={`question-${question.id}-option-${index}`}>
                   {option}
@@ -97,14 +97,14 @@ function QuestionsPreview() {
               </div>
             ))}
           </form>
-          <div className="question-answer">
+          <div className="question-answer" style={{ marginTop: '5px' }}>
             <strong>Correct Answer:</strong> {question.answer}
           </div>
-          <div className="question-actions d-flex justify-content-end mt-2">
-            <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning me-2">
+          <div className="question-actions d-flex" style={{ marginTop: '5px' }}>
+            <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning me-1">
               <FaEdit />
             </button>
-            <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-warning me-2">
+            <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-warning me-1">
               <FaTrash />
             </button>
           </div>
