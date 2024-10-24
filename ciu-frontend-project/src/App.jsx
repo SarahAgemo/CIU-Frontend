@@ -18,6 +18,7 @@ import EditStudent from './components/admin/EditStudent.jsx';
 import Adminuser from "./components/admin/Adminuser.jsx";
 import Editadmin from "./components/admin/Editadmin.jsx";
 import ResetAdminPassword from "./components/admin/ResetAdminPassword.jsx";
+import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx";
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 import RegCourse from "./pages/lecturer/RegCourse.jsx";
@@ -42,6 +43,7 @@ import FAQpage from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
 
 
+
 function App() {
   return (
     <Router>
@@ -54,10 +56,28 @@ function App() {
 
         {/* Admin */}
         <Route path="/register" element={<RegForm />} />
+        <Route path="/regCourse" element={<RegCourse />} />
+        <Route path="/courses" element={<Courses />} />  
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/manage" element={<ManageUsers />} />
+        <Route path="/users" element={<Users />} /> 
+        <Route path="/edit/:id" element={<EditUser />} />  
+        <Route path="/layout" element={<Layout />} /> 
+        <Route path="/request-token" element={<RequestToken />} /> 
+        <Route path="schedule-upload-exams" element={<ScheduleUploadExams />} />
+        <Route path="schedule-create-exams" element={<ScheduleCreateExams />} />
+        <Route path="add-questions" element={<AddQuestions />} />
+        <Route path="/registers" element={<Registration />} />  
+        <Route path="/manage" element={<ManageUsers />} /> 
+        <Route path="/admin" element={<Dashboard />} /> 
+        <Route path="/reset-password" element={<ResetPassword />} />
+
+        {/* Admin */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/manage-users" element={<ManageUsers />} />
         <Route path="/registers" element={<Registration />} />
+        <Route path="/manage" element={<ManageUsers />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<EditUser />} />
         <Route path="/layout" element={<Layout />} />
@@ -66,21 +86,18 @@ function App() {
         <Route path="/edit-student/:id" element={<EditStudent />} />
         <Route path="/adminuser" element={<Adminuser />} />
         <Route path="/editadmin/:id" element={<Editadmin />} />
-        <Route path="/adminPassword" element={<ResetAdminPassword />} />
-        <Route path="/RequestAdminToken" element={<RequestAdminToken />} />
-        <Route path="/RequestLecturerToken" element={<RequestLecturerToken />} />
-        <Route path="/regCourse" element={<RegCourse />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/editcourse/:id" element={<EditCourse />} />
+        <Route path="/regCourse" element={<RegCourse />} /> 
+        <Route path="/courses" element={<Courses />} /> 
 
         {/* Lecturer */}
         <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
         <Route path="/schedule-create-exams" element={<ScheduleCreateExams />} />
         <Route path="/add-questions" element={<AddQuestions />} />
+      
         <Route path="/exam-paper/:id" element={<ExamPaperPreview />} />
         <Route path="/schedule-upload-exams/exam-list" element={<ExamList />} />
         <Route path="/exam-paper/:id/questions" element={<QuestionsPreview />} />
-        <Route path="/exam-paper/${id}/question/${questionId}" element={<EditExamPaper />} />
+        <Route path="/exam-paper/:id/question/:questionId" element={<EditExamPaper />} /> {/* Use 'element' prop here */}
         <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} />
 
         {/* Student */}
