@@ -1,0 +1,55 @@
+.exam-img-div img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .wrap-details {
+    width: 90%;
+    background: #ebebeb;
+    padding: 10px;
+    color: #106053;
+    border-radius: 10px;
+  }
+  
+  .wrap-details h1 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .wrap-details p {
+    font-size: 1rem;
+    text-align: center;
+  }
+  
+  /* Adjust layout for small screens */
+  @media screen and (max-width: 940px) {
+    .exam-img-div {
+      display: none; /* Hide logo */
+    }
+  
+    .wrap-details {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      background: transparent;
+      background-color: white;
+      border-radius: 0;
+      box-sizing: border-box; /* Ensure full width with padding */
+    }
+  
+    .wrap-details p {
+      flex: 1;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+  
+    .wrap-details p:last-child {
+      text-align: right;
+    }
+    .wrap-details h1 {
+      display: none;
+    }
+  }
+  
