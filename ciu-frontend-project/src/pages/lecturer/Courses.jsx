@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import Header from '../../components/lecturer/Header'; // Import the Header
 import Sidebar1 from '../../components/lecturer/SideBarAddQuestion'; // Import the Sidebar
 import './Courses.css';
@@ -46,24 +47,27 @@ function UserList({ users, deleteUser }) {
                         <td>{user.courseUnits}</td>
                         <td>{user.courseUnitCode}</td>
                         <td>
-                            <button
-                                onClick={() => navigate(`/editcourse/${user.id}`)}
-                                type="button"
-                                className="btn btn-secondary"
-                            >
-                                Edit
-                            </button>
-                            <button
-                                onClick={() => {
-                                    if (window.confirm('Are you sure you want to delete this course?')) {
-                                        deleteUser(user.id);
-                                    }
-                                }}
-                                type="button"
-                                className="btn btn-danger"
-                            >
-                                Delete
-                            </button>
+                        <button
+    onClick={() => navigate(`/editcourse/${user.id}`)}
+    type="button"
+    className="btn btn-primary"
+>
+    {/* <i className="fas fa-edit"></i>  */}
+    Edit
+</button>
+<button
+    onClick={() => {
+        if (window.confirm('Are you sure you want to delete this course?')) {
+            deleteUser(user.id);
+        }
+    }}
+    type="button"
+    className="btn btn-danger"
+>
+    {/* <i className="fas fa-trash"></i>  */}
+    Delete
+</button>
+
                         </td>
                     </tr>
                 ))}

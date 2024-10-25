@@ -1,5 +1,5 @@
 import React from 'react';
-import Layout from '../../components/lecturer/Layout'; // Import the Layout component
+import Layout from '../../components/lecturer/LayoutRegCourse'; // Import the Layout component
 import RegCourseContent from './RegCourseContent'; // Import the registration course content
 
 const RegCourse = () => {
