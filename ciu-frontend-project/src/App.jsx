@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/login.jsx";
 import ResetPassword from './components/admin/ResetPassword.jsx';
 import RequestToken from "./components/admin/RequestToken.jsx";
-
+import ProtectedRoute from './components/student/ProtectedRoute.jsx';
 // Admin
 import RegForm from './components/admin/RegForm.jsx';
 import Registration from "./pages/admin/Registration.jsx";
@@ -76,7 +76,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/manage-users" element={<ManageUsers />} />
-        <Route path="/registers" element={<Registration />} />
+       
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<EditUser />} />
@@ -101,11 +101,30 @@ function App() {
         <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} />
 
         {/* Student */}
-        <Route path="/student" element={<StudentDashboard />} />
-        <Route path="/student/do-exam" element={<DoExam />} />
-        <Route path="/student/support" element={<SupportPage />} />
-        <Route path="/student/support/faqs" element={<FAQpage />} />
-        <Route path="/student/support/report-issue" element={<ReportIssue />} />
+        <Route path="/student" element={
+           <ProtectedRoute>
+          <StudentDashboard />
+          </ProtectedRoute>
+          } />
+        <Route path="/student/do-exam" element={<ProtectedRoute>
+          <DoExam />
+          </ProtectedRoute>
+          } />
+        <Route path="/student/support" element={
+          <ProtectedRoute>
+          <SupportPage />
+          </ProtectedRoute>
+        } 
+          />
+        <Route path="/student/support/faqs" element={
+           <ProtectedRoute>
+          <FAQpage />
+          </ProtectedRoute>} />
+        <Route path="/student/support/report-issue" element={
+          <ProtectedRoute>
+          <ReportIssue />
+          </ProtectedRoute>
+          } />
 
       </Routes>
     </Router>
