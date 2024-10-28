@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/login.jsx";
 import ResetPassword from "./components/admin/ResetPassword.jsx";
 import RequestToken from "./components/admin/RequestToken.jsx";
-
+import ProtectedRoute from './components/student/ProtectedRoute.jsx';
 // Admin
 import RegForm from "./components/admin/RegForm.jsx";
 import Registration from "./pages/admin/Registration.jsx";
@@ -18,7 +18,6 @@ import EditStudent from "./components/admin/EditStudent.jsx";
 import Adminuser from "./components/admin/Adminuser.jsx";
 import Editadmin from "./components/admin/Editadmin.jsx";
 import ResetAdminPassword from "./components/admin/ResetAdminPassword.jsx";
-import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx";
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 import RegCourse from "./pages/lecturer/RegCourse.jsx";
@@ -34,6 +33,7 @@ import ExamList from "./pages/lecturer/ExamList.jsx";
 import QuestionsPreview from "./pages/lecturer/QuestionsPreview.jsx";
 import EditExamPaper from "./pages/lecturer/EditExamPaper.jsx";
 import EditExamInterface from "./pages/lecturer/EditExamInterface.jsx";
+import PublishedExamList from './pages/lecturer/PublishedExamList.jsx';
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
@@ -44,6 +44,8 @@ import ReportIssue from "./pages/student/ReportIssue.jsx";
 import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";
+
+
 
 function App() {
   return (
@@ -60,7 +62,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/manage-users" element={<ManageUsers />} />
-        <Route path="/registers" element={<Registration />} />
+       
+        <Route path="/manage" element={<ManageUsers />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<EditUser />} />
         <Route path="/layout" element={<Layout />} />
@@ -69,7 +72,6 @@ function App() {
         <Route path="/adminuser" element={<Adminuser />} />
         <Route path="/editadmin/:id" element={<Editadmin />} />
         <Route path="/adminPassword" element={<ResetAdminPassword />} />
-        <Route path="/lecturerPassword" element={<ResetLecturerPassword />} />
         <Route path="/RequestAdminToken" element={<RequestAdminToken />} />
         <Route path="/RequestLecturerToken" element={<RequestLecturerToken />} />
         <Route path="/regCourse" element={<RegCourse />} />
@@ -85,8 +87,35 @@ function App() {
         <Route path="/exam-paper/:id/questions" element={<QuestionsPreview />} />
         <Route path="/exam-paper/:id/question/:questionId" element={<EditExamPaper />} />
         <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} />
-
+        <Route path="/published-exam-papers" element={<PublishedExamList />} />
+          
         {/* Student */}
+
+        <Route path="/student" element={
+           <ProtectedRoute>
+          <StudentDashboard />
+          </ProtectedRoute>
+          } />
+        <Route path="/student/do-exam" element={<ProtectedRoute>
+          <DoExam />
+          </ProtectedRoute>
+          } />
+        <Route path="/student/support" element={
+          <ProtectedRoute>
+          <SupportPage />
+          </ProtectedRoute>
+        } 
+          />
+        <Route path="/student/support/faqs" element={
+           <ProtectedRoute>
+          <FAQpage />
+          </ProtectedRoute>} />
+        <Route path="/student/support/report-issue" element={
+          <ProtectedRoute>
+          <ReportIssue />
+          </ProtectedRoute>
+          } />
+
         <Route path="/student" element={<StudentDashboard />} />
         <Route path="/student/do-exam" element={<DoExam />} />
         <Route path="/student/support" element={<SupportPage />} />
@@ -95,6 +124,7 @@ function App() {
         <Route path="/instructions" element={<ExamInstructions />} />
         <Route path="/proctoring" element={<Proctoring />} />
         <Route path="/quiz" element={<Quiz />} />
+
       </Routes>
     </Router>
   );

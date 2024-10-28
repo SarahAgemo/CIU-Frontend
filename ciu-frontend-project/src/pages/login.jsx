@@ -56,8 +56,9 @@ import { RiArrowDropDownLine } from "react-icons/ri";
     try {
       const response = await axios.post(endpoint, userPayload);
       const accessToken = response.data.access_token || response.data.token?.access_token;
+      console.log(accessToken);
 
-      if (accessToken) {
+      // if (response.data.message === "Login successful") {
         localStorage.setItem('token', accessToken); 
         localStorage.setItem('user', JSON.stringify(response.data.user));
         setSuccessMessage("Login successful!");
@@ -69,10 +70,11 @@ import { RiArrowDropDownLine } from "react-icons/ri";
         } else if (selectedUser === "Lecturer") {
           navigate("/lecturer");
         }
-      } else {
-        setErrorMessage("Login failed. No token received.");
-      }
+      // } else {
+      //   setErrorMessage("Login failed. No token received.");
+      // }
     } catch (error) {
+      console.log(error);
       setErrorMessage("Login failed. Please check your credentials.");
     } finally {
       setIsSubmitting(false);
