@@ -35,6 +35,8 @@ const ExamCard = ({ exam }) => {
                 <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
                 <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
+                <p><strong>Course Unit Code:</strong> {exam.courseId}</p>
+                <p><strong>Course Unit Code:</strong> {exam.courseName}</p>
             </div>
             <div className={DoExam["exam-actions"]}>
                 <button className={DoExam["do-exam-btn"]}>DO EXAM</button>
@@ -54,8 +56,18 @@ export default function MainContent() {
     useEffect(() => {
       const loadExams = async () => {
         try {
-          const exams = await fetchAvailableExams(); // Fetch exam data from both endpoints
-          setAvailableExams(exams);
+          const exams = await fetchAvailableExams(); 
+          
+          const student = JSON.parse(localStorage.getItem("user"))
+         console.log(exams,student.CourseId)
+         let myarray = []
+         exams.map(available =>{
+          if (available.courseId === student.CourseId){
+            myarray.push(available)
+          }})
+          setAvailableExams(myarray);
+          console.log(myarray)
+
         } catch (err) {
           setError(err.message); // Capture any errors
         } finally {
