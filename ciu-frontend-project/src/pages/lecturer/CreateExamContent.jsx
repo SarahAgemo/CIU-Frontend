@@ -54,6 +54,7 @@ export default function CreateExamContent() {
                   correctAnswer: q.correctAnswer,
                 }))
               ),
+              
             };
 
         axios.post('http://localhost:3000/manualAssessment', payload)
