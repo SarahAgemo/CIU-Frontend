@@ -33,6 +33,7 @@ import ExamList from "./pages/lecturer/ExamList.jsx";
 import QuestionsPreview from "./pages/lecturer/QuestionsPreview.jsx";
 import EditExamPaper from "./pages/lecturer/EditExamPaper.jsx";
 import EditExamInterface from "./pages/lecturer/EditExamInterface.jsx";
+import PublishedExamList from './pages/lecturer/PublishedExamList.jsx';
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
@@ -43,6 +44,7 @@ import ReportIssue from "./pages/student/ReportIssue.jsx";
 import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";
+
 
 
 function App() {
@@ -87,6 +89,7 @@ function App() {
         <Route path="/exam-paper/:id/questions" element={<QuestionsPreview />} />
         <Route path="/exam-paper/:id/question/:questionId" element={<EditExamPaper />} />
         <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} />
+        <Route path="/published-exam-papers" element={<PublishedExamList />} />
           
         {/* Student */}
 
