@@ -52,8 +52,8 @@ function UserList({ users, deleteUser }) {
     type="button"
     className="btn btn-primary"
 >
-    {/* <i className="fas fa-edit"></i>  */}
-    Edit
+    <i className="fas fa-edit"></i> 
+    {/* Edit */}
 </button>
 <button
     onClick={() => {
@@ -64,8 +64,8 @@ function UserList({ users, deleteUser }) {
     type="button"
     className="btn btn-danger"
 >
-    {/* <i className="fas fa-trash"></i>  */}
-    Delete
+    <i className="fas fa-trash"></i> 
+    {/* Delete */}
 </button>
 
                         </td>
