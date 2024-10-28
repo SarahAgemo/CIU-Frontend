@@ -50,6 +50,28 @@ function ExamPaperPreview() {
     }
   };
 
+  const handlePublish = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/exam-paper/${id}/publish`, {
+        method: 'PATCH',
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      // Assuming the backend responds with updated exam data
+      const updatedExamData = await response.json();
+      setSuccess('Exam paper published successfully');
+      setExamData(updatedExamData); // Update local state with the published data
+
+      // Redirect to the Published Exam Papers List page
+      navigate('/published-exam-papers');
+    } catch (error) {
+      setError('Error publishing exam paper: ' + error.message);
+    }
+  };
+
   if (error) return <div className="alert alert-danger">{error}</div>;
   if (!examData) return <div>Loading...</div>;
 
@@ -115,6 +137,11 @@ function ExamPaperPreview() {
         <button onClick={handleDelete} className="btn btn-danger">
           Delete Exam Paper
         </button>
+        {examData.isDraft && (
+          <button onClick={handlePublish} className="btn btn-success ml-2">
+            Publish
+          </button>
+        )}
       </div>
       
       {success && <div className="alert alert-success mt-3">{success}</div>}
