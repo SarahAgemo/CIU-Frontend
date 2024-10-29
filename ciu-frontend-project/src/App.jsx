@@ -43,6 +43,8 @@ import FAQpage from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
 import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
+import NewProctoring from "./pages/student/NewProctoring.jsx";
+import NewQuiz from "./pages/student/NewQuiz.jsx";
 import Quiz from "./pages/student/Quiz";
 
 function App() {
@@ -107,6 +109,8 @@ function App() {
         <Route path="/student/support/report-issue" element={<ReportIssue />} />
         <Route path="/instructions" element={<ExamInstructions />} />
         <Route path="/proctoring" element={<Proctoring />} />
+        <Route path="/NewProctoring" element={<NewProctoring />} />
+        <Route path="/NewQuiz" element={<NewQuiz/>} />
         <Route path="/quiz" element={<Quiz />} />
       </Routes>
     </Router>
