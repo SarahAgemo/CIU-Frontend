@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../../components/admin/CsvQuestionsPreview.css'; // Import the CSS file for styling
+import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
 
 function QuestionsPreview() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState('');
+  const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -54,13 +55,15 @@ function QuestionsPreview() {
     }
   };
 
-  if (error) {
-    return <div className="alert alert-danger">{error}</div>;
-  }
-  
-
   const handleEditQuestion = (questionId) => {
-    navigate(`/questions/${questionId}/edit`);
+    navigate(`/exam-paper/${id}/question/${questionId}`);
+  };
+
+  const handleOptionChange = (questionId, selectedOption) => {
+    setSelectedAnswers((prevSelectedAnswers) => ({
+      ...prevSelectedAnswers,
+      [questionId]: selectedOption,
+    }));
   };
 
   if (error) return <div className="alert alert-danger">{error}</div>;
@@ -71,24 +74,39 @@ function QuestionsPreview() {
       <h3>Questions Preview</h3>
       <p>Total Questions: {questions.length}</p>
       {questions.map((question) => (
-        <div key={question.id} className="question-card">
-          <div className="question-content">
+        <div key={question.id} className="question-card mb-3" style={{ textAlign: 'left' }}> {/* Ensured text aligns to the left */}
+          <div className="question-content" style={{ display: 'flex', alignItems: 'center' }}>
             <strong>Q{question.id}: </strong> {question.content}
           </div>
-          <div className="question-options">
-            <strong>Options:</strong>
-            <ul>
-              {question.options.map((option, index) => (
-                <li key={index}>{String.fromCharCode(97 + index)}){option}</li>
-              ))}
-            </ul>
+          <form className="question-options" style={{ display: 'flex', flexDirection: 'column', marginBottom: '0' }}>
+            {question.options.map((option, index) => (
+              <div key={index} className="form-check" style={{ display: 'flex', alignItems: 'center', marginBottom: '2px' }}>
+                <input
+                  className="form-check-input me-1" // Adjusted margin to reduce space
+                  type="radio"
+                  name={`question-${question.id}`} // Group radio buttons by question ID
+                  id={`question-${question.id}-option-${index}`}
+                  value={option}
+                  checked={selectedAnswers[question.id] === option} // Only check if user selects this option
+                  onChange={() => handleOptionChange(question.id, option)} // Handle user selection
+                  style={{ marginRight: '2px' }} // Further reduced space between radio button and label
+                />
+                <label className="form-check-label" htmlFor={`question-${question.id}-option-${index}`}>
+                  {option}
+                </label>
+              </div>
+            ))}
+          </form>
+          <div className="question-answer" style={{ marginTop: '5px' }}>
+            <strong>Correct Answer:</strong> {question.answer}
           </div>
-          <div className="question-answer">
-            <strong>Answer:</strong> {question.answer}
-          </div>
-          <div className="question-actions">
-            <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning">Edit</button>
-            <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-danger">Delete</button>
+          <div className="question-actions d-flex" style={{ marginTop: '5px' }}>
+            <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning me-1">
+              <FaEdit />
+            </button>
+            <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-warning me-1">
+              <FaTrash />
+            </button>
           </div>
         </div>
       ))}

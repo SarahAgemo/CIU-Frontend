@@ -1,67 +1,73 @@
 import React, { useState, useEffect } from 'react';
 import { Clock } from 'lucide-react';
-import DoExam from './DoExamContent.module.css'
+import DoExam from './DoExamContent.module.css';
 
-// Mock API call to fetch available exams
+// Function to fetch exams from both endpoints
 const fetchAvailableExams = async () => {
-    // Simulating an API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return [
-      {
-        id: 1,
-        title: 'MACRO ECONOMICS',
-        program: 'Accounting',
-        datePublished: '02/09/2024',
-        startingDate: '26/09/2024',
-        startingTime: '2:00 p.m.',
-        duration: '3 hour',
-        status: 'Not Started'
-      },
-      {
-        id: 2,
-        title: 'CALCULUS',
-        program: 'Procurement',
-        datePublished: '02/09/2024',
-        startingDate: '04/10/2024',
-        startingTime: '10:00 a.m.',
-        duration: '1 hour 30 minutes',
-        status: 'Not Started'
-      }
-    ];
-  };
+    const csvResponse = await fetch('http://localhost:3000/exam-paper');
+    const manualResponse = await fetch('http://localhost:3000/manualAssessment');
 
-const ExamCard = ({ exam }) => (
-    <div className={DoExam["exam-card"]}>
-      <h3>{exam.title}</h3>
-      <div className={DoExam["exam-details"]}>
-        <p><strong>Program:</strong> {exam.program}</p>
-        <p><strong>Date Published:</strong> {exam.datePublished}</p>
-        <p><strong>Starting Date:</strong> {exam.startingDate}</p>
-        <p><strong>Starting Time:</strong> {exam.startingTime}</p>
-        <p><strong>Duration:</strong> {exam.duration}</p>
-        <p><strong>Status:</strong> {exam.status}</p>
-      </div>
-      <div className={DoExam["exam-actions"]}>
-        <button className={DoExam["do-exam-btn"]}>DO EXAM</button>
-        <a href="#" className={DoExam["schedule-reminder"]}>
-          Schedule Reminder <Clock size={16} />
-        </a>
-      </div>
-    </div>
-);
+    // Check if the responses are successful
+    if (!csvResponse.ok || !manualResponse.ok) {
+        throw new Error('Failed to fetch exams');
+    }
+
+    const csvExams = await csvResponse.json();
+    const manualExams = await manualResponse.json();
+
+    // Combine both exam lists
+    return [...csvExams, ...manualExams];
+};
+
+const ExamCard = ({ exam }) => {
+    const scheduledDate = new Date(exam.scheduledDate);
+    const startTime = new Date(exam.startTime);
+    const endTime = new Date(exam.endTime);
+
+    return (
+        <div className={DoExam["exam-card"]}>
+            <h3>{exam.title}</h3>
+            <div className={DoExam["exam-details"]}>
+                <p><strong>Description:</strong> {exam.description}</p>
+                <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
+                <p><strong>Duration:</strong> {exam.duration} minutes</p>
+                <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
+                <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
+            </div>
+            <div className={DoExam["exam-actions"]}>
+                <button className={DoExam["do-exam-btn"]}>DO EXAM</button>
+                <a href="#" className={DoExam["schedule-reminder"]}>
+                    Schedule Reminder <Clock size={16} />
+                </a>
+            </div>
+        </div>
+    );
+};
 
 export default function MainContent() {
-
     const [availableExams, setAvailableExams] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
   
     useEffect(() => {
       const loadExams = async () => {
-        const exams = await fetchAvailableExams(); // Mock API call to fetch exam data
-        setAvailableExams(exams);
+        try {
+          const exams = await fetchAvailableExams(); // Fetch exam data from both endpoints
+          setAvailableExams(exams);
+        } catch (err) {
+          setError(err.message); // Capture any errors
+        } finally {
+          setLoading(false); // Stop loading
+        }
       };
       loadExams();
     }, []);
   
+    if (loading) return <p>Loading exams...</p>;
+    if (error) return <p>Error: {error}</p>;
+
     return (
       <main className={DoExam["main-content"]}>
         <h2 className={DoExam["page-title"]}>AVAILABLE EXAMS</h2>
@@ -72,5 +78,4 @@ export default function MainContent() {
         </div>
       </main>
     );
-};
-
+}
