@@ -11,12 +11,11 @@ export default function ManageUsers() {
       <Header />
       <div className={ManageUser["dashboard-content"]}>
         <Sidebar1 />
-        <main className="main-content">
-          <h2 className="dashboard-title">Manage Users</h2>
-          <div className="management-cards">
-          <ManagementCard title="Manage Students" icon="user" link="/table" />
-            <ManagementCard title="Manage Lecturers" icon="users" link="/users" />
-            <ManagementCard title="Manage Admin" icon="users" link="/adminuser" />
+        <main className={ManageUser["main-content"]}>
+          <h2 className={ManageUser["dashboard-title"]}>Manage Users</h2>
+          <div className={ManageUser["management-cards"]}>
+            <ManagementCard title="Manage Lecturers" icon="users" to="/admin/manage-users/students" />
+            <ManagementCard title="Manage Students" icon="user" to="/admin/manage-users/teachers"/>
           </div>
         </main>
       </div>

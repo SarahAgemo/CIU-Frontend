@@ -193,7 +193,7 @@ const RequestLecturerTokenForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/students/reset-password', {
+      const response = await fetch('http://localhost:3000/lecturer_auth/reset-pass', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
