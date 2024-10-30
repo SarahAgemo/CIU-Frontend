@@ -1,0 +1,44 @@
+.manage-lecturers {
+  padding: 1.5rem;
+}
+
+.manage-lecturers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  color: #4b5563;
+  transition: color 0.2s;
+}
+
+.back-button:hover {
+  color: #1f2937;
+}
+
+.back-button-icon {
+  margin-right: 0.5rem;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.add-lecturer-button {
+  background-color: #105F53;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.add-lecturer-button:hover {
+  background-color: #059669;
+}

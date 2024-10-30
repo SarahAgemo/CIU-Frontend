@@ -56,8 +56,9 @@ import { RiArrowDropDownLine } from "react-icons/ri";
     try {
       const response = await axios.post(endpoint, userPayload);
       const accessToken = response.data.access_token || response.data.token?.access_token;
+      console.log(accessToken);
 
-      if (accessToken) {
+      // if (response.data.message === "Login successful") {
         localStorage.setItem('token', accessToken); 
         localStorage.setItem('user', JSON.stringify(response.data.user));
         setSuccessMessage("Login successful!");
@@ -69,10 +70,11 @@ import { RiArrowDropDownLine } from "react-icons/ri";
         } else if (selectedUser === "Lecturer") {
           navigate("/lecturer");
         }
-      } else {
-        setErrorMessage("Login failed. No token received.");
-      }
+      // } else {
+      //   setErrorMessage("Login failed. No token received.");
+      // }
     } catch (error) {
+      console.log(error);
       setErrorMessage("Login failed. Please check your credentials.");
     } finally {
       setIsSubmitting(false);
@@ -80,6 +82,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
   };
 
   return (
+    <div className={log["overall"]}>
     <div className={log["wrapper"]}>
       <div className={log["top-section"]}>
         <img src="./src/assets/images/ciu-logo-login.png" alt="Logo" />
@@ -136,15 +139,23 @@ import { RiArrowDropDownLine } from "react-icons/ri";
           {errorMessage && <p className={log["error-message"]}>{errorMessage}</p>}
           {successMessage && <p className={log["success-message"]}>{successMessage}</p>}
           <div className={log["forgot-password"]}>
-            <Link
-              to={selectedUser === "Student" ? "/reset-password" : "#"}
-              onClick={selectedUser !== "Student" ? () => alert("Please contact support for password reset instructions.") : undefined}
-            >
-              Forgot Password?
-            </Link>
+          <Link 
+                to={selectedUser === "Student" ? "/reset-password" : 
+                    selectedUser === "Administrator" ? "/adminPassword" :
+                    selectedUser === "Lecturer" ? "/lecturerPassword" : "#"}
+                onClick={
+                  (selectedUser !== "Student" && selectedUser !== "Administrator" && selectedUser !== "Lecturer") ? 
+                  () => alert("Please contact support for password reset instructions.") : 
+                  undefined
+                }
+              >
+                Forgot Password?
+          </Link>
+
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

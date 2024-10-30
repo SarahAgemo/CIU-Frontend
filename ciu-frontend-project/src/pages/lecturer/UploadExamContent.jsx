@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import uploadExam from './UploadExamContent.module.css'; // Import the updated CSS module
+import moment from 'moment'; // Import moment for date/time formatting
 
 export default function ScheduleUploadExams() {
     const navigate = useNavigate();
@@ -15,7 +16,20 @@ export default function ScheduleUploadExams() {
         startTime: '',
         endTime: '',
         createdBy: '',
+        isDraft: false, // Ensure isDraft is a boolean
     });
+
+    // Handle input changes for all fields
+    const handleInputChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        setExamData((prevData) => ({
+            ...prevData,
+            [name]: type === "checkbox" ? checked : value, // Handles Boolean for checkboxes
+        }));
+    };
+
+
+
     const [csvFile, setCsvFile] = useState(null);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -41,13 +55,25 @@ export default function ScheduleUploadExams() {
 
         const formData = new FormData();
         formData.append('file', csvFile);
-        Object.keys(examData).forEach((key) => {
-            let value = examData[key];
-            if (key === 'startTime' || key === 'endTime') {
-                value = formatTime(value);
-            }
-            formData.append(key, value);
-        });
+
+    // Convert `isDraft` to Boolean if necessary
+    examData.isDraft = examData.isDraft === 'true' || examData.isDraft === true;
+
+        
+        // Append exam data to formData
+          
+    Object.keys(examData).forEach((key) => {
+        let value = examData[key];
+        if (key === 'startTime' || key === 'endTime') {
+            // Format start and end times as HH:mm:ss
+            value = moment(value, 'HH:mm').format('HH:mm:ss');
+        }
+        if (key === 'scheduledDate') {
+            // Format scheduledDate as YYYY-MM-DD HH:mm:ss
+            value = moment(value).format('YYYY-MM-DD HH:mm:ss');
+        }
+        formData.append(key, value);
+    });
 
         try {
             const response = await fetch('http://localhost:3000/exam-paper/upload', {
@@ -57,7 +83,6 @@ export default function ScheduleUploadExams() {
             if (!response.ok) throw new Error('Failed to upload exam paper');
             const data = await response.json();
             setSuccess('Exam paper uploaded successfully!');
-
             navigate('/schedule-upload-exams/exam-list', { state: { examData: data } });
         } catch (error) {
             setError('Error uploading exam paper: ' + error.message);
@@ -83,7 +108,7 @@ export default function ScheduleUploadExams() {
                     />
                 </div>
                 <div className={uploadExam["form-group"]}>
-                    <label>Description</label>
+                    <label>Instructions</label>
                     <textarea
                         name="description"
                         className={uploadExam["form-control"]}
@@ -132,10 +157,10 @@ export default function ScheduleUploadExams() {
                 <div className={uploadExam["form-group"]}>
                     <label>Scheduled Date</label>
                     <input
-                        type="datetime-local"
+                        type="datetime-local" // Use datetime-local for date and time input
                         name="scheduledDate"
                         className={uploadExam["form-control"]}
-                        value={examData.scheduledDate}
+                        value={moment(examData.scheduledDate).format('YYYY-MM-DDTHH:mm')}
                         onChange={handleChange}
                         required
                     />

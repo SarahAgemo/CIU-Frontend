@@ -237,5 +237,10 @@ td:last-child {
 }
 
 .mb4 {
+<<<<<<< HEAD
     margin-bottom: 1.5rem;
+=======
+    margin-bottom: 1.5rem;
+
+>>>>>>> cd47b378670e0dd2fcccd9af56ad2c07e5d35642
 }
