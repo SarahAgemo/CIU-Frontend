@@ -18,6 +18,7 @@ import EditStudent from "./components/admin/EditStudent.jsx";
 import Adminuser from "./components/admin/Adminuser.jsx";
 import Editadmin from "./components/admin/Editadmin.jsx";
 import ResetAdminPassword from "./components/admin/ResetAdminPassword.jsx";
+import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx";
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 import RegCourse from "./pages/lecturer/RegCourse.jsx";
@@ -80,6 +81,7 @@ function App() {
         <Route path="/adminuser" element={<Adminuser />} />
         <Route path="/editadmin/:id" element={<Editadmin />} />
         <Route path="/adminPassword" element={<ResetAdminPassword />} />
+        <Route path="/lecturerPassword" element={<ResetLecturerPassword />} />
         <Route path="/RequestAdminToken" element={<RequestAdminToken />} />
         <Route path="/RequestLecturerToken" element={<RequestLecturerToken />} />
         <Route path="/regCourse" element={<RegCourse />} />
