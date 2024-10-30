@@ -67,7 +67,7 @@ export default function CreateExamContent() {
         axios.post('http://localhost:3000/manual-exam-paper', payload)
             .then((response) => {
                 console.log('Data posted successfully:', response.data);
-                navigate('/schedule-create-exams/exam-list');
+                navigate('/schedule-upload-exams/exam-list');
             })
             .catch((error) => {
                 console.error('There was an error!', error);
