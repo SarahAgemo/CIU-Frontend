@@ -1,0 +1,96 @@
+/* import { LayoutDashboard, PenTool, FileText, Calendar, HelpCircle, LogOut } from "lucide-react"
+import "./MobileMenu.css"
+
+export default function MobileMenu({ isOpen, toggleMenu }) {
+  const menuItems = [
+    { icon: LayoutDashboard, label: "Dashboard" },
+    { icon: PenTool, label: "Do Exam" },
+    { icon: FileText, label: "Results" },
+    { icon: Calendar, label: "Calendar" },
+    { icon: HelpCircle, label: "Support" },
+    { icon: LogOut, label: "Logout" },
+  ]
+
+  return (
+    <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
+      <nav className="mobile-nav">
+        {menuItems.map((item, index) => (
+          <button key={index} className="mobile-button" onClick={toggleMenu}>
+            <item.icon className="mobile-icon" />
+            {item.label}
+          </button>
+        ))}
+      </nav>
+    </div>
+  )
+} */
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -256px;
+  width: 256px;
+  height: 100vh;
+  background-color: #f3f4f6;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.mobile-menu.open {
+  left: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.close-icon {
+  width: 24px;
+  height: 24px;
+  color: #374151;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 48px 16px 16px;
+}
+
+.mobile-nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mobile-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #105F53;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+
+.mobile-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+}
+
+
+.mobile-nav li.active .mobile-button,
+.mobile-button:hover {
+  background-color: white;
+  color: #1a8754;
+}
+
