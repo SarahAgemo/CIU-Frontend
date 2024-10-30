@@ -156,7 +156,7 @@ form button {
   font-weight: 700;
 }
 form button:hover {
-  background: #08362f;
+  background: #0b3f37;
 }
 form .forgot-password {
   margin: 20px 0 15px;
@@ -174,7 +174,6 @@ form .forgot-password {
   margin-top: 10px;
   text-align: center;
 }
-
 
 @media screen and (max-width: 800px) {
   .wrapper {
