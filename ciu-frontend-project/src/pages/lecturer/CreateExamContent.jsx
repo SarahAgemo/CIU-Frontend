@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import createExam from './CreateExamContent.module.css';
+import moment from 'moment';
+
 
 export default function CreateExamContent() {
     const navigate = useNavigate();
@@ -48,15 +50,25 @@ export default function CreateExamContent() {
         }));
     };
 
+    const removeLastQuestion = () => {
+        if (formData.questions.length > 1) {
+            setFormData((prevState) => ({
+                ...prevState,
+                questions: prevState.questions.slice(0, -1),
+            }));
+        }
+    };
+    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
             ...formData,
             courseId: parseInt(formData.courseId, 10),
             duration: formData.duration,
-            scheduledDate: new Date(formData.scheduledDate).toISOString(),
-            startTime: new Date(formData.startTime).toISOString(),
-            endTime: new Date(formData.endTime).toISOString(),
+            scheduledDate: moment(formData.scheduledDate).format('YYYY-MM-DD HH:mm:ss'),
+            startTime: moment(formData.startTime, 'HH:mm').format('HH:mm:ss'),
+            endTime: moment(formData.endTime, 'HH:mm').format('HH:mm:ss'),
             questions: formData.questions.map((q) => ({
                 content: q.content,
                 options: q.options.split(','), // Convert to array
@@ -163,7 +175,7 @@ export default function CreateExamContent() {
             <div>
                 <label>Start Time</label>
                 <input
-                    type="datetime-local"
+                    type="time"
                     name="startTime"
                     value={formData.startTime}
                     onChange={handleInputChange}
@@ -174,7 +186,7 @@ export default function CreateExamContent() {
             <div>
                 <label>End Time</label>
                 <input
-                    type="datetime-local"
+                    type="time"
                     name="endTime"
                     value={formData.endTime}
                     onChange={handleInputChange}
@@ -229,6 +241,10 @@ export default function CreateExamContent() {
 
             <button type="button" onClick={addNewQuestion}>
                 Add Another Question
+            </button>
+
+            <button type="button" onClick={removeLastQuestion} disabled={formData.questions.length === 1}>
+                Remove Last Question
             </button>
 
             <button type="submit">Create Assessment</button>
