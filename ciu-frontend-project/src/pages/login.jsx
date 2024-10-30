@@ -58,23 +58,25 @@ const Login = () => {
       const response = await axios.post(endpoint, userPayload);
       const accessToken =
         response.data.access_token || response.data.token?.access_token;
+      console.log(accessToken);
 
-      if (accessToken) {
-        localStorage.setItem("token", accessToken);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-        setSuccessMessage("Login successful!");
+      // if (response.data.message === "Login successful") {
+      localStorage.setItem("token", accessToken);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
+      setSuccessMessage("Login successful!");
 
-        if (selectedUser === "Student") {
-          navigate("/student");
-        } else if (selectedUser === "Administrator") {
-          navigate("/dashboard");
-        } else if (selectedUser === "Lecturer") {
-          navigate("/lecturer");
-        }
-      } else {
-        setErrorMessage("Login failed. No token received.");
+      if (selectedUser === "Student") {
+        navigate("/student");
+      } else if (selectedUser === "Administrator") {
+        navigate("/dashboard");
+      } else if (selectedUser === "Lecturer") {
+        navigate("/lecturer");
       }
+      // } else {
+      //   setErrorMessage("Login failed. No token received.");
+      // }
     } catch (error) {
+      console.log(error);
       setErrorMessage("Login failed. Please check your credentials.");
     } finally {
       setIsSubmitting(false);
@@ -152,9 +154,19 @@ const Login = () => {
             )}
             <div className={log["forgot-password"]}>
               <Link
-                to={selectedUser === "Student" ? "/reset-password" : "#"}
+                to={
+                  selectedUser === "Student"
+                    ? "/reset-password"
+                    : selectedUser === "Administrator"
+                    ? "/adminPassword"
+                    : selectedUser === "Lecturer"
+                    ? "/lecturerPassword"
+                    : "#"
+                }
                 onClick={
-                  selectedUser !== "Student"
+                  selectedUser !== "Student" &&
+                  selectedUser !== "Administrator" &&
+                  selectedUser !== "Lecturer"
                     ? () =>
                         alert(
                           "Please contact support for password reset instructions."

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-function EditExamPaper() {
+function ManualEditExamPaper() {
   // Extract both `id` (exam paper ID) and `questionId` (specific question ID)
   const { id, questionId } = useParams(); 
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ function EditExamPaper() {
   useEffect(() => {
     const fetchQuestionData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}/question/${questionId}`);
+        const response = await fetch(`http://localhost:3000/manual-exam-paper/${id}/question/${questionId}`);
         if (!response.ok) throw new Error('Failed to fetch question');
         const data = await response.json();
         setQuestionData(data); // Change this line to use setQuestionData
@@ -31,7 +31,7 @@ function EditExamPaper() {
 
   const handleQuestionUpdate = async (updatedData) => {
     try {
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}/question/${questionId}`, {
+      const response = await fetch(`http://localhost:3000/manual-exam-paper/${id}/question/${questionId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData),
@@ -47,12 +47,12 @@ function EditExamPaper() {
     e.preventDefault();
     try {
       const updatedData = {
-       content: questionData.content,
+        content: questionData.content,
         options: questionData.options,
         answer: questionData.answer,
       };
       await handleQuestionUpdate(updatedData);
-      navigate(`/exam-paper/${id}/questions`); // Redirect after success
+      navigate(`/manual-exam-paper/${id}/questions`); // Redirect after success
     } catch (error) {
       setError('Error updating question: ' + error.message);
     }
@@ -104,4 +104,4 @@ function EditExamPaper() {
   );
 }
 
-export default EditExamPaper;
+export default ManualEditExamPaper;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../components/admin/ExamList.css'; // Import the CSS file for styling
 
-function ExamPaperPreview() {
+function ManualExamPaperPreview() {
   const { id } = useParams(); // Get the exam paper ID from the URL
   const navigate = useNavigate(); // Initialize useNavigate
   const [examData, setExamData] = useState(null);
@@ -12,7 +12,7 @@ function ExamPaperPreview() {
   useEffect(() => {
     const fetchExamData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        const response = await fetch(`http://localhost:3000/manual-exam-paper/${id}`);
         if (!response.ok) throw new Error('Failed to fetch exam paper');
         const data = await response.json();
         setExamData(data);
@@ -25,17 +25,17 @@ function ExamPaperPreview() {
   }, [id]);
 
   const handleEdit = () => {
-    navigate(`/exam-paper/${id}/edit`);
+    navigate(`/manual-exam-paper/${id}/edit`);
   };
 
   const handlePreviewQuestions = () => {
-    navigate(`/exam-paper/${id}/questions`);
+    navigate(`/manual-exam-paper/${id}/questions`);
   };
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this exam paper?')) {
       try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
+        const response = await fetch(`http://localhost:3000/manual-exam-paper/${id}`, {
           method: 'DELETE',
         });
         if (!response.ok) {
@@ -43,7 +43,7 @@ function ExamPaperPreview() {
           throw new Error(errorData.message); // Use the message from the error response
         }
         setSuccess('Exam paper deleted successfully');
-        navigate('/exam-paper'); // Redirect to the exam papers list
+        navigate('/schedule-create-exams/exam-list'); // Redirect to the exam papers list
       } catch (error) {
         setError('Error deleting exam paper: ' + error.message);
       }
@@ -52,7 +52,7 @@ function ExamPaperPreview() {
 
   const handlePublish = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}/publish`, {
+      const response = await fetch(`http://localhost:3000/manual-exam-paper/${id}/publish`, {
         method: 'PATCH',
       });
       if (!response.ok) {
@@ -66,7 +66,7 @@ function ExamPaperPreview() {
       setExamData(updatedExamData); // Update local state with the published data
 
       // Redirect to the Published Exam Papers List page
-      navigate('/published-exam-papers');
+      navigate('/manual-published-exam-papers');
     } catch (error) {
       setError('Error publishing exam paper: ' + error.message);
     }
@@ -149,4 +149,4 @@ function ExamPaperPreview() {
   );
 }
 
-export default ExamPaperPreview;
+export default ManualExamPaperPreview;
