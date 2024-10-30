@@ -34,6 +34,12 @@ import QuestionsPreview from "./pages/lecturer/QuestionsPreview.jsx";
 import EditExamPaper from "./pages/lecturer/EditExamPaper.jsx";
 import EditExamInterface from "./pages/lecturer/EditExamInterface.jsx";
 import PublishedExamList from './pages/lecturer/PublishedExamList.jsx';
+import ManualExamPaperPreview from "./pages/lecturer/ManualExamPaperPreview.jsx";
+import ManualExamList from "./pages/lecturer/ManualExamList.jsx";
+import ManualQuestionsPreview from "./pages/lecturer/ManualQuestionsPreview.jsx";
+import ManualEditExamPaper from "./pages/lecturer/ManualEditExamPaper.jsx";
+import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.jsx";
+import ManualPublishedExamList from './pages/lecturer/ManualPublishedExamList.jsx';
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
@@ -90,6 +96,12 @@ function App() {
         <Route path="/exam-paper/:id/question/:questionId" element={<EditExamPaper />} />
         <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} />
         <Route path="/published-exam-papers" element={<PublishedExamList />} />
+        <Route path="/manual-exam-paper/:id" element={<ManualExamPaperPreview />} />
+        <Route path="/schedule-create-exams/exam-list" element={<ManualExamList />} />
+        <Route path="/manual-exam-paper/:id/questions" element={<ManualQuestionsPreview />} />
+        <Route path="/manual-exam-paper/:id/question/:questionId" element={<ManualEditExamPaper />} />
+        <Route path="/manual-exam-paper/:id/edit" element={<ManualEditExamInterface />} />
+        <Route path="/manual-published-exam-papers" element={<ManualPublishedExamList />} />
           
         {/* Student */}
 
