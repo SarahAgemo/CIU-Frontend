@@ -35,8 +35,9 @@ function ExamList() {
       <table className="glass-table">
         <thead>
           <tr>
+            <th>Course Unit</th>
             <th>Title</th>
-            <th>Description</th>
+            <th>Instructions</th>
             <th>Status</th> {/* Added Status Column */}
             <th>Actions</th>
           </tr>
@@ -44,6 +45,7 @@ function ExamList() {
         <tbody>
           {examPapers.map((exam) => (
             <tr key={exam.id}>
+              <td>{exam.courseUnit}</td>
               <td>{exam.title}</td>
               <td>{exam.description}</td>
               <td>
