@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../components/admin/ExamList.css'; // Import the CSS file for styling
+import './ExamList.css';
+
 
 function ExamList() {
   const [examPapers, setExamPapers] = useState([]);

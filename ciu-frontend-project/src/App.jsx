@@ -63,7 +63,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/manage-users" element={<ManageUsers />} />
-       
+        <Route path="/registers" element={<Registration />} />
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<EditUser />} />

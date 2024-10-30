@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../../components/admin/ExamList.css'; // Import the CSS file for styling
+import './ExamPaperPreview.css';
 
 function ExamPaperPreview() {
   const { id } = useParams(); // Get the exam paper ID from the URL
@@ -75,78 +75,155 @@ function ExamPaperPreview() {
   if (error) return <div className="alert alert-danger">{error}</div>;
   if (!examData) return <div>Loading...</div>;
 
+  // return (
+  //   <div className="container mt-5">
+  //     <h3>Exam Paper Preview</h3>
+  //     <table className="table table-bordered">
+  //       <tbody>
+  //         <tr>
+  //           <td><strong>Title</strong></td>
+  //           <td>{examData.title}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Description</strong></td>
+  //           <td>{examData.description}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Course ID</strong></td>
+  //           <td>{examData.courseId}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Course Unit</strong></td>
+  //           <td>{examData.courseUnit}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Course Unit Code</strong></td>
+  //           <td>{examData.courseUnitCode}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Scheduled Date</strong></td>
+  //           <td>{examData.scheduledDate}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Duration</strong></td>
+  //           <td>{examData.duration}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Start Time</strong></td>
+  //           <td>{examData.startTime}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>End Time</strong></td>
+  //           <td>{examData.endTime}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Created By</strong></td>
+  //           <td>{examData.createdBy}</td>
+  //         </tr>
+  //         <tr>
+  //           <td><strong>Questions</strong></td>
+  //           <td>{examData.questions.length} {examData.questions.length === 0 ? "(No questions added)" : ""}</td>
+  //         </tr>
+  //       </tbody>
+  //     </table>
+
+  //     <div className="mt-3">
+  //       <button onClick={handlePreviewQuestions} className="btn btn-info mr-2">
+  //         Preview Questions
+  //       </button>
+  //       <button onClick={handleEdit} className="btn btn-warning mr-2">
+  //         Edit Exam Paper
+  //       </button>
+  //       <button onClick={handleDelete} className="btn btn">
+  //         Delete Exam Paper
+  //       </button>
+  //       {examData.isDraft && (
+  //         <button onClick={handlePublish} className="btn btn-success ml-2">
+  //           Publish
+  //         </button>
+  //       )}
+  //     </div>
+      
+  //     {success && <div className="alert alert-success mt-3">{success}</div>}
+  //   </div>
+  // );
+
   return (
     <div className="container mt-5">
       <h3>Exam Paper Preview</h3>
-      <table className="table table-bordered">
-        <tbody>
-          <tr>
-            <td><strong>Title</strong></td>
-            <td>{examData.title}</td>
-          </tr>
-          <tr>
-            <td><strong>Description</strong></td>
-            <td>{examData.description}</td>
-          </tr>
-          <tr>
-            <td><strong>Course ID</strong></td>
-            <td>{examData.courseId}</td>
-          </tr>
-          <tr>
-            <td><strong>Course Unit</strong></td>
-            <td>{examData.courseUnit}</td>
-          </tr>
-          <tr>
-            <td><strong>Course Unit Code</strong></td>
-            <td>{examData.courseUnitCode}</td>
-          </tr>
-          <tr>
-            <td><strong>Scheduled Date</strong></td>
-            <td>{examData.scheduledDate}</td>
-          </tr>
-          <tr>
-            <td><strong>Duration</strong></td>
-            <td>{examData.duration}</td>
-          </tr>
-          <tr>
-            <td><strong>Start Time</strong></td>
-            <td>{examData.startTime}</td>
-          </tr>
-          <tr>
-            <td><strong>End Time</strong></td>
-            <td>{examData.endTime}</td>
-          </tr>
-          <tr>
-            <td><strong>Created By</strong></td>
-            <td>{examData.createdBy}</td>
-          </tr>
-          <tr>
-            <td><strong>Questions</strong></td>
-            <td>{examData.questions.length} {examData.questions.length === 0 ? "(No questions added)" : ""}</td>
-          </tr>
-        </tbody>
-      </table>
-
-      <div className="mt-3">
-        <button onClick={handlePreviewQuestions} className="btn btn-info mr-2">
+      {error && <div className="alert alert-danger">{error}</div>}
+      {success && <div className="alert alert-success">{success}</div>}
+  
+      <div className="table-container">
+        <table className="table table-bordered">
+          <tbody>
+            <tr>
+              <td><strong>Title</strong></td>
+              <td>{examData.title}</td>
+            </tr>
+            <tr>
+              <td><strong>Description</strong></td>
+              <td>{examData.description}</td>
+            </tr>
+            <tr>
+              <td><strong>Course ID</strong></td>
+              <td>{examData.courseId}</td>
+            </tr>
+            <tr>
+              <td><strong>Course Unit</strong></td>
+              <td>{examData.courseUnit}</td>
+            </tr>
+            <tr>
+              <td><strong>Course Unit Code</strong></td>
+              <td>{examData.courseUnitCode}</td>
+            </tr>
+            <tr>
+              <td><strong>Scheduled Date</strong></td>
+              <td>{examData.scheduledDate}</td>
+            </tr>
+            <tr>
+              <td><strong>Duration</strong></td>
+              <td>{examData.duration}</td>
+            </tr>
+            <tr>
+              <td><strong>Start Time</strong></td>
+              <td>{examData.startTime}</td>
+            </tr>
+            <tr>
+              <td><strong>End Time</strong></td>
+              <td>{examData.endTime}</td>
+            </tr>
+            <tr>
+              <td><strong>Created By</strong></td>
+              <td>{examData.createdBy}</td>
+            </tr>
+            <tr>
+              <td><strong>Questions</strong></td>
+              <td>{examData.questions.length} {examData.questions.length === 0 ? "(No questions added)" : ""}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <div className="btn-container">
+        <button onClick={handlePreviewQuestions} className="btn btn-info">
           Preview Questions
         </button>
-        <button onClick={handleEdit} className="btn btn-warning mr-2">
+        <button onClick={handleEdit} className="btn btn-warning">
           Edit Exam Paper
         </button>
         <button onClick={handleDelete} className="btn btn-danger">
           Delete Exam Paper
         </button>
         {examData.isDraft && (
-          <button onClick={handlePublish} className="btn btn-success ml-2">
+          <button onClick={handlePublish} className="btn btn-success">
             Publish
           </button>
         )}
       </div>
-      
-      {success && <div className="alert alert-success mt-3">{success}</div>}
     </div>
   );
+  
 }
 
 export default ExamPaperPreview;
