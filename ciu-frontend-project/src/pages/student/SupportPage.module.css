@@ -31,10 +31,21 @@
   .support-content {
     display: flex;
     flex: 1;
-    overflow: hidden;
   }
 
- 
+  .main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  } 
+  
+  .main-content {
+    flex: 1;
+    padding: 20px;
+    background-color: #f0f2f5;
+    overflow-y: auto;
+  }
+
   @media (max-width: 768px) {
     .support-content {
       flex-direction: column;

@@ -1,11 +1,11 @@
-
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
+  padding: 24px;
   background-color: white;
   border-bottom: 1px solid #e5e7eb;
+  height: 64px;
 }
 
 .logo-container {
@@ -21,7 +21,9 @@
 .header-icons {
   display: flex;
   align-items: center;
-  gap: 8px;
+  height: 48px;
+  margin-left: 8px;
+  gap: 16px;
 }
 
 .icon-button {
@@ -42,9 +44,9 @@
 }
 
 .notification-icon {
-  width: 20px;
-  height: 20px;
-  color: #15803d;
+  width: 28px;
+  height: 28px;
+  color: #106053;
 }
 
 .notification-indicator {
@@ -68,7 +70,7 @@
 .hamburger-icon {
   width: 24px;
   height: 24px;
-  color: #15803d;
+  color: #106053;
 }
 
 .profile-button {
@@ -76,8 +78,8 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  width: 32px;
-  height: 32px;
+  width: 48px;
+  height: 48px;
   overflow: hidden;
   border-radius: 50%;
 }
