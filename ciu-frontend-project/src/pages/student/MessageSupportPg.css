@@ -1,0 +1,38 @@
+.overall {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-content {
+  display: flex;
+  flex: 1;
+}
+
+.main-content {
+  top: 0;
+  flex: 1;
+  padding: 20px;
+  background-color: #F9FFFC;
+  display:flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 8px;
+  }
+
+}
