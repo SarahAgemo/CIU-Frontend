@@ -229,16 +229,18 @@ function ContactItem({ icon, text }) {
   margin-left: 256px;
   margin-top: var(--header-height);
   padding: 24px;
-  overflow-y: auto;
   width: auto;
   left: 256px;
+  height: 100%;
 }
 
 .main-content {
   display: flex;
   flex-direction: column;
+  /* align-items: center; */
+  flex: 1;
   margin-left: 256px;
-  height: 800px;
+  height: 100%;
 }
 
 .welcome-banner {
@@ -287,16 +289,22 @@ function ContactItem({ icon, text }) {
 }
 
 .faq-section {
-  margin-bottom: 24px;
+  flex: 1;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 24px;
+  overflow-y: auto;
 }
 
 .back-button {
+  align-self: flex-start;
   background: none;
   border: none;
   cursor: pointer;
   color: var(--primary-color);
-  margin-bottom: 16px;
-  padding: 0;
+  margin-bottom: 24px;
+  margin-left: 0px;
+  margin-top: 20px;
 }
 
 .faq-section h2 {
@@ -329,8 +337,21 @@ function ContactItem({ icon, text }) {
 }
 
 .faq-answer {
-  padding: 0 16px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 200;
+  margin-left: 10px;
+}
+
+.faq-answer p {
   color: var(--text-color);
+  margin-bottom: 16px;
 }
 
 .contact-info {
@@ -340,12 +361,15 @@ function ContactItem({ icon, text }) {
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  bottom: 0;
 }
 
 .contact-item  {
   display: flex;
   align-items: center;
   color: var(--text-color);
+  bottom: 0;
 }
 
 .contact-item svg {

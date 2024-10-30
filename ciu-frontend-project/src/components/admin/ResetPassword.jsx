@@ -1,12 +1,38 @@
 import React, { useState } from 'react';
+import axios from 'axios'; // Import axios for making HTTP requests
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
 const ResetPasswordForm = () => {
   const [studentNumber, setStudentNumber] = useState('');
   const [isHovered, setIsHovered] = useState(false); 
+  const [errorMessage, setErrorMessage] = useState(''); // To handle any error messages
+  const [successMessage, setSuccessMessage] = useState(''); // To display success message
+  const navigate = useNavigate(); // Initialize useNavigate for redirection
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Token requested for student number:', studentNumber);
+    setErrorMessage(''); // Clear previous error messages
+    setSuccessMessage(''); // Clear previous success messages
+
+    try {
+      // Make POST request to backend API
+      const response = await axios.post('http://localhost:3000/students/forgot-password', {
+        registrationNo: studentNumber,
+      });
+      
+      // Handle successful response
+      console.log('Token requested successfully:', response.data);
+      setSuccessMessage('Token sent to your student email.');
+
+      // Redirect to '/request-token' after successful response
+      setTimeout(() => {
+        navigate('/request-token'); // Redirects after 2 seconds
+      }, 2000); // Delay to show success message before redirecting
+
+    } catch (error) {
+      console.error('Error requesting token:', error);
+      setErrorMessage('Failed to request token. Please check your student number and try again.');
+    }
   };
 
   const styles = {
@@ -81,16 +107,32 @@ const ResetPasswordForm = () => {
       fontWeight: 'bold',
       marginLeft: '10px',
     },
+    errorMessage: {
+      color: 'red',
+      textAlign: 'center',
+      marginBottom: '10px',
+    },
+    successMessage: {
+      color: 'green',
+      textAlign: 'center',
+      marginBottom: '10px',
+    }
   };
 
   return (
     <div style={styles.container}>
-      {/* Logo */}
       <img src='/ciu-logo-2.png' alt="Logo" style={styles.logo} />
-      <h1 style={styles.title}>CLERK INERNATIONAL UNIVERSITY</h1> 
+      <h1 style={styles.title}>CLERK INTERNATIONAL UNIVERSITY</h1> 
 
       <div style={styles.formContainer}>
         <h2 style={styles.heading}>ENTER YOUR STUDENT NUMBER AND A PASSWORD RESET TOKEN WILL BE SENT TO YOUR STUDENT'S EMAIL TO RESET YOUR PASSWORD</h2>
+        
+        {/* Display error message if it exists */}
+        {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
+        
+        {/* Display success message if it exists */}
+        {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
+        
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend style={styles.legend}>Student Number</legend>

@@ -1,0 +1,86 @@
+/* CreateExamContent.module.css */
+.form-container {
+    background: white;
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 20px;
+    margin-left: 150px;
+}
+
+.form-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #106053;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.question-container {
+    margin-bottom: 10px;
+}
+
+.add-question-btn {
+    background-color: #106053;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width:fit-content;
+}
+
+.add-question-btn:hover {
+    background-color: #08362f;
+}
+
+.btn-primary {
+    background-color: #106053;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 2px;
+    width:fit-content;
+}
+
+.btn-primary:hover {
+    background-color: #0c890c;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #106053;
+    padding: 10px 20px;
+    border: 2px solid #106053;
+    border-radius: 4px;
+    margin-left: 2px;
+    width:fit-content;
+}
+
+.btn-secondary:hover {
+    background-color: #106053;
+    color: white;
+}
+.error {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+}

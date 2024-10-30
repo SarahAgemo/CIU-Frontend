@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Header from './Header';
+import Header from './Header1';
 import Sidebar1 from './SideBar1';
 
 const EditStudent = () => {
@@ -14,7 +14,8 @@ const EditStudent = () => {
     registrationNo: '',
     password: '',
     role: '',
-    dateTime: ''
+    dateTime: '',
+    courseId: '',  // Add courseId to state
   });
 
   useEffect(() => {
@@ -28,9 +29,10 @@ const EditStudent = () => {
           email: data.email,
           program: data.program,
           registrationNo: data.registrationNo,
-          password: data.password, 
+          password: data.password,
           role: data.role,
-        //   dateTime: data.dateTime,
+          dateTime: data.dateTime,
+          courseId: data.courseId,  // Set courseId from fetched data
         });
       } catch (error) {
         console.error('Error fetching student data:', error);
@@ -41,9 +43,10 @@ const EditStudent = () => {
   }, [id]);
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
     setUser({
       ...user,
-      [e.target.name]: e.target.value,
+      [name]: name === "courseId" ? Number(value) : value,  // Convert courseId to a number
     });
   };
 
@@ -57,7 +60,8 @@ const EditStudent = () => {
       registrationNo: user.registrationNo,
       password: user.password,
       role: user.role,
-      dateTime: user.dateTime
+      dateTime: user.dateTime,
+      courseId: user.courseId,  // Include courseId in the data to be updated
     };
 
     try {
@@ -140,15 +144,15 @@ const EditStudent = () => {
                 </div>
               </div>
 
-              {/* Role and DateTime */}
+              {/* Role and Course ID */}
               <div style={{ display: 'flex', marginBottom: '20px' }}>
                 <div style={{ flex: '1', marginRight: '20px' }}>
                   <label style={labelStyle}>Role:</label>
                   <input type="text" name="role" value={user.role} onChange={handleChange} required style={inputStyle} />
                 </div>
                 <div style={{ flex: '1' }}>
-                  <label style={labelStyle}>DateTime:</label>
-                  <input type="datetime-local" name="created" value={user.dateTime} onChange={handleChange} required style={inputStyle} />
+                  <label style={labelStyle}>Course ID:</label>
+                  <input type="number" name="courseId" value={user.courseId} onChange={handleChange} required style={inputStyle} />
                 </div>
               </div>
 

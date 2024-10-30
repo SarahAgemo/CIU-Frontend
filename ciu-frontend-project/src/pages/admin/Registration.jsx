@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Register from './Registration.module.css'
 
 const Registration = () => {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [isOpen, setIsOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState("Select User");
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const Registration = () => {
   const [successMessage, setSuccessMessage] = useState('');
   
 
-  const toggleDropdown = () => {
+  const toggleDropdown = () => { 
     setIsOpen(!isOpen);
   };
 
@@ -82,7 +83,7 @@ const Registration = () => {
             password: formData.password,
           };
         } else if (selectedUser === "Administrator") {
-          endpoint = '/api/register/administrator';
+          endpoint = 'http://localhost:3000/adminReg';
           payload = {
             first_name: formData.firstName,
             last_name: formData.lastName,
@@ -106,6 +107,13 @@ const Registration = () => {
           setSuccessMessage(`${selectedUser} successfully registered!`);
           setFormData({ firstName: '', lastName: '', emailOrStudentNumber: '', password: '' }); // Clear the form
           setErrors({});
+
+          // Redirect based on the user type
+          if (selectedUser === "Administrator") {
+            navigate('/adminuser'); // Redirect to the admin user page
+          } else if (selectedUser === "Lecturer") {
+            navigate('/users'); // Redirect to the lecturer user page
+          }
         } else {
           const errorData = await response.json();
           setErrors(errorData.errors || {});
@@ -120,14 +128,13 @@ const Registration = () => {
   };
 
   return (
-    <main className={Register["Registration"]}>
     <div className='container'>
       <h2>Register</h2>
 
       <form onSubmit={handleSubmit}>
-        <div className="button-group">
-          <button type="button" className={selectedUser === "Administrator" ? "active" : ""} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
-          <button type="button" className={selectedUser === "Lecturer" ? "active" : ""} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
+        <div className={Register["button-group"]}>
+          <button type="button" className={selectedUser === Register["Administrator"] ? Register["active"] : Register[""]} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
+          <button type="button" className={selectedUser === Register["Lecturer"] ? Register["active"] : Register[""]} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
         </div>
 
         <label htmlFor='firstName'>First Name</label>
@@ -138,7 +145,7 @@ const Registration = () => {
           value={formData.firstName}
           onChange={handleInputChange}
         />
-        {errors.firstName && <span className='error'>{errors.firstName}</span>}
+        {errors.firstName && <span className={Register['error']}>{errors.firstName}</span>}
 
         <label htmlFor='lastName'>Last Name</label>
         <input
@@ -158,7 +165,7 @@ const Registration = () => {
           value={formData.emailOrStudentNumber}
           onChange={handleInputChange}
         />
-        {errors.emailOrStudentNumber && <span className='error'>{errors.emailOrStudentNumber}</span>}
+        {errors.emailOrStudentNumber && <span className={Register['error']}>{errors.emailOrStudentNumber}</span>}
 
         <label htmlFor='password'>Password</label>
         <input
@@ -168,7 +175,7 @@ const Registration = () => {
           value={formData.password}
           onChange={handleInputChange}
         />
-        {errors.password && <span className='error'>{errors.password}</span>}
+        {errors.password && <span className={Register['error']}>{errors.password}</span>}
 
         <button type='submit'>Register</button>
         {successMessage && <p className='success'>{successMessage}</p>} {/* Success message display */}
