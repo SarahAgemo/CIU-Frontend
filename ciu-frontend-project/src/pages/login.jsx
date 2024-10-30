@@ -82,6 +82,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
   };
 
   return (
+    <div className={log["overall"]}>
     <div className={log["wrapper"]}>
       <div className={log["top-section"]}>
         <img src="./src/assets/images/ciu-logo-login.png" alt="Logo" />
@@ -154,6 +155,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };
