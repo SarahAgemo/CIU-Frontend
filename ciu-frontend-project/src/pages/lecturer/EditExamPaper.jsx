@@ -47,7 +47,7 @@ function EditExamPaper() {
     e.preventDefault();
     try {
       const updatedData = {
-        question: questionData.content,
+       content: questionData.content,
         options: questionData.options,
         answer: questionData.answer,
       };
@@ -68,7 +68,7 @@ function EditExamPaper() {
           <label>Question:</label>
           <input
             type="text"
-            name="question"
+            name="content"
             value={questionData.content || ''} 
             onChange={(e) => setQuestionData({ ...questionData, content: e.target.value })}
             className="form-control"

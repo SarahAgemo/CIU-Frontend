@@ -15,12 +15,12 @@ export default function CreateExamContent() {
         scheduledDate: '',
         startTime: '',
         endTime: '',
-        createdBy:'',
+        createdBy: '',
         questions: [
             {
-                questions: '', // Updated field name
+                content: '',
                 options: '',
-                correctAnswer: '',
+                answer: '',
             },
         ],
     });
@@ -37,32 +37,39 @@ export default function CreateExamContent() {
         setFormData({ ...formData, questions: newQuestions });
     };
 
+    // Function to add a new question
+    const addNewQuestion = () => {
+        setFormData((prevState) => ({
+            ...prevState,
+            questions: [
+                ...prevState.questions,
+                { content: '', options: '', answer: '' },
+            ],
+        }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
             ...formData,
             courseId: parseInt(formData.courseId, 10),
-            duration: parseInt(formData.duration, 10),
-            createdBy: parseInt(formData.createdBy, 10),
+            duration: formData.duration,
             scheduledDate: new Date(formData.scheduledDate).toISOString(),
-            startTime: new Date(formData.startTime).toISOString(), // Ensure proper format
-            endTime: new Date(formData.endTime).toISOString(), // Ensure proper format
-            questions: JSON.stringify(
-                formData.questions.map(q => ({
-                  questions: q.questions,
-                  options: JSON.stringify(q.options.split(',')), // Ensure options are a JSON string
-                  correctAnswer: q.correctAnswer,
-                }))
-              ),
-              
-            };
+            startTime: new Date(formData.startTime).toISOString(),
+            endTime: new Date(formData.endTime).toISOString(),
+            questions: formData.questions.map((q) => ({
+                content: q.content,
+                options: q.options.split(','), // Convert to array
+                answer: q.answer,
+            })),
+        };
 
-        axios.post('http://localhost:3000/manualAssessment', payload)
-            .then(response => {
+        axios.post('http://localhost:3000/manual-exam-paper', payload)
+            .then((response) => {
                 console.log('Data posted successfully:', response.data);
-                navigate('/success');
+                navigate('/schedule-upload-exams/exam-list');
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('There was an error!', error);
             });
     };
@@ -133,7 +140,7 @@ export default function CreateExamContent() {
             <div>
                 <label>Duration (in minutes)</label>
                 <input
-                    type="number"
+                    type="text"
                     name="duration"
                     value={formData.duration}
                     onChange={handleInputChange}
@@ -174,10 +181,11 @@ export default function CreateExamContent() {
                     required
                 />
             </div>
+
             <div>
                 <label>Created By</label>
                 <input
-                    type="number"
+                    type="text"
                     name="createdBy"
                     value={formData.createdBy}
                     onChange={handleInputChange}
@@ -192,8 +200,8 @@ export default function CreateExamContent() {
                     <label>Question Text</label>
                     <input
                         type="text"
-                        name="questions"
-                        value={question.questions}
+                        name="content"
+                        value={question.content}
                         onChange={(e) => handleQuestionChange(index, e)}
                         placeholder="Question"
                         required
@@ -210,14 +218,18 @@ export default function CreateExamContent() {
                     <label>Correct Answer</label>
                     <input
                         type="text"
-                        name="correctAnswer"
-                        value={question.correctAnswer}
+                        name="answer"
+                        value={question.answer}
                         onChange={(e) => handleQuestionChange(index, e)}
                         placeholder="Correct Answer"
                         required
                     />
                 </div>
             ))}
+
+            <button type="button" onClick={addNewQuestion}>
+                Add Another Question
+            </button>
 
             <button type="submit">Create Assessment</button>
         </form>
