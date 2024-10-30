@@ -74,6 +74,7 @@ function App() {
           <Route path="/request-token" element={<RequestToken />} />
           
           {/* Admin */}
+          <Route path="/registers" element={<Registration />} />
           <Route path="/manage" element={<ManageUsers />} /> 
           <Route path="/register" element={<RegForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
