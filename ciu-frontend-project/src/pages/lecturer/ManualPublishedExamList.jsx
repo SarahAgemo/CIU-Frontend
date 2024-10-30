@@ -35,6 +35,7 @@ function ManualPublishedExamList() {
       <table className="glass-table">
         <thead>
           <tr>
+            <th>CourseUnit</th>
             <th>Title</th>
             <th>Description</th>
             <th>Actions</th>
@@ -43,6 +44,7 @@ function ManualPublishedExamList() {
         <tbody>
           {examPapers.map((exam) => (
             <tr key={exam.id}>
+              <td>{exam.courseUnit}</td>
               <td>{exam.title}</td>
               <td>{exam.description}</td>
               <td>
