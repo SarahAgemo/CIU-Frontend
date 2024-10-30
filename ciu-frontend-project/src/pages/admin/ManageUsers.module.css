@@ -31,12 +31,14 @@
     flex: 1;
     overflow: hidden;
   }
-  
+
   .management-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 36px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 16px;
   }
+  
+  
     
   @media (max-width: 768px) {
     .dashboard-content {
