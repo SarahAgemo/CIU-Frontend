@@ -35,14 +35,16 @@ function PublishedExamList() {
       <table className="glass-table">
         <thead>
           <tr>
+            <th>CourseUnit</th>
             <th>Title</th>
-            <th>Description</th>
+            <th>Instructions</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {examPapers.map((exam) => (
             <tr key={exam.id}>
+              <td>{exam.courseUnit}</td>
               <td>{exam.title}</td>
               <td>{exam.description}</td>
               <td>
