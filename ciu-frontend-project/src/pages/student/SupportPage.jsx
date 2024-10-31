@@ -3,6 +3,7 @@ import Header from '../../components/student/Headerpop';
 import Sidebar from '../../components/student/SideBarpop';
 import MobileMenu from "../../components/student/MobileMenu"
 import SupportContent from '../../components/student/SupportContent';
+import Footer from '../../components/student/Footer';
 import Suppage from './SupportPage.module.css'
 
 export default function SupportPage() {
@@ -31,7 +32,12 @@ export default function SupportPage() {
       <div className={Suppage["support-content"]}>
         {!isMobile && <Sidebar />}
         {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
-        <SupportContent />
+        <div className={Suppage['main-container']}>
+          <main className="main-content">
+            <SupportContent />
+          </main>
+          <Footer />
+        </div>
       </div>
     </div>
     </div>

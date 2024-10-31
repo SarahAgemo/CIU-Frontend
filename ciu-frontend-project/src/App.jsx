@@ -57,6 +57,7 @@ import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";
 import MessageSupp from "./pages/student/MessageSupportPg.jsx";
+import Questions from "./pages/student/FAQpagepop.jsx";
 import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 
 
@@ -154,6 +155,7 @@ function App() {
           <Route path="/proctoring" element={<Proctoring />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/student/support/message-support" element={<MessageSupp />} />
+          <Route path="/student/support/FAQ" element={<Questions />} />
 
         </Routes>
       </SidebarProvider1>

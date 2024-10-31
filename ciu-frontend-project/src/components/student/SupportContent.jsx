@@ -11,7 +11,7 @@ export default function SupportContent() {
   };
 
   return (
-    <main className={Support["support-content"]}>
+    <main className={Support["support-cont"]}>
       <div className={Support["support-banner"]}>
         <div className={Support["image-banner"]}>
           <img src="/call-center-concept-flat-design (2).png" alt="Support Illustration" />
@@ -33,7 +33,7 @@ export default function SupportContent() {
         <SupportCard 
           icon={<MessageSquare size={48} />} 
           title="FAQs" 
-          onClick={() => handleCardClick('/student/support/faqs')}
+          onClick={() => handleCardClick('/student/support/FAQ')}
         />
         <SupportCard 
           icon={<AlertCircle size={48} />} 
@@ -45,20 +45,6 @@ export default function SupportContent() {
           title="Report Issue" 
           onClick={() => handleCardClick('/student/support/message-support')}
         />
-      </div>
-      <div className={Support["contact-info"]}>
-        <div className={Support["contact-item"]}>
-          <Globe size={20} />
-          <a href="https://ciu.ac.ug" target="_blank" rel="noopener noreferrer">https://ciu.ac.ug</a>
-        </div>
-        <div className={Support["contact-item"]}>
-          <Phone size={20} />
-          <span>(+256)-323-301-640</span>
-        </div>
-        <div className={Support["contact-item"]}>
-          <Mail size={20} />
-          <a href="mailto:info@ciu.ac.ug">info@ciu.ac.ug</a>
-        </div>
       </div>
     </main>
   );
