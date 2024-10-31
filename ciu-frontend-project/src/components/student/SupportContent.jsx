@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, HelpCircle, MessageSquare, AlertCircle, Globe, Phone, Mail } from 'lucide-react';
+import { Search, HelpCircle, MessageSquare, AlertCircle, MessageCircleMore } from 'lucide-react';
 import Support from './SupportContent.module.css'
 
 export default function SupportContent() {
@@ -36,7 +36,7 @@ export default function SupportContent() {
           onClick={() => handleCardClick('/student/support/FAQ')}
         />
         <SupportCard 
-          icon={<AlertCircle size={48} />} 
+          icon={<MessageCircleMore size={48} />} 
           title="Live Chat" 
           onClick={() => handleCardClick('/student/support/live-chat')}
         />

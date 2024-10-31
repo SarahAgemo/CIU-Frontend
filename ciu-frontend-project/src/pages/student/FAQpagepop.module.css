@@ -27,3 +27,13 @@
   background-color: #F9FFFC;
   overflow-y: auto;
 }
+
+@media (max-width: 384px) {
+  .app-content {
+    flex-direction: column;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+}

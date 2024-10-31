@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import './FAQItem.css';
+import Item from './FAQItem.module.css';
 
 function FAQItem({ question, answer }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="faq-item">
+    <div className={Item["faq-item"]}>
       <button 
-        className={`faq-item-header ${isOpen ? 'faq-item-header--open' : ''}`}
+        className={`${Item['faq-item-header']} ${isOpen ? Item['faq-item-header--open'] : ''}`}
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
       >
-        <span className="faq-item-question">{question}</span>
-        <ChevronDown className={`faq-item-icon ${isOpen ? 'faq-item-icon--open' : ''}`} />
+        <span className={Item["faq-item-question"]}>{question}</span>
+        <ChevronDown className={`${Item['faq-item-icon']} ${isOpen ? Item['faq-item-icon--open'] : ''}`} />
       </button>
       {isOpen && (
-        <div className="faq-item-answer">
+        <div className={Item["faq-item-answer"]}>
           {answer}
         </div>
       )}
