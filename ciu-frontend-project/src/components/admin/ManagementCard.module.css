@@ -1,9 +1,3 @@
- .management-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 36px;
-}
-
 .management-card {
   background-color: #e6f7ef;
   padding: 24px;
