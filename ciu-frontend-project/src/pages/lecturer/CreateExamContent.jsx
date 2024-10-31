@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import createExam from './CreateExamContent.module.css';
 import moment from 'moment';
 
+
 export default function CreateExamContent() {
     const navigate = useNavigate();
     
@@ -53,7 +54,7 @@ export default function CreateExamContent() {
         if (formData.courseId) {
             const fetchCourseUnits = async () => {
                 try {
-                    const response = await fetch(`http://localhost:3000/exam-paper/courses/${formData.courseId}/units`);
+                    const response = await fetch(`http://localhost:3000/manual-exam-paper/courses/${formData.courseId}/units`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch course units');
                     }
@@ -108,6 +109,16 @@ export default function CreateExamContent() {
         }));
     };
 
+    const removeLastQuestion = () => {
+        if (formData.questions.length > 1) {
+            setFormData((prevState) => ({
+                ...prevState,
+                questions: prevState.questions.slice(0, -1),
+            }));
+        }
+    };
+    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -116,8 +127,8 @@ export default function CreateExamContent() {
                 courseId: parseInt(formData.courseId, 10),
                 duration: formData.duration,
                 scheduledDate: moment(formData.scheduledDate).format('YYYY-MM-DD HH:mm:ss'),
-                startTime: moment(formData.startTime, 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
-                endTime: moment(formData.endTime, 'HH:mm').format('YYYY-MM-DD HH:mm:ss'),
+                startTime: moment(formData.startTime, 'HH:mm').format('HH:mm:ss'),
+                endTime: moment(formData.endTime, 'HH:mm').format('HH:mm:ss'),
                 questions: formData.questions.map((q) => ({
                     content: q.content,
                     options: q.options.split(','), // Convert to array
@@ -251,7 +262,7 @@ export default function CreateExamContent() {
             <div>
                 <label>Start Time</label>
                 <input
-                    type="datetime-local"
+                    type="time"
                     name="startTime"
                     value={formData.startTime}
                     onChange={handleInputChange}
@@ -262,7 +273,7 @@ export default function CreateExamContent() {
             <div>
                 <label>End Time</label>
                 <input
-                    type="datetime-local"
+                    type="time"
                     name="endTime"
                     value={formData.endTime}
                     onChange={handleInputChange}
@@ -317,6 +328,10 @@ export default function CreateExamContent() {
 
             <button type="button" onClick={addNewQuestion}>
                 Add Another Question
+            </button>
+
+            <button type="button" onClick={removeLastQuestion} disabled={formData.questions.length === 1}>
+                Remove Last Question
             </button>
 
             <button type="submit">Create Assessment</button>

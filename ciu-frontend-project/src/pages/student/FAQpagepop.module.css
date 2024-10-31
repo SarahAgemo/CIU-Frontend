@@ -15,24 +15,15 @@
   flex: 1;
 }
 
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+} 
+
 .main-content {
-  top: 0;
   flex: 1;
   padding: 20px;
   background-color: #F9FFFC;
-  display:flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-@media (max-width: 768px) {
-  .main-content {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    padding: 8px;
-  }
-
+  overflow-y: auto;
 }
