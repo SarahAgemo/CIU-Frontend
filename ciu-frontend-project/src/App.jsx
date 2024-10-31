@@ -30,6 +30,7 @@ import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 
+
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
 import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
@@ -59,6 +60,9 @@ import Quiz from "./pages/student/Quiz";
 import MessageSupp from "./pages/student/MessageSupportPg.jsx";
 import Questions from "./pages/student/FAQpagepop.jsx";
 import { SidebarProvider } from "./components/student/SidebarContext.jsx";
+import LecturerDashboard from './components/lecturer/LecturerDashboard.jsx';
+import QuestionBankPage from './components/lecturer/QuestionBankPage.jsx';
+import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 
 
 
@@ -117,6 +121,9 @@ function App() {
           <Route path="/manual-exam-paper/:id/question/:questionId" element={<ManualEditExamPaper />} />
           <Route path="/manual-exam-paper/:id/edit" element={<ManualEditExamInterface />} />
           <Route path="/manual-published-exam-papers" element={<ManualPublishedExamList />} />
+          <Route path="/lecturerdashboard" element={<LecturerDashboard />} />
+          <Route path="/question-bank" element={<QuestionBankPage />} />
+          <Route path="/passed-exams-questions" element={<PassedExamsQuestionsPage />} />
             
           {/* Student - Protected route*/}
 
