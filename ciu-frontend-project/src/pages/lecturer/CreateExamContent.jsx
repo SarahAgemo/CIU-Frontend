@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import createExam from './CreateExamContent.module.css';
+import moment from 'moment';
+
 
 export default function CreateExamContent() {
     const navigate = useNavigate();
+    
+    // Fix 1: Separate state declarations
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -25,9 +29,67 @@ export default function CreateExamContent() {
         ],
     });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+    // Fix 2: Add missing state variables
+    const [courses, setCourses] = useState([]);
+    const [courseUnits, setCourseUnits] = useState([]);
+    const [error, setError] = useState('');
+
+    // Fix 3: Update fetch courses useEffect
+    useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/exam-paper/courses');
+                if (!response.ok) throw new Error('Failed to fetch courses');
+                const data = await response.json();
+                setCourses(data);
+            } catch (err) {
+                setError('Error fetching courses: ' + err.message);
+            }
+        };
+        fetchCourses();
+    }, []);
+
+    // Fix 4: Update fetch course units useEffect
+    useEffect(() => {
+        if (formData.courseId) {
+            const fetchCourseUnits = async () => {
+                try {
+                    const response = await fetch(`http://localhost:3000/manual-exam-paper/courses/${formData.courseId}/units`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch course units');
+                    }
+                    const data = await response.json();
+                    setCourseUnits(data.courseUnits || []);
+                } catch (err) {
+                    console.error('Error fetching course units:', err);
+                    setError('Error fetching course units: ' + err.message);
+                    setCourseUnits([]);
+                }
+            };
+            fetchCourseUnits();
+        } else {
+            setCourseUnits([]);
+        }
+    }, [formData.courseId]);
+
+    // Fix 5: Update handleInputChange
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setFormData(prevData => ({
+            ...prevData,
+            [name]: value,
+        }));
+
+        // Update course unit code when course unit changes
+        if (name === 'courseUnit') {
+            const selectedUnit = courseUnits.find(unit => unit.unitName === value);
+            if (selectedUnit) {
+                setFormData(prevData => ({
+                    ...prevData,
+                    courseUnitCode: selectedUnit.unitCode,
+                }));
+            }
+        }
     };
 
     const handleQuestionChange = (index, e) => {
@@ -37,7 +99,6 @@ export default function CreateExamContent() {
         setFormData({ ...formData, questions: newQuestions });
     };
 
-    // Function to add a new question
     const addNewQuestion = () => {
         setFormData((prevState) => ({
             ...prevState,
@@ -48,30 +109,40 @@ export default function CreateExamContent() {
         }));
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const payload = {
-            ...formData,
-            courseId: parseInt(formData.courseId, 10),
-            duration: formData.duration,
-            scheduledDate: new Date(formData.scheduledDate).toISOString(),
-            startTime: new Date(formData.startTime).toISOString(),
-            endTime: new Date(formData.endTime).toISOString(),
-            questions: formData.questions.map((q) => ({
-                content: q.content,
-                options: q.options.split(','), // Convert to array
-                answer: q.answer,
-            })),
-        };
+    const removeLastQuestion = () => {
+        if (formData.questions.length > 1) {
+            setFormData((prevState) => ({
+                ...prevState,
+                questions: prevState.questions.slice(0, -1),
+            }));
+        }
+    };
+    
 
-        axios.post('http://localhost:3000/manual-exam-paper', payload)
-            .then((response) => {
-                console.log('Data posted successfully:', response.data);
-                navigate('/schedule-upload-exams/exam-list');
-            })
-            .catch((error) => {
-                console.error('There was an error!', error);
-            });
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const payload = {
+                ...formData,
+                courseId: parseInt(formData.courseId, 10),
+                duration: formData.duration,
+                scheduledDate: moment(formData.scheduledDate).format('YYYY-MM-DD HH:mm:ss'),
+                startTime: moment(formData.startTime, 'HH:mm').format('HH:mm:ss'),
+                endTime: moment(formData.endTime, 'HH:mm').format('HH:mm:ss'),
+                questions: formData.questions.map((q) => ({
+                    content: q.content,
+                    options: q.options.split(','), // Convert to array
+                    answer: q.answer,
+                })),
+            };
+
+            const response = await axios.post('http://localhost:3000/manual-exam-paper', payload);
+            console.log('Data posted successfully:', response.data);
+            navigate('/schedule-upload-exams/exam-list');
+        } catch (error) {
+            console.error('There was an error!', error);
+            setError('Failed to create exam: ' + error.message);
+        }
     };
 
     return (
@@ -101,29 +172,57 @@ export default function CreateExamContent() {
                 />
             </div>
 
-            <div>
-                <label>Course ID</label>
-                <input
-                    type="number"
-                    name="courseId"
-                    value={formData.courseId}
-                    onChange={handleInputChange}
-                    placeholder="Course ID"
-                    required
-                />
-            </div>
+           
 
-            <div>
-                <label>Course Unit</label>
-                <input
-                    type="text"
-                    name="courseUnit"
-                    value={formData.courseUnit}
-                    onChange={handleInputChange}
-                    placeholder="Course Unit"
-                    required
-                />
-            </div>
+            
+              {/* Course Selection Dropdown */}
+              <div className={createExam["form-group"]}>
+                    <label>Select Course</label>
+                    <select
+                        name="courseId"
+                        className={createExam["form-control"]}
+                        value={formData.courseId}
+                        onChange={handleInputChange}
+                        required
+                    >
+                        <option value="">Select a course</option>
+                        {courses.length > 0 ? (
+                            courses.map((course) => (
+                                <option key={course.id} value={course.id}>
+                                    {course.courseName}
+                                </option>
+                            ))
+                        ) : (
+                            <option disabled>No courses available</option>
+                        )}
+                    </select>
+                </div>
+
+                {/* Course Unit Dropdown */}
+                <div className={createExam["form-group"]}>
+                    <label>Course Unit</label>
+                    <select
+                        name="courseUnit"
+                        className={createExam["form-control"]}
+                        value={formData.courseUnit}
+                        onChange={handleInputChange}
+                        required
+                        disabled={!formData.courseId}
+                    >
+                        <option value="">Select a course unit</option>
+                        {Array.isArray(courseUnits) && courseUnits.length > 0 ? (
+                            courseUnits.map((unit) => (
+                                <option key={unit.id} value={unit.unitName}>
+                                    {unit.unitName}
+                                </option>
+                            ))
+                        ) : (
+                            <option disabled>No course units available</option>
+                        )}
+                    </select>
+                </div>
+
+
 
             <div>
                 <label>Course Unit Code</label>
@@ -163,7 +262,7 @@ export default function CreateExamContent() {
             <div>
                 <label>Start Time</label>
                 <input
-                    type="datetime-local"
+                    type="time"
                     name="startTime"
                     value={formData.startTime}
                     onChange={handleInputChange}
@@ -174,7 +273,7 @@ export default function CreateExamContent() {
             <div>
                 <label>End Time</label>
                 <input
-                    type="datetime-local"
+                    type="time"
                     name="endTime"
                     value={formData.endTime}
                     onChange={handleInputChange}
@@ -229,6 +328,10 @@ export default function CreateExamContent() {
 
             <button type="button" onClick={addNewQuestion}>
                 Add Another Question
+            </button>
+
+            <button type="button" onClick={removeLastQuestion} disabled={formData.questions.length === 1}>
+                Remove Last Question
             </button>
 
             <button type="submit">Create Assessment</button>

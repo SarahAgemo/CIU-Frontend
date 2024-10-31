@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
 import Header from '../../components/student/Headerpop';
 import Sidebar from '../../components/student/SideBarpop';
-import MainContent from '../../components/student/MainContent';
 import MobileMenu from "../../components/student/MobileMenu"
-<<<<<<< HEAD
-import DashboardCard from '../../components/student/Dashboard';
-=======
->>>>>>> 9572c1028d7401544a1dc1e2e84cff39f812a9ba
-import StudDashboard from './StudentDashboard.module.css';
+import FAQList from '../../components/student/FAQpop';
+import Footer from '../../components/student/Footer';
+import Faqs from './FAQpagepop.module.css'
 
-export default function StudentDashboard() {
+export default function Questions() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
@@ -29,13 +26,18 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className={StudDashboard.studentdash}>
-    <div className={StudDashboard.dashboard}>
+    <div className={Faqs['overall']}>
+    <div className={Faqs['app']}>
       <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-      <div className={StudDashboard['dashboard-content']}>
+      <div className={Faqs['app-content']}>
         {!isMobile && <Sidebar />}
         {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
-        <MainContent />
+        <div className={Faqs['main-container']}>
+          <main className={Faqs['main-content']}>
+            <FAQList />
+          </main>
+          <Footer />
+        </div>
       </div>
     </div>
     </div>

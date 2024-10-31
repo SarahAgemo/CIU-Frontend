@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,  useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import uploadExam from './UploadExamContent.module.css'; // Import the updated CSS module
 import moment from 'moment'; // Import moment for date/time formatting
 
 export default function ScheduleUploadExams() {
     const navigate = useNavigate();
+    const [courses, setCourses] = useState([]);
+    const [courseUnits, setCourseUnits] = useState([]);
+    
     const [examData, setExamData] = useState({
         title: '',
         description: '',
@@ -19,14 +22,71 @@ export default function ScheduleUploadExams() {
         isDraft: false, // Ensure isDraft is a boolean
     });
 
-    // Handle input changes for all fields
+     // Fetch courses when component mounts
+     useEffect(() => {
+        const fetchCourses = async () => {
+            try {
+                const response = await fetch('http://localhost:3000/exam-paper/courses');
+                if (!response.ok) throw new Error('Failed to fetch courses');
+                const data = await response.json();
+                setCourses(data);
+            } catch (err) {
+                setError('Error fetching courses: ' + err.message);
+            }
+        };
+        fetchCourses();
+    }, []);
+
+    // Fetch course units when a course is selected
+    
+    useEffect(() => {
+        if (examData.courseId) {
+            const fetchCourseUnits = async () => {
+                try {
+                    const response = await fetch(`http://localhost:3000/exam-paper/courses/${examData.courseId}/units`);
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch course units');
+                    }
+                    const data = await response.json();
+                    console.log('Received course units:', data); // Debug log
+                    
+                    // Ensure we're setting an array, even if empty
+                    setCourseUnits(data.courseUnits || []);
+                } catch (err) {
+                    console.error('Error fetching course units:', err);
+                    setError('Error fetching course units: ' + err.message);
+                    setCourseUnits([]); // Reset to empty array on error
+                }
+            };
+            fetchCourseUnits();
+        } else {
+            setCourseUnits([]); // Reset when no course is selected
+        }
+    }, [examData.courseId]);
+
+    // Handle input change for dropdowns
     const handleInputChange = (event) => {
-        const { name, value, type, checked } = event.target;
+        const { name, value } = event.target;
         setExamData((prevData) => ({
             ...prevData,
-            [name]: type === "checkbox" ? checked : value, // Handles Boolean for checkboxes
+            [name]: value,
         }));
+
+        // Automatically update course unit code when course unit changes
+        if (name === 'courseUnit') {
+            const selectedUnit = courseUnits.find(unit => unit.unitName === value);
+            if (selectedUnit) {
+                setExamData(prevData => ({
+                    ...prevData,
+                    courseUnitCode: selectedUnit.unitCode, // Assuming `unitCode` is part of the unit object
+                }));
+            }
+        }
     };
+
+
+   
+  
 
 
 
@@ -118,29 +178,59 @@ export default function ScheduleUploadExams() {
                     ></textarea>
                 </div>
 
-                {/* Course Information */}
-                <div className={uploadExam["form-group"]}>
-                    <label>Course ID</label>
-                    <input
-                        type="text"
+                
+
+
+               {/* Course Selection Dropdown */}
+               <div className={uploadExam["form-group"]}>
+                    <label>Select Course</label>
+                    <select
                         name="courseId"
                         className={uploadExam["form-control"]}
                         value={examData.courseId}
-                        onChange={handleChange}
+                        onChange={handleInputChange}
                         required
-                    />
+                    >
+                        <option value="">Select a course</option>
+                        {courses.length > 0 ? (
+                            courses.map((course) => (
+                                <option key={course.id} value={course.id}>
+                                    {course.courseName}
+                                </option>
+                            ))
+                        ) : (
+                            <option disabled>No courses available</option>
+                        )}
+                    </select>
                 </div>
-                <div className={uploadExam["form-group"]}>
-                    <label>Course Unit</label>
-                    <input
-                        type="text"
-                        name="courseUnit"
-                        className={uploadExam["form-control"]}
-                        value={examData.courseUnit}
-                        onChange={handleChange}
-                        required
-                    />
-                </div>
+
+               
+              {/* Course Unit Dropdown */}
+              
+    <div className={uploadExam["form-group"]}>
+        <label>Course Unit</label>
+        <select
+            name="courseUnit"
+            className={uploadExam["form-control"]}
+            value={examData.courseUnit}
+            onChange={handleInputChange}
+            required
+            disabled={!examData.courseId}
+        >
+            <option value="">Select a course unit</option>
+            {Array.isArray(courseUnits) && courseUnits.length > 0 ? (
+                courseUnits.map((unit) => (
+                    <option key={unit.id} value={unit.unitName}>
+                        {unit.unitName}
+                    </option>
+                ))
+            ) : (
+                <option disabled>No course units available</option>
+            )}
+        </select>
+    </div>
+
+
                 <div className={uploadExam["form-group"]}>
                     <label>Course Unit Code</label>
                     <input

@@ -30,6 +30,7 @@ import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 
+
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
 import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
@@ -57,57 +58,74 @@ import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";
 import MessageSupp from "./pages/student/MessageSupportPg.jsx";
+import Questions from "./pages/student/FAQpagepop.jsx";
 import { SidebarProvider } from "./components/student/SidebarContext.jsx";
+import LecturerDashboard from './components/lecturer/LecturerDashboard.jsx';
+import QuestionBankPage from './components/lecturer/QuestionBankPage.jsx';
+import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 
 
 
 function App() {
   return (
     <Router>
-      <SidebarProvider1>
-      <Routes>
-    
-        {/* Authentication */}
-        <Route path="/" element={<Login />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/request-token" element={<RequestToken />} />
-        
-        {/* Admin */}
-        <Route path="/manage" element={<ManageUsers />} /> 
-        <Route path="/register" element={<RegForm />} />
-        <Route path="/registers" element={<Registration />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/admin" element={<Dashboard />} />
-        <Route path="/admin/manage-users" element={<ManageUsers />} />
-       
-        <Route path="/manage" element={<ManageUsers />} />
-        <Route path="/users" element={<Users />} />
-        <Route path="/edit/:id" element={<EditUser />} />
-        <Route path="/layout" element={<Layout />} />
-        <Route path="/request-token" element={<RequestToken />} />
-        <Route path="/table" element={<Students />} />
-        <Route path="/edit-student/:id" element={<EditStudent />} />
-        <Route path="/adminuser" element={<Adminuser />} />
-        <Route path="/editadmin/:id" element={<Editadmin />} />
-        <Route path="/adminPassword" element={<ResetAdminPassword />} />
-        <Route path="/RequestAdminToken" element={<RequestAdminToken />} />
-        <Route path="/RequestLecturerToken" element={<RequestLecturerToken />} />
-        <Route path="/regCourse" element={<RegCourse />} />
-        <Route path="/courses" element={<Courses />} />
-        <Route path="/editcourse/:id" element={<EditCourse />} />
+      <SidebarProvider> {/* Student */}
+      <SidebarProvider1> {/* Admin */}
+        <Routes>
+      
+          {/* Authentication */}
+          <Route path="/" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/request-token" element={<RequestToken />} />
           
-        {/* Lecturer */}
-        <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
-        <Route path="/schedule-create-exams" element={<ScheduleCreateExams />} />
-        <Route path="/add-questions" element={<AddQuestions />} />
-        <Route path="/exam-paper/:id" element={<ExamPaperPreview />} />
-        <Route path="/schedule-upload-exams/exam-list" element={<ExamList />} />
-        <Route path="/exam-paper/:id/questions" element={<QuestionsPreview />} />
-        <Route path="/exam-paper/:id/question/:questionId" element={<EditExamPaper />} />
-        <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} />
-        <Route path="/published-exam-papers" element={<PublishedExamList />} />
-          
-        {/* Student */}
+          {/* Admin */}
+          <Route path="/registers" element={<Registration />} />
+          <Route path="/manage" element={<ManageUsers />} /> 
+          <Route path="/register" element={<RegForm />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<Dashboard />} />
+          <Route path="/admin/manage-users" element={<ManageUsers />} />
+          <Route path="/manage" element={<ManageUsers />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/edit/:id" element={<EditUser />} />
+          <Route path="/layout" element={<Layout />} />
+          <Route path="/request-token" element={<RequestToken />} />
+          <Route path="/table" element={<Students />} />
+          <Route path="/edit-student/:id" element={<EditStudent />} />
+          <Route path="/adminuser" element={<Adminuser />} />
+          <Route path="/editadmin/:id" element={<Editadmin />} />
+          <Route path="/adminPassword" element={<ResetAdminPassword />} />
+          <Route path="/lecturerPassword" element={<ResetLecturerPassword />} />
+          <Route path="/RequestAdminToken" element={<RequestAdminToken />} />
+          <Route path="/RequestLecturerToken" element={<RequestLecturerToken />} />
+          <Route path="/regCourse" element={<RegCourse />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/editcourse/:id" element={<EditCourse />} />
+          <Route path="/admin/manage-users/lecturers" element={<Lecturers />} />
+          <Route path="/admin/manage-users/students" element={<StudentsManage/>} />
+          <Route path="/admin/create-faqs" element={<Create />} />
+            
+          {/* Lecturer */}
+          <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
+          <Route path="/schedule-create-exams" element={<ScheduleCreateExams />} />
+          <Route path="/add-questions" element={<AddQuestions />} />
+          <Route path="/exam-paper/:id" element={<ExamPaperPreview />} />
+          <Route path="/schedule-upload-exams/exam-list" element={<ExamList />} />
+          <Route path="/exam-paper/:id/questions" element={<QuestionsPreview />} />
+          <Route path="/exam-paper/:id/question/:questionId" element={<EditExamPaper />} />
+          <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} />
+          <Route path="/published-exam-papers" element={<PublishedExamList />} />
+          <Route path="/manual-exam-paper/:id" element={<ManualExamPaperPreview />} />
+          <Route path="/schedule-create-exams/exam-list" element={<ManualExamList />} />
+          <Route path="/manual-exam-paper/:id/questions" element={<ManualQuestionsPreview />} />
+          <Route path="/manual-exam-paper/:id/question/:questionId" element={<ManualEditExamPaper />} />
+          <Route path="/manual-exam-paper/:id/edit" element={<ManualEditExamInterface />} />
+          <Route path="/manual-published-exam-papers" element={<ManualPublishedExamList />} />
+          <Route path="/lecturerdashboard" element={<LecturerDashboard />} />
+          <Route path="/question-bank" element={<QuestionBankPage />} />
+          <Route path="/passed-exams-questions" element={<PassedExamsQuestionsPage />} />
+            
+          {/* Student - Protected route*/}
 
           {/* <Route path="/student" element={
             <ProtectedRoute>
@@ -144,10 +162,11 @@ function App() {
           <Route path="/proctoring" element={<Proctoring />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/student/support/message-support" element={<MessageSupp />} />
+          <Route path="/student/support/FAQ" element={<Questions />} />
 
         </Routes>
       </SidebarProvider1>
-      {/* </SidebarProvider> */}
+      </SidebarProvider>
     </Router>
   );
 }
