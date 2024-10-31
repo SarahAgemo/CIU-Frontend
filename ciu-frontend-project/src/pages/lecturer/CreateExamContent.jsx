@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import createExam from './CreateExamContent.module.css';
+import moment from 'moment';
+
 
 export default function CreateExamContent() {
     const navigate = useNavigate();
@@ -15,12 +17,12 @@ export default function CreateExamContent() {
         scheduledDate: '',
         startTime: '',
         endTime: '',
-        createdBy:'',
+        createdBy: '',
         questions: [
             {
-                questions: '', // Updated field name
+                content: '',
                 options: '',
-                correctAnswer: '',
+                answer: '',
             },
         ],
     });
@@ -37,32 +39,49 @@ export default function CreateExamContent() {
         setFormData({ ...formData, questions: newQuestions });
     };
 
+    // Function to add a new question
+    const addNewQuestion = () => {
+        setFormData((prevState) => ({
+            ...prevState,
+            questions: [
+                ...prevState.questions,
+                { content: '', options: '', answer: '' },
+            ],
+        }));
+    };
+
+    const removeLastQuestion = () => {
+        if (formData.questions.length > 1) {
+            setFormData((prevState) => ({
+                ...prevState,
+                questions: prevState.questions.slice(0, -1),
+            }));
+        }
+    };
+    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
             ...formData,
             courseId: parseInt(formData.courseId, 10),
-            duration: parseInt(formData.duration, 10),
-            createdBy: parseInt(formData.createdBy, 10),
-            scheduledDate: new Date(formData.scheduledDate).toISOString(),
-            startTime: new Date(formData.startTime).toISOString(), // Ensure proper format
-            endTime: new Date(formData.endTime).toISOString(), // Ensure proper format
-            questions: JSON.stringify(
-                formData.questions.map(q => ({
-                  questions: q.questions,
-                  options: JSON.stringify(q.options.split(',')), // Ensure options are a JSON string
-                  correctAnswer: q.correctAnswer,
-                }))
-              ),
-              
-            };
+            duration: formData.duration,
+            scheduledDate: moment(formData.scheduledDate).format('YYYY-MM-DD HH:mm:ss'),
+            startTime: moment(formData.startTime, 'HH:mm').format('HH:mm:ss'),
+            endTime: moment(formData.endTime, 'HH:mm').format('HH:mm:ss'),
+            questions: formData.questions.map((q) => ({
+                content: q.content,
+                options: q.options.split(','), // Convert to array
+                answer: q.answer,
+            })),
+        };
 
-        axios.post('http://localhost:3000/manualAssessment', payload)
-            .then(response => {
+        axios.post('http://localhost:3000/manual-exam-paper', payload)
+            .then((response) => {
                 console.log('Data posted successfully:', response.data);
-                navigate('/success');
+                navigate('/schedule-upload-exams/exam-list');
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('There was an error!', error);
             });
     };
@@ -133,7 +152,7 @@ export default function CreateExamContent() {
             <div>
                 <label>Duration (in minutes)</label>
                 <input
-                    type="number"
+                    type="text"
                     name="duration"
                     value={formData.duration}
                     onChange={handleInputChange}
@@ -156,7 +175,7 @@ export default function CreateExamContent() {
             <div>
                 <label>Start Time</label>
                 <input
-                    type="datetime-local"
+                    type="time"
                     name="startTime"
                     value={formData.startTime}
                     onChange={handleInputChange}
@@ -167,17 +186,18 @@ export default function CreateExamContent() {
             <div>
                 <label>End Time</label>
                 <input
-                    type="datetime-local"
+                    type="time"
                     name="endTime"
                     value={formData.endTime}
                     onChange={handleInputChange}
                     required
                 />
             </div>
+
             <div>
                 <label>Created By</label>
                 <input
-                    type="number"
+                    type="text"
                     name="createdBy"
                     value={formData.createdBy}
                     onChange={handleInputChange}
@@ -192,8 +212,8 @@ export default function CreateExamContent() {
                     <label>Question Text</label>
                     <input
                         type="text"
-                        name="questions"
-                        value={question.questions}
+                        name="content"
+                        value={question.content}
                         onChange={(e) => handleQuestionChange(index, e)}
                         placeholder="Question"
                         required
@@ -210,14 +230,22 @@ export default function CreateExamContent() {
                     <label>Correct Answer</label>
                     <input
                         type="text"
-                        name="correctAnswer"
-                        value={question.correctAnswer}
+                        name="answer"
+                        value={question.answer}
                         onChange={(e) => handleQuestionChange(index, e)}
                         placeholder="Correct Answer"
                         required
                     />
                 </div>
             ))}
+
+            <button type="button" onClick={addNewQuestion}>
+                Add Another Question
+            </button>
+
+            <button type="button" onClick={removeLastQuestion} disabled={formData.questions.length === 1}>
+                Remove Last Question
+            </button>
 
             <button type="submit">Create Assessment</button>
         </form>

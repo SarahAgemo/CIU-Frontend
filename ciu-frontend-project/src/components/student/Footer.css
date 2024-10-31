@@ -1,0 +1,36 @@
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+  border-top: 1px solid #e0e2e5;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-icon {
+  margin-right: 10px;
+  color: #106053;
+}
+
+.footer-link {
+  color: #333;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
