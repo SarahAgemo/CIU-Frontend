@@ -3,10 +3,6 @@ import Header from '../../components/student/Headerpop';
 import Sidebar from '../../components/student/SideBarpop';
 import MainContent from '../../components/student/MainContent';
 import MobileMenu from "../../components/student/MobileMenu"
-<<<<<<< HEAD
-import DashboardCard from '../../components/student/Dashboard';
-=======
->>>>>>> 9572c1028d7401544a1dc1e2e84cff39f812a9ba
 import StudDashboard from './StudentDashboard.module.css';
 
 export default function StudentDashboard() {

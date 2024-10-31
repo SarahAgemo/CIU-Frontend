@@ -32,16 +32,12 @@ export default function SupportPage() {
       <div className={Suppage["support-content"]}>
         {!isMobile && <Sidebar />}
         {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
-<<<<<<< HEAD
-        <SupportContent />
-=======
         <div className={Suppage['main-container']}>
           <main className="main-content">
             <SupportContent />
           </main>
           <Footer />
         </div>
->>>>>>> 9572c1028d7401544a1dc1e2e84cff39f812a9ba
       </div>
     </div>
     </div>
