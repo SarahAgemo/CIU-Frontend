@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/login.jsx";
 import ResetPassword from "./components/admin/ResetPassword.jsx";
 import RequestToken from "./components/admin/RequestToken.jsx";
-import ProtectedRoute from './components/student/ProtectedRoute.jsx';
+// import ProtectedRoute from './components/student/ProtectedRoute.jsx';
+
 // Admin
 import RegForm from "./components/admin/RegForm.jsx";
 import Registration from "./pages/admin/Registration.jsx";
@@ -18,11 +19,16 @@ import EditStudent from "./components/admin/EditStudent.jsx";
 import Adminuser from "./components/admin/Adminuser.jsx";
 import Editadmin from "./components/admin/Editadmin.jsx";
 import ResetAdminPassword from "./components/admin/ResetAdminPassword.jsx";
+import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx";
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 import RegCourse from "./pages/lecturer/RegCourse.jsx";
 import Courses from "./pages/lecturer/Courses.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
+import Lecturers from "./pages/admin/ManageLecturersPg.jsx";
+import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
+import Create from "./pages/admin/CreateFAQPg.jsx";
+import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -34,6 +40,12 @@ import QuestionsPreview from "./pages/lecturer/QuestionsPreview.jsx";
 import EditExamPaper from "./pages/lecturer/EditExamPaper.jsx";
 import EditExamInterface from "./pages/lecturer/EditExamInterface.jsx";
 import PublishedExamList from './pages/lecturer/PublishedExamList.jsx';
+import ManualExamPaperPreview from "./pages/lecturer/ManualExamPaperPreview.jsx";
+import ManualExamList from "./pages/lecturer/ManualExamList.jsx";
+import ManualQuestionsPreview from "./pages/lecturer/ManualQuestionsPreview.jsx";
+import ManualEditExamPaper from "./pages/lecturer/ManualEditExamPaper.jsx";
+import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.jsx";
+import ManualPublishedExamList from './pages/lecturer/ManualPublishedExamList.jsx';
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
@@ -44,12 +56,15 @@ import ReportIssue from "./pages/student/ReportIssue.jsx";
 import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";
+import MessageSupp from "./pages/student/MessageSupportPg.jsx";
+import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 
 
 
 function App() {
   return (
     <Router>
+      <SidebarProvider1>
       <Routes>
     
         {/* Authentication */}
@@ -60,10 +75,11 @@ function App() {
         {/* Admin */}
         <Route path="/manage" element={<ManageUsers />} /> 
         <Route path="/register" element={<RegForm />} />
+        <Route path="/registers" element={<Registration />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/manage-users" element={<ManageUsers />} />
-        <Route path="/registers" element={<Registration />} />
+       
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<EditUser />} />
@@ -93,41 +109,45 @@ function App() {
           
         {/* Student */}
 
-        <Route path="/student" element={
-           <ProtectedRoute>
-          <StudentDashboard />
-          </ProtectedRoute>
-          } />
-        <Route path="/student/do-exam" element={<ProtectedRoute>
-          <DoExam />
-          </ProtectedRoute>
-          } />
-        <Route path="/student/support" element={
-          <ProtectedRoute>
-          <SupportPage />
-          </ProtectedRoute>
-        } 
-          />
-        <Route path="/student/support/faqs" element={
-           <ProtectedRoute>
-          <FAQpage />
-          </ProtectedRoute>} />
-        <Route path="/student/support/report-issue" element={
-          <ProtectedRoute>
-          <ReportIssue />
-          </ProtectedRoute>
-          } />
+          {/* <Route path="/student" element={
+            <ProtectedRoute>
+            <StudentDashboard />
+            </ProtectedRoute>
+            } />
+          <Route path="/student/do-exam" element={<ProtectedRoute>
+            <DoExam />
+            </ProtectedRoute>
+            } />
+          <Route path="/student/support" element={
+            <ProtectedRoute>
+            <SupportPage />
+            </ProtectedRoute>
+          } 
+            />
+          <Route path="/student/support/faqs" element={
+            <ProtectedRoute>
+            <FAQpage />
+            </ProtectedRoute>} />
+          <Route path="/student/support/report-issue" element={
+            <ProtectedRoute>
+            <ReportIssue />
+            </ProtectedRoute>
+            } /> */}
 
-        <Route path="/student" element={<StudentDashboard />} />
-        <Route path="/student/do-exam" element={<DoExam />} />
-        <Route path="/student/support" element={<SupportPage />} />
-        <Route path="/student/support/faqs" element={<FAQpage />} />
-        <Route path="/student/support/report-issue" element={<ReportIssue />} />
-        <Route path="/instructions" element={<ExamInstructions />} />
-        <Route path="/proctoring" element={<Proctoring />} />
-        <Route path="/quiz" element={<Quiz />} />
+          {/* Student */}
+          <Route path="/student" element={<StudentDashboard />} />
+          <Route path="/student/do-exam" element={<DoExam />} />
+          <Route path="/student/support" element={<SupportPage />} />
+          <Route path="/student/support/faqs" element={<FAQpage />} />
+          <Route path="/student/support/report-issue" element={<ReportIssue />} />
+          <Route path="/instructions" element={<ExamInstructions />} />
+          <Route path="/proctoring" element={<Proctoring />} />
+          <Route path="/quiz" element={<Quiz />} />
+          <Route path="/student/support/message-support" element={<MessageSupp />} />
 
-      </Routes>
+        </Routes>
+      </SidebarProvider1>
+      {/* </SidebarProvider> */}
     </Router>
   );
 }

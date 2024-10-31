@@ -43,7 +43,7 @@ export default function SupportContent() {
         <SupportCard 
           icon={<AlertCircle size={48} />} 
           title="Report Issue" 
-          onClick={() => handleCardClick('/student/support/report-issue')}
+          onClick={() => handleCardClick('/student/support/message-support')}
         />
       </div>
       <div className={Support["contact-info"]}>

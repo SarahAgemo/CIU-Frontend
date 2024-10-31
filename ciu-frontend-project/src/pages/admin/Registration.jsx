@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Register from './Registration.module.css'
 import { useNavigate } from 'react-router-dom';
+// import './Registration.css';
 
 const Registration = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -251,9 +251,9 @@ const Registration = () => {
         <h2>Register</h2>
 
         <form onSubmit={handleSubmit}>
-          <div className={Register["button-group"]}>
-            <button type="button" className={selectedUser === "Administrator" ? "active": Register[""]} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
-            <button type="button" className={selectedUser === "Lecturer" ? "active" : Register[""]} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
+          <div className="button-group">
+            <button type="button" className={selectedUser === "Administrator" ? "active": ""} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
+            <button type="button" className={selectedUser === "Lecturer" ? "active" : ""} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
           </div>
 
           <label htmlFor='firstName'>First Name</label>
