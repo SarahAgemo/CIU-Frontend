@@ -24,6 +24,7 @@ import RegCourse from "./pages/lecturer/RegCourse.jsx";
 import Courses from "./pages/lecturer/Courses.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
 
+
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
 import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
@@ -34,6 +35,10 @@ import QuestionsPreview from "./pages/lecturer/QuestionsPreview.jsx";
 import EditExamPaper from "./pages/lecturer/EditExamPaper.jsx";
 import EditExamInterface from "./pages/lecturer/EditExamInterface.jsx";
 import PublishedExamList from './pages/lecturer/PublishedExamList.jsx';
+import LecturerDashboard from './components/lecturer/LecturerDashboard.jsx';
+import QuestionBankPage from './components/lecturer/QuestionBankPage.jsx';
+import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
+
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
@@ -63,7 +68,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/admin" element={<Dashboard />} />
         <Route path="/admin/manage-users" element={<ManageUsers />} />
-       
+        <Route path="/registers" element={<Registration />} />
         <Route path="/manage" element={<ManageUsers />} />
         <Route path="/users" element={<Users />} />
         <Route path="/edit/:id" element={<EditUser />} />
@@ -90,7 +95,10 @@ function App() {
         <Route path="/exam-paper/:id/question/:questionId" element={<EditExamPaper />} />
         <Route path="/exam-paper/:id/edit" element={<EditExamInterface />} />
         <Route path="/published-exam-papers" element={<PublishedExamList />} />
-          
+        <Route path="/lecturerdashboard" element={<LecturerDashboard />} />
+        <Route path="/question-bank" element={<QuestionBankPage />} />
+        <Route path="/passed-exams-questions" element={<PassedExamsQuestionsPage />} />
+        
         {/* Student */}
 
         <Route path="/student" element={

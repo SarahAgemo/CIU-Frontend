@@ -1,0 +1,68 @@
+/* src/pages/lecturer/PassedExamsQuestionsPage.css */
+
+.passed-exams-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+    flex-direction: column;
+  }
+  
+  .page-title {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: green; /* Title text color */
+  }
+  
+  .main-card {
+    background-color: #fff;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .exams-list {
+    width: 90%;
+  }
+  
+  .exam-card {
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .exam-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .exam-header h2 {
+    margin: 0;
+    color: green; /* Course text color */
+  }
+  
+  .questions-list {
+    list-style-type: circle;
+    margin-top: 10px;
+    padding-left: 25px;
+  }
+  
+  /* Dropdown arrow styling */
+  .dropdown-arrow {
+    color: green; /* Dropdown arrow color */
+  }
+  
