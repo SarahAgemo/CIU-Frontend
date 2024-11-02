@@ -1,0 +1,68 @@
+/* src/QuestionBankPage.css */
+
+.question-bank-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    padding: 20px;
+    flex-direction: column;
+  }
+  
+  .page-title {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    color: green; 
+  }
+  
+  .main-card {
+    background-color: #fff;
+    width: 80%;
+    max-width: 900px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+  }
+  
+  .course-list {
+    width: 90%;
+  }
+  
+  .course-card {
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .course-header h2 {
+    margin: 0;
+    color: green; 
+  }
+  
+  
+  .course-header svg {
+    color: green;
+  }
+  
+  .units-list {
+    list-style-type: circle;
+    margin-top: 10px;
+    padding-left: 25px;
+  }
+  
