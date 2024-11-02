@@ -28,7 +28,6 @@ export default function LecturerDashboardContent() {
     fetchData();
   }, []);
 
-
   return (
     <div className={Dash.overall}>
       <div className={Dash.dashboard}>
