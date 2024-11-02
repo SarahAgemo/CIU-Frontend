@@ -31,3 +31,27 @@
   flex-direction: column;
   gap: 16px;
 }
+
+@media (max-width: 384px) {
+  .faq-list {
+    padding: 10px;
+  }
+
+  .faq-back-button {
+    padding: 6px;
+  }
+
+  .faq-back-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .faq-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .faq-items {
+    gap: 12px;
+  }
+}

@@ -34,3 +34,22 @@
 .footer-link:hover {
   text-decoration: underline;
 }
+
+@media (max-width: 384px) {
+  .footer {
+    padding: 10px;
+  }
+
+  .footer-item {
+    font-size: 12px;
+  }
+
+  .footer-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .footer-link {
+    font-size: 12px;
+  }
+}
