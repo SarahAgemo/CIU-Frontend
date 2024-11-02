@@ -1,0 +1,82 @@
+.exam-list-container {
+    max-width: 800px; /* Set a maximum width for the container */
+    margin: 0 auto; /* Center the container */
+    padding: 20px; /* Add padding inside the container */
+    background-color: #f9f9f9; /* Light background for contrast */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+h3 {
+    text-align: center; /* Center the header */
+    font-size: 24px; /* Font size for the header */
+    font-weight: 600; /* Bold header text */
+    color: #106053; /* Dark green color */
+    margin-bottom: 20px; /* Spacing below the header */
+}
+
+/* Table styling */
+.glass-table {
+    width: 100%; /* Full width table */
+    border-collapse: collapse; /* Merge table borders */
+}
+
+.glass-table th, .glass-table td {
+    padding: 12px; /* Padding inside table cells */
+    border: 1px solid #ddd; /* Light border for table cells */
+    text-align: left; /* Align text to the left */
+}
+
+.glass-table th {
+    background-color: #106053; /* Dark green background for header */
+    color: #fff; /* White text for header */
+}
+
+.glass-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+.status-button {
+    padding: 6px 12px; /* Padding inside status buttons */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners for buttons */
+    font-size: 14px; /* Font size for button text */
+    color: #fff; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Transition effect for hover */
+}
+
+.status-button.draft {
+    background-color: #3F7F75; /* Orange for draft status */
+}
+
+.status-button.published {
+    background-color:  #106053; /* Green for published status */
+}
+
+.preview-button {
+    padding: 6px 12px; /* Padding for preview button */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Rounded corners */
+    background-color:  #106053; /* Blue background */
+    color: #fff; /* White text color */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Transition effect for hover */
+}
+
+.preview-button:hover {
+    background-color:  #0B3F37; /* Darker blue on hover */
+}
+
+/* Alert messages */
+.alert {
+    padding: 10px; /* Padding for alert messages */
+    margin-top: 15px; /* Margin above alert messages */
+    border-radius: 4px; /* Rounded corners */
+    font-weight: 500; /* Bold text */
+}
+
+.alert-danger {
+    background-color: #f8d7da; /* Light red background for error */
+    color: #721c24; /* Dark red text */
+}

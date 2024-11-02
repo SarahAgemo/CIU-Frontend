@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import './EditExamInterface.css';
 
 function EditExamInterface() {
   const { id } = useParams(); // Get the exam paper ID from the URL
@@ -111,7 +112,7 @@ function EditExamInterface() {
             )}
           </div>
         ))}
-        <button type="submit" className="btn btn-primary">Update Exam Paper</button>
+        <button type="submit" className="btn btn">Update Exam Paper</button>
       </form>
     </div>
   );
