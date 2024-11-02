@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import './EditExamPaper.css';
 
 function EditExamPaper() {
   // Extract both `id` (exam paper ID) and `questionId` (specific question ID)
@@ -98,7 +99,7 @@ function EditExamPaper() {
             className="form-control mt-1"
           />
         </div>
-        <button type="submit" className="btn btn-primary mt-3">Save</button>
+        <button type="submit" className="btn btn">Save</button>
       </form>
     </div>
   );

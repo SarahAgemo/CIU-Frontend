@@ -143,7 +143,7 @@ function ContactItem({ icon, text }) {
 }
 
 .btn-send:hover {
-  background-color: #146c43;
+  background-color: #0B3F37;
 }
 
 @media (max-width: 768px) {

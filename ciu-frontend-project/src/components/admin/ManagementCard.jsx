@@ -13,3 +13,4 @@ export default function ManagementCard({ title, icon, to }) {
     </Link>
   )
 }
+

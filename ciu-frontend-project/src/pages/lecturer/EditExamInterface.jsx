@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import './EditExamInterface.css';
 import moment from 'moment';
 
 function EditExamInterface() {
@@ -63,7 +64,7 @@ function EditExamInterface() {
         const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
         if (!response.ok) throw new Error('Failed to fetch exam paper');
         const data = await response.json();
-        
+
         // Format the dates and times
         if (data.startTime) {
           data.startTime = moment(data.startTime).format('HH:mm');
@@ -135,131 +136,37 @@ function EditExamInterface() {
     <div className="container mt-5">
       <h3>Edit Exam Paper</h3>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>Title</label>
-          <input
-            type="text"
-            name="title"
-            value={examData.title}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Description</label>
-          <textarea
-            name="description"
-            value={examData.description}
-            onChange={handleChange}
-            className="form-control"
-          ></textarea>
-        </div>
-
-        <div className="form-group">
-          <label>Select Course</label>
-          <select
-            name="courseId"
-            className="form-control"
-            value={examData.courseId}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select a course</option>
-            {courses.map((course) => (
-              <option key={course.id} value={course.id}>
-                {course.courseName}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label>Course Unit</label>
-          <select
-            name="courseUnit"
-            className="form-control"
-            value={examData.courseUnit}
-            onChange={handleChange}
-            required
-            disabled={!examData.courseId}
-          >
-            <option value="">Select a course unit</option>
-            {Array.isArray(courseUnits) && courseUnits.map((unit) => (
-              <option key={unit.id} value={unit.unitName}>
-                {unit.unitName}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label>Course Unit Code</label>
-          <input
-            type="text"
-            name="courseUnitCode"
-            value={examData.courseUnitCode}
-            onChange={handleChange}
-            className="form-control"
-           
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Scheduled Date</label>
-          <input
-            type="datetime-local"
-            name="scheduledDate"
-            value={examData.scheduledDate}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Duration (minutes)</label>
-          <input
-            type="number"
-            name="duration"
-            value={examData.duration}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Start Time</label>
-          <input
-            type="time"
-            name="startTime"
-            value={examData.startTime}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>End Time</label>
-          <input
-            type="time"
-            name="endTime"
-            value={examData.endTime}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Created By</label>
-          <input
-            type="text"
-            name="createdBy"
-            value={examData.createdBy}
-            onChange={handleChange}
-            className="form-control"
-          />
-        </div>
-
+        {/* Render form fields for editing exam data */}
+        {Object.keys(examData).map((key) => (
+          <div key={key} className="form-group">
+            <label>{key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}</label>
+            {key === 'scheduledDate' ? (
+              <input
+                type="date"
+                name={key}
+                value={examData[key]}
+                onChange={handleChange}
+                className="form-control"
+              />
+            ) : key === 'startTime' || key === 'endTime' ? (
+              <input
+                type="time"
+                name={key}
+                value={examData[key]} // Ensure time is in HH:mm format
+                onChange={handleChange}
+                className="form-control"
+              />
+            ) : (
+              <input
+                type="text"
+                name={key}
+                value={examData[key]}
+                onChange={handleChange}
+                className="form-control"
+              />
+            )}
+          </div>
+        ))}
         <button type="submit" className="btn btn-primary">Update Exam Paper</button>
       </form>
     </div>

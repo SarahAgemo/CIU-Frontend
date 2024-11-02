@@ -15,7 +15,7 @@ button.btn-danger:hover {
 
 /* Adjusted .btn and .btn-danger styles for consistency */
 .btn.btn-danger {
-    background-color: #106010;
+    background-color: #106053;
     color: white;
     padding: 2px 4px; /* Minimal padding for compactness */
     border: none;
@@ -34,7 +34,7 @@ button.btn-danger:hover {
     transition: background-color 0.3s ease;
     margin: 15px; /* Can be adjusted or removed as needed */
     width: fit-content; /* Button width fits the content */
-    border-color: #106010;
+    border-color: #106053;
 }
 
 /* Align buttons horizontally in actions column */
@@ -45,7 +45,7 @@ td:last-child {
 }
 
 button.btn-secondary:hover {
-    background-color: #108c0c;
+    background-color: #0B3F37;
 }
 
 /* Responsive styling for mobile */

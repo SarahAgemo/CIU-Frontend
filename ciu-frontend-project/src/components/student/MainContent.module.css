@@ -1,80 +1,3 @@
-/* function DashboardCard({ icon, title, badge, onClick, isActive }) {
-  return (
-    <div className={`dashboard-card ${isActive ? 'active' : ''}`} onClick={onClick}>
-      <div className="card-icon">{icon}</div>
-      <h3>{title}</h3>
-      {badge && <span className="badge">{badge}</span>}
-    </div>
-  );
-}
-
-export default function MainContent() {
-  const [activeModal, setActiveModal] = useState(null);
-  const [upcomingExams, setUpcomingExams] = useState([]);
-  const [completedExams, setCompletedExams] = useState([]);
-
-  useEffect(() => {
-    const loadExams = async () => {
-      const upcoming = await fetchUpcomingExams();
-      const completed = await fetchCompletedExams();
-      setUpcomingExams(upcoming);
-      setCompletedExams(completed);
-    };
-    loadExams();
-  }, []);
-
-  const handleCardClick = (modalType) => {
-    setActiveModal(modalType);
-  };
-
-  return (
-    <main className="main-content">
-      <div className="welcome-banner">
-        <div className="image-group">
-          <img src="977A9972-min.jpg" alt="Students" className="banner-image" />
-        </div>
-        <div className="welcome-overlay">
-          <h2>Welcome back Cole!</h2>
-          <p>Do your exams from anywhere</p>
-          <div className="search-bar">
-            <Search size={20} />
-            <input type="text" placeholder="Search..." />
-          </div>
-        </div>
-      </div>
-      <div className="dashboard-cards">
-        <DashboardCard 
-          icon={<FileText size={48} />} 
-          title="Upcoming Exams" 
-          onClick={() => handleCardClick('upcoming')}
-          isActive={activeModal === 'upcoming'}
-        />
-        <DashboardCard 
-          icon={<ClipboardList size={48} />} 
-          title="Completed Exams" 
-          onClick={() => handleCardClick('completed')}
-          isActive={activeModal === 'completed'}
-        />
-        <DashboardCard icon={<MessageSquare size={48} />} title="Messages" badge="1" />
-      </div>
-      <Modal 
-        isOpen={activeModal === 'upcoming'} 
-        onClose={() => setActiveModal(null)}
-        title="UPCOMING EXAMS"
-      >
-        <UpcomingExamsTable exams={upcomingExams} />
-      </Modal>
-      <Modal 
-        isOpen={activeModal === 'completed'} 
-        onClose={() => setActiveModal(null)}
-        title="COMPLETED EXAMS"
-      >
-        <CompletedExamsTable exams={completedExams} />
-      </Modal>
-    </main>
-  );
-} */
-
 .main-content {
   flex: 1;
   padding: 24px;
@@ -159,7 +82,7 @@ export default function MainContent() {
 
 .welcome-overlay h2 {
   font-size: 40px;
-  margin-bottom: 16px;
+  margin-bottom: 36px;
 }
 
 .search-bar {

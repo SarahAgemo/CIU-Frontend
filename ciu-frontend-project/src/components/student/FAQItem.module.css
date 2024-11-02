@@ -41,3 +41,23 @@
   font-size: 14px;
   color: #666666;
 }
+
+@media (max-width: 384px) {
+  .faq-item-header {
+    padding: 12px;
+  }
+
+  .faq-item-question {
+    font-size: 13px;
+  }
+
+  .faq-item-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .faq-item-answer {
+    padding: 12px;
+    font-size: 13px;
+  }
+}
