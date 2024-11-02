@@ -5,10 +5,10 @@ import Dash from './LecturerDashboard.module.css'; // Assuming you have some sty
 
 export default function LecturerDashboardContent() {
   const lecturerMetrics = [
-    { title: "Courses Taught", value: 5, icon: "📘" },
-    { title: "Students Enrolled", value: 120, icon: "👩‍🎓" },
-    { title: "Assignments Graded", value: 50, icon: "📝" },
-    { title: "Office Hours Scheduled", value: 8, icon: "📅" }
+    { title: "Question Banks", value: 5, icon: "📘" },
+    { title: "Ongoing Exams", value: 120, icon: "👩‍🎓" },
+    { title: "Upcoming Exams", value: 50, icon: "📝" },
+    // { title: "Office Hours Scheduled", value: 8, icon: "📅" }
   ];
 
   return (
