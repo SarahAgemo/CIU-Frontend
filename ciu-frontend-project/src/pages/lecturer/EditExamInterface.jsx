@@ -201,7 +201,7 @@ function EditExamInterface() {
             value={examData.courseUnitCode}
             onChange={handleChange}
             className="form-control"
-            readOnly
+           
           />
         </div>
 
