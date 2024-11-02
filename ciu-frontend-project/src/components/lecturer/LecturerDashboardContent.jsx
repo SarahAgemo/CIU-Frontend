@@ -1,15 +1,30 @@
-// src/pages/lecturer/LecturerDashboard.jsx
-import React from 'react';
-import DashboardCard from './DashboardCard'; // Adjust path based on your structure
-import Dash from './LecturerDashboard.module.css'; // Assuming you have some styles specific to the lecturer dashboard
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import DashboardCard from './DashboardCard'; 
+import Dash from './LecturerDashboard.module.css';
 
 export default function LecturerDashboardContent() {
-  const lecturerMetrics = [
-    { title: "Courses Taught", value: 5, icon: "📘" },
-    { title: "Students Enrolled", value: 120, icon: "👩‍🎓" },
-    { title: "Assignments Graded", value: 50, icon: "📝" },
-    { title: "Office Hours Scheduled", value: 8, icon: "📅" }
-  ];
+  const [lecturerMetrics, setLecturerMetrics] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/exam-paper/count'); 
+        const { data } = response;
+        
+        // Set lecturer metrics based on the response from the API
+        setLecturerMetrics([
+          { title: "Courses", value: data.coursesCount, icon: "📘" },
+          { title: "Students Enrolled", value: data.studentsCount, icon: "👩‍🎓" },
+          { title: "Upcoming Exams", value: data.upcomingExamsCount, icon: "📝" },
+        ]);
+      } catch (error) {
+        console.error("Error fetching metrics:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <div className={Dash.overall}>
