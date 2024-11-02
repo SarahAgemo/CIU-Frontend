@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './Registration.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const Registration = () => {
   const navigate = useNavigate(); // Initialize useNavigate
@@ -127,59 +128,179 @@ const Registration = () => {
   };
 
   return (
-    <div className={Register['container']}>
-      <h2>Register</h2>
+    <div>
+      <style>
+        {`
+          @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
-      <form onSubmit={handleSubmit}>
-        <div className={Register["button-group"]}>
-          <button type="button" className={selectedUser === Register["Administrator"] ? Register["active"] : Register[""]} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
-          <button type="button" className={selectedUser === Register["Lecturer"] ? Register["active"] : Register[""]} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
-        </div>
+          body{
+              background: #ebebeb;
+              text-align: center;
+              font-family: 'Roboto Slab';
+          }
 
-        <label htmlFor='firstName'>First Name</label>
-        <input
-          type="text"
-          placeholder='Enter First Name'
-          name='firstName'
-          value={formData.firstName}
-          onChange={handleInputChange}
-        />
-        {errors.firstName && <span className={Register['error']}>{errors.firstName}</span>}
+          .container{
+              background-color: #fff;
+              box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+              padding: 10px 20px;
+              transition: transform 0.2s;
+              width: 500px;
+              text-align: center;
+              margin: 20px auto;
+          }
 
-        <label htmlFor='lastName'>Last Name</label>
-        <input
-          type="text"
-          placeholder='Enter Last Name'
-          name='lastName'
-          value={formData.lastName}
-          onChange={handleInputChange}
-        />
-        {errors.lastName && <span className='error'>{errors.lastName}</span>}
+          h2{
+              font-size: x-large;
+              text-align: center;
+              color: #106053;
+          }
 
-        <label htmlFor='emailOrStudentNumber'>Email</label>
-        <input
-          type="email"
-          placeholder='Enter Email'
-          name='emailOrStudentNumber'
-          value={formData.emailOrStudentNumber}
-          onChange={handleInputChange}
-        />
-        {errors.emailOrStudentNumber && <span className={Register['error']}>{errors.emailOrStudentNumber}</span>}
+          label{
+              font-size: 15px;
+              display: block;
+              width: 100%;
+              margin-top: 8px;
+              margin-bottom: 5px;
+              text-align: left;
+              color: #106053;
+              font-weight: bold;
+          }
 
-        <label htmlFor='password'>Password</label>
-        <input
-          type="password"
-          placeholder='Enter Password'
-          name='password'
-          value={formData.password}
-          onChange={handleInputChange}
-        />
-        {errors.password && <span className={Register['error']}>{errors.password}</span>}
+          input, select, textarea{
+              display: block;
+              width: 100%;
+              padding: 8px;
+              box-sizing: border-box;
+              border: 1px solid #ddd;
+              font-size: 12px;
+              margin-bottom: 5px;
+              transition: border-color 0.3s ease;
+          }
 
-        <button type='submit'>Register</button>
-        {successMessage && <p className='success'>{successMessage}</p>} {/* Success message display */}
-        {errors.server && <span className='error'>{errors.server}</span>} {/* Server error display */}
-      </form>
+
+          .error {
+              color: #938d8d;
+              font-size: 12px;
+              text-align: left;
+              margin-top: 2px;
+          }
+
+
+          input.error-input, select.error-input {
+              border-color: red;
+          }
+
+
+          .register-button{
+              padding: 10px 15px;
+              margin: 15px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+              border: none;
+              color: #fff;
+              cursor: pointer;
+              background-color: #106053;
+              width: 40%;
+              font-size: 16px;
+          }
+
+          .register-button:hover{
+              background-color: #0B3F37;
+          }
+
+          .button-group {
+              display: flex;
+              justify-content: space-around;
+              margin-bottom: 15px;
+              gap: 10px;
+          }
+
+          .button-group button {
+              padding: 10px 15px;
+              border: none;
+              background-color: #f0f0f0;
+              color: #333;
+              cursor: pointer;
+              font-size: 12px;
+              transition: background-color 0.3s ease;
+          }
+
+          .button-group button.active {
+              background-color: #106053;
+              color: #fff;
+          }
+
+          .button-group button:hover {
+              background-color: #0B3F37;
+              color: #fff;
+          }
+
+
+          input.success-input, select.success-input {
+              border-color: green;
+          }
+
+
+          input:focus {
+              border-color: #106053;
+              outline: none;
+          } 
+          
+        `}
+      </style>
+      <div className='container'>
+        <h2>Register</h2>
+
+        <form onSubmit={handleSubmit}>
+          <div className="button-group">
+            <button type="button" className={selectedUser === "Administrator" ? "active": ""} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
+            <button type="button" className={selectedUser === "Lecturer" ? "active" : ""} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
+          </div>
+
+          <label htmlFor='firstName'>First Name</label>
+          <input
+            type="text"
+            placeholder='Enter First Name'
+            name='firstName'
+            value={formData.firstName}
+            onChange={handleInputChange}
+          />
+          {errors.firstName && <span className='error'>{errors.firstName}</span>}
+
+          <label htmlFor='lastName'>Last Name</label>
+          <input
+            type="text"
+            placeholder='Enter Last Name'
+            name='lastName'
+            value={formData.lastName}
+            onChange={handleInputChange}
+          />
+          {errors.lastName && <span className='error'>{errors.lastName}</span>}
+
+          <label htmlFor='emailOrStudentNumber'>Email</label>
+          <input
+            type="email"
+            placeholder='Enter Email'
+            name='emailOrStudentNumber'
+            value={formData.emailOrStudentNumber}
+            onChange={handleInputChange}
+          />
+          {errors.emailOrStudentNumber && <span className='error'>{errors.emailOrStudentNumber}</span>}
+
+          <label htmlFor='password'>Password</label>
+          <input
+            type="password"
+            placeholder='Enter Password'
+            name='password'
+            value={formData.password}
+            onChange={handleInputChange}
+          />
+          {errors.password && <span className='error'>{errors.password}</span>}
+
+          <button type="submit" className="register-button">Register</button>
+          {successMessage && <p className='success'>{successMessage}</p>} {/* Success message display */}
+          {errors.server && <span className='error'>{errors.server}</span>} {/* Server error display */}
+        </form>
+      </div>
     </div>
   );
 };

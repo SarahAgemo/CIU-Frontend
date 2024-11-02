@@ -1,0 +1,81 @@
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+/* Sidebar links and active state */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.sidebar-link:hover {
+    background-color: #f0f0f0;
+}
+
+.active {
+    background-color: #e0e0e0;
+}
+
+/* Sidebar icon styling */
+.icon {
+    margin-right: 10px;
+}
+
+/* Logout container to ensure logout stays at the bottom */
+.logout-container {
+    margin-top: auto;
+    padding-top: 10px;
+}
+
+/* Sidebar dropdown styles */
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px 15px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+}
+
+.dropdown-arrow {
+    transition: transform 0.3s ease;
+}
+
+.open {
+    transform: rotate(180deg);
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    margin-top: 8px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Dropdown links */
+.dropdown-link {
+    margin: 5px 0;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+/* Remove underline on hover and change color to green */
+.dropdown-link:hover {
+    color: green;
+    text-decoration: none;
+}

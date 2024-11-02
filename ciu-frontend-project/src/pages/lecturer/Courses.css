@@ -2,42 +2,42 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-    background-color: white; /* White background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    border: none; /* Remove borders */
+    background-color: white; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    border: none; 
   }
   
-  /* Header (th) styling */
+  
   th {
-    background-color: #f5f5f5; /* Neutral background instead of green */
-    color: #333; /* Darker text color */
+    background-color: #f5f5f5; 
+    color: #333; 
     padding: 12px 15px;
     text-align: center;
     font-weight: bold;
     text-transform: uppercase;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Light shadow on header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
   }
   
-  /* Data cells (td) styling */
+ 
   td {
     padding: 10px 15px;
     text-align: center;
-    border-bottom: 1px solid #ddd; /* Light bottom border */
+    border-bottom: 1px solid #ddd; 
   }
   
-  /* Remove left border on first column */
+  
   td:first-child {
     border-left: none;
   }
   
-  /* Row hover effect */
+ 
   tr:hover {
     background-color: #f5f5f5;
   }
   
-  /* Button styling */
+
   button.btn {
-    padding: 6px 12px;
+    padding: 7px 13px;
     border-radius: 4px;
     border: none;
     cursor: pointer;
@@ -45,44 +45,40 @@ table {
     transition: background-color 0.3s ease;
   }
   
-  /* Button primary style */
+
   button.btn-primary {
-    background-color: #007bff;
+    background-color:  #106010;
     color: white;
   }
   
   button.btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #0B3F37;
   }
   
-  /* Button danger style */
+
   button.btn-danger {
-    background-color: #dc3545;
+    background-color:  #106010;
     color: white;
   }
   
   button.btn-danger:hover {
-    background-color: #c82333;
+    background-color: #0B3F37;
   }
   
-  /* Align buttons horizontally in actions column */
+  
   td:last-child {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Space between buttons */
+    gap: 10px; 
   }
   
-  /* Button secondary style */
-  /* button.btn-secondary {
-     background-color: ; 
-    
-  } */
+ 
   
   button.btn-secondary:hover {
-    background-color: #108c0c;
+    background-color: #0B3F37;
   }
   
-  /* Responsive styling for mobile */
+ 
   @media (max-width: 768px) {
     table {
       display: block;
@@ -90,14 +86,25 @@ table {
       white-space: nowrap;
     }
   
-    button.btn {
-      font-size: 12px;
-      padding: 4px 8px;
-    }
+    
   }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; 
+    font-size: 12px;
+    padding: 4px 8px;
+}
+
+.btn i {
+    font-size: 18px;
+}
+
   
   
-  /* new styles */
+
   
   .layout-container {
       display: flex;
