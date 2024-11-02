@@ -41,6 +41,8 @@ import DoExam from "./pages/student/DoExam.jsx";
 import SupportPage from "./pages/student/SupportPage.jsx";
 import FAQpage from "./pages/student/FAQpage.jsx";
 import ReportIssue from "./pages/student/ReportIssue.jsx";
+import LiveChat from "./pages/student/LiveChat.jsx";
+import Notifications from "./pages/student/notifications.jsx";
 
 
 
@@ -108,6 +110,8 @@ function App() {
         <Route path="/student/support" element={<SupportPage />} />
         <Route path="/student/support/faqs" element={<FAQpage />} />
         <Route path="/student/support/report-issue" element={<ReportIssue />} />
+        <Route path="/student/live-chat" element={<LiveChat />} />
+        <Route path="/student/notifications" element={<Notifications />} />
 
       </Routes>
     </Router>
