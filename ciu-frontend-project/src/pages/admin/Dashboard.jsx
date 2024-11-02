@@ -65,10 +65,13 @@ export default function Dashboard() {
           <h2 className={AdminDash["dashboard-title"]}>Dashboard</h2>
           <div className={AdminDash["dashboard-cards"]}>
             <DashboardCard title="Registered Students" value={studentCount} icon="🎓" />
-            <DashboardCard title="Course groups" value={programCount} icon="📖" />
+            <DashboardCard title="Registered Lecturers" value={studentCount} icon="👨‍💻" />
+            <DashboardCard title="Registered Courses" value={programCount} icon="📖" />
+            <DashboardCard title="Registered Course Units" value={programCount} icon="📖" />
             {/* You can add more DashboardCards here if needed */}
-            <DashboardCard title="Registered Lecturers" value="26" icon="📚" />
-            <DashboardCard title="Ongoing Exams/Tests" value="2" icon="📝" />
+            <DashboardCard title="Ongoing Exams/Assessments" value="2" icon="📝" />
+            <DashboardCard title="Upcoming Exams/Assessments" value="2" icon="📝" />
+            
           </div>
         </main>        
       </div>
