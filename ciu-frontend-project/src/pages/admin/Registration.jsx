@@ -136,7 +136,7 @@ const Registration = () => {
           body{
               background: #ebebeb;
               text-align: center;
-              font-family: 'Roboto', sans-serif;
+              font-family: 'Roboto Slab';
           }
 
           .container{
@@ -152,7 +152,7 @@ const Registration = () => {
           h2{
               font-size: x-large;
               text-align: center;
-              color: #106010;
+              color: #106053;
           }
 
           label{
@@ -162,7 +162,7 @@ const Registration = () => {
               margin-top: 8px;
               margin-bottom: 5px;
               text-align: left;
-              color: #106010;
+              color: #106053;
               font-weight: bold;
           }
 
@@ -191,20 +191,20 @@ const Registration = () => {
           }
 
 
-          button{
+          .register-button{
               padding: 10px 15px;
               margin: 15px;
               box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
               border: none;
               color: #fff;
               cursor: pointer;
-              background-color: #106010;
+              background-color: #106053;
               width: 40%;
               font-size: 16px;
           }
 
-          button:hover{
-              background-color: #0c890c;
+          .register-button:hover{
+              background-color: #0B3F37;
           }
 
           .button-group {
@@ -225,12 +225,12 @@ const Registration = () => {
           }
 
           .button-group button.active {
-              background-color: #106010;
+              background-color: #106053;
               color: #fff;
           }
 
           .button-group button:hover {
-              background-color: #0c890c;
+              background-color: #0B3F37;
               color: #fff;
           }
 
@@ -241,7 +241,7 @@ const Registration = () => {
 
 
           input:focus {
-              border-color: #106010;
+              border-color: #106053;
               outline: none;
           } 
           
@@ -296,7 +296,7 @@ const Registration = () => {
           />
           {errors.password && <span className='error'>{errors.password}</span>}
 
-          <button type='submit'>Register</button>
+          <button type="submit" className="register-button">Register</button>
           {successMessage && <p className='success'>{successMessage}</p>} {/* Success message display */}
           {errors.server && <span className='error'>{errors.server}</span>} {/* Server error display */}
         </form>

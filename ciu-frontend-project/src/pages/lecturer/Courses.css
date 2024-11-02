@@ -47,22 +47,22 @@ table {
   
 
   button.btn-primary {
-    background-color: #108c0c;
+    background-color:  #106010;
     color: white;
   }
   
   button.btn-primary:hover {
-    background-color: #108c0c;
+    background-color: #0B3F37;
   }
   
 
   button.btn-danger {
-    background-color: #108c0c;
+    background-color:  #106010;
     color: white;
   }
   
   button.btn-danger:hover {
-    background-color: #108c0c;
+    background-color: #0B3F37;
   }
   
   
@@ -75,7 +75,7 @@ table {
  
   
   button.btn-secondary:hover {
-    background-color: #108c0c;
+    background-color: #0B3F37;
   }
   
  
