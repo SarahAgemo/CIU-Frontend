@@ -1,67 +1,15 @@
-  /* return (
-    <main className="support-content">
-      <div className="support-banner">
-        <div className="image-banner">
-          <img src="/call-center-concept-flat-design (2).png" alt="Support Illustration" />
-        </div>
-        <div className="image-content">
-          <h2>Welcome to Support</h2>
-          <div className="lookup-bar">
-            <input type="text" placeholder="Search..." />
-            <Search size={20} />
-          </div>
-        </div>
-      </div>
-      <div className="support-cards">
-        <SupportCard 
-          icon={<HelpCircle size={48} />} 
-          title="Self Help Guide" 
-          onClick={() => handleCardClick('/student/support/self-help')}
-        />
-        <SupportCard 
-          icon={<MessageSquare size={48} />} 
-          title="FAQs" 
-          onClick={() => handleCardClick('/student/support/faqs')}
-        />
-        <SupportCard 
-          icon={<AlertCircle size={48} />} 
-          title="Live Chat" 
-          onClick={() => handleCardClick('/student/support/live-chat')}
-        />
-        <SupportCard 
-          icon={<AlertCircle size={48} />} 
-          title="Report Issue" 
-          onClick={() => handleCardClick('/student/support/report-issue')}
-        />
-      </div>
-      <div className="contact-info">
-        <ContactItem icon={<Globe size={20} />} text="https://ciu.ac.ug" />
-        <ContactItem icon={<Phone size={20} />} text="(+256)-323-301-640" />
-        <ContactItem icon={<Mail size={20} />} text="info@ciu.ac.ug" />
-      </div>
-    </main>
-  );
+:root {
+  --primary-color: #106053;
+  --secondary-color: #e6f7ef;
+  --text-color: #333;
+  --background-color: #f8f8f8;
+  --card-background: #ffffff;
+  --sidebar-width: 240px;
+  --header-height: 64px;
+  --footer-height: 60px;
 }
 
-function SupportCard({ icon, title, onClick }) {
-  return (
-    <div className="support-card" onClick={onClick}>
-      <div className="card-icon">{icon}</div>
-      <h3>{title}</h3>
-    </div>
-  );
-}
-
-function ContactItem({ icon, text }) {
-  return (
-    <div className="contact-item">
-      {icon}
-      <span>{text}</span>
-    </div>
-  );
-} */
-
-.support-content {
+.support-cont {
   flex: 1;
   padding: 24px;
   overflow-y: auto;
@@ -85,7 +33,7 @@ function ContactItem({ icon, text }) {
 .image-content h2 {
   display: flex;
   flex-direction: column;
-  color: var(--primary-color);
+  color: #106053;
   margin-top: 0;
   margin-bottom: 16px;
   font-size: 28px;
@@ -132,7 +80,7 @@ function ContactItem({ icon, text }) {
 }
 
 .card-icon {
-  color: var(--primary-color);
+  color: #106053;
   margin-bottom: 16px;
 }
 
@@ -140,36 +88,4 @@ function ContactItem({ icon, text }) {
   margin: 0;
   color: var(--text-color);
   font-size: 18px;
-}
-
-.contact-info {
-  display: flex;
-  justify-content: space-around;
-  background-color: var(--card-background);
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
-  bottom: 0;
-  top:70px;
-}
-
-.contact-item  {
-  display: flex;
-  align-items: center;
-  color: var(--text-color);
-}
-
-.contact-item svg {
-  margin-right: 8px;
-  color: var(--primary-color);
-}
-
-.contact-item a {
-  color: var(--text-color);
-  text-decoration: none;
-}
-
-.contact-item a:hover {
-  text-decoration: underline;
 }

@@ -1,0 +1,76 @@
+.instructions-overall {
+  display: flex;
+  flex-direction: row; /* Default layout */
+  min-height: 100vh;
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box; /* Ensure padding/margins are included in width */
+}
+
+.examination-details {
+  width: 20%; /* Default width for large screens */
+  background-color: white;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 0;
+}
+
+.instructions-page {
+  width: 80%;
+  background-color: white;
+  padding: 20px;
+  box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.instructions-page h2 {
+  font-size: 1.75rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.instructions-content p {
+  margin-bottom: 10px;
+  line-height: 1.6;
+}
+
+.next-button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #106053;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.next-button:hover {
+  background-color: #0B3F37;
+}
+
+/* Adjust layout for small screens */
+@media screen and (max-width: 940px) {
+  .instructions-overall {
+    flex-direction: column; /* Stack elements vertically */
+    width: 100%; /* Ensure full width */
+  }
+
+  .examination-details {
+    width: 100%; /* Full width on small screens */
+    box-shadow: none; /* Remove shadow */
+    border-bottom: 1px solid #ccc; /* Nav bar effect */
+    box-sizing: border-box; /* Ensure padding doesn't push content out */
+  }
+
+  .instructions-page {
+    width: 100%; /* Ensure the page takes the full width */
+    padding: 15px;
+    box-shadow: none;
+  }
+
+  .instructions-page h2 {
+    font-size: 1.5rem;
+  }
+}
