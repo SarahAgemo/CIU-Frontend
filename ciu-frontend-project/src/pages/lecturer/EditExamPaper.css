@@ -65,7 +65,7 @@
     width: 100%;
     padding: 10px;
     margin-top: 15px;
-    background-color: #106010;
+    background-color: #106053;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -76,6 +76,6 @@
   }
   
   .edit-exam-paper-button:hover {
-    background-color: #0c890c;
+    background-color: #0B3F37;
   }
   
