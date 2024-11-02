@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LayoutDashboard, FileText, ClipboardList, Calendar, HelpCircle, LogOut, ChevronDown } from 'lucide-react';
+import { LayoutDashboard, FileText,   HelpCircle, LogOut, ChevronDown,Video,Bell} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import AddSide from './SideBarAddQuestion.module.css';
 
@@ -12,9 +12,10 @@ export default function Sidebar() {
 
     const menuItems = [
         { icon: <LayoutDashboard size={20} />, text: 'Dashboard', path: '/student', active: true },
-        // { icon: <ClipboardList size={20} />, text: 'Proctoring', path: '/student/results' },
-        // { icon: <Calendar size={20} />, text: 'Question Banks', path: '/student/calendar' },
-        // { icon: <HelpCircle size={20} />, text: 'Marking Guide', path: '/student/support' },
+        { icon: <Bell size={20} />, text: 'Notifications', path: '/student/results' },
+        { icon: <FileText size={20} />, text: 'Reports', path: '/student/calendar' },
+        { icon: <HelpCircle size={20} />, text: 'Question Bank', path: '/student/support' },
+        { icon: <Video size={20} />, text: 'Proctoring', path: '/student/support' },
     ];
 
     return (
