@@ -29,6 +29,7 @@ import Lecturers from "./pages/admin/ManageLecturersPg.jsx";
 import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
+import TokenPasswordPage from './components/admin/TokenPasswordPage';
 
 
 // Lecturer
@@ -104,6 +105,7 @@ function App() {
           <Route path="/admin/manage-users/lecturers" element={<Lecturers />} />
           <Route path="/admin/manage-users/students" element={<StudentsManage/>} />
           <Route path="/admin/create-faqs" element={<Create />} />
+          <Route path="/token-password-reset" element={<TokenPasswordPage />} />
             
           {/* Lecturer */}
           <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
