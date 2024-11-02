@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import '../../components/admin/ExamList.css'; // Import the CSS file for styling
+
 
 function ManualExamPaperPreview() {
   const { id } = useParams(); // Get the exam paper ID from the URL
