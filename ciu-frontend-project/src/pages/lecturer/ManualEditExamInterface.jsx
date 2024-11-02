@@ -361,7 +361,7 @@ function ManualEditExamInterface() {
         </div>
 
         <div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn">
             Update Exam Paper
           </button>
         </div>

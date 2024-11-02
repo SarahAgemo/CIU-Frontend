@@ -4,14 +4,6 @@ import DashboardCard from './DashboardCard';
 import Dash from './LecturerDashboard.module.css';
 
 export default function LecturerDashboardContent() {
-<<<<<<< HEAD
-  const lecturerMetrics = [
-    { title: "Question Banks", value: 5, icon: "📘" },
-    { title: "Ongoing Exams", value: 120, icon: "👩‍🎓" },
-    { title: "Upcoming Exams", value: 50, icon: "📝" },
-    // { title: "Office Hours Scheduled", value: 8, icon: "📅" }
-  ];
-=======
   const [lecturerMetrics, setLecturerMetrics] = useState([]);
 
   useEffect(() => {
@@ -24,7 +16,9 @@ export default function LecturerDashboardContent() {
         setLecturerMetrics([
           { title: "Courses", value: data.coursesCount, icon: "📘" },
           { title: "Students Enrolled", value: data.studentsCount, icon: "👩‍🎓" },
+          { title: "Question Banks", value: data.upcomingExamsCount, icon: "📝" },
           { title: "Upcoming Exams", value: data.upcomingExamsCount, icon: "📝" },
+          { title: "Ongoing Exams", value: data.upcomingExamsCount, icon: "📝" },
         ]);
       } catch (error) {
         console.error("Error fetching metrics:", error);
@@ -33,7 +27,7 @@ export default function LecturerDashboardContent() {
 
     fetchData();
   }, []);
->>>>>>> 623392a38b7f64c9cd6245eb99e2c9f53bcca964
+
 
   return (
     <div className={Dash.overall}>

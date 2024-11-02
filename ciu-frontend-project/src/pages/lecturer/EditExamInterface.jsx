@@ -260,7 +260,7 @@ function EditExamInterface() {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">Update Exam Paper</button>
+        <button type="submit" className="btn btn">Update Exam Paper</button>
       </form>
     </div>
   );
