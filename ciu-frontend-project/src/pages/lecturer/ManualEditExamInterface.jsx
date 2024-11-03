@@ -361,6 +361,14 @@ function ManualEditExamInterface() {
   //         </button>
   //       </div>
 
+<<<<<<< HEAD
+        <div>
+          <button type="submit" className="btn btn">
+            Update Exam Paper
+          </button>
+        </div>
+      </form>
+=======
   //       <div>
   //         <button type="submit" className="btn btn-primary">
   //           Update Exam Paper
@@ -383,6 +391,7 @@ function ManualEditExamInterface() {
         className="edit-exam-input"
         required
       />
+>>>>>>> 40e9bf0afa11686dec65c56da2c32068230ee319
     </div>
 
     <div className="edit-exam-form-group">

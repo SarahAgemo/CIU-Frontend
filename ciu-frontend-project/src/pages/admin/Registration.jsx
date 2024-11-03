@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
 const Registration = () => {
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const [selectedUser, setSelectedUser] = useState("Select User");
   const [formData, setFormData] = useState({
     firstName: '',
@@ -14,19 +12,98 @@ const Registration = () => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
-  
 
-  const toggleDropdown = () => { 
-    setIsOpen(!isOpen);
+  // Styles object
+  const styles = {
+    // container: {
+    //   maxWidth: '700px',
+    //   margin: '40px auto',
+    //   padding: '20px',
+    //   backgroundColor: '#ffffff',
+    //   borderRadius: '10px',
+    //   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    //   fontFamily: 'Arial, sans-serif',
+    // },
+    heading: {
+      textAlign: 'center',
+      color: '#333',
+      marginBottom: '20px',
+      fontSize: '24px',
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '15px',
+       marginLeft: '450px',
+       width: '30%'
+    },
+    buttonGroup: {
+      display: 'flex',
+      gap: '10px',
+      marginBottom: '20px',
+    },
+    button: {
+      flex: 1,
+      padding: '10px',
+      border: '1px solid #ddd',
+      borderRadius: '5px',
+      backgroundColor: '#106053',
+      cursor: 'pointer',
+      fontSize: '14px',
+      transition: 'all 0.3s ease',
+    },
+    activeButton: {
+      backgroundColor: 'whitesmoke',
+      color: '#106053',
+      border: '1px solid #106053',
+    },
+    label: {
+      fontSize: '14px',
+      color: '#333',
+      marginBottom: '5px',
+    },
+    input: {
+      width: '100%',
+      padding: '8px',
+      border: '1px solid #ddd',
+      borderRadius: '5px',
+      fontSize: '14px',
+      boxSizing: 'border-box',
+    },
+    error: {
+      color: '#dc3545',
+      fontSize: '12px',
+      marginTop: '5px',
+    },
+    success: {
+      color: '#28a745',
+      textAlign: 'center',
+      padding: '10px',
+      backgroundColor: '#d4edda',
+      borderRadius: '5px',
+      marginTop: '10px',
+    },
+    registerButton: {
+      backgroundColor: '#106053',
+      color: 'white',
+      padding: '10px 20px',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      fontSize: '16px',
+      marginTop: '10px',
+      
+    },
   };
 
   const handleUserSelection = (user) => {
     setSelectedUser(user);
-    setIsOpen(false);
     setFormData({
       ...formData,
-      emailOrStudentNumber: '', // Reset the input field when user type changes
+      emailOrStudentNumber: '',
+      password: ''
     });
+    setErrors({});
   };
 
   const handleInputChange = (e) => {
@@ -49,15 +126,13 @@ const Registration = () => {
     }
 
     if (!formData.emailOrStudentNumber.trim()) {
-      errors.emailOrStudentNumber = 'Email is required'; // Only require email for lecturers and administrators
-    } else if (!/\S+@\S+\.\S+/.test(formData.emailOrStudentNumber)) {
-      errors.emailOrStudentNumber = 'Email is invalid';
+      errors.emailOrStudentNumber = 'Email is required';
+    } else if (!/^[a-zA-Z]+@ciu\.ac\.ug$/.test(formData.emailOrStudentNumber)) {
+      errors.emailOrStudentNumber = 'Email must be in the format: firstname@ciu.ac.ug';
     }
 
-    if (!formData.password.trim()) {
+    if (selectedUser === "Administrator" && !formData.password.trim()) {
       errors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters long';
     }
 
     return errors;
@@ -71,25 +146,21 @@ const Registration = () => {
         let endpoint = '';
         let payload;
 
-        // Set the endpoint and payload based on the selected user type
         if (selectedUser === "Lecturer") {
           endpoint = 'http://localhost:3000/lecturerReg';
           payload = {
             first_name: formData.firstName,
             last_name: formData.lastName,
-            student_number: null, // No student number for lecturer
-            email: formData.emailOrStudentNumber, // Email for lecturer
-            role: selectedUser,
-            password: formData.password,
+            email: formData.emailOrStudentNumber,
+            role: "lecturer"
           };
         } else if (selectedUser === "Administrator") {
           endpoint = 'http://localhost:3000/adminReg';
           payload = {
             first_name: formData.firstName,
             last_name: formData.lastName,
-            student_number: null, // No student number for administrator
-            email: formData.emailOrStudentNumber, // Email for administrator
-            role: selectedUser,
+            email: formData.emailOrStudentNumber,
+            role: "administrator",
             password: formData.password,
           };
         }
@@ -101,22 +172,23 @@ const Registration = () => {
           },
           body: JSON.stringify(payload),
         });
+        
+        const responseData = await response.json();
 
         if (response.ok) {
-          const data = await response.json();
           setSuccessMessage(`${selectedUser} successfully registered!`);
-          setFormData({ firstName: '', lastName: '', emailOrStudentNumber: '', password: '' }); // Clear the form
+          setFormData({ firstName: '', lastName: '', emailOrStudentNumber: '', password: '' });
           setErrors({});
 
-          // Redirect based on the user type
           if (selectedUser === "Administrator") {
-            navigate('/adminuser'); // Redirect to the admin user page
+            navigate('/adminuser');
           } else if (selectedUser === "Lecturer") {
-            navigate('/users'); // Redirect to the lecturer user page
+            navigate('/token-password-reset');
           }
         } else {
-          const errorData = await response.json();
-          setErrors(errorData.errors || {});
+          setErrors({ 
+            server: responseData.message || 'Registration failed. Please try again.' 
+          });
         }
       } catch (error) {
         console.error('Error registering user:', error);
@@ -128,179 +200,93 @@ const Registration = () => {
   };
 
   return (
-    <div>
-      <style>
-        {`
-          @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+    <div style={styles.container}>
+      <h2 style={styles.heading}>Register</h2>
 
-          body{
-              background: #ebebeb;
-              text-align: center;
-              font-family: 'Roboto Slab', sans-serif;
-          }
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.buttonGroup}>
+          <button 
+            type="button" 
+            style={{
+              ...styles.button,
+              ...(selectedUser === "Administrator" ? styles.activeButton : {})
+            }}
+            onClick={() => handleUserSelection("Administrator")}
+          >
+            Administrator
+          </button>
+          <button 
+            type="button" 
+            style={{
+              ...styles.button,
+              ...(selectedUser === "Lecturer" ? styles.activeButton : {})
+            }}
+            onClick={() => handleUserSelection("Lecturer")}
+          >
+            Lecturer
+          </button>
+        </div>
 
-          .container{
-              background-color: #fff;
-              box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-              padding: 10px 20px;
-              transition: transform 0.2s;
-              width: 500px;
-              text-align: center;
-              margin: 20px auto;
-          }
+        <label style={styles.label}>First Name</label>
+        <input
+          type="text"
+          placeholder='Enter First Name'
+          name='firstName'
+          value={formData.firstName}
+          onChange={handleInputChange}
+          style={styles.input}
+        />
+        {errors.firstName && <span style={styles.error}>{errors.firstName}</span>}
 
-          h2{
-              font-size: x-large;
-              text-align: center;
-              color: #106053;
-          }
+        <label style={styles.label}>Last Name</label>
+        <input
+          type="text"
+          placeholder='Enter Last Name'
+          name='lastName'
+          value={formData.lastName}
+          onChange={handleInputChange}
+          style={styles.input}
+        />
+        {errors.lastName && <span style={styles.error}>{errors.lastName}</span>}
 
-          label{
-              font-size: 15px;
-              display: block;
-              width: 100%;
-              margin-top: 8px;
-              margin-bottom: 5px;
-              text-align: left;
-              color: #106053;
-              font-weight: bold;
-          }
+        <label style={styles.label}>Email (@ciu.ac.ug)</label>
+        <input
+          type="email"
+          placeholder='Enter Email (firstname@ciu.ac.ug)'
+          name='emailOrStudentNumber'
+          value={formData.emailOrStudentNumber}
+          onChange={handleInputChange}
+          style={styles.input}
+        />
+        {errors.emailOrStudentNumber && <span style={styles.error}>{errors.emailOrStudentNumber}</span>}
 
-          input, select, textarea{
-              display: block;
-              width: 100%;
-              padding: 8px;
-              box-sizing: border-box;
-              border: 1px solid #ddd;
-              font-size: 12px;
-              margin-bottom: 5px;
-              transition: border-color 0.3s ease;
-          }
+        {selectedUser === "Administrator" && (
+          <>
+            <label style={styles.label}>Password</label>
+            <input
+              type="password"
+              placeholder='Enter Password'
+              name='password'
+              value={formData.password}
+              onChange={handleInputChange}
+              style={styles.input}
+            />
+            {errors.password && <span style={styles.error}>{errors.password}</span>}
+          </>
+        )}
 
-
-          .error {
-              color: #938d8d;
-              font-size: 12px;
-              text-align: left;
-              margin-top: 2px;
-          }
-
-
-          input.error-input, select.error-input {
-              border-color: red;
-          }
-
-
-          .register-button{
-              padding: 10px 15px;
-              margin: 15px;
-              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-              border: none;
-              color: #fff;
-              cursor: pointer;
-              background-color: #106053;
-              width: 40%;
-              font-size: 16px;
-          }
-
-          .register-button:hover{
-              background-color: #0B3F37;
-          }
-
-          .button-group {
-              display: flex;
-              justify-content: space-around;
-              margin-bottom: 15px;
-              gap: 10px;
-          }
-
-          .button-group button {
-              padding: 10px 15px;
-              border: none;
-              background-color: #f0f0f0;
-              color: #333;
-              cursor: pointer;
-              font-size: 12px;
-              transition: background-color 0.3s ease;
-          }
-
-          .button-group button.active {
-              background-color: #106053;
-              color: #fff;
-          }
-
-          .button-group button:hover {
-              background-color: #0B3F37;
-              color: #fff;
-          }
-
-
-          input.success-input, select.success-input {
-              border-color: green;
-          }
-
-
-          input:focus {
-              border-color: #106053;
-              outline: none;
-          } 
-          
-        `}
-      </style>
-      <div className='container'>
-        <h2>Register</h2>
-
-        <form onSubmit={handleSubmit}>
-          <div className="button-group">
-            <button type="button" className={selectedUser === "Administrator" ? "active": ""} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
-            <button type="button" className={selectedUser === "Lecturer" ? "active" : ""} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
-          </div>
-
-          <label htmlFor='firstName'>First Name</label>
-          <input
-            type="text"
-            placeholder='Enter First Name'
-            name='firstName'
-            value={formData.firstName}
-            onChange={handleInputChange}
-          />
-          {errors.firstName && <span className='error'>{errors.firstName}</span>}
-
-          <label htmlFor='lastName'>Last Name</label>
-          <input
-            type="text"
-            placeholder='Enter Last Name'
-            name='lastName'
-            value={formData.lastName}
-            onChange={handleInputChange}
-          />
-          {errors.lastName && <span className='error'>{errors.lastName}</span>}
-
-          <label htmlFor='emailOrStudentNumber'>Email</label>
-          <input
-            type="email"
-            placeholder='Enter Email'
-            name='emailOrStudentNumber'
-            value={formData.emailOrStudentNumber}
-            onChange={handleInputChange}
-          />
-          {errors.emailOrStudentNumber && <span className='error'>{errors.emailOrStudentNumber}</span>}
-
-          <label htmlFor='password'>Password</label>
-          <input
-            type="password"
-            placeholder='Enter Password'
-            name='password'
-            value={formData.password}
-            onChange={handleInputChange}
-          />
-          {errors.password && <span className='error'>{errors.password}</span>}
-
-          <button type="submit" className="register-button">Register</button>
-          {successMessage && <p className='success'>{successMessage}</p>} {/* Success message display */}
-          {errors.server && <span className='error'>{errors.server}</span>} {/* Server error display */}
-        </form>
-      </div>
+        <button 
+          type="submit" 
+          style={styles.registerButton}
+          onMouseOver={e => e.currentTarget.style.backgroundColor = '#08362f'}
+          onMouseOut={e => e.currentTarget.style.backgroundColor = '#08362f'}
+        >
+          Register
+        </button>
+        
+        {successMessage && <p style={styles.success}>{successMessage}</p>}
+        {errors.server && <span style={styles.error}>{errors.server}</span>}
+      </form>
     </div>
   );
 };
