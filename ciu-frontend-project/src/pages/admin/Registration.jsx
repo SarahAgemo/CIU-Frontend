@@ -24,8 +24,7 @@ const Registration = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const [selectedUser, setSelectedUser] = useState("Select User");
   const [formData, setFormData] = useState({
     firstName: "",
@@ -36,17 +35,14 @@ const Registration = () => {
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
   const handleUserSelection = (user) => {
     setSelectedUser(user);
-    setIsOpen(false);
     setFormData({
       ...formData,
-      emailOrStudentNumber: "", // Reset the input field when user type changes
+      emailOrStudentNumber: "",
+      password: "",
     });
+    setErrors({});
   };
 
   const handleInputChange = (e) => {
@@ -69,15 +65,14 @@ const Registration = () => {
     }
 
     if (!formData.emailOrStudentNumber.trim()) {
-      errors.emailOrStudentNumber = "Email is required"; // Only require email for lecturers and administrators
-    } else if (!/\S+@\S+\.\S+/.test(formData.emailOrStudentNumber)) {
-      errors.emailOrStudentNumber = "Email is invalid";
+      errors.emailOrStudentNumber = "Email is required";
+    } else if (!/^[a-zA-Z]+@ciu\.ac\.ug$/.test(formData.emailOrStudentNumber)) {
+      errors.emailOrStudentNumber =
+        "Email must be in the format: firstname@ciu.ac.ug";
     }
 
-    if (!formData.password.trim()) {
+    if (selectedUser === "Administrator" && !formData.password.trim()) {
       errors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      errors.password = "Password must be at least 6 characters long";
     }
 
     return errors;
@@ -91,25 +86,21 @@ const Registration = () => {
         let endpoint = "";
         let payload;
 
-        // Set the endpoint and payload based on the selected user type
         if (selectedUser === "Lecturer") {
           endpoint = "http://localhost:3000/lecturerReg";
           payload = {
             first_name: formData.firstName,
             last_name: formData.lastName,
-            student_number: null, // No student number for lecturer
-            email: formData.emailOrStudentNumber, // Email for lecturer
-            role: selectedUser,
-            password: formData.password,
+            email: formData.emailOrStudentNumber,
+            role: "lecturer",
           };
         } else if (selectedUser === "Administrator") {
           endpoint = "http://localhost:3000/adminReg";
           payload = {
             first_name: formData.firstName,
             last_name: formData.lastName,
-            student_number: null, // No student number for administrator
-            email: formData.emailOrStudentNumber, // Email for administrator
-            role: selectedUser,
+            email: formData.emailOrStudentNumber,
+            role: "administrator",
             password: formData.password,
           };
         }
@@ -122,26 +113,28 @@ const Registration = () => {
           body: JSON.stringify(payload),
         });
 
+        const responseData = await response.json();
+
         if (response.ok) {
-          const data = await response.json();
           setSuccessMessage(`${selectedUser} successfully registered!`);
           setFormData({
             firstName: "",
             lastName: "",
             emailOrStudentNumber: "",
             password: "",
-          }); // Clear the form
+          });
           setErrors({});
 
-          // Redirect based on the user type
           if (selectedUser === "Administrator") {
-            navigate("/adminuser"); // Redirect to the admin user page
+            navigate("/adminuser");
           } else if (selectedUser === "Lecturer") {
-            navigate("/users"); // Redirect to the lecturer user page
+            navigate("/token-password-reset");
           }
         } else {
-          const errorData = await response.json();
-          setErrors(errorData.errors || {});
+          setErrors({
+            server:
+              responseData.message || "Registration failed. Please try again.",
+          });
         }
       } catch (error) {
         console.error("Error registering user:", error);
@@ -152,410 +145,224 @@ const Registration = () => {
     }
   };
 
-  // return (
-  //   <div>
-  //     <style>
-  //       {`
-  //         @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-
-  //         body{
-  //             background: #ebebeb;
-  //             text-align: center;
-  //             font-family: 'Roboto Slab';
-  //         }
-
-  //         .container{
-  //             background-color: #fff;
-  //             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  //             padding: 10px 20px;
-  //             transition: transform 0.2s;
-  //             width: 500px;
-  //             text-align: center;
-  //             margin: 20px auto;
-  //         }
-
-  //         h2{
-  //             font-size: x-large;
-  //             text-align: center;
-  //             color: #106053;
-  //         }
-
-  //         label{
-  //             font-size: 15px;
-  //             display: block;
-  //             width: 100%;
-  //             margin-top: 8px;
-  //             margin-bottom: 5px;
-  //             text-align: left;
-  //             color: #106053;
-  //             font-weight: bold;
-  //         }
-
-  //         input, select, textarea{
-  //             display: block;
-  //             width: 100%;
-  //             padding: 8px;
-  //             box-sizing: border-box;
-  //             border: 1px solid #ddd;
-  //             font-size: 12px;
-  //             margin-bottom: 5px;
-  //             transition: border-color 0.3s ease;
-  //         }
-
-
-  //         .error {
-  //             color: #938d8d;
-  //             font-size: 12px;
-  //             text-align: left;
-  //             margin-top: 2px;
-  //         }
-
-
-  //         input.error-input, select.error-input {
-  //             border-color: red;
-  //         }
-
-
-  //         .register-button{
-  //             padding: 10px 15px;
-  //             margin: 15px;
-  //             box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  //             border: none;
-  //             color: #fff;
-  //             cursor: pointer;
-  //             background-color: #106053;
-  //             width: 40%;
-  //             font-size: 16px;
-  //         }
-
-  //         .register-button:hover{
-  //             background-color: #0B3F37;
-  //         }
-
-  //         .button-group {
-  //             display: flex;
-  //             justify-content: space-around;
-  //             margin-bottom: 15px;
-  //             gap: 10px;
-  //         }
-
-  //         .button-group button {
-  //             padding: 10px 15px;
-  //             border: none;
-  //             background-color: #f0f0f0;
-  //             color: #333;
-  //             cursor: pointer;
-  //             font-size: 12px;
-  //             transition: background-color 0.3s ease;
-  //         }
-
-  //         .button-group button.active {
-  //             background-color: #106053;
-  //             color: #fff;
-  //         }
-
-  //         .button-group button:hover {
-  //             background-color: #0B3F37;
-  //             color: #fff;
-  //         }
-
-
-  //         input.success-input, select.success-input {
-  //             border-color: green;
-  //         }
-
-
-  //         input:focus {
-  //             border-color: #106053;
-  //             outline: none;
-  //         } 
-          
-  //       `}
-  //     </style>
-  //     <div className="container">
-  //       <h2>Register</h2>
-
-  //       <form onSubmit={handleSubmit}>
-  //         <div className="button-group">
-  //           <button
-  //             type="button"
-  //             className={selectedUser === "Administrator" ? "active" : ""}
-  //             onClick={() => handleUserSelection("Administrator")}
-  //           >
-  //             Administrator
-  //           </button>
-  //           <button
-  //             type="button"
-  //             className={selectedUser === "Lecturer" ? "active" : ""}
-  //             onClick={() => handleUserSelection("Lecturer")}
-  //           >
-  //             Lecturer
-  //           </button>
-  //         </div>
-  //         <label htmlFor="firstName">First Name</label>
-  //         <input
-  //           type="text"
-  //           placeholder="Enter First Name"
-  //           name="firstName"
-  //           value={formData.firstName}
-  //           onChange={handleInputChange}
-  //         />
-  //         {errors.firstName && (
-  //           <span className="error">{errors.firstName}</span>
-  //         )}
-  //         <label htmlFor="lastName">Last Name</label>
-  //         <input
-  //           type="text"
-  //           placeholder="Enter Last Name"
-  //           name="lastName"
-  //           value={formData.lastName}
-  //           onChange={handleInputChange}
-  //         />
-  //         {errors.lastName && <span className="error">{errors.lastName}</span>}
-  //         <label htmlFor="emailOrStudentNumber">Email</label>
-  //         <input
-  //           type="email"
-  //           placeholder="Enter Email"
-  //           name="emailOrStudentNumber"
-  //           value={formData.emailOrStudentNumber}
-  //           onChange={handleInputChange}
-  //         />
-  //         {errors.emailOrStudentNumber && (
-  //           <span className="error">{errors.emailOrStudentNumber}</span>
-  //         )}
-  //         <label htmlFor="password">Password</label>
-  //         <input
-  //           type="password"
-  //           placeholder="Enter Password"
-  //           name="password"
-  //           value={formData.password}
-  //           onChange={handleInputChange}
-  //         />
-  //         {errors.password && <span className="error">{errors.password}</span>}
-  //         <button type="submit" className="register-button">
-  //           Register
-  //         </button>
-  //         {successMessage && <p className="success">{successMessage}</p>}{" "}
-  //         {/* Success message display */}
-  //         {errors.server && <span className="error">{errors.server}</span>}{" "}
-  //         {/* Server error display */}
-  //       </form>
-  //     </div>
-  //   </div>
-  // );
 
   return (
-    <div className={Dash.lecturerDashboard}>
-      <div className={Dash.dashboard}>
-        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-        <div className={Dash["dashboard-content"]}>
-          {!isMobile && <Sidebar />}
-          {isMobile && (
-            <MobileMenu
-              isOpen={isMobileMenuOpen}
-              toggleMenu={toggleMobileMenu}
-            />
-          )}
-          <div>
-            <style>
-              {`
-          @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-
-          body{
-              background: #ebebeb;
-              text-align: center;
-              font-family: 'Roboto Slab';
-          }
-
-          .container{
-              // background-color: #fff;
-              // box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-              // padding: 10px 20px;
-              // transition: transform 0.2s;
-              // width: 500px;
-              // text-align: center;
-              // margin: 20px auto;
-              width: 550px;
-              height: 500px;
-              margin: 0 auto;
-              padding: 20px;
-              background-color: #f8f9fa;
-              border-radius: 8px;
-              box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    <div>
+      <style>
+        {`
               
-          }
+        body {
+          background: #ebebeb;
+          text-align: center;
+          font-family: 'Roboto', sans-serif;
+        }
 
-          h2{
-              font-size: x-large;
-              text-align: center;
-              color: #106053;
-          }
-
-          label{
-              font-size: 15px;
-              display: block;
-              width: 100%;
-              margin-top: 8px;
-              margin-bottom: 5px;
-              text-align: left;
-              color: #106053;
-              font-weight: bold;
-          }
-
-          input, select, textarea{
-              display: block;
-              width: 100%;
-              padding: 8px;
-              box-sizing: border-box;
-              border: 1px solid #ddd;
-              font-size: 12px;
-              margin-bottom: 5px;
-              transition: border-color 0.3s ease;
-          }
-
-
-          .error {
-              color: #938d8d;
-              font-size: 12px;
-              text-align: left;
-              margin-top: 2px;
-          }
-
-
-          input.error-input, select.error-input {
-              border-color: red;
-          }
-
-
-          .register-button{
-              padding: 10px 15px;
-              margin: 15px;
-              box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-              border: none;
-              color: #fff;
-              cursor: pointer;
-              background-color: #106053;
-              width: 40%;
-              font-size: 16px;
-          }
-
-          .register-button:hover{
-              background-color: #0B3F37;
-          }
-
-          .button-group {
-              display: flex;
-              justify-content: space-around;
-              margin-bottom: 15px;
-              gap: 10px;
-          }
-
-          .button-group button {
-              padding: 10px 15px;
-              border: none;
-              background-color: #f0f0f0;
-              color: #333;
-              cursor: pointer;
-              font-size: 12px;
-              transition: background-color 0.3s ease;
-          }
-
-          .button-group button.active {
-              background-color: #106053;
-              color: #fff;
-          }
-
-          .button-group button:hover {
-              background-color: #0B3F37;
-              color: #fff;
-          }
-
-
-          input.success-input, select.success-input {
-              border-color: green;
-          }
-
-
-          input:focus {
-              border-color: #106053;
-              outline: none;
-          } 
+        
+        h2 {
+          font-size: x-large;
+          color: #106053;
+          margin-top:10px;
+        }
+        
+        .form {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 600px;
+          margin: 0 auto;
+          padding: 20px;
+          background-color: #ffffff;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          border-radius: 8px;
+          font-family: 'Roboto Slab';
+        }
           
-        `}
-            </style>
-            <div className="container">
-              <h2>Register</h2>
+        .label {
+          font-size: 15px;
+          color: #106053;
+          font-weight: bold;
+          text-align: left;
+          width: 100%;
+          display: block;
+        }
 
-              <form onSubmit={handleSubmit}>
+        .input {
+          width: 100%;
+          padding: 10px;
+          font-size: 14px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          box-sizing: border-box;
+          transition: border-color 0.3s ease;
+        }
+        
+        .input:focus {
+          border-color: #106053;
+          outline: none;
+        }
+        .error {
+          color: #dc3545;
+          font-size: 12px;
+          text-align: left;
+          margin-top: 2px;
+        }
+
+        .register-button {
+          padding: 10px 15px;
+          margin: 15px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+          border: none;
+          color: #fff;
+          cursor: pointer;
+          background-color: #106053;
+          width: 40%;
+          font-size: 16px;
+        }
+
+        .register-button:hover {
+          background-color: #0b3f37; 
+        }
+
+        .button-group {
+          display: flex;
+          justify-content: space-around;
+          gap: 60px;
+          margin-top: -10px;
+          
+        }
+
+        .button-group button {
+          padding: 10px 15px;
+          border: none;
+          background-color: #106053;
+          color: #fff;
+          width: 100px; 
+          height: 40px; 
+          cursor: pointer;
+          font-size: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: background-color 0.3s ease;
+        }
+
+        .button-group button:hover {
+          background-color: #0b3f37; /* Darker shade on hover */
+        }
+
+        .button-group button.active-button {
+          background-color: #0b3f37; 
+          color: #fff;
+        }
+        input:focus {
+          border-color: #106053;
+          outline: none;
+        }
+             `}
+      </style>
+
+
+      <div className={Dash.lecturerDashboard}>
+        <div className={Dash.dashboard}>
+          <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+          <div className={Dash["dashboard-content"]}>
+            {!isMobile && <Sidebar />}
+            {isMobile && (
+              <MobileMenu
+                isOpen={isMobileMenuOpen}
+                toggleMenu={toggleMobileMenu}
+              />
+            )}
+
+            <div className="container">
+              
+              <form onSubmit={handleSubmit} className="form">
+               <h2>Register</h2>
                 <div className="button-group">
                   <button
                     type="button"
-                    className={selectedUser === "Administrator" ? "active" : ""}
+                    className={`button ${
+                      selectedUser === "Administrator" ? "active-button" : ""
+                    }`}
                     onClick={() => handleUserSelection("Administrator")}
                   >
                     Administrator
                   </button>
                   <button
                     type="button"
-                    className={selectedUser === "Lecturer" ? "active" : ""}
+                    className={`button ${
+                      selectedUser === "Lecturer" ? "active-button" : ""
+                    }`}
                     onClick={() => handleUserSelection("Lecturer")}
                   >
                     Lecturer
                   </button>
                 </div>
-                <label htmlFor="firstName">First Name</label>
+
+                <label className="label">First Name</label>
                 <input
                   type="text"
                   placeholder="Enter First Name"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleInputChange}
+                  className="input"
                 />
                 {errors.firstName && (
                   <span className="error">{errors.firstName}</span>
                 )}
-                <label htmlFor="lastName">Last Name</label>
+
+                <label className="label">Last Name</label>
                 <input
                   type="text"
                   placeholder="Enter Last Name"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleInputChange}
+                  className="input"
                 />
                 {errors.lastName && (
                   <span className="error">{errors.lastName}</span>
                 )}
-                <label htmlFor="emailOrStudentNumber">Email</label>
+
+                <label className="label">Email (@ciu.ac.ug)</label>
                 <input
                   type="email"
-                  placeholder="Enter Email"
+                  placeholder="Enter Email (firstname@ciu.ac.ug)"
                   name="emailOrStudentNumber"
                   value={formData.emailOrStudentNumber}
                   onChange={handleInputChange}
+                  className="input"
                 />
                 {errors.emailOrStudentNumber && (
                   <span className="error">{errors.emailOrStudentNumber}</span>
                 )}
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  placeholder="Enter Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                />
-                {errors.password && (
-                  <span className="error">{errors.password}</span>
+
+                {selectedUser === "Administrator" && (
+                  <>
+                    <label className="label">Password</label>
+                    <input
+                      type="password"
+                      placeholder="Enter Password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      className="input"
+                    />
+                    {errors.password && (
+                      <span className="error">{errors.password}</span>
+                    )}
+                  </>
                 )}
+
                 <button type="submit" className="register-button">
                   Register
                 </button>
-                {successMessage && <p className="success">{successMessage}</p>}{" "}
-                {/* Success message display */}
+
+                {successMessage && <p className="success">{successMessage}</p>}
                 {errors.server && (
                   <span className="error">{errors.server}</span>
-                )}{" "}
-                {/* Server error display */}
+                )}
               </form>
             </div>
           </div>
