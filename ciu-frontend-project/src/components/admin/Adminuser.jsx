@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header1'; 
-import Sidebar1 from './SideBar1'; 
-import './Users.css';
+import Header from './Headerpop';
+import Sidebar from './SideBarpop';
+import MobileMenu from "./MobileMenu"
+import './Adminuser.css';
 
 // Table component
 function Table(props) {
@@ -114,43 +115,63 @@ function Adminuser() {
         }
     };
 
-    if (loading) {
-        return (
-            <div className="layout-container">
-                <Header />
-                <div className="main-content">
-                    <Sidebar1 />
-                    <div className="users-content">
-                        <div className="container mt-5">
-                            <h2>Loading...</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+        setIsMobile(window.innerWidth <= 991)
+        }
+
+        window.addEventListener('resize', handleResize)
+        handleResize()
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen)
     }
 
-    if (error) {
-        return (
-            <div className="layout-container">
-                <Header />
-                <div className="main-content">
-                    <Sidebar1 />
-                    <div className="users-content">
-                        <div className="container mt-5">
-                            <h2>Error: {error}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
+    // if (loading) {
+    //     return (
+    //         <div className="layout-container">
+    //             <Header />
+    //             <div className="main-content">
+    //                 <Sidebar1 />
+    //                 <div className="users-content">
+    //                     <div className="container mt-5">
+    //                         <h2>Loading...</h2>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     );
+    // }
+
+    // if (error) {
+    //     return (
+    //         <div className="layout-container">
+    //             <Header />
+    //             <div className="main-content">
+    //                 <Sidebar1 />
+    //                 <div className="users-content">
+    //                     <div className="container mt-5">
+    //                         <h2>Error: {error}</h2>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     );
+    // }
 
     return (
+        <div className="overal">
         <div className="layout-container">
-            <Header />
+            <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
             <div className="main-content">
-                <Sidebar1 />
+                {!isMobile && <Sidebar />}
+                {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
                 <div className="users-content">
                     <div className='row justify-content-center pt-5'>
                         <h2 className="col">Lists of Admin</h2>
@@ -166,6 +187,7 @@ function Adminuser() {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }
