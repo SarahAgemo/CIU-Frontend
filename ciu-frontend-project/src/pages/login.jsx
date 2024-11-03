@@ -70,7 +70,7 @@ const Login = () => {
       } else if (selectedUser === "Administrator") {
         navigate("/dashboard");
       } else if (selectedUser === "Lecturer") {
-        navigate("/lecturer");
+        navigate("/lecturerdashboard");
       }
       // } else {
       //   setErrorMessage("Login failed. No token received.");
