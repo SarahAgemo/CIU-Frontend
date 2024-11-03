@@ -136,7 +136,7 @@ const Registration = () => {
           body{
               background: #ebebeb;
               text-align: center;
-              font-family: 'Roboto Slab';
+              font-family: 'Roboto Slab', sans-serif;
           }
 
           .container{
