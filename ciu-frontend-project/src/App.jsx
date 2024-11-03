@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+
 // Authentication
 import Login from "./pages/login.jsx";
 import ResetPassword from "./components/admin/ResetPassword.jsx";
@@ -47,6 +48,8 @@ import ManualQuestionsPreview from "./pages/lecturer/ManualQuestionsPreview.jsx"
 import ManualEditExamPaper from "./pages/lecturer/ManualEditExamPaper.jsx";
 import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.jsx";
 import ManualPublishedExamList from './pages/lecturer/ManualPublishedExamList.jsx';
+import LecturerDashboard from './components/lecturer/LecturerDashboard.jsx';
+import { SidebarProvider2 } from './components/lecturer/SideBarContext2.jsx';
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
@@ -60,7 +63,6 @@ import Quiz from "./pages/student/Quiz";
 import MessageSupp from "./pages/student/MessageSupportPg.jsx";
 import Questions from "./pages/student/FAQpagepop.jsx";
 import { SidebarProvider } from "./components/student/SidebarContext.jsx";
-import LecturerDashboard from './components/lecturer/LecturerDashboard.jsx';
 import QuestionBankPage from './components/lecturer/QuestionBankPage.jsx';
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 
@@ -71,6 +73,7 @@ function App() {
     <Router>
       <SidebarProvider> {/* Student */}
       <SidebarProvider1> {/* Admin */}
+      <SidebarProvider2> {/* lecturer */}
         <Routes>
       
           {/* Authentication */}
@@ -165,8 +168,11 @@ function App() {
           <Route path="/student/support/FAQ" element={<Questions />} />
 
         </Routes>
+        
+      </SidebarProvider2>
       </SidebarProvider1>
       </SidebarProvider>
+      
     </Router>
   );
 }

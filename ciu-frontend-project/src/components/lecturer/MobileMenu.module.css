@@ -1,0 +1,70 @@
+
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -256px;
+  width: 256px;
+  height: 100vh;
+  background-color: #f3f4f6;
+  transition: left 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.mobile-menu.open {
+  left: 0;
+}
+
+.close-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.close-icon {
+  width: 24px;
+  height: 24px;
+  color: #374151;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 48px 16px 16px;
+}
+
+.mobile-nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mobile-button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #105F53;
+  transition: background-color 0.2s;
+  text-decoration: none;
+}
+
+.mobile-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+}
+
+
+.mobile-nav li.active .mobile-button,
+.mobile-button:hover {
+  background-color: white;
+  color: #1a8754;
+}
+
