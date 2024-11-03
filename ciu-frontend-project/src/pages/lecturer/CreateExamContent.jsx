@@ -161,13 +161,13 @@ export default function CreateExamContent() {
             </div>
 
             <div>
-                <label>Description</label>
+                <label>Instructions</label>
                 <input
                     type="text"
                     name="description"
                     value={formData.description}
                     onChange={handleInputChange}
-                    placeholder="Description"
+                    placeholder="Instructions"
                     required
                 />
             </div>
