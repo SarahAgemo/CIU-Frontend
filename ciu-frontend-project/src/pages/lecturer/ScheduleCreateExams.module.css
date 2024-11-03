@@ -92,12 +92,12 @@ button:hover{
 }
 
 .button-group button.active {
-    background-color: #106010;
+    background-color: #106053;
     color: #fff;
 }
 
 .button-group button:hover {
-    background-color: #0c890c;
+    background-color:  #0B3F37;
     color: #fff;
 }
 
@@ -108,7 +108,7 @@ input.success-input, select.success-input {
 
 
 input:focus {
-    border-color: #106010;
+    border-color: #106053;
     outline: none;
 }
 

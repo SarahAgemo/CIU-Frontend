@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../components/admin/ExamList.css'; // Import the CSS file for styling
+
 
 function ManualExamList() {
   const [examPapers, setExamPapers] = useState([]);
@@ -38,15 +38,15 @@ function ManualExamList() {
             <th>CourseUnit</th>
             <th>Title</th>
             <th>Description</th>
-            <th>Status</th> {/* Added Status Column */}
+            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {examPapers.map((exam) => (
             <tr key={exam.id}>
-              <td>{exam.courseUnit}</td>                 
-              <td>{exam.title}</td>                 
+              <td>{exam.courseUnit}</td>
+              <td>{exam.title}</td>
               <td>{exam.description}</td>
               <td>
                 <button className={`status-button ${exam.isDraft ? 'draft' : 'published'}`}>
