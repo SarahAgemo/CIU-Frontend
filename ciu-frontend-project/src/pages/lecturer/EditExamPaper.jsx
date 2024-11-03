@@ -59,22 +59,67 @@ function EditExamPaper() {
     }
   };
 
+  // return (
+  //   <div className="container mt-5">
+  //     <h3>Edit Question</h3>
+  //     {error && <div className="alert alert-danger">{error}</div>}
+  //     {success && <div className="alert alert-success">{success}</div>}
+  //     <form onSubmit={handleSubmit}>
+  //       <div className="mt-3">
+  //         <label>Question:</label>
+  //         <input
+  //           type="text"
+  //           name="content"
+  //           value={questionData.content || ''} 
+  //           onChange={(e) => setQuestionData({ ...questionData, content: e.target.value })}
+  //           className="form-control"
+  //         />
+  //         <label>Options:</label>
+  //         {questionData.options && questionData.options.map((option, index) => (
+  //           <div key={index}>
+  //             <input
+  //               type="text"
+  //               name={`option_${index}`}
+  //               value={option || ''} 
+  //               onChange={(e) => {
+  //                 const updatedOptions = [...questionData.options];
+  //                 updatedOptions[index] = e.target.value;
+  //                 setQuestionData({ ...questionData, options: updatedOptions });
+  //               }}
+  //               className="form-control mt-1"
+  //             />
+  //           </div>
+  //         ))}
+  //         <label>Answer:</label>
+  //         <input
+  //           type="text"
+  //           name="answer"
+  //           value={questionData.answer || ''} 
+  //           onChange={(e) => setQuestionData({ ...questionData, answer: e.target.value })}
+  //           className="form-control mt-1"
+  //         />
+  //       </div>
+  //       <button type="submit" className="btn btn">Save</button>
+  //     </form>
+  //   </div>
+  // );
+
   return (
-    <div className="container mt-5">
-      <h3>Edit Question</h3>
+    <div className="edit-exam-paper-container mt-5">
+      <h3 className="edit-exam-paper-header">Edit Question</h3>
       {error && <div className="alert alert-danger">{error}</div>}
       {success && <div className="alert alert-success">{success}</div>}
       <form onSubmit={handleSubmit}>
         <div className="mt-3">
-          <label>Question:</label>
+          <label className="edit-exam-paper-label">Question:</label>
           <input
             type="text"
             name="content"
             value={questionData.content || ''} 
             onChange={(e) => setQuestionData({ ...questionData, content: e.target.value })}
-            className="form-control"
+            className="edit-exam-paper-input"
           />
-          <label>Options:</label>
+          <label className="edit-exam-paper-label">Options:</label>
           {questionData.options && questionData.options.map((option, index) => (
             <div key={index}>
               <input
@@ -86,20 +131,20 @@ function EditExamPaper() {
                   updatedOptions[index] = e.target.value;
                   setQuestionData({ ...questionData, options: updatedOptions });
                 }}
-                className="form-control mt-1"
+                className="edit-exam-paper-option-input mt-1"
               />
             </div>
           ))}
-          <label>Answer:</label>
+          <label className="edit-exam-paper-label">Answer:</label>
           <input
             type="text"
             name="answer"
             value={questionData.answer || ''} 
             onChange={(e) => setQuestionData({ ...questionData, answer: e.target.value })}
-            className="form-control mt-1"
+            className="edit-exam-paper-input mt-1"
           />
         </div>
-        <button type="submit" className="btn btn">Save</button>
+        <button type="submit" className="edit-exam-paper-button">Save</button>
       </form>
     </div>
   );
