@@ -6,6 +6,7 @@ import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
+import BackButton from "../../components/lecturer/BackButton";
 
 function EditExamInterface() {
   
@@ -315,6 +316,9 @@ function EditExamInterface() {
               toggleMenu={toggleMobileMenu}
             />
           )}
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath={`/exam-paper/${id}`} size={30} color="#106053" />
+          </div>
           <div className="edit-exam-interface__container mt-5">
       <h3 className="edit-exam-interface__header">Edit Exam Paper</h3>
         <form onSubmit={handleSubmit}>
