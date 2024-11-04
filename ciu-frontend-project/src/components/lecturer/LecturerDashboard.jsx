@@ -1,15 +1,4 @@
 
-// import Layout from '../../components/lecturer/LayoutLecturer';
-// import LecturerDashboardContent from './LecturerDashboardContent';
-
-// export default function LecturerDashboard() {
-//     return (
-//         <Layout>
-//             <LecturerDashboardContent />
-//         </Layout>
-//     );
-// }
-
 import { useState, useEffect } from 'react';
 import Header from '../../components/lecturer/HeaderPop';
 import Sidebar from '../../components/lecturer/SideBarPop';
