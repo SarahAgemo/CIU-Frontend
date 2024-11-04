@@ -5,6 +5,7 @@ import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import BackButton from "../../components/lecturer/BackButton";
 
 
 function ExamList() {
@@ -106,6 +107,9 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
               toggleMenu={toggleMobileMenu}
             />
           )}
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath="/lecturerdashboard" size={30} color="#106053" />
+          </div>
           <div className="exam-list-container">
             <h3>Exam Papers</h3>
             <table className="glass-table">
