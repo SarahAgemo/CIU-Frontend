@@ -1,0 +1,92 @@
+/* Questions Preview Container */
+.questions-preview-container {
+    width: 800px;
+    height: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Header */
+  .questions-preview-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #106053;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  /* Total Questions Text */
+  .total-questions {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Question Card */
+  .question-card {
+    padding: 15px;
+    /* border: 1px solid #ced4da; */
+    border-radius: 6px;
+    background-color: #ffffff;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .question-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Question Content */
+  .question-content {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  /* Question Options */
+  .question-options {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+  
+  /* Form Check Styles */
+  .form-check {
+    /* display: flex; */
+    /* align-items: center; */
+    margin-bottom: 5px;
+  }
+  
+  /* Question Answer Text */
+  .question-answer {
+    margin-top: 5px;
+    font-size: 16px;
+  }
+  
+  /* Actions for Edit and Delete Buttons */
+  .question-actions {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
+  }
+  
+  .btn-warning {
+    margin-right: 10px;
+  }
+  
+  /* Icon Button Styles */
+.icon-button {
+    color: #ffffff; /* Change this to the button text color if needed */
+    background-color: #106053; /* Use the button background color */
+    border: none; /* Remove border */
+    cursor: pointer; /* Pointer cursor for clickable action */
+    transition: background-color 0.3s ease;
+  }
+  
+  .icon-button:hover {
+    background-color: #0B3F37; /* Darken color on hover, matching your previous button hover */
+  }
+  
