@@ -5,6 +5,7 @@ import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import BackButton from "../../components/lecturer/BackButton";
 
 function EditExamPaper() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -186,6 +187,9 @@ function EditExamPaper() {
               toggleMenu={toggleMobileMenu}
             />
           )}
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath= {`/exam-paper/${id}/questions`} size={30} color="#106053" />
+          </div>
           <div className="edit-exam-paper-container mt-5">
             <h3 className="edit-exam-paper-header">Edit Question</h3>
             {error && <div className="alert alert-danger">{error}</div>}

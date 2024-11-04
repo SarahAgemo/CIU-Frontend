@@ -1,4 +1,3 @@
-// TokenPasswordPage.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './TokenPasswordPage.css';
@@ -13,7 +12,6 @@ export default function TokenPasswordPage() {
 
     const handleSave = async (e) => {
         e.preventDefault();
-        // Validate that passwords match
         if (newPassword !== confirmPassword) {
             setErrorMessage("Passwords do not match");
             setSuccessMessage('');
@@ -36,10 +34,9 @@ export default function TokenPasswordPage() {
             if (response.ok) {
                 setSuccessMessage("Token and password saved successfully!");
                 setErrorMessage('');
-                // Redirect to login page after successful password reset
                 setTimeout(() => {
                     navigate('/');
-                }, 1000); // Wait 2 seconds to show success message before redirecting
+                }, 1000);
             } else {
                 const errorData = await response.json();
                 setErrorMessage(errorData.message || "Failed to save password");
@@ -53,15 +50,16 @@ export default function TokenPasswordPage() {
 
     return (
         <div className="token-password-container">
-            <h2>Reset Your Password</h2>
+            <h2 className="token-password-heading">Reset Your Password</h2>
             
-            {errorMessage && <div className="error-message">{errorMessage}</div>}
-            {successMessage && <div className="success-message">{successMessage}</div>}
+            {errorMessage && <div className="token-password-error-message">{errorMessage}</div>}
+            {successMessage && <div className="token-password-success-message">{successMessage}</div>}
             
-            <form onSubmit={handleSave}>
-                <div className="form-group">
-                    <label>Setup Token:</label>
+            <form className="token-password-form" onSubmit={handleSave}>
+                <div className="token-password-form-group">
+                    <label className="token-password-label">Setup Token:</label>
                     <input
+                        className="token-password-input"
                         type="text"
                         value={setupToken}
                         onChange={(e) => setSetupToken(e.target.value)}
@@ -70,9 +68,10 @@ export default function TokenPasswordPage() {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label>New Password:</label>
+                <div className="token-password-form-group">
+                    <label className="token-password-label">New Password:</label>
                     <input
+                        className="token-password-input"
                         type="password"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
@@ -81,9 +80,10 @@ export default function TokenPasswordPage() {
                     />
                 </div>
 
-                <div className="form-group">
-                    <label>Confirm Password:</label>
+                <div className="token-password-form-group">
+                    <label className="token-password-label">Confirm Password:</label>
                     <input
+                        className="token-password-input"
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
@@ -92,7 +92,7 @@ export default function TokenPasswordPage() {
                     />
                 </div>
 
-                <button type="submit" className="save-button">Save</button>
+                <button type="submit" className="token-password-save-button">Save</button>
             </form>
         </div>
     );

@@ -195,6 +195,7 @@ const Registration = () => {
           box-sizing: border-box;
           transition: border-color 0.3s ease;
         }
+          
         
         .input:focus {
           border-color: #106053;
