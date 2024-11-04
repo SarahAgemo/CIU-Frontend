@@ -6,6 +6,7 @@ import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import BackButton from "../../components/lecturer/BackButton";
 
 function QuestionsPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -209,6 +210,9 @@ function QuestionsPreview() {
               toggleMenu={toggleMobileMenu}
             />
           )}
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath={`/exam-paper/${id}`} size={30} color="#106053" />
+          </div>
           <div className="questions-preview-container mt-5">
             <h3 className="questions-preview-header">Questions Preview</h3>
             <p className="total-questions">
