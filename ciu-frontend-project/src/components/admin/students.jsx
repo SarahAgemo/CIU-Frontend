@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header1';
-import Sidebar1 from './SideBar1';
-import './Users.css';
+import Header from '../../components/admin/Headerpop';
+import Sidebar from '../../components/admin/SideBarpop';
+import MobileMenu from "../../components/admin/MobileMenu"
+import './students.css';
 
 // Table component
 function Table(props) {
@@ -113,13 +114,33 @@ function Students() {
         fetchStudents(value); // Fetch students based on search input
     };
 
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+
+    useEffect(() => {
+        const handleResize = () => {
+        setIsMobile(window.innerWidth <= 991)
+        }
+
+        window.addEventListener('resize', handleResize)
+        handleResize()
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen)
+    }
+
     return (
+        <div className="over">
         <div className="layout-container">
-            <Header />
+            <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
             <div className="main-content">
-                <Sidebar1 />
+                {!isMobile && <Sidebar />}
+                {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
                 <div className="students-content">
-                    <div className='row justify-content-between pt-5'>
+                    <div className='row-justify-content-between-pt-5'>
                         <h2 className="col">Lists of Student</h2>
                         <button
                             onClick={() => navigate('/register')} // Redirect to register page
@@ -142,6 +163,7 @@ function Students() {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }
