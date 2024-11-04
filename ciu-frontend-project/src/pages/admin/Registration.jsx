@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import Header from "../../components/lecturer/HeaderPop";
-import Sidebar from "../../components/lecturer/SideBarPop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
-import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import Header from '../../components/admin/Headerpop';
+import Sidebar from '../../components/admin/SideBarpop';
+import MobileMenu from "../../components/admin/MobileMenu";
+import AdminDash from './Dashboard.module.css';
 
 const Registration = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -261,11 +261,10 @@ const Registration = () => {
              `}
       </style>
 
-
-      <div className={Dash.lecturerDashboard}>
-        <div className={Dash.dashboard}>
-          <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-          <div className={Dash["dashboard-content"]}>
+          <div className={AdminDash["overall"]}>
+          <div className={AdminDash["dashboard"]}>
+               <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+          <div className={AdminDash["dashboard-content"]}>
             {!isMobile && <Sidebar />}
             {isMobile && (
               <MobileMenu
