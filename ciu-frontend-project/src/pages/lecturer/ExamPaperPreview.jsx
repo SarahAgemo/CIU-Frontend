@@ -5,6 +5,7 @@ import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import BackButton from "../../components/lecturer/BackButton";
 
 function ExamPaperPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -381,6 +382,9 @@ function ExamPaperPreview() {
               toggleMenu={toggleMobileMenu}
             />
           )}
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath="/schedule-upload-exams/exam-list" size={30} color="#106053" />
+          </div>
           <div className="exam-preview__container mt-5">
             <h3 className="exam-preview__title">Exam Paper Preview</h3>
             {error && (
