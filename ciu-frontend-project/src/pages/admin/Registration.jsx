@@ -201,9 +201,10 @@ const Registration = () => {
 
   return (
     <div style={styles.container}>
-      <h2 style={styles.heading}>Register</h2>
+      
 
       <form onSubmit={handleSubmit} style={styles.form}>
+      <h2 style={styles.heading}>Register</h2>
         <div style={styles.buttonGroup}>
           <button 
             type="button" 
