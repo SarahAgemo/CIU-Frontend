@@ -1,0 +1,73 @@
+   .edit-exam-interface__container {
+    width: 1000px;
+    height: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  
+  .edit-exam-interface__header {
+    color: #106053;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .edit-exam-interface__form-group {
+    margin-bottom: 15px;
+  }
+  
+  .edit-exam-interface__label {
+    display: block;
+    font-weight: 600;
+    color: #106053;
+    margin-bottom: 5px;
+  }
+  
+  .edit-exam-interface__form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    transition: border-color 0.2s ease-in-out;
+  }
+  
+  .edit-exam-interface__form-control:focus {
+    border-color: #106053;
+    outline: none;
+    box-shadow: 0 0 5px rgba(16, 96, 83, 0.5);
+  }
+  
+  .edit-exam-interface__alert {
+    padding: 15px;
+    font-size: 14px;
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    border-radius: 4px;
+    margin-bottom: 15px;
+  }
+  
+  .edit-exam-interface__submit-button {
+    background-color: #106053;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: auto;
+    display: block;
+    margin:auto;
+  }
+  
+  .edit-exam-interface__submit-button:hover {
+    background-color: #0b3f37;
+  }
+  

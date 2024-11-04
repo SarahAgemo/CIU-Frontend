@@ -1,19 +1,37 @@
-import React from 'react';
-import Header from '../../components/student/Header';
-import Sidebar from '../../components/student/SideBar';
+import { useState, useEffect } from 'react';
+import Header from '../../components/student/Headerpop';
+import Sidebar from '../../components/student/SideBarpop';
 import MainContent from '../../components/student/MainContent';
-import DashboardCard from '../../components/student/Dashboard';
+import MobileMenu from "../../components/student/MobileMenu"
 import StudDashboard from './StudentDashboard.module.css';
 
 export default function StudentDashboard() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991)
+    }
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
   return (
     <div className={StudDashboard.studentdash}>
     <div className={StudDashboard.dashboard}>
-      <Header />
+      <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
       <div className={StudDashboard['dashboard-content']}>
-        <Sidebar />
+        {!isMobile && <Sidebar />}
+        {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
         <MainContent />
-        <DashboardCard />
       </div>
     </div>
     </div>

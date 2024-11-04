@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../../components/admin/Header1';
 import Sidebar1 from '../../components/admin/SideBar1';
+import styles from './EditCourse.module.css';
 
 function EditCourse() {
     const { id } = useParams();
@@ -48,55 +49,55 @@ function EditCourse() {
     };
 
     return (
-        <div className="layout-container">
-            <Header />  {/* Fixed Header */}
-            <div className="main-content">
-                <Sidebar1 />  {/* Fixed Sidebar */}
-                <div className="users-content">  {/* Scrollable content */}
-                    <div className="container mt-5">
+        <div className={styles.layoutContainer}>
+            <Header />  
+            <div className={styles.mainContent}>
+                <Sidebar1 />  
+                <div className={styles.usersContent}>
+                    <div className={styles.container}>
                         <h2>Edit Course</h2>
                         <form onSubmit={handleSubmit}>
-                            <div className="form-group">
+                            <div className={styles.formGroup}>
                                 <label>Faculty Name</label>
                                 <input
                                     type="text"
                                     name="facultyName"
-                                    className="form-control"
+                                    className={styles.formControl}
                                     value={formData.facultyName}
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="form-group">
+                            <div className={styles.formGroup}>
                                 <label>Course Name</label>
                                 <input
                                     type="text"
                                     name="courseName"
-                                    className="form-control"
+                                    className={styles.formControl}
                                     value={formData.courseName}
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="form-group">
+                            <div className={styles.formGroup}>
                                 <label>Course Units</label>
                                 <input
                                     type="text"
                                     name="courseUnits"
-                                    className="form-control"
+                                    className={styles.formControl}
                                     value={formData.courseUnits}
                                     onChange={handleChange}
                                 />
                             </div>
-                            <div className="form-group">
+                            <div className={styles.formGroup}>
                                 <label>Course Unit Code</label>
                                 <input
                                     type="text"
                                     name="courseUnitCode"
-                                    className="form-control"
+                                    className={styles.formControl}
                                     value={formData.courseUnitCode}
                                     onChange={handleChange}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-secondary">
+                            <button type="submit" className={styles.btn}>
                                 Save Changes
                             </button>
                         </form>

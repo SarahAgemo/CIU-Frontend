@@ -1,0 +1,131 @@
+/* Button danger style */
+button.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 4px; /* Minimal padding for compactness */
+    border: none;
+    border-radius: 4px; /* Consistent styling */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Adjusted .btn and .btn-danger styles for consistency */
+.btn.btn-danger {
+    background-color: #106053;
+    color: white;
+    padding: 2px 4px; /* Minimal padding for compactness */
+    border: none;
+    border-radius: 4px; /* Consistent styling */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Adjusted .btn and .btn-secondary styles for consistency */
+.btn.btn-secondary {
+    padding: 2px 4px; /* Minimal padding for compactness */
+    border-radius: 4px; /* Consistent styling */
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    margin: 15px; /* Can be adjusted or removed as needed */
+    width: fit-content; /* Button width fits the content */
+    border-color: #106053;
+}
+
+/* Align buttons horizontally in actions column */
+td:last-child {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between buttons */
+}
+
+button.btn-secondary:hover {
+    background-color: #0B3F37;
+}
+
+/* Responsive styling for mobile */
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    button.btn {
+        padding: 2px 4px; /* Minimal padding for compactness */
+    }
+}
+
+/* New styles */
+.layout-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 1230px;
+}
+
+.header {
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #343a40;
+    color: white;
+    padding: 20px;
+}
+
+.users-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.table {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.user-controls {
+    display: flex;
+    align-items: center;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-details {
+    margin-left: 10px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    text-decoration: none;
+    color: white;
+}

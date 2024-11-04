@@ -1,0 +1,23 @@
+/* src/CourseCard.css */
+.course-card {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 600px;
+    padding: 15px;
+    cursor: pointer;
+  }
+  
+  .course-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .units-list {
+    margin-top: 10px;
+    padding-left: 20px;
+    list-style-type: circle;
+  }
+  

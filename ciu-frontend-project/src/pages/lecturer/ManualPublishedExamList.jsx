@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../../components/admin/ExamList.css'; // Import the CSS file for styling
+
+
 
 function ManualPublishedExamList() {
   const [examPapers, setExamPapers] = useState([]);
@@ -30,8 +31,11 @@ function ManualPublishedExamList() {
   if (!examPapers.length) return <div>No published exam papers found.</div>;
 
   return (
-    <div className="exam-list-container">
-      <h3>Published Exam Papers</h3>
+    // <div className="exam-list-container">
+    //   <h3>Published Exam Papers</h3>
+    //   <table className="glass-table">
+    <div className="manual-exam-list-container">
+      <h3 className="manual-exam-list-header">Published Exam Papers</h3>
       <table className="glass-table">
         <thead>
           <tr>

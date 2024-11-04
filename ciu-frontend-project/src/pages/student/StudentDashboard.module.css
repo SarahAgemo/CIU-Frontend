@@ -37,3 +37,17 @@
       grid-template-columns: 1fr;
     }
   }
+
+  @media (max-width: 200px) {
+    .sidebar {
+      padding: 4px; /* Further reduce padding */
+    }
+  
+    .main-content {
+      padding: 8px; /* Adjust padding for tiny screens */
+    }
+  
+    .dashboard-cards {
+      grid-template-columns: 1fr;
+    }
+  }

@@ -70,7 +70,7 @@ const Login = () => {
       } else if (selectedUser === "Administrator") {
         navigate("/dashboard");
       } else if (selectedUser === "Lecturer") {
-        navigate("/lecturer");
+        navigate("/lecturerdashboard");
       }
       // } else {
       //   setErrorMessage("Login failed. No token received.");
@@ -175,6 +175,10 @@ const Login = () => {
                 }
               >
                 Forgot Password?
+              </Link>
+              <span> or </span>
+              <Link to="/token-password-reset" className={log.signInLink}>
+                Set password using token
               </Link>
             </div>
           </form>
