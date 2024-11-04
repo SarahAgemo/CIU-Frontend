@@ -15,7 +15,7 @@
 .dashboard-content {
   display: flex;
   flex: 1;
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .dashboard-cards {
