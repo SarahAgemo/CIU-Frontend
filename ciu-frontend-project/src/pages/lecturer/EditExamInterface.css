@@ -1,5 +1,6 @@
    .edit-exam-interface__container {
-    max-width: 600px;
+    width: 1000px;
+    height: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f9fa;
