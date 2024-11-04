@@ -8,7 +8,7 @@ import moment from 'moment';
 export default function CreateExamContent() {
     const navigate = useNavigate();
     
-    // Fix 1: Separate state declarations
+   
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -152,6 +152,7 @@ export default function CreateExamContent() {
                 <form onSubmit={handleSubmit}>
                     {/* Form fields to collect assessment data */}
                     <div>
+                        <label htmlFor="">Schedule Create Exams</label>
                         <label>Assessment Title</label>
                         <input
                             type="text"

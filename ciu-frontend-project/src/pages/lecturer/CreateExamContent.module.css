@@ -4,10 +4,11 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    overflow-y: auto;
     height: 100vh;
-    padding: 60px 20px; /* Added consistent padding on top and bottom */
+    padding: 60px 20px; /* Consistent padding on top and bottom */
     box-sizing: border-box;
+    margin-left: 100px;
+    /* overflow: auto;  */
 }
 
 .form-container {
@@ -21,17 +22,23 @@
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
-    margin-bottom: 80px;
-    margin-top: 10px; /* Keeps extra space between the form and page bottom */
+    margin-bottom: 20px;
 }
 
-/* Other styles remain the same */
-
+/* Heading inside the form */
 .form-title {
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     color: #106053;
-    text-align: center; 
+    text-align: center;
+}
+
+.heading {
+    font-size: 28px;
+    color: #106053;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .form-group {
