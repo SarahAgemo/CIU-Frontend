@@ -16,7 +16,6 @@ export default function LecturerDashboardContent() {
         setLecturerMetrics([
           { title: "Courses", value: data.coursesCount, icon: "📘" },
           { title: "Students Enrolled", value: data.studentsCount, icon: "👩‍🎓" },
-          { title: "Upcoming Exams", value: data.upcomingExamsCount, icon: "📝" },
           { title: "Question Banks", value: data.upcomingExamsCount, icon: "📝" },
           { title: "Upcoming Exams", value: data.upcomingExamsCount, icon: "📝" },
           { title: "Ongoing Exams", value: data.upcomingExamsCount, icon: "📝" },
