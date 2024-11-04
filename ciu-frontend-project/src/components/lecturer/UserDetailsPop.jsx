@@ -1,33 +1,54 @@
 import { useState, useEffect, useRef } from 'react'
 import { Settings, LogOut, X } from "lucide-react"
 import User from "./UserDetailsPop.module.css"
+import axios from 'axios';
 
-// Function to get logged-in user data (simulating immediate access to user data)
-const getLoggedInUserData = () => {
-    // In a real application, this data might come from a global state or local storage
-    return {
-        profileImageSrc: "IMG_9472.jpg",
-        name: "Valentine Kiguli",
-        role: "Student",
-        id: "ST12345"
-    };
+
+
+const fetchLoggedInUserData = async (setUserData, setError) => {
+    try {
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!token || !user) {
+            setError('User is not authenticated.');
+            return;
+        }
+
+        const { id } = user;
+        const response = await axios.get(`http://localhost:3000/lecturerReg/profile/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const { first_name, last_name, role, profileImageSrc } = response.data;
+        setUserData({
+            profileImageSrc: profileImageSrc || "/IMG_9472.jpg", // Use default if no image
+            name: `${first_name} ${last_name}`,
+            role,
+            id,
+        });
+        setError(null);
+    } catch (err) {
+        console.error('Failed to fetch user data:', err);
+        setError('Failed to load user data.');
+    }
 };
 
 export default function UserDetailsPopup({ children }) {
-    const [isOpen, setIsOpen] = useState(false)
-    const [userData, setUserData] = useState(null)
-    const popupRef = useRef(null)
+    const [isOpen, setIsOpen] = useState(false);
+    const [userData, setUserData] = useState(null);
+    const [error, setError] = useState(null);
+    const popupRef = useRef(null);
 
     const togglePopup = () => {
-        if (!isOpen && !userData) {
-            const loggedInUserData = getLoggedInUserData();
-            setUserData(loggedInUserData);
+        if (!isOpen) {
+            fetchLoggedInUserData(setUserData, setError);
         }
         setIsOpen(!isOpen);
     }
 
     const closePopup = () => setIsOpen(false)
 
+    
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (popupRef.current && !popupRef.current.contains(event.target)) {
@@ -51,7 +72,9 @@ export default function UserDetailsPopup({ children }) {
                     <button className={User["close-button"]} onClick={closePopup} aria-label="Close popup">
                         <X className={User["close-icon"]} />
                     </button>
-                    {userData ? (
+                    {error ? (
+                        <div className="error">{error}</div>
+                    ) : userData ? (
                         <>
                             <div className={User["user-info"]} >
                                 <img
