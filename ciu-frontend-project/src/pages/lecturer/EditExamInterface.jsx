@@ -271,13 +271,9 @@ function EditExamInterface() {
           />
         </div>
 
-<<<<<<< HEAD
-        <button type="submit" className="btn btn">Update Exam Paper</button>
-=======
         <button type="submit" className="edit-exam-interface__submit-button">
           Update Exam Paper
         </button>
->>>>>>> 40e9bf0afa11686dec65c56da2c32068230ee319
       </form>
     </div>
   );
