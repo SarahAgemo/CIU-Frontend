@@ -1,0 +1,35 @@
+.manage-card {
+  background-color: #d1e7dd;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  display: block;
+}
+
+.manage-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.manage-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.manage-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #106053;
+}
+
+.manage-title {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #106053;
+  margin: 0;
+}
