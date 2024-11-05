@@ -252,13 +252,14 @@ function QuestionsPreview() {
                     onClick={() => handleEditQuestion(question.id)}
                     className="btn btn-warning me-1 icon-button"
                   >
-                    <FaEdit />
+                    <FaEdit className="icon-edit" />
                   </button>
                   <button
                     onClick={() => handleDeleteQuestion(question.id)}
                     className="btn btn-warning me-1 icon-button"
                   >
-                    <FaTrash />
+                    <FaTrash  className="icon-trash" />
+                    {/* <FaTrash /> */}
                   </button>
                 </div>
               </div>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from './Header1';
-import Sidebar1 from './SideBar1';
+import Header from '../../components/admin/Headerpop';
+import Sidebar from '../../components/admin/SideBarpop';
+import MobileMenu from "../../components/admin/MobileMenu"
 import './RegForm.css'; 
 
 const RegForm = () => {
@@ -95,12 +96,31 @@ const RegForm = () => {
     }
   };
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991)
+    }
+
+    window.addEventListener('resize', handleResize)
+    handleResize()
+
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
   return (
-    <div className="layout-container">
-      <Header />
-      <div className="main-content">
-        <Sidebar1 />
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+    <div className="this-container">
+      <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+      <div className="this-content">
+        {!isMobile && <Sidebar />}
+        {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
+        <div style={{ display: 'flex', flex: '1', justifyContent: 'center', alignItems: 'center', minHeight: '100vh'  }}>
           <div style={{ padding: '30px', borderRadius: '12px', backgroundColor: 'rgba(255, 255, 255, 0.95)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)', width: '80%', maxWidth: '600px' }}>
             <h2 style={{ textAlign: 'center', color: '#065c4c' }}>User Registration</h2>
             <form onSubmit={handleSubmit}>
@@ -115,7 +135,7 @@ const RegForm = () => {
                     onChange={handleChange}
                     required
                     style={{
-                      width: '100%',
+                      width: '100%',  
                       padding: '12px',
                       border: '1px solid #106053',
                       fontSize: '16px',

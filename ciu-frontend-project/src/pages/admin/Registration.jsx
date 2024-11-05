@@ -154,7 +154,7 @@ const Registration = () => {
         body {
           background: #ebebeb;
           text-align: center;
-          font-family: 'Roboto', sans-serif;
+          font-family: 'Roboto Slab' ;
         }
 
         
@@ -170,6 +170,7 @@ const Registration = () => {
           align-items: center;
           width: 600px;
           margin: 0 auto;
+          margin-bottom:10px;
           padding: 20px;
           background-color: #ffffff;
           box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -182,6 +183,7 @@ const Registration = () => {
           color: #106053;
           font-weight: bold;
           text-align: left;
+          margin-bottom:5px;
           width: 100%;
           display: block;
         }
@@ -190,6 +192,7 @@ const Registration = () => {
           width: 100%;
           padding: 10px;
           font-size: 14px;
+          margin-bottom:15px;
           border: 1px solid #ddd;
           border-radius: 5px;
           box-sizing: border-box;
@@ -228,7 +231,7 @@ const Registration = () => {
           display: flex;
           justify-content: space-around;
           gap: 60px;
-          margin-top: -10px;
+          margin-bottom: 10px;
           
         }
 

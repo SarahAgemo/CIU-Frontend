@@ -1,4 +1,6 @@
-
+*{
+  font-family: "Roboto Slab";
+ }
 .uploadExam-form-container {
   background: white;
   padding: 30px;
@@ -6,15 +8,18 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
-  height: 1300px;
+  height: 1100px;
+  margin-top: 50px;
   margin-bottom: 20px;
-  margin-left: 150px;
+  margin-left: 115px;
 }
 
 .uploadExam-form-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #106053;
+  font-size: 28px;
+    color: #106053;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 /* .uploadExam-form-group {
@@ -44,13 +49,17 @@
 
 .uploadExam-btn-primary {
   background-color: #106053;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-left: 2px;
-  width: fit-content;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin:auto;
+    width: fit-content;
 }
 
 .uploadExam-btn-primary:hover {

@@ -150,7 +150,7 @@ export default function CreateExamContent() {
     return (
         <div className={createExam.formWrapper_createExam}>
             <form onSubmit={handleSubmit} className={createExam.formContainer_createExam}>
-                <h2 className={createExam.heading_createExam}>Schedule Create Exams</h2>
+                <h2 className={createExam.heading_createExam}>Create Exams</h2>
 
                 <div className={createExam.formGroup_createExam}>
                     <label className={createExam.label_createExam}>Assessment Title</label>
@@ -167,15 +167,14 @@ export default function CreateExamContent() {
 
                 <div className={createExam.formGroup_createExam}>
                     <label className={createExam.label_createExam}>Instructions</label>
-                    <input
-                        type="text"
+                    <textarea
                         name="description"
                         value={formData.description}
                         onChange={handleInputChange}
                         className={createExam.formControl_createExam}
                         placeholder="Instructions"
                         required
-                    />
+                    ></textarea>
                 </div>
 
                 <div className={createExam.formGroup_createExam}>
@@ -337,17 +336,18 @@ export default function CreateExamContent() {
                 {/* Buttons for adding/removing questions */}
                 <div className={createExam.formGroup_createExam}>
                     <button type="button" onClick={addNewQuestion} className={createExam.addQuestionBtn_createExam}>
-                        Add Another Question
+                        + Question
                     </button>
                     <button type="button" onClick={removeLastQuestion} className={createExam.btnSecondary_createExam}>
-                        Remove Last Question
+                        - Question
                     </button>
+                    <button type="submit" className={createExam.btnPrimary_createExam}>
+                    Create Assessment
+                   </button>
                 </div>
 
-                {/* Submit button */}
-                <button type="submit" className={createExam.btnPrimary_createExam}>
-                    Create Assessment
-                </button>
+            
+                
             </form>
         </div>
     );
