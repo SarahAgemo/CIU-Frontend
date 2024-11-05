@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
+import { FaUserEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 import "./students.css";
 
 // Table component
@@ -50,7 +52,7 @@ function StudentList({ students, deleteStudent }) {
           type="button"
           className="btn btn-secondary"
         >
-          Edit
+          <FaUserEdit className="student-list-icon" size={40} />
         </button>
         <button
           onClick={() => {
@@ -63,7 +65,7 @@ function StudentList({ students, deleteStudent }) {
           type="button"
           className="btn btn-danger"
         >
-          Delete
+          <MdDelete className="student-list-icon" size={40} />
         </button>
       </td>
     </tr>

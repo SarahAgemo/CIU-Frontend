@@ -79,3 +79,6 @@
   padding: 0 15px; /* Add padding for consistent spacing */
   font-size: 16px; /* Adjust font size if needed */
 }
+.student-list-icon {
+  color: #106053;
+}
