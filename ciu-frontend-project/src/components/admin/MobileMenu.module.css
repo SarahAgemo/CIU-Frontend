@@ -94,3 +94,28 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
   color: #1a8754;
 }
 
+/* .mobile-button-with-submenu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+} */
+
+.mobile-icon-chevron {
+  transition: transform 0.3s ease;
+}
+
+.mobile-icon-chevron.rotated {
+  transform: rotate(180deg);
+}
+
+.submenu {
+  margin-left: 1rem;
+  padding-left: 1rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.submenu .mobile-button {
+  padding: 0.5rem 1rem;
+}
+

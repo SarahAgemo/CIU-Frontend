@@ -1,7 +1,9 @@
 .ExamPage {
+  font-family: 'Roboto Slab', sans-serif;
   display: flex;
   flex-direction: column;
 }
+
 .ExamTopbar {
   display: flex;
   justify-content: space-between;

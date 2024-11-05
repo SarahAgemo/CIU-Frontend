@@ -39,22 +39,21 @@ h3 {
     background-color: #f2f2f2; /* Light gray background for even rows */
 }
 
-.status-button {
+.status-text {
     padding: 6px 12px; /* Padding inside status buttons */
     border: none; /* Remove border */
     border-radius: 4px; /* Rounded corners for buttons */
     font-size: 14px; /* Font size for button text */
-    color: #fff; /* White text color */
     cursor: pointer; /* Pointer cursor on hover */
     transition: background-color 0.3s ease; /* Transition effect for hover */
 }
 
-.status-button.draft {
-    background-color: #3F7F75; /* Orange for draft status */
+.status-text.draft {
+    color: #9b6712; /* Orange for draft status */
 }
 
-.status-button.published {
-    background-color:  #106053; /* Green for published status */
+.status-text.published {
+    color:  #106053; /* Green for published status */
 }
 
 .preview-button {
