@@ -1,107 +1,170 @@
-/* CreateExamContent.module.css */
 
-.form-wrapper {
+.formWrapper_createExam {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    overflow-y: auto;
     height: 100vh;
-    padding: 60px 20px; /* Added consistent padding on top and bottom */
+    padding: 60px 20px; 
     box-sizing: border-box;
+    margin-left: 150px;
+    width: 700px;
 }
 
-.form-container {
+.formContainer_createExam {
     background: white;
-    padding: 30px;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;  /* Increased padding */
+    border-radius: 8px;  /* Increased border-radius */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);  /* Slightly deeper shadow */
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;  /* Made the form wider */
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
-    margin-bottom: 80px;
-    margin-top: 10px; /* Keeps extra space between the form and page bottom */
-}
-
-/* Other styles remain the same */
-
-.form-title {
-    font-size: 24px;
     margin-bottom: 20px;
-    color: #106053;
-    text-align: center; 
 }
 
-.form-group {
+.formTitle_createExam {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #106053;
+    text-align: center;
+}
+
+.heading_createExam {
+    font-size: 28px;
+    color: #106053;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.formGroup_createExam {
     margin-bottom: 20px;
     width: 100%;
 }
 
-.label {
+.label_createExam {
     font-weight: bold;
     color: #106053;
+    display: block;
+    margin-bottom: 8px;
 }
 
-.form-control {
+.formControl_createExam {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.questionContainer_createExam {
+    margin-bottom: 10px;
+}
+
+.addQuestionBtn_createExam {
+    background-color: #106053;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.addQuestionBtn_createExam:hover {
+    background-color: #0B3F37;
+}
+
+.buttonGroup_createExam {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px;
+}
+
+.btnPrimary_createExam, .btnSecondary_createExam {
+     background-color: #106053; /* Same background color as .addQuestionBtn_createExam */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btnPrimary_createExam:hover, .btnSecondary_createExam:hover {
+    background-color: #0B3F37; /* Same hover color as .addQuestionBtn_createExam */
+    color: white;
+}
+
+.btnPrimary_createExam {
+    background-color: #106053;
+    color: white;
+    border: none;
+}
+
+
+
+.btnSecondary_createExam {
+    background-color: #106053;
+    color: #106053;
+    border: 2px solid #106053;
+}
+
+/* Secondary Button Outline Style */
+.btnSecondary_createExam {
+    background-color: #106053;
+    color: white; /* Matches the initial color of .btnPrimary_createExam */
+    border: 2px solid #106053; /* Border to make it look like a secondary button */
+}
+.error_createExam {
+    color: red;
+    font-size: 0.8em;
+    margin-top: 5px;
+}
+
+.formGroup_duration, .formGroup_scheduledDate, .formGroup_startTime, 
+.formGroup_endTime, .formGroup_createdBy, .formGroup_question {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.label_duration, .label_scheduledDate, .label_startTime, 
+.label_endTime, .label_createdBy, .label_questionText, 
+.label_options, .label_answer {
+    font-weight: bold;
+    color: #106053;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.input_duration, .input_scheduledDate, .input_startTime, 
+.input_endTime, .input_createdBy, .input_questionText, 
+.input_options, .input_answer {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
-}
-
-.question-container {
     margin-bottom: 10px;
 }
 
-.add-question-btn {
-    background-color: #106053;
-    color: white;
+/* Additional styling for .formGroup_question to differentiate it */
+.formGroup_question {
+   
     padding: 10px;
-    border: none;
     border-radius: 4px;
-    cursor: pointer;
-    width: fit-content;
-}
-
-.add-question-btn:hover {
-    background-color: #0B3F37;
-}
-
-.btn-primary {
-    background-color: #106053;
-    color: white;
-    padding: 10px 20px;
-    border: none;
+    width: 100%;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    cursor: pointer;
-    margin-left: 2px;
-    width: fit-content;
+    font-size: 16px;
+    margin-bottom: 10px;
 }
 
-.btn-primary:hover {
-    background-color: #0B3F37;
+.input_questionText, .input_options, .input_answer {
+    border-color: #b5d3c5;
 }
 
-.btn-secondary {
-    background-color: transparent;
-    color: #106053;
-    padding: 10px 20px;
-    border: 2px solid #106053;
-    border-radius: 4px;
-    margin-left: 2px;
-    width: fit-content;
-}
-
-.btn-secondary:hover {
-    background-color: #0B3F37;
-    color: white;
-}
-
-.error {
-    color: red;
-    font-size: 0.8em;
-    margin-top: 5px;
-}

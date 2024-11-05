@@ -5,8 +5,9 @@ import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and d
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
-import Dash from '../../components/admin/Dashboard.module.css';
-import course from './Courses.module.css';
+import Dash from '../../components/lecturer/LecturerDashboard.module.css';
+import course from '../../pages/lecturer/LectCourses.module.css';
+
 
 // Table component
 function Table({ children }) {
