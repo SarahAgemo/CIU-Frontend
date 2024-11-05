@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styles from "./EditCourse.module.css";
-import Header from "../../components/lecturer/HeaderPop";
-import Sidebar from "../../components/lecturer/SideBarPop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
+import Header from "../../components/admin/Headerpop";
+import Sidebar from "../../components/admin/SideBarpop";
+import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 // import BackButton from "../../components/lecturer/BackButton";
 
@@ -60,7 +60,7 @@ function EditCourse() {
     })
       .then((response) => {
         if (response.ok) {
-          navigate("/courses");
+          navigate("/admin-courses");
         } else {
           throw new Error("Failed to update course");
         }
