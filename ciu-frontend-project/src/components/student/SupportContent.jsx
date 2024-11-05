@@ -18,10 +18,10 @@ export default function SupportContent() {
         </div>
         <div className={Support["image-content"]}>
           <h2>Welcome to Support</h2>
-          <div className={Support["lookup-bar"]}>
+          {/* <div className={Support["lookup-bar"]}>
             <input type="text" placeholder="Search..." />
             <Search size={20} />
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={Support["support-cards"]}>
