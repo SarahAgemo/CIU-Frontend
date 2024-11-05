@@ -1,55 +1,58 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 .over {
-    font-family: 'Roboto Slab', sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: "Roboto Slab", sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-  .layout-container {
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-    background-color: #f3f4f6;
-  }
-  
-  .main-content {
-    flex-grow: 1;
-    /* padding: 20px; */
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    flex-grow: 1;
-    overflow: hidden;
-  }
-  
-   .students {
-    width: 100%;
-    max-width: 800px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-  }
+.layout-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #f3f4f6;
+}
 
-  .row-justify-content-between-pt-5 {
-    background-color: white;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    border-radius: 0.5rem;
-    overflow: hidden;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white; /* White background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    border: none; /* Remove borders */
-  }
+.main-content {
+  flex-grow: 1;
+  /* padding: 20px; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+}
 
+.students-content {
+  width: 100%;
+  padding-right: 5px;
+}
 
+.students {
+  width: 100%;
+  /* max-width: 800px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
 
+.actions-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: white;
+  /* box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); */
+  /* border-radius: 0.5rem; */
+  overflow: hidden;
+}
 
- 
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: white; /* White background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border: none; /* Remove borders */
+}
