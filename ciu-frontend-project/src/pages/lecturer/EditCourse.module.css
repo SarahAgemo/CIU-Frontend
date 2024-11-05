@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    
 }
 
 .mainContent {
@@ -21,15 +22,26 @@
 .container {
     max-width: 600px;
     margin: 0 auto;
-    background-color: #f9f9f9;
+    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+h2{
+    text-align: center; /* Center the header */
+    font-size: 24px; /* Font size for the header */
+    font-weight: 600; /* Bold header text */
+    color: #106053; /* Dark green color */
+    margin-bottom: 10px; /* Spacing below the header */
+    margin-top: 40px;
 }
 
 
 .formGroup {
     margin-bottom: 15px;
+    color: #106053;
 }
 
 .formControl {
@@ -37,16 +49,22 @@
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin-top: 5px;
 }
 
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
     background-color: #106053;
-    color: white;
     border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
     border-radius: 4px;
     cursor: pointer;
+    display: block;
+    margin:auto;
+    width: fit-content;
 }
 
 .btn:hover {
