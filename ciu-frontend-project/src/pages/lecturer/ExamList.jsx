@@ -6,6 +6,9 @@ import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
+import { FiEye } from "react-icons/fi"; 
+
+
 
 
 function ExamList() {
@@ -129,20 +132,20 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
                     <td>{exam.title}</td>
                     <td>{exam.description}</td>
                     <td>
-                      <button
-                        className={`status-button ${
-                          exam.isDraft ? "draft" : "published"
-                        }`}
-                      >
-                        {exam.isDraft ? "Draft" : "Published"}
-                      </button>
+                    <span
+                      className={`status-text ${
+                        exam.isDraft ? "draft" : "published"
+                      }`}
+                    >
+                      {exam.isDraft ? "Draft" : "Published"}
+                    </span>
                     </td>
                     <td>
                       <button
                         className="preview-button"
                         onClick={() => handlePreview(exam.id)}
                       >
-                        Preview
+                        <FiEye />
                       </button>
                     </td>
                   </tr>

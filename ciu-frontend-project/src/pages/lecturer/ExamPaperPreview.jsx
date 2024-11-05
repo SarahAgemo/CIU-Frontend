@@ -65,7 +65,7 @@ function ExamPaperPreview() {
           throw new Error(errorData.message); // Use the message from the error response
         }
         setSuccess("Exam paper deleted successfully");
-        navigate("/exam-paper"); // Redirect to the exam papers list
+        navigate("/schedule-upload-exams/exam-list"); // Redirect to the exam papers list
       } catch (error) {
         setError("Error deleting exam paper: " + error.message);
       }
