@@ -336,10 +336,10 @@ export default function CreateExamContent() {
                 {/* Buttons for adding/removing questions */}
                 <div className={createExam.formGroup_createExam}>
                     <button type="button" onClick={addNewQuestion} className={createExam.addQuestionBtn_createExam}>
-                        Add Another Question
+                        + Question
                     </button>
                     <button type="button" onClick={removeLastQuestion} className={createExam.btnSecondary_createExam}>
-                        Remove Last Question
+                        - Question
                     </button>
                 </div>
 

@@ -1,22 +1,12 @@
-/* Questions Preview Container */
-.questions-preview-container {
-    font-family: 'Roboto Slab', sans-serif;
-    width: 800px;
-    height: 1000px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  /* Header */
+*{
+  font-family: 'Roboto Slab';
+}
   .questions-preview-header {
+    color: #106053;
     font-size: 24px;
     font-weight: bold;
-    color: #106053;
+    margin-bottom: 20px;
     text-align: center;
-    margin-bottom: 15px;
   }
   
   /* Total Questions Text */
@@ -30,6 +20,7 @@
   /* Question Card */
   .question-card {
     padding: 15px;
+    width: 800px;
     /* border: 1px solid #ced4da; */
     border-radius: 6px;
     background-color: #ffffff;
@@ -59,7 +50,44 @@
     /* display: flex; */
     /* align-items: center; */
     margin-bottom: 5px;
+   
   }
+
+  .form-check-input {
+    appearance: none; /* Remove default styling */
+    width: 10px;
+    height: 10px;
+    border: 1px solid #ced4da; /* Default Bootstrap-like border color */
+    border-radius: 50%; /* Circular shape */
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 5px;
+    position: relative;
+  }
+  
+  .form-check-input:checked {
+    background-color: #106053; /* Green color when selected */
+    border-color: #0B3F37;
+   
+  }
+
+  .form-check-input:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); /* Green focus outline */
+  }
+  
+  /* .form-check-input:checked::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: #106053;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } */
   
   /* Question Answer Text */
   .question-answer {
@@ -77,17 +105,22 @@
   .btn-warning {
     margin-right: 10px;
   }
-  
-  /* Icon Button Styles */
-.icon-button {
-    color: #ffffff; /* Change this to the button text color if needed */
-    background-color: #106053; /* Use the button background color */
-    border: none; /* Remove border */
-    cursor: pointer; /* Pointer cursor for clickable action */
-    transition: background-color 0.3s ease;
+
+  .icon-edit {
+    color: #106053;
+    transition: color 0.3s ease;
   }
   
-  .icon-button:hover {
-    background-color: #0B3F37; /* Darken color on hover, matching your previous button hover */
+  .icon-edit:hover {
+    color: #0B3F37; /* Darker shade on hover */
+  }
+  
+  .icon-trash {
+    color: #c41010;
+    transition: color 0.3s ease;
+  }
+  
+  .icon-trash:hover {
+    color: #990808; /* Darker shade on hover */
   }
   
