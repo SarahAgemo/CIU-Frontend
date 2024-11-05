@@ -177,6 +177,8 @@ function App() {
       </SidebarProvider>
       
     </Router>
+
+    
   );
 }
 
