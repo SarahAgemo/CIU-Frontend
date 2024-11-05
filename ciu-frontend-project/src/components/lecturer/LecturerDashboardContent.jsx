@@ -16,7 +16,6 @@ export default function LecturerDashboardContent() {
         setLecturerMetrics([
           { title: "Courses", value: data.coursesCount, icon: "📘" },
           { title: "Students Enrolled", value: data.studentsCount, icon: "👩‍🎓" },
-          { title: "Upcoming Exams", value: data.upcomingExamsCount, icon: "📝" },
           { title: "Question Banks", value: data.upcomingExamsCount, icon: "📝" },
           { title: "Upcoming Exams", value: data.upcomingExamsCount, icon: "📝" },
           { title: "Ongoing Exams", value: data.upcomingExamsCount, icon: "📝" },
@@ -49,32 +48,3 @@ export default function LecturerDashboardContent() {
     </div>
   );
 }
-
-// import React from 'react';
-// import DashboardCard from './DashboardCard';
-// import Dash from './LecturerDashboard.module.css';
-
-// export default function LecturerDashboardContent() {
-//   const lecturerMetrics = [
-//     { title: "Courses Taught", value: 5, icon: "📘" },
-//     { title: "Students Enrolled", value: 120, icon: "👩‍🎓" },
-//     { title: "Assignments Graded", value: 50, icon: "📝" },
-//     { title: "Office Hours Scheduled", value: 8, icon: "📅" }
-//   ];
-
-//   return (
-//     <div className={Dash.mainContent}>
-//       <h2 className={Dash.dashboardTitle}>Lecturer Dashboard</h2>
-//       <div className={Dash.dashboardCards}>
-//         {lecturerMetrics.map((metric, index) => (
-//           <DashboardCard
-//             key={index}
-//             title={metric.title}
-//             value={metric.value}
-//             icon={metric.icon}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }

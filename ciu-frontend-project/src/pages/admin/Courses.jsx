@@ -2,11 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
-import Header from "../../components/lecturer/HeaderPop";
-import Sidebar from "../../components/lecturer/SideBarPop";
+import Header from "../../components/admin/Headerpop";
+import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
-import Dash from '../../components/lecturer/LecturerDashboard.module.css';
-import course from './CoursesContent.module.css';
+import Dash from '../../components/admin/Dashboard.module.css';
+import course from './Courses.module.css';
 
 // Table component
 function Table({ children }) {
@@ -80,7 +80,7 @@ function UserList({ users, deleteUser }) {
 }
 
 // Main Courses component
-function Courses() {
+function AdminCourses() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -151,4 +151,4 @@ function Courses() {
         </div>
     );
 }
-export default Courses;
+export default AdminCourses;

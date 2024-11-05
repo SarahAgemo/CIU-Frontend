@@ -24,7 +24,7 @@ import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx"
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 import RegCourse from "./pages/lecturer/RegCourse.jsx";
-import Courses from "./pages/lecturer/Courses.jsx";
+import AdminCourses from "./pages/admin/Courses.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
 import Lecturers from "./pages/admin/ManageLecturersPg.jsx";
 import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
@@ -51,6 +51,9 @@ import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.js
 import ManualPublishedExamList from './pages/lecturer/ManualPublishedExamList.jsx';
 import LecturerDashboard from './components/lecturer/LecturerDashboard.jsx';
 import { SidebarProvider2 } from './components/lecturer/SideBarContext2.jsx';
+import LectCourses from './pages/lecturer/LectCourses.jsx';
+
+
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
@@ -66,6 +69,7 @@ import Questions from "./pages/student/FAQpagepop.jsx";
 import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from './components/lecturer/QuestionBankPage.jsx';
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
+
 
 
 
@@ -103,12 +107,13 @@ function App() {
           <Route path="/RequestAdminToken" element={<RequestAdminToken />} />
           <Route path="/RequestLecturerToken" element={<RequestLecturerToken />} />
           <Route path="/regCourse" element={<RegCourse />} />
-          <Route path="/courses" element={<Courses />} />
+          <Route path="/lect-courses" element={<LectCourses />} />
           <Route path="/editcourse/:id" element={<EditCourse />} />
           <Route path="/admin/manage-users/lecturers" element={<Lecturers />} />
           <Route path="/admin/manage-users/students" element={<StudentsManage/>} />
           <Route path="/admin/create-faqs" element={<Create />} />
           <Route path="/token-password-reset" element={<TokenPasswordPage />} />
+          <Route path="/admin-courses" element={<AdminCourses />} />
             
           {/* Lecturer */}
           <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
@@ -129,6 +134,7 @@ function App() {
           <Route path="/lecturerdashboard" element={<LecturerDashboard />} />
           <Route path="/question-bank" element={<QuestionBankPage />} />
           <Route path="/passed-exams-questions" element={<PassedExamsQuestionsPage />} />
+          
             
           {/* Student - Protected route*/}
 

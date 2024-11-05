@@ -1,6 +1,7 @@
 /* Questions Preview Container */
 .questions-preview-container {
-    max-width: 800px;
+    width: 800px;
+    height: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f9fa;
@@ -54,8 +55,8 @@
   
   /* Form Check Styles */
   .form-check {
-    display: flex;
-    align-items: center;
+    /* display: flex; */
+    /* align-items: center; */
     margin-bottom: 5px;
   }
   
