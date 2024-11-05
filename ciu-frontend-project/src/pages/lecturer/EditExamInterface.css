@@ -1,9 +1,12 @@
+   *{
+    font-family: "Roboto Slab";
+   }
    .edit-exam-interface__container {
     width: 1000px;
     height: 1000px;
     margin: 0 auto;
     padding: 20px;
-    background-color: #f8f9fa;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   }

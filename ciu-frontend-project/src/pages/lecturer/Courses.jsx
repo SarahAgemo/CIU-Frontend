@@ -41,7 +41,7 @@ function UserList({ users, deleteUser }) {
 
     return (
         <Table>
-            <TableHead cols={cols} />
+            <TableHead  cols={cols} />
             <TableBody>
                 {users.map((user, index) => (
                     <tr key={user.id}>
@@ -67,7 +67,7 @@ function UserList({ users, deleteUser }) {
                                     }
                                 }}
                                 type="button"
-                                className={course["btn btn-danger"]}
+                                className={course[" course__btn course__btn--danger"]}
                             >
                                 <FaTrash />
                             </button>

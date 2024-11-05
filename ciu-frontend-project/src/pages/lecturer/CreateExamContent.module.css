@@ -1,13 +1,16 @@
 /* CreateExamContent.module.css */
-
+*{
+    font-family: "Roboto Slab";
+    /* font-size: large; */
+}
 .form-wrapper {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: flex-start;
-    height: 100vh;
+    height: 80vh;
     padding: 60px 20px; /* Consistent padding on top and bottom */
     box-sizing: border-box;
-    margin-left: 100px;
+    margin-left: 70px;
     /* overflow: auto;  */
 }
 
@@ -16,9 +19,9 @@
     padding: 30px;
     border-radius: 4px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 800px;
-    display: flex;
+    /* width: 100%; */
+    width: 700px;
+    /* display: flex; */
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
@@ -34,7 +37,7 @@
 }
 
 .heading {
-    font-size: 28px;
+    font-size: 30px;
     color: #106053;
     font-weight: bold;
     margin-bottom: 20px;
@@ -92,7 +95,7 @@
     background-color: #0B3F37;
 }
 
-.btn-secondary {
+.create-assessment-button {
     background-color: transparent;
     color: #106053;
     padding: 10px 20px;
@@ -102,7 +105,8 @@
     width: fit-content;
 }
 
-.btn-secondary:hover {
+
+.create-assessment_submit-button:hover {
     background-color: #0B3F37;
     color: white;
 }

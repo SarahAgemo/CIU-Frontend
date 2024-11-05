@@ -1,11 +1,14 @@
-.exam-list-container {
-    max-width: 800px; /* Set a maximum width for the container */
-    margin: 0 auto; /* Center the container */
-    padding: 20px; /* Add padding inside the container */
-    background-color: #f9f9f9; /* Light background for contrast */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+*{
+    font-family: "Roboto Slab";
 }
+/* .exam-list-container {
+    max-width: 800px; 
+    margin: 0 auto; 
+    padding: 20px; 
+    background-color: #fff; 
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+} */
 
 h3 {
     text-align: center; /* Center the header */
@@ -28,8 +31,8 @@ h3 {
 }
 
 .glass-table th {
-    background-color: #106053; /* Dark green background for header */
-    color: #fff; /* White text for header */
+
+    color: #106053; /* White text for header */
 }
 
 .glass-table tr:nth-child(even) {

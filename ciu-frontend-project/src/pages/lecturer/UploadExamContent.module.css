@@ -1,4 +1,6 @@
-
+*{
+  font-family: "Roboto Slab";
+ }
 .uploadExam-form-container {
   background: white;
   padding: 30px;

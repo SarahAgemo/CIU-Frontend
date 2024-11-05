@@ -148,11 +148,11 @@ export default function CreateExamContent() {
 
     return (
         <div className={createExam["form-wrapper"]}>
-            <form onSubmit={handleSubmit} className={createExam["form-container"]}>
-                <form onSubmit={handleSubmit}>
+            {/* <form onSubmit={handleSubmit} className={createExam["form-container"]}> */}
+                <form onSubmit={handleSubmit} className={createExam["form-container"]}>
                     {/* Form fields to collect assessment data */}
                     <div>
-                        <label htmlFor="">Schedule Create Exams</label>
+                        <h3 className="heading">Schedule Create Exams</h3>
                         <label>Assessment Title</label>
                         <input
                             type="text"
@@ -330,17 +330,17 @@ export default function CreateExamContent() {
                         </div>
                     ))}
 
-                    <button type="button" onClick={addNewQuestion}>
-                        Add Another Question
+                    <button type="button" className='add-question_button' onClick={addNewQuestion}>
+                        + Question
                     </button>
 
-                    <button type="button" onClick={removeLastQuestion} disabled={formData.questions.length === 1}>
-                        Remove Last Question
+                    <button type="button" className="remove-question_button" onClick={removeLastQuestion} disabled={formData.questions.length === 1}>
+                        - Question
                     </button>
 
-                    <button type="submit">Create Assessment</button>
+                    <button type="submit" className="create-assessment_submit-button">Create Assessment</button>
                 </form>
-            </form>
+            {/* </form> */}
         </div>
     );
 }
