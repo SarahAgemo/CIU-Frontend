@@ -21,7 +21,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
         { icon: ClipboardCheck, label: 'Manual Exams', path: '/schedule-upload-exams/exam-list' },
       ],
     },
-    { icon: Library, label: 'All Courses', path: '/courses' },
+    { icon: Library, label: 'All Courses', path: '/admin-courses' },
     { icon: Folder, label: 'All Course Units', path: '/course-units' },
     { icon: Lock, label: 'Create FAQs', path: '/admin/create-faqs' },
     { icon: Calendar , label: 'Calendar', path: '/admin/calendar' },

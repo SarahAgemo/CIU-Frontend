@@ -21,7 +21,7 @@ export default function Sidebar() {
         { text: 'Manual Exams', path: '/schedule-upload-exams/exam-list' },
       ],
     },
-    { icon: <Library size={20} />, text: 'All Courses', path: '/courses' },
+    { icon: <Library size={20} />, text: 'All Courses', path: '/admin-courses' },
     { icon: <Folder size={20} />, text: 'All Course Units', path: '/course-units' },
     { icon: <Lock size={20} />, text: 'Create FAQs', path: '/admin/create-faqs' },
     { icon: <Calendar size={20} />, text: 'Calendar', path: '/admin/calendar' },
