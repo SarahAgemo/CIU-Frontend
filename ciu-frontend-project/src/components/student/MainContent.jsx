@@ -453,10 +453,10 @@ export default function MainContent() {
         <div className={Main["welcome-overlay"]}>
           <h2>Welcome back!</h2>
           <p>Do your exams from wherever you are</p>
-          <div className={Main["search-bar"]}>
+          {/* <div className={Main["search-bar"]}>
             <Search size={20} />
-            <input type="text" placeholder="Search exams..." />
-          </div>
+            <input type="text" placeholder="Search..." />
+          </div> */}
         </div>
       </div>
 
@@ -473,7 +473,7 @@ export default function MainContent() {
           onClick={() => handleCardClick('completed')}
           isActive={activeModal === 'completed'}
         />
-        <DashboardCard icon={<MessageSquare size={48} />} title="Messages" badge="1" />
+        {/* <DashboardCard icon={<MessageSquare size={48} />} title="Messages" badge="1" /> */}
       </div>
 
       {/* Modal for Upcoming Exams */}

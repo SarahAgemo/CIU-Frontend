@@ -1,7 +1,7 @@
 /* src/components/DashboardCard.module.css */
 
 .dashboard-card {
-    background-color: white;
+    background-color: #e6f7ef;
     padding: 24px;
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
