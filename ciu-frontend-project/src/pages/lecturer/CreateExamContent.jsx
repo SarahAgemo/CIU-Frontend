@@ -341,12 +341,13 @@ export default function CreateExamContent() {
                     <button type="button" onClick={removeLastQuestion} className={createExam.btnSecondary_createExam}>
                         - Question
                     </button>
+                    <button type="submit" className={createExam.btnPrimary_createExam}>
+                    Create Assessment
+                   </button>
                 </div>
 
-                {/* Submit button */}
-                <button type="submit" className={createExam.btnPrimary_createExam}>
-                    Create Assessment
-                </button>
+            
+                
             </form>
         </div>
     );

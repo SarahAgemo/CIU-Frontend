@@ -53,25 +53,25 @@ function UserList({ users, deleteUser }) {
                         <td>{user.courseUnitCode}</td>
                         <td>
                             {/* Edit Button with Icon */}
-                            <button
+                            <span
                                 onClick={() => navigate(`/editcourse/${user.id}`)}
                                 type="button"
-                                className={course["btn btn-secondary me-1"]}>
-                                <FaEdit />
-                            </button>
+                                className="atim">
+                                <FaEdit className="icon-edit"/>
+                            </span>
 
                             {/* Delete Button with Icon */}
-                            <button
+                            <span
                                 onClick={() => {
                                     if (window.confirm('Are you sure you want to delete this course?')) {
                                         deleteUser(user.id);
                                     }
                                 }}
                                 type="button"
-                                className={course[" course__btn course__btn--danger"]}
+                                className=" course__btn course__btn--danger"
                             >
-                                <FaTrash />
-                            </button>
+                                <FaTrash className="icon-trash" />
+                            </span>
                         </td>
                     </tr>
                 ))}

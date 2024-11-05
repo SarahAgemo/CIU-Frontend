@@ -15,7 +15,8 @@ h3 {
     font-size: 24px; /* Font size for the header */
     font-weight: 600; /* Bold header text */
     color: #106053; /* Dark green color */
-    margin-bottom: 20px; /* Spacing below the header */
+    margin-bottom: 10px; /* Spacing below the header */
+    margin-top: 40px;
 }
 
 /* Table styling */
@@ -23,6 +24,7 @@ h3 {
     width: 100%; /* Full width table */
     border-collapse: collapse; /* Merge table borders */
     margin-left: 40px;
+    
 }
 
 .glass-table th, .glass-table td {
