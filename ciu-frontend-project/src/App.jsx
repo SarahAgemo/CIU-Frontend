@@ -69,6 +69,7 @@ import Questions from "./pages/student/FAQpagepop.jsx";
 import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from './components/lecturer/QuestionBankPage.jsx';
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
+import AdminExamList from "./pages/admin/AdminExamList.jsx";
 
 import './App.css'
 
@@ -115,6 +116,8 @@ function App() {
           <Route path="/admin/create-faqs" element={<Create />} />
           <Route path="/token-password-reset" element={<TokenPasswordPage />} />
           <Route path="/admin-courses" element={<AdminCourses />} />
+          <Route path="/admin-exam-list" element={<AdminExamList />} />
+
             
           {/* Lecturer */}
           <Route path="/schedule-upload-exams" element={<ScheduleUploadExams />} />
