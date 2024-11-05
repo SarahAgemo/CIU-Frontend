@@ -7,11 +7,51 @@
   justify-content: space-between;
   width: 100%;
   background-color: #ebebeb;
-  padding: 0px 10px;
+  padding: 10px;
 }
+/* Keep your existing styling, but adjust a few key elements */
+
 .quiz-content {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
+
+.question-text {
+  max-width: calc(100% - 6rem); /* Leave space for the video */
+  margin-right: 6rem; /* Reserve space on the right for the video */
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.set-questions {
+  max-width: calc(100% - 6rem); /* Align options with question text */
+  margin-right: 6rem;
+  word-wrap: break-word;
+}
+
+/* Position the video on the right side and make it float */
+.media-preview {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  width: 6rem;
+  z-index: 1000;
+}
+
+.video-preview {
+  width: 100%;
+}
+
+.recording-status {
+  text-align: center;
+  padding-top: 3px;
+  font-size: 0.9em;
+  color: red;
+  margin-top: 5px;
+}
+
 .navigation-buttons {
   display: flex;
 }

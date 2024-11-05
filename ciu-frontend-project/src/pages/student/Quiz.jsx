@@ -14,7 +14,10 @@ const Quiz = () => {
   const [awayFromCamera, setAwayFromCamera] = useState(false);
 
   const questions = [
-    { question: "Lorem ipsum dolor sit amet?" },
+    {
+      question:
+        "Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet? ",
+    },
     { question: "What is the economic impact of inflation?" },
     { question: "How does the balance of trade affect the economy?" },
     { question: "Explain the fiscal policy mechanisms." },
@@ -133,22 +136,73 @@ const Quiz = () => {
       </div>
 
       <div className="quiz-content">
+        <div className="media-preview">
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            className="video-preview"
+          ></video>
+          <div className="recording-status">
+            {isRecording ? (
+              <>
+                <span
+                  role="img"
+                  aria-label="recording"
+                  style={{ color: "red", fontSize: "0.8em" }}
+                >
+                  🔴
+                </span>{" "}
+                Rec: {getRecordingDuration()}
+                {awayFromCamera && (
+                  <p style={{ color: "red" }}>
+                    Please stay in front of the camera!
+                  </p>
+                )}
+              </>
+            ) : (
+              <p>Recording stopped.</p>
+            )}
+          </div>
+        </div>
+
         <h2>QUIZ</h2>
         <p className="question-text">
           Question {questionIndex + 1}: {questions[questionIndex].question}
         </p>
-        <form>
+        <form className="set-questions">
           <input type="checkbox" name="answer" />
-          <span className="option-text">Option A</span>
+          <span className="option-text">
+            Option A Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Ullam voluptatum nam itaque commodi doloribus quam facere voluptas a
+            maiores distinctio deleniti harum ad perspiciatis ipsa neque, ipsam
+            beatae quisquam porro.
+          </span>
+          <br />
+
+          <input type="checkbox" name="answer" />
+          <span className="option-text">
+            Option B Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Ullam voluptatum nam itaque commodi doloribus quam facere voluptas a
+            maiores distinctio deleniti harum ad perspiciatis ipsa neque, ipsam
+            beatae quisquam porro.
+          </span>
           <br />
           <input type="checkbox" name="answer" />
-          <span className="option-text">Option B</span>
+          <span className="option-text">
+            Option C Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Ullam voluptatum nam itaque commodi doloribus quam facere voluptas a
+            maiores distinctio deleniti harum ad perspiciatis ipsa neque, ipsam
+            beatae quisquam porro.
+          </span>
           <br />
           <input type="checkbox" name="answer" />
-          <span className="option-text">Option C</span>
-          <br />
-          <input type="checkbox" name="answer" />
-          <span className="option-text">Option D</span>
+          <span className="option-text">
+            Option D Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Ullam voluptatum nam itaque commodi doloribus quam facere voluptas a
+            maiores distinctio deleniti harum ad perspiciatis ipsa neque, ipsam
+            beatae quisquam porro.
+          </span>
           <br />
         </form>
 
@@ -169,47 +223,6 @@ const Quiz = () => {
             <button className="exam-submit-button" onClick={handleSubmit}>
               SUBMIT
             </button>
-          )}
-        </div>
-      </div>
-
-      <div
-        className="media-preview"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginLeft: "20px",
-        }}
-      >
-        <h3>Recording Video and Audio</h3>
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          className="video-preview"
-          style={{ width: "150px", marginBottom: "10px" }}
-        ></video>
-        <div className="recording-status">
-          {isRecording ? (
-            <>
-              <span
-                role="img"
-                aria-label="recording"
-                style={{ color: "red", fontSize: "1.5em" }}
-              >
-                🔴
-              </span>{" "}
-              Recording...
-              <p>Time Recorded: {getRecordingDuration()}</p>
-              {awayFromCamera && (
-                <p style={{ color: "red" }}>
-                  Please stay in front of the camera!
-                </p>
-              )}
-            </>
-          ) : (
-            <p>Recording stopped.</p>
           )}
         </div>
       </div>
