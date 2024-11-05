@@ -15,11 +15,11 @@
   .dashboard-content {
     display: flex;
     flex: 1;
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 8px;
     overflow: scroll;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #f5f5f5; /* Light background color */
+    background-color: #ffffff; /* Light background color */
   }
 
   .backButtonContainer {
