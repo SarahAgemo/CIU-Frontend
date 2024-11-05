@@ -5,7 +5,7 @@ import {
   Calendar,
   LogOut,
   Lock,
-  Video,
+  // Video,
   Library,
   Folder,
   ClipboardCheck,
@@ -37,7 +37,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
         },
       ],
     },
-    { icon: Video, label: "Proctoring", path: "/proctoring" },
+    // { icon: Video, label: "Proctoring", path: "/proctoring" },
     {
       icon: ClipboardCheck,
       label: "Exams",
