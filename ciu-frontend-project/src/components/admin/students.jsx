@@ -33,15 +33,7 @@ function TableBody({ children }) {
 
 // StudentList component
 function StudentList({ students, deleteStudent }) {
-  const cols = [
-    "#",
-    "First Name",
-    "Last Name",
-    "Email",
-    "Role",
-    "Program",
-    "Actions",
-  ];
+  const cols = ["#", "First Name", "Last Name", "Email", "Program", "Actions"];
   const navigate = useNavigate();
 
   const studentList = students.map((student, index) => (
@@ -159,67 +151,30 @@ function Students() {
             />
           )}
           <div className="students-content">
-            <h2 className="col">Lists of Student</h2>
             <div className="actions-row">
-              <button
-                onClick={() => navigate("/register")}
-                type="button"
-                className="custom-button"
-              >
-                Add New Student
-              </button>
-              <input
-                type="text"
-                placeholder="Search by name..."
-                value={searchTerm}
-                onChange={handleSearchChange}
-                className="form-control search-input"
-              />
+              <h2 className="student-heading">List of Students</h2>
+              <div>
+                <button
+                  onClick={() => navigate("/register")}
+                  type="button"
+                  className="custom-button"
+                >
+                  Add New Student
+                </button>
+                <input
+                  type="text"
+                  placeholder="Search by name..."
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  className="search-input"
+                />
+              </div>
             </div>
             <StudentList students={students} deleteStudent={deleteStudent} />
           </div>
         </div>
       </div>
     </div>
-
-    // <div className="over">
-    //   <div className="layout-container">
-    //     <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-    //     <div className="main-content">
-    //       {!isMobile && <Sidebar />}
-    //       {isMobile && (
-    //         <MobileMenu
-    //           isOpen={isMobileMenuOpen}
-    //           toggleMenu={toggleMobileMenu}
-    //         />
-    //       )}
-    //       <div className="students-content">
-    //         <h2 className="col">Lists of Student</h2>
-    //         <div className="row-justify-content-between-pt-5">
-    //           <button
-    //             onClick={() => navigate("/register")} // Redirect to register page
-    //             type="button"
-    //             className="custom-button col-auto" // Use custom class for button
-    //             style={{ marginLeft: "auto" }} // Ensures button is at the right
-    //           >
-    //             Add New Student
-    //           </button>
-
-    //           <div className="row justify-content-center">
-    //             <input
-    //               type="text"
-    //               placeholder="Search by name..."
-    //               value={searchTerm}
-    //               onChange={handleSearchChange}
-    //               className="form-control mb-3"
-    //             />
-    //           </div>
-    //         </div>
-    //         <StudentList students={students} deleteStudent={deleteStudent} />
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 
