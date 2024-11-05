@@ -79,6 +79,7 @@ function App() {
         {/* Student */}
         <SidebarProvider1>
           {" "}
+          
           {/* Admin */}
           <Route path="/registers" element={<Registration />} />
           <Route path="/manage" element={<ManageUsers />} /> 
