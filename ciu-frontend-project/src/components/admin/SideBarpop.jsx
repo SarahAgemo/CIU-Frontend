@@ -39,7 +39,7 @@ export default function Sidebar() {
         },
       ],
     },
-    { icon: <Video size={20} />, text: "Proctoring", path: "/proctoring" },
+    // { icon: <Video size={20} />, text: "Proctoring", path: "/proctoring" },
     {
       icon: <ClipboardCheck size={20} />,
       text: "Exams",
