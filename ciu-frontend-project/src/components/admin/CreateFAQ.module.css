@@ -8,9 +8,11 @@
 }
 
 .create-faq__title {
+  color: #106053;
   font-size: 24px;
-  color: #333;
+  font-weight: bold;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .create-faq__form-group {
@@ -21,7 +23,7 @@
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
-  color: #333;
+  color: #105f53;
 }
 
 .create-faq__textarea {
@@ -34,17 +36,20 @@
 }
 
 .create-faq__submit-button {
-  background-color: #105F53;
-  color: #ffffff;
-  padding: 10px 20px;
+  background-color: #106053;
   border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  width: 100%;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  width: 100%;
+  display: block;
+  margin: auto;
+  width: fit-content;
 }
 
 .create-faq__submit-button:hover {
-  background-color: #0B3F37;
+  background-color: #0b3f37;
 }
