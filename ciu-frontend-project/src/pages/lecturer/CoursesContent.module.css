@@ -1,52 +1,135 @@
-/* Button danger style */
-button.btn-danger {
+
+/* .btn.btn-danger {
     background-color: #dc3545;
     color: white;
-    padding: 2px 4px; /* Minimal padding for compactness */
+    padding: 2px 4px; 
     border: none;
-    border-radius: 4px; /* Consistent styling */
+    border-radius: 4px; 
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 button.btn-danger:hover {
     background-color: #c82333;
-}
+} */
 
-/* Adjusted .btn and .btn-danger styles for consistency */
-.btn.btn-danger {
-    background-color: #106053;
+
+/* .btn-danger {
+    background-color: #c82333;
     color: white;
-    padding: 2px 4px; /* Minimal padding for compactness */
+    padding: 2px 4px; 
     border: none;
-    border-radius: 4px; /* Consistent styling */
+    border-radius: 4px; 
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-/* Adjusted .btn and .btn-secondary styles for consistency */
+
 .btn.btn-secondary {
-    padding: 2px 4px; /* Minimal padding for compactness */
-    border-radius: 4px; /* Consistent styling */
+    padding: 2px 4px; 
+    border-radius: 4px; 
     border: none;
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
-    margin: 15px; /* Can be adjusted or removed as needed */
-    width: fit-content; /* Button width fits the content */
+    margin: 15px; 
+    width: fit-content; 
     border-color: #106053;
+} */
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .styled-table th, .styled-table td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: left;
+  }
+  
+  .styled-table th {
+    background-color: #4CAF50;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 14px;
+  }
+  
+  .styled-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .styled-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Button Styling */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+  
+  /* Edit Button Styling */
+  .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #5a6268;
+  }
+  
+  /* Delete Button Styling */
+  .course__btn--danger {
+    background-color: #e74c3c; /* Red color for danger */
+    color: #fff;
+  }
+  
+  .course__btn--danger:hover {
+    background-color: #c0392b;
+  }
+  
+  .course__btn--danger:active {
+    transform: scale(0.98);
+  }
+th{
+   color: #106053;
 }
 
-/* Align buttons horizontally in actions column */
-td:last-child {
+
+/* td:last-child {
     display: flex;
     justify-content: center;
-    gap: 10px; /* Space between buttons */
+    gap: 10px;
 }
 
 button.btn-secondary:hover {
     background-color: #0B3F37;
-}
+} */
+
+/* .course__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+  }
+
+.course__btn--danger {
+    background-color: #c41010;
+  } */
 
 /* Responsive styling for mobile */
 @media (max-width: 768px) {
@@ -57,11 +140,11 @@ button.btn-secondary:hover {
     }
 
     button.btn {
-        padding: 2px 4px; /* Minimal padding for compactness */
+        padding: 2px 4px; 
     }
 }
 
-/* New styles */
+
 .layout-container {
     display: flex;
     flex-direction: column;
