@@ -44,15 +44,14 @@ function StudentList({ students, deleteStudent }) {
       <td>{student.first_name}</td>
       <td>{student.last_name}</td>
       <td>{student.email}</td>
-      <td>{student.role}</td>
+
       <td>{student.program}</td>
       <td>
         <button
           onClick={() => navigate(`/edit-student/${student.id}`)} // Redirect to edit page
           type="button"
-          className="btn btn-secondary"
         >
-          <FaUserEdit className="student-list-icon" size={40} />
+          <FaUserEdit className="student-list-icon" size={30} />
         </button>
         <button
           onClick={() => {
@@ -63,9 +62,8 @@ function StudentList({ students, deleteStudent }) {
             }
           }}
           type="button"
-          className="btn btn-danger"
         >
-          <MdDelete className="student-list-icon" size={40} />
+          <MdDelete className="student-list-icon" size={30} />
         </button>
       </td>
     </tr>
