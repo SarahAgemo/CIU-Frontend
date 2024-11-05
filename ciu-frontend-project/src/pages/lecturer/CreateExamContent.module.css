@@ -6,7 +6,7 @@
     height: 100vh;
     padding: 60px 20px; 
     box-sizing: border-box;
-    margin-left: 150px;
+    margin-left: 110px;
     width: 700px;
 }
 
@@ -50,6 +50,50 @@
     display: block;
     margin-bottom: 8px;
 }
+
+/* Styles for question text input */
+.createExam_input_questionText {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Styles for options input */
+  .createExam_input_options {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Styles for answer input */
+  .createExam_input_answer {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Focus styles for all inputs */
+  .createExam_input_questionText:focus,
+  .createExam_input_options:focus,
+  .createExam_input_answer:focus {
+    border-color: #28a745; /* Green border when focused */
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Green glow effect */
+  }
+
+  
+  
 
 .formControl_createExam {
     width: 100%;
@@ -108,17 +152,18 @@
 
 
 
-.btnSecondary_createExam {
+/* .btnSecondary_createExam {
     background-color: #106053;
     color: #106053;
     border: 2px solid #106053;
-}
+} */
 
 /* Secondary Button Outline Style */
 .btnSecondary_createExam {
     background-color: #106053;
     color: white; /* Matches the initial color of .btnPrimary_createExam */
     border: 2px solid #106053; /* Border to make it look like a secondary button */
+    
 }
 .error_createExam {
     color: red;

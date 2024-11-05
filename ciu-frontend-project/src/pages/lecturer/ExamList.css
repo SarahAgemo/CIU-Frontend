@@ -22,6 +22,7 @@ h3 {
 .glass-table {
     width: 100%; /* Full width table */
     border-collapse: collapse; /* Merge table borders */
+    margin-left: 40px;
 }
 
 .glass-table th, .glass-table td {

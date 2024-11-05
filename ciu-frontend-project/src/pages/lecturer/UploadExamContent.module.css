@@ -8,15 +8,17 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 600px;
-  height: 1300px;
+  height: 1100px;
   margin-bottom: 20px;
-  margin-left: 150px;
+  margin-left: 110px;
 }
 
 .uploadExam-form-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #106053;
+  font-size: 28px;
+    color: #106053;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 /* .uploadExam-form-group {
