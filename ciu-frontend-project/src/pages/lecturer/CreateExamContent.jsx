@@ -149,7 +149,6 @@ export default function CreateExamContent() {
     return (
         <div className={createExam["form-wrapper"]}>
             <form onSubmit={handleSubmit} className={createExam["form-container"]}>
-                <form onSubmit={handleSubmit}>
                     {/* Form fields to collect assessment data */}
                     <div>
                         <label htmlFor="">Schedule Create Exams</label>
@@ -340,7 +339,6 @@ export default function CreateExamContent() {
 
                     <button type="submit">Create Assessment</button>
                 </form>
-            </form>
         </div>
     );
 }
