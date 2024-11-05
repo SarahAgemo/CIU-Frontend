@@ -4,12 +4,14 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    
   }
   
   .dashboard {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    
   }
   
   .dashboard-content {
@@ -20,6 +22,7 @@
     overflow: scroll;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff; /* Light background color */
+    
   }
 
   .backButtonContainer {
@@ -59,7 +62,12 @@
   
     .dashboard-cards {
       grid-template-columns: 1fr;
+      
     }
+  }
+
+  .dashboardCards{
+    background-color: red;
   }
   
   
