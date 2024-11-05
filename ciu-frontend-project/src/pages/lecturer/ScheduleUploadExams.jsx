@@ -6,6 +6,7 @@ import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import BackButton from "../../components/lecturer/BackButton";
 
 export default function ScheduleUploadExams() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -348,10 +349,12 @@ export default function ScheduleUploadExams() {
               toggleMenu={toggleMobileMenu}
             />
           )}
-
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath="/lecturerdashboard" size={30} color="#106053" />
+          </div>
           <div className={uploadExam["uploadExam-form-container"]}>
             <h2 className={uploadExam["uploadExam-form-title"]}>
-              Schedule Upload Exams
+              Upload Exams
             </h2>
             {error && (
               <div className={uploadExam["uploadExam-alert-danger"]}>
