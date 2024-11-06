@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
+import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
 import course from '../../pages/lecturer/LectCourses.module.css';
 
@@ -41,6 +41,8 @@ function UserList({ users, deleteUser }) {
     const cols = ['#', 'Faculty Name', 'Course Name', 'Course Units', 'Course Unit Code', 'Actions'];
 
     return (
+        <div >
+            <h3>Courses</h3>
         <Table>
             <TableHead  cols={cols} />
             <TableBody>
@@ -53,30 +55,31 @@ function UserList({ users, deleteUser }) {
                         <td>{user.courseUnitCode}</td>
                         <td>
                             {/* Edit Button with Icon */}
-                            <button
+                            <span
                                 onClick={() => navigate(`/editcourse/${user.id}`)}
                                 type="button"
-                                className={course["btn btn-secondary me-1"]}>
-                                <FaEdit />
-                            </button>
+                                className="atim">
+                                <FaEdit className="icon-edit"/>
+                            </span>
 
                             {/* Delete Button with Icon */}
-                            <button
+                            <span
                                 onClick={() => {
                                     if (window.confirm('Are you sure you want to delete this course?')) {
                                         deleteUser(user.id);
                                     }
                                 }}
                                 type="button"
-                                className={course[" course__btn course__btn--danger"]}
+                                className=" course__btn course__btn--danger"
                             >
-                                <FaTrash />
-                            </button>
+                                <FaTrash className="icon-trash" />
+                            </span>
                         </td>
                     </tr>
                 ))}
             </TableBody>
         </Table>
+        </div>
     );
 }
 

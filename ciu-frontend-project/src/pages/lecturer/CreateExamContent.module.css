@@ -1,215 +1,227 @@
-
 .formWrapper_createExam {
-    display: flex;
-    /* justify-content: center; */
-    align-items: flex-start;
-    height: 100vh;
-    padding: 60px 20px; 
-    box-sizing: border-box;
-    margin-left: 110px;
-    width: 700px;
+  display: flex;
+  align-items: flex-start;
+  height: 100vh;
+  padding: 60px 20px;
+  box-sizing: border-box;
+  margin-left: 100px;
+  width: 700px;
 }
 
 .formContainer_createExam {
-    background: white;
-    padding: 40px;  /* Increased padding */
-    border-radius: 8px;  /* Increased border-radius */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);  /* Slightly deeper shadow */
-    width: 100%;
-    max-width: 1000px;  /* Made the form wider */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 20px;
-    margin-bottom: 20px;
+  background: white;
+  padding: 40px; 
+  border-radius: 8px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 1000px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
+  margin-bottom: 20px;
 }
 
 .formTitle_createExam {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #106053;
-    text-align: center;
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #106053;
+  text-align: center;
 }
 
 .heading_createExam {
-    font-size: 28px;
-    color: #106053;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+  font-size: 28px;
+  color: #106053;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 .formGroup_createExam {
-    margin-bottom: 20px;
-    width: 100%;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
 .label_createExam {
-    font-weight: bold;
-    color: #106053;
-    display: block;
-    margin-bottom: 8px;
+  font-weight: bold;
+  color: #106053;
+  display: block;
+  margin-bottom: 8px;
 }
 
-/* Styles for question text input */
-.createExam_input_questionText {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ced4da; /* Light gray border */
-    border-radius: 4px;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Styles for options input */
-  .createExam_input_options {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Styles for answer input */
-  .createExam_input_answer {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-  
-  /* Focus styles for all inputs */
-  .createExam_input_questionText:focus,
-  .createExam_input_options:focus,
-  .createExam_input_answer:focus {
-    border-color: #28a745; /* Green border when focused */
-    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); /* Green glow effect */
-  }
 
-  
-  
+.createExam_input_questionText {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da; 
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.createExam_input_options {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.createExam_input_answer {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.createExam_input_questionText:focus,
+.createExam_input_options:focus,
+.createExam_input_answer:focus {
+  border-color: #28a745; 
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.5); 
+}
 
 .formControl_createExam {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .questionContainer_createExam {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
 
 .addQuestionBtn_createExam {
-    background-color: #106053;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-right: 10px;
+  background-color: #106053;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 70px;
 }
 
 .addQuestionBtn_createExam:hover {
-    background-color: #0B3F37;
+  background-color: #0b3f37;
 }
 
 .buttonGroup_createExam {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Space between buttons */
-    margin-top: 20px;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 10px; 
+  flex-wrap: nowrap; 
+  margin-top: 20px;
 }
 
-.btnPrimary_createExam, .btnSecondary_createExam {
-     background-color: #106053; /* Same background color as .addQuestionBtn_createExam */
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+.btnPrimary_createExam,
+.btnSecondary_createExam {
+  background-color: #106053; 
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.btnPrimary_createExam:hover, .btnSecondary_createExam:hover {
-    background-color: #0B3F37; /* Same hover color as .addQuestionBtn_createExam */
-    color: white;
+.btnPrimary_createExam:hover,
+.btnSecondary_createExam:hover {
+  background-color: #0b3f37;
+  color: white;
 }
 
 .btnPrimary_createExam {
-    background-color: #106053;
-    color: white;
-    border: none;
+  background-color: #106053;
+  color: white;
+  border: none;
+  margin-left: 50px;
 }
 
-
-
-/* .btnSecondary_createExam {
+.btnSecondary_createExam {
     background-color: #106053;
     color: #106053;
     border: 2px solid #106053;
-} */
+    margin-left: 50px;
+}
 
-/* Secondary Button Outline Style */
+
 .btnSecondary_createExam {
-    background-color: #106053;
-    color: white; /* Matches the initial color of .btnPrimary_createExam */
-    border: 2px solid #106053; /* Border to make it look like a secondary button */
-    
+  background-color: #106053;
+  color: white; 
+  border: 2px solid #106053; 
 }
 .error_createExam {
-    color: red;
-    font-size: 0.8em;
-    margin-top: 5px;
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
 }
 
-.formGroup_duration, .formGroup_scheduledDate, .formGroup_startTime, 
-.formGroup_endTime, .formGroup_createdBy, .formGroup_question {
-    margin-bottom: 20px;
-    width: 100%;
-}
-
-.label_duration, .label_scheduledDate, .label_startTime, 
-.label_endTime, .label_createdBy, .label_questionText, 
-.label_options, .label_answer {
-    font-weight: bold;
-    color: #106053;
-    display: block;
-    margin-bottom: 8px;
-}
-
-.input_duration, .input_scheduledDate, .input_startTime, 
-.input_endTime, .input_createdBy, .input_questionText, 
-.input_options, .input_answer {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-/* Additional styling for .formGroup_question to differentiate it */
+.formGroup_duration,
+.formGroup_scheduledDate,
+.formGroup_startTime,
+.formGroup_endTime,
+.formGroup_createdBy,
 .formGroup_question {
-   
-    padding: 10px;
-    border-radius: 4px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-    margin-bottom: 10px;
+  margin-bottom: 20px;
+  width: 100%;
 }
 
-.input_questionText, .input_options, .input_answer {
-    border-color: #b5d3c5;
+.label_duration,
+.label_scheduledDate,
+.label_startTime,
+.label_endTime,
+.label_createdBy,
+.label_questionText,
+.label_options,
+.label_answer {
+  font-weight: bold;
+  color: #106053;
+  display: block;
+  margin-bottom: 8px;
 }
 
+.input_duration,
+.input_scheduledDate,
+.input_startTime,
+.input_endTime,
+.input_createdBy,
+.input_questionText,
+.input_options,
+.input_answer {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+
+.formGroup_question {
+  padding: 10px;
+  border-radius: 4px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.input_questionText,
+.input_options,
+.input_answer {
+  border-color: #b5d3c5;
+}
