@@ -47,6 +47,7 @@
   overflow: hidden;
 }
 .student-heading {
+  font-size: 2rem;
   color: #106053;
 }
 .students-table {
@@ -54,11 +55,11 @@
   border-collapse: collapse;
   background-color: white; /* White background */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  border: none; /* Remove borders */
+  border: none;
   margin-top: 0px;
 }
 .custom-button {
-  width: 250px;
+  width: 15rem;
   margin-right: auto;
   background-color: #106053;
   color: white;
@@ -69,16 +70,36 @@
   cursor: pointer;
 }
 .search-input {
-  width: 250px;
+  width: 15rem;
   outline: none;
   border: solid 1px #106053;
 }
 .custom-button,
 .search-input {
-  height: 40px; /* Set a consistent height */
-  padding: 0 15px; /* Add padding for consistent spacing */
-  font-size: 16px; /* Adjust font size if needed */
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+}
+.students-icon-button {
+  background-color: white;
+  border: none;
 }
 .student-list-icon {
   color: #106053;
+}
+@media (max-width: 600px) {
+  .actions-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .custom-button,
+  .search-input {
+    width: 100%;
+  }
+
+  .student-heading {
+    font-size: 1.5rem;
+    text-align: center;
+  }
 }

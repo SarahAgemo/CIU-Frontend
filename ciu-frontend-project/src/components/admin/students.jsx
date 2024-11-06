@@ -50,6 +50,7 @@ function StudentList({ students, deleteStudent }) {
         <button
           onClick={() => navigate(`/edit-student/${student.id}`)} // Redirect to edit page
           type="button"
+          className="students-icon-button"
         >
           <FaUserEdit className="student-list-icon" size={30} />
         </button>
@@ -62,6 +63,7 @@ function StudentList({ students, deleteStudent }) {
             }
           }}
           type="button"
+          className="students-icon-button"
         >
           <MdDelete className="student-list-icon" size={30} />
         </button>
