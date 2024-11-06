@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
+import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
 import course from '../../pages/lecturer/LectCourses.module.css';
 
@@ -41,6 +41,8 @@ function UserList({ users, deleteUser }) {
     const cols = ['#', 'Faculty Name', 'Course Name', 'Course Units', 'Course Unit Code', 'Actions'];
 
     return (
+        <div >
+            <h3>Courses</h3>
         <Table>
             <TableHead  cols={cols} />
             <TableBody>
@@ -77,6 +79,7 @@ function UserList({ users, deleteUser }) {
                 ))}
             </TableBody>
         </Table>
+        </div>
     );
 }
 

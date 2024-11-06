@@ -5,9 +5,7 @@ import {
   Calendar,
   LogOut,
   Lock,
-  // Video,
   Library,
-  Folder,
   ClipboardCheck,
   ChevronDown,
   X,
@@ -37,25 +35,17 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
         },
       ],
     },
-    // { icon: Video, label: "Proctoring", path: "/proctoring" },
+
+    { icon: ClipboardCheck, label: "Exam list", path: "/admin-exam-list" },
     {
-      icon: ClipboardCheck,
-      label: "Exams",
+      icon: Library,
+      label: "Courses",
       subItems: [
-        {
-          icon: ClipboardCheck,
-          label: "Uploaded Exams",
-          path: "/schedule-upload-exams/exam-list",
-        },
-        {
-          icon: ClipboardCheck,
-          label: "Manual Exams",
-          path: "/schedule-upload-exams/exam-list",
-        },
+        { icon: Library, label: "Register Course", path: "/regCourse" },
+        { icon: Library, label: "View Courses", path: "/admin-courses" },
       ],
     },
-    { icon: Library, label: "All Courses", path: "/courses" },
-    { icon: Folder, label: "All Course Units", path: "/course-units" },
+    // { icon: Folder, label: 'Course Units', path: '/course-units' },
     { icon: Lock, label: "Create FAQs", path: "/admin/create-faqs" },
     { icon: Calendar, label: "Calendar", path: "/admin/calendar" },
     { icon: LogOut, label: "Logout", path: "/" },
@@ -72,7 +62,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
 
   const handleItemClick = (label) => {
     setActiveItem(label);
-    if (label === "Exams") {
+    if (label === "Courses") {
       setIsExamsOpen(!isExamsOpen);
     } else if (label === "Manage Users") {
       setIsManageUsersOpen(!isManageUsersOpen); // Toggle the "Manage Users" submenu

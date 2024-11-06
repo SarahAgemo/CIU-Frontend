@@ -14,7 +14,7 @@ import ManageUsers from "./pages/admin/ManageUsers.jsx";
 import Users from "./components/admin/Users.jsx";
 import EditUser from "./components/admin/EditUser.jsx";
 import Layout from "./components/admin/Layout.jsx";
-import Students from "./components/admin/students.jsx";
+import Students from "./components/admin/Students.jsx";
 import EditStudent from "./components/admin/EditStudent.jsx";
 import Adminuser from "./components/admin/Adminuser.jsx";
 import Editadmin from "./components/admin/Editadmin.jsx";
@@ -48,7 +48,7 @@ import ManualEditExamPaper from "./pages/lecturer/ManualEditExamPaper.jsx";
 import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.jsx";
 import ManualPublishedExamList from "./pages/lecturer/ManualPublishedExamList.jsx";
 import LecturerDashboard from "./components/lecturer/LecturerDashboard.jsx";
-import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
+import { SidebarProvider2 } from "./components/lecturer/SideBarContext2.jsx";
 import LectCourses from "./pages/lecturer/LectCourses.jsx";
 
 // Student
@@ -65,6 +65,7 @@ import Questions from "./pages/student/FAQpagepop.jsx";
 import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from "./components/lecturer/QuestionBankPage.jsx";
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
+import AdminExamList from "./pages/admin/AdminExamList.jsx";
 
 import "./App.css";
 
@@ -132,6 +133,7 @@ function App() {
                 element={<TokenPasswordPage />}
               />
               <Route path="/admin-courses" element={<AdminCourses />} />
+              <Route path="/admin-exam-list" element={<AdminExamList />} />
 
               {/* Lecturer */}
               <Route

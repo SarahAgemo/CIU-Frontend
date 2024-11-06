@@ -39,21 +39,28 @@ export default function Sidebar() {
         },
       ],
     },
-    // { icon: <Video size={20} />, text: "Proctoring", path: "/proctoring" },
     {
       icon: <ClipboardCheck size={20} />,
-      text: "Exams",
+      text: "Exam list",
+      path: "/admin-exam-list",
+    },
+    {
+      icon: <Library size={20} />,
+      text: "Courses",
       subItems: [
-        { text: "Uploaded Exams", path: "/schedule-upload-exams/exam-list" },
-        { text: "Manual Exams", path: "/schedule-upload-exams/exam-list" },
+        {
+          icon: <Library size={20} />,
+          text: "Register Course",
+          path: "/regCourse",
+        },
+        {
+          icon: <Library size={20} />,
+          text: "View Courses",
+          path: "/admin-courses",
+        },
       ],
     },
-    { icon: <Library size={20} />, text: "All Courses", path: "/courses" },
-    {
-      icon: <Folder size={20} />,
-      text: "All Course Units",
-      path: "/course-units",
-    },
+    // { icon: <Folder size={20} />, text: 'Course Units', path: '/course-units' },
     {
       icon: <Lock size={20} />,
       text: "Create FAQs",

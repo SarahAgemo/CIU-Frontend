@@ -97,7 +97,7 @@ export default function MainContent() {
     setActiveModal(modalType);
   };
 
-  if (loading) return <p>Loading upcoming exams...</p>;
+  if (loading) return <p>Loading dashboard...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
