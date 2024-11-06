@@ -11,7 +11,7 @@ export default function Header({ toggleMobileMenu, isMobile }) {
             <Menu className={Head["hamburger-icon"]} />
           </button>
         )}
-        <img src="/CIU exam system logo.png" alt="System Logo" className={Head["logo"]} />
+        <img src="./src/assets/images/CIU-exam-system-logo.png" alt="System Logo" className={Head["logo"]} />
       </div>
       <div className={Head["header-icons"]}>
         <button className={Head["icon-button"] + " " + Head["notification-button"]} aria-label="Notifications">
