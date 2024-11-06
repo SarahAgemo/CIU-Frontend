@@ -1,0 +1,83 @@
+*{
+  font-family: "Roboto Slab";
+ }
+ 
+   .edit-exam-paper-container {
+    width: 600px;
+    height: 600px;
+    margin-left: 120px;
+    margin-top: 50px;
+    padding: 50px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .edit-exam-paper-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #106053;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  
+  .edit-exam-paper-label {
+    font-weight: bold;
+    margin-top: 10px;
+    color: #106053;
+  }
+  
+  .edit-exam-paper-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  .edit-exam-paper-option-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+  }
+  
+  .alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+  }
+  
+  .alert-success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .edit-exam-paper-button {
+    background-color: #106053;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin:auto;
+    width: fit-content;
+    
+  }
+  
+  .edit-exam-paper-button:hover {
+    background-color: #0B3F37;
+  }
+  

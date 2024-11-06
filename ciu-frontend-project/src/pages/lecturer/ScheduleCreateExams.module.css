@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 body{
     background: #ebebeb;
     text-align: center;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto Slab';
 }
 
 .container{
@@ -19,7 +19,7 @@ body{
 h2{
     font-size: x-large;
     text-align: center;
-    color: #106010;
+    color: #106053;
 }
 
 label{
@@ -29,7 +29,7 @@ label{
     margin-top: 8px;
     margin-bottom: 5px;
     text-align: left;
-    color: #106010;
+    color: #106053;
     font-weight: bold;
 }
 
@@ -65,13 +65,13 @@ button{
     border: none;
     color: #fff;
     cursor: pointer;
-    background-color: #106010;
+    background-color: #106053;
     width:fit-content;
     font-size: 16px;
 }
 
 button:hover{
-    background-color: #0c890c;
+    background-color:#0B3F37;
 }
 
 .button-group {
@@ -92,12 +92,12 @@ button:hover{
 }
 
 .button-group button.active {
-    background-color: #106010;
+    background-color: #106053;
     color: #fff;
 }
 
 .button-group button:hover {
-    background-color: #0c890c;
+    background-color:  #0B3F37;
     color: #fff;
 }
 
@@ -108,7 +108,7 @@ input.success-input, select.success-input {
 
 
 input:focus {
-    border-color: #106010;
+    border-color: #106053;
     outline: none;
 }
-
+ */

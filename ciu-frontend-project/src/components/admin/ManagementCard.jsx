@@ -1,15 +1,30 @@
 import React from 'react';
-import { Users, User } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import ManageCard from './ManageCard.jsx'
 import Manage from './ManagementCard.module.css';
 
-export default function ManagementCard({ title, icon, to }) {
-  const Icon = icon === 'users' ? Users : User;
+export default function ManagementCard() {
+  const manageItems = [
+    { title: 'Manage Students', link: '/table' },
+    { title: 'Manage Lecturers', link: '/users' },
+    { title: 'Manage Admin', link: '/adminuser' }
+  ];
 
   return (
-    <Link to={to} className={Manage["management-card"]} aria-label={`Manage ${title}`}>
-      <Icon size={60} />
-      <h3>{title}</h3>
-    </Link>
-  )
+    <div className={Manage["overall"]}>
+    <div className={Manage["dashboard"]}>
+      <h2 className={Manage["dashboard-title"]}>Manage Users</h2>
+      <div className={Manage["manage-grid"]}>
+        {manageItems.map((item, index) => (
+          <ManageCard
+            key={index}
+            title={item.title}
+            link={item.link}
+          />
+        ))}
+      </div>
+    </div>
+    </div>
+  );
 }
+
+
