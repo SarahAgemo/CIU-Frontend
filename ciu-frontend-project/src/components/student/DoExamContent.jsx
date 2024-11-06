@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import "./DoExamContent.module.css"
 
 function DoExamList() {
   const [examPapers, setExamPapers] = useState([]);
@@ -31,9 +32,9 @@ function DoExamList() {
   if (!examPapers.length) return <div>No published exams available to attempt.</div>;
 
   return (
-    <div className="exam-list-container">
+    <div className="exam-list-container"style={{ width: "100%" }}>
       <h3>Available Exams</h3>
-      <table className="glass-table">
+      <table className="glass-table" style={{ width: "100%" }}>
         <thead>
           <tr>
             <th>CourseUnit</th>
