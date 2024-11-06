@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import './Registration.css';
-
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+// import './Registration.css';
+import Register from './Registration.module.css';
 const Registration = () => {
   const navigate = useNavigate(); // Initialize useNavigate
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ const Registration = () => {
   });
   const [errors, setErrors] = useState({});
   const [successMessage, setSuccessMessage] = useState('');
-  
+  // const [successMessage, setSuccessMessage] = useState('')
 
   const toggleDropdown = () => { 
     setIsOpen(!isOpen);
@@ -177,8 +178,8 @@ const Registration = () => {
         {errors.password && <span className={Register['error']}>{errors.password}</span>}
 
         <button type='submit'>Register</button>
-        {successMessage && <p className='success'>{successMessage}</p>} {/* Success message display */}
-        {errors.server && <span className='error'>{errors.server}</span>} {/* Server error display */}
+        {successMessage && <p className={Register['success']}>{successMessage}</p>} 
+        {errors.server && <span className={Register['error']}>{errors.server}</span>} 
       </form>
     </div>
   );

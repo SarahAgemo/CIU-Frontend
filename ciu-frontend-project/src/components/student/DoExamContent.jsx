@@ -77,7 +77,7 @@ export default function MainContent() {
       loadExams();
     }, []);
   
-    if (loading) return <p>Loading exams...</p>;
+    if (loading) return <p>Loading exams...</p>; //i updated
     if (error) return <p>Error: {error}</p>;
 
     return (
