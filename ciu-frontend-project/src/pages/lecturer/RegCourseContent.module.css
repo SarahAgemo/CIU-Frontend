@@ -9,12 +9,15 @@
     max-width: 600px;
     height: 500px;
     margin: 20px auto; /* Center the form on the page */
+    margin-top: 30px;
 }
 
 .formTitle {
+    color: #106053;
     font-size: 24px;
+    font-weight: bold;
     margin-bottom: 20px;
-    color: #106053; /* Title color */
+    text-align: center;
 }
 
 .formGroup {
@@ -47,13 +50,18 @@
 }
 
 .btnPrimary {
-    background-color: #106053; /* Primary button color */
-    color: white; /* Primary button text color */
-    padding: 10px 20px; /* Padding for primary button */
-    border: none; /* No border */
-    border-radius: 4px; /* Rounded corners */
-    cursor: pointer; /* Pointer cursor on hover */
-    width: fit-content; /* Fit button to text */
+    background-color: #106053;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin:auto;
+    width: fit-content;
 }
 
 .btnPrimary:hover {
