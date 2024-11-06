@@ -112,7 +112,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
                         }`}
                       />
                     </button>
-                    {(isExamsOpen && item.label === "Exams") ||
+                    {(isExamsOpen && item.label === "Courses") ||
                     (isManageUsersOpen && item.label === "Manage Users") ? (
                       <ul className={Mobile["submenu"]}>
                         {item.subItems.map((subItem, subIndex) => (
