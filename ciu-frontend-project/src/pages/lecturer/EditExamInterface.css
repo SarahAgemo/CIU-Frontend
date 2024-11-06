@@ -1,9 +1,13 @@
+   *{
+    font-family: "Roboto Slab";
+   }
    .edit-exam-interface__container {
-    width: 1000px;
+    width: 700px;
     height: 1000px;
     margin: 0 auto;
+    margin-top: 50px;
     padding: 20px;
-    background-color: #f8f9fa;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   }
@@ -60,11 +64,13 @@
     font-weight: bold;
     font-size: 16px;
     padding: 10px 20px;
+    width: 100%;
     border-radius: 4px;
     cursor: pointer;
-    width: auto;
     display: block;
     margin:auto;
+    width: fit-content;
+    
   }
   
   .edit-exam-interface__submit-button:hover {

@@ -2,10 +2,10 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import styles from './RegCourseContent.module.css'; // Import the CSS module
-import Header from "../../components/lecturer/HeaderPop";
-import Sidebar from "../../components/lecturer/SideBarPop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
-import Dash from '../../components/lecturer/LecturerDashboard.module.css';
+import Header from '../../components/admin/Headerpop';
+import Sidebar from '../../components/admin/SideBarpop';
+import MobileMenu from "../../components/admin/MobileMenu";
+import AdminDash from '../admin/Dashboard.module.css';
 
 const RegCourse = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -164,17 +164,17 @@ const RegCourse = () => {
   // );
   // 
   return (
-    <div className={Dash.lecturerDashboard}>
-      <div className={Dash.dashboard}>
-        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-        <div className={Dash["dashboard-content"]}>
-          {!isMobile && <Sidebar />}
-          {isMobile && (
-            <MobileMenu
-              isOpen={isMobileMenuOpen}
-              toggleMenu={toggleMobileMenu}
-            />
-          )}
+    <div className={AdminDash["overall"]}>
+          <div className={AdminDash["dashboard"]}>
+               <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+          <div className={AdminDash["dashboard-content"]}>
+            {!isMobile && <Sidebar />}
+            {isMobile && (
+              <MobileMenu
+                isOpen={isMobileMenuOpen}
+                toggleMenu={toggleMobileMenu}
+              />
+            )}
           <div className={styles.formContainer}> {/* Use module styles */}
             <h2 className={styles.formTitle}>Register Course</h2>
             <form onSubmit={handleSubmit}>

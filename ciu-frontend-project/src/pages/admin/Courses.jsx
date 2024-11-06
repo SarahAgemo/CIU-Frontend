@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaEdit, FaTrash } from 'react-icons/fa'; // Import icons for edit and delete
-import Header from "../../components/lecturer/HeaderPop";
-import Sidebar from "../../components/lecturer/SideBarPop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
+import Header from "../../components/admin/Headerpop";
+import Sidebar from "../../components/admin/SideBarpop";
+import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
-import course from './CoursesContent.module.css';
+import course from '../../pages/lecturer/LectCourses.module.css';
+
 
 // Table component
 function Table({ children }) {
@@ -40,8 +41,10 @@ function UserList({ users, deleteUser }) {
     const cols = ['#', 'Faculty Name', 'Course Name', 'Course Units', 'Course Unit Code', 'Actions'];
 
     return (
+        <div >
+            <h3>Courses</h3>
         <Table>
-            <TableHead cols={cols} />
+            <TableHead  cols={cols} />
             <TableBody>
                 {users.map((user, index) => (
                     <tr key={user.id}>
@@ -52,35 +55,36 @@ function UserList({ users, deleteUser }) {
                         <td>{user.courseUnitCode}</td>
                         <td>
                             {/* Edit Button with Icon */}
-                            <button
+                            <span
                                 onClick={() => navigate(`/editcourse/${user.id}`)}
                                 type="button"
-                                className={course["btn btn-secondary me-1"]}>
-                                <FaEdit />
-                            </button>
+                                className="atim">
+                                <FaEdit className="icon-edit"/>
+                            </span>
 
                             {/* Delete Button with Icon */}
-                            <button
+                            <span
                                 onClick={() => {
                                     if (window.confirm('Are you sure you want to delete this course?')) {
                                         deleteUser(user.id);
                                     }
                                 }}
                                 type="button"
-                                className={course["btn btn-danger"]}
+                                className=" course__btn course__btn--danger"
                             >
-                                <FaTrash />
-                            </button>
+                                <FaTrash className="icon-trash" />
+                            </span>
                         </td>
                     </tr>
                 ))}
             </TableBody>
         </Table>
+        </div>
     );
 }
 
 // Main Courses component
-function Courses() {
+function AdminCourses() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
@@ -151,4 +155,4 @@ function Courses() {
         </div>
     );
 }
-export default Courses;
+export default AdminCourses;
