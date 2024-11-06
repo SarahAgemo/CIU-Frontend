@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./ExamInstructions.css";
 import { ExamDetails } from "../../components/student/ExamDetails";
+
 const ExamInstructions = () => {
   const navigate = useNavigate();
 

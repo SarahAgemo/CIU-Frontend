@@ -143,7 +143,12 @@ const Login = () => {
                 Remember Me
               </label>
             </div>
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="login-submit-button "
+              style={{ width: "100%", height: "45px" }}
+            >
               LOGIN
             </button>
             {errorMessage && (
