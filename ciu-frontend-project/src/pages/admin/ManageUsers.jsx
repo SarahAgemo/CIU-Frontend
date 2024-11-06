@@ -32,11 +32,9 @@ export default function ManageUsers() {
         {!isMobile && <Sidebar />}
         {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
         <main className="main-content">
-          <h2 className="dashboard-title">Manage Users</h2>
+          {/* <h2 className="dashboard-title">Manage Users</h2> */}
           <div className="management-cards">
-            <ManagementCard title="Manage Students" icon="user" to="/table" />
-            <ManagementCard title="Manage Lecturers" icon="users" to="/users" />
-            <ManagementCard title="Manage Admin" icon="users" to="/adminuser" />
+            <ManagementCard />
           </div>
         </main>
       </div>
