@@ -1,55 +1,105 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 .over {
-    font-family: 'Roboto Slab', sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+  font-family: "Roboto Slab", sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
-  .layout-container {
-    display: flex;
-    height: 100vh;
+.layout-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #f3f4f6;
+}
+
+.main-content {
+  flex-grow: 1;
+  /* padding: 20px; */
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.students-content {
+  width: 100%;
+  padding-right: 5px;
+}
+
+.students {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.actions-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+}
+.student-heading {
+  font-size: 2rem;
+  color: #106053;
+}
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white; /* White background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  border: none;
+  margin-top: 0px;
+}
+.custom-button {
+  width: 15rem;
+  margin-right: auto;
+  background-color: #106053;
+  color: white;
+  border: solid 1px #106053;
+}
+.custom-button:hover {
+  background-color: #004d47;
+  cursor: pointer;
+}
+.search-input {
+  width: 15rem;
+  outline: none;
+  border: solid 1px #106053;
+}
+.custom-button,
+.search-input {
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+}
+.students-icon-button {
+  background-color: transparent;
+  border: none;
+}
+.student-list-icon {
+  color: #106053;
+}
+@media (max-width: 600px) {
+  .actions-row {
     flex-direction: column;
-    background-color: #f3f4f6;
+    align-items: stretch;
   }
-  
-  .main-content {
-    flex-grow: 1;
-    /* padding: 20px; */
+
+  .custom-button,
+  .search-input {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex: 1;
-    flex-grow: 1;
-    overflow: hidden;
-  }
-  
-   .students {
-    width: 100%;
-    max-width: 800px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
   }
 
-  .row-justify-content-between-pt-5 {
-    background-color: white;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    border-radius: 0.5rem;
-    overflow: hidden;
+  .student-heading {
+    font-size: 1.5rem;
+    text-align: center;
   }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white; /* White background */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    border: none; /* Remove borders */
-  }
-
-
-
-
- 
+}
