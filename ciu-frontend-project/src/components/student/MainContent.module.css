@@ -8,6 +8,7 @@
 .welcome-banner h2 {
   font-size: 32px;
   margin-bottom: 16px;
+  color: white;
 }
 
 .search-bar {
@@ -151,6 +152,7 @@ margin-bottom: 16px;
 
 .exams-table {
 margin-top: 16px;
+
 }
 
 .exams-table table {
