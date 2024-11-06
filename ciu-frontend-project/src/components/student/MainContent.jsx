@@ -104,7 +104,7 @@ export default function MainContent() {
     <main className={Main["main-content"]}>
       <div className={Main["welcome-banner"]}>
         <div className={Main["image-group"]}>
-          <img src="977A9972-min.jpg" alt="Students" className={Main["banner-image"]} />
+          <img src="IMG-20241106-WA0063.jpg" alt="Students" className={Main["banner-image"]} />
         </div>
         <div className={Main["welcome-overlay"]}>
           <h2>Welcome back!</h2>
