@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import "./Proctoring.css";
+import proct from "./Proctoring.module.css";
 import { ExamDetails } from "../../components/student/ExamDetails";
 import { TbDeviceComputerCamera } from "react-icons/tb";
 import { IoExitOutline } from "react-icons/io5";
@@ -126,22 +126,24 @@ const Proctoring = () => {
   }, [warnings]);
 
   return (
-    <div className="proctoring-overall">
-      <div className="examination-details">
+    <div className={proct["proctoring-overall"]}>
+      <div className={proct["examination-details"]}>
         <ExamDetails />
       </div>
 
-      <div className="proctoring">
+      <div className={proct["proctoring"]}>
         <h1>PROCTORING VERIFICATION</h1>
 
         {/* Video stream should appear immediately after the heading */}
         <div
-          className="video-container"
+          className={proct["video-container"]}
           style={{
             backgroundColor: videoEnabled ? "#ffffff" : "#ebebeb", // Changing background color based on videoEnabled
           }}
         >
-          {!videoEnabled && <TbDeviceComputerCamera className="video-icon" />}
+          {!videoEnabled && (
+            <TbDeviceComputerCamera className={proct["video-icon"]} />
+          )}
 
           <video
             ref={videoRef}
@@ -151,9 +153,9 @@ const Proctoring = () => {
             }}
           />
         </div>
-        <div className="verification-boxes">
+        <div className={proct["verification-boxes"]}>
           {/* Webcam Activation */}
-          <div className="verification-box">
+          <div className={proct["verification-box"]}>
             <input
               type="checkbox"
               id="video"
@@ -164,7 +166,7 @@ const Proctoring = () => {
           </div>
 
           {/* Microphone Activation */}
-          <div className="verification-box">
+          <div className={proct["verification-box"]}>
             <input
               type="checkbox"
               id="audio"
@@ -175,7 +177,7 @@ const Proctoring = () => {
           </div>
 
           {/* Secure Browser Confirmation */}
-          <div className="verification-box">
+          <div className={proct["verification-box"]}>
             <input
               type="checkbox"
               id="secure-browser"
@@ -187,7 +189,7 @@ const Proctoring = () => {
         </div>
 
         {/* Consent Section */}
-        <div className="consent-section" style={{ marginTop: "20px" }}>
+        <div className={proct["consent-section"]} style={{ marginTop: "20px" }}>
           <input
             type="checkbox"
             id="consent"
@@ -199,10 +201,10 @@ const Proctoring = () => {
             and audio for remote proctoring purposes.
           </label>
         </div>
-        <div className="button-wrapper">
+        <div className={proct["button-wrapper"]}>
           {/* Begin Exam Button */}
           <button
-            className="begin-exam-btn"
+            className={proct["begin-exam-btn"]}
             onClick={handleBeginExam}
             disabled={!beginExamEnabled}
             style={{
@@ -215,7 +217,7 @@ const Proctoring = () => {
 
           {/* Exit Button */}
           <button
-            className="exit-btn"
+            className={proct["exit-btn"]}
             onClick={() => (window.location.href = "/instructions")}
           >
             <IoExitOutline />
