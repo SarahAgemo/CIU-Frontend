@@ -50,6 +50,7 @@ import ManualPublishedExamList from "./pages/lecturer/ManualPublishedExamList.js
 import LecturerDashboard from "./components/lecturer/LecturerDashboard.jsx";
 import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
 import LectCourses from "./pages/lecturer/LectCourses.jsx";
+import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard.jsx";
@@ -66,6 +67,8 @@ import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from "./components/lecturer/QuestionBankPage.jsx";
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
+
+
 
 import "./App.css";
 
@@ -198,6 +201,11 @@ function App() {
               <Route
                 path="/passed-exams-questions"
                 element={<PassedExamsQuestionsPage />}
+              />
+
+              <Route
+                path="/question-bank/:bankId/preview"
+                element={<QuestionBankPreview />}
               />
 
               {/* Student - Protected route*/}
