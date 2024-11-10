@@ -91,8 +91,43 @@ export default function CreateExamContent() {
                 }));
             }
         }
-    };
 
+        // Auto-calculate endTime based on startTime and duration
+        if (name === 'scheduledDate') {
+            // Automatically update startTime with the time portion of scheduledDate
+            const selectedDateTime = moment(value);
+            const startTime = selectedDateTime.format('HH:mm');
+            setFormData((prevData) => ({
+                ...prevData,
+                startTime
+            }));
+        
+            // Calculate endTime if duration is provided
+            if (formData.duration) {
+                const [durationHours, durationMinutes] = formData.duration.split(':').map(Number);
+                const endTime = selectedDateTime
+                    .add(durationHours, 'hours')
+                    .add(durationMinutes, 'minutes')
+                    .format('HH:mm');
+                setFormData((prevData) => ({
+                    ...prevData,
+                    endTime
+                }));
+            }
+        } else if (name === 'duration' && formData.startTime) {
+            // Calculate endTime based on startTime and updated duration
+            const startTimeMoment = moment(formData.scheduledDate);
+            const [durationHours, durationMinutes] = value.split(':').map(Number);
+            const endTime = startTimeMoment
+                .add(durationHours, 'hours')
+                .add(durationMinutes, 'minutes')
+                .format('HH:mm');
+            setFormData((prevData) => ({
+                ...prevData,
+                endTime
+            }));
+        }
+    };
     const handleQuestionChange = (index, e) => {
         const { name, value } = e.target;
         const newQuestions = [...formData.questions];
@@ -249,16 +284,16 @@ export default function CreateExamContent() {
                 </div>
 
                 <div className={createExam.formGroup_scheduledDate}>
-                    <label className={createExam.label_scheduledDate}>Scheduled Date</label>
-                    <input
-                        type="datetime-local"
-                        name="scheduledDate"
-                        value={formData.scheduledDate}
-                        onChange={handleInputChange}
-                        className={createExam.input_scheduledDate}
-                        required
-                    />
-                </div>
+                <label className={createExam.label_scheduledDate}>Scheduled Date</label>
+                <input
+                    type="datetime-local"
+                    name="scheduledDate"
+                    value={formData.scheduledDate}
+                    onChange={handleInputChange}
+                    className={createExam.input_scheduledDate}
+                    required
+                />
+            </div>
 
                 <div className={createExam.formGroup_startTime}>
                     <label className={createExam.label_startTime}>Start Time</label>
@@ -278,9 +313,8 @@ export default function CreateExamContent() {
                         type="time"
                         name="endTime"
                         value={formData.endTime}
-                        onChange={handleInputChange}
                         className={createExam.input_endTime}
-                        required
+                        readOnly
                     />
                 </div>
 
