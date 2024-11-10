@@ -27,6 +27,11 @@ export default function Dashboard() {
 
   const [studentCount, setStudentCount] = useState(0);
   const [programCount, setProgramCount] = useState(0);
+  const [lecturerCount, setLecturerCount] = useState(0);
+  const [courseCount, setCourseCount] = useState(0);
+  const [courseUnitCount, setCourseUnitCount] = useState(0);
+  const [ongoingAssessmentsCount, setOngoingAssessmentsCount] = useState(0);
+  const [upcomingAssessmentsCount, setUpcomingAssessmentsCount] = useState(0);
 
     useEffect(() => {
     // Function to fetch student count
@@ -49,7 +54,63 @@ export default function Dashboard() {
       }
     };
 
+     // Fetch lecturer count
+     const fetchLecturerCount = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/lecturerReg/count');
+        setLecturerCount(response.data);
+      } catch (error) {
+        console.error("Error fetching lecturer count:", error);
+      }
+    };
+
+    // Fetch course count
+    const fetchCourseCount = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/coursesAdd/count');
+        setCourseCount(response.data);
+      } catch (error) {
+        console.error("Error fetching course count:", error);
+      }
+    };
+
+    // Fetch course unit count
+    const fetchCourseUnitCount = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/coursesAdd/units/count');
+        setCourseUnitCount(response.data.count);
+      } catch (error) {
+        console.error("Error fetching course unit count:", error);
+      }
+    };
+
+
+    // Fetch ongoing assessments count
+    const fetchOngoingAssessmentsCount = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/exam-paper/ongoing');
+        setOngoingAssessmentsCount(response.data);
+      } catch (error) {
+        console.error("Error fetching ongoing assessments count:", error);
+      }
+    };
+
+    // Fetch upcoming assessments count
+    const fetchUpcomingAssessmentsCount = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/exam-paper/upcoming');
+        setUpcomingAssessmentsCount(response.data);
+      } catch (error) {
+        console.error("Error fetching upcoming assessments count:", error);
+      }
+    };
+
     // Call the functions
+    fetchLecturerCount();
+    fetchCourseCount();
+    fetchCourseUnitCount();
+    fetchOngoingAssessmentsCount();
+    fetchUpcomingAssessmentsCount();
     fetchStudentCount();
     fetchProgramCount();
   }, []); // Empty dependency array means this runs once after the first render
@@ -65,12 +126,12 @@ export default function Dashboard() {
           <h2 className={AdminDash["dashboard-title"]}>Dashboard</h2>
           <div className={AdminDash["dashboard-cards"]}>
             <DashboardCard title="Registered Students" value={studentCount} icon="🎓" />
-            <DashboardCard title="Registered Lecturers" value={studentCount} icon="👨‍💻" />
-            <DashboardCard title="Registered Courses" value={programCount} icon="📖" />
-            <DashboardCard title="Registered Course Units" value={programCount} icon="📖" />
+            <DashboardCard title="Registered Lecturers" value={lecturerCount} icon="👨‍💻" />
+            <DashboardCard title="Registered Courses" value={courseCount} icon="📖" />
+            <DashboardCard title="Registered Course Units" value={courseUnitCount} icon="📖" />
             {/* You can add more DashboardCards here if needed */}
-            <DashboardCard title="Ongoing Exams/Assessments" value="2" icon="📝" />
-            <DashboardCard title="Upcoming Exams/Assessments" value="2" icon="📝" />
+            <DashboardCard title="Ongoing Exams/Assessments" value={ongoingAssessmentsCount} icon="📝" />
+            <DashboardCard title="Upcoming Exams/Assessments" value={upcomingAssessmentsCount} icon="📝" />
             
           </div>
         </main>        

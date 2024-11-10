@@ -1,0 +1,40 @@
+/* src/pages/lecturer/Dashboard.module.css */
+
+.overall {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .dashboard {
+    display: flex;
+    flex: 1;
+  }
+  
+  .mainContent {
+    flex: 1;
+    margin-left: 0px;
+    padding: 20px;
+    border-color: transparent;
+    
+  }
+  
+  .dashboardTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #106053;
+  }
+  
+  .dashboardCards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Adjust the number of columns */
+    gap: 20px; /* Space between cards */
+    
+  }
+
+ 
+  
+
+  
+  

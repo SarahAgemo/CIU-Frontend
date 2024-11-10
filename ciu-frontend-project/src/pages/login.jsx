@@ -70,7 +70,7 @@ const Login = () => {
       } else if (selectedUser === "Administrator") {
         navigate("/dashboard");
       } else if (selectedUser === "Lecturer") {
-        navigate("/lecturer");
+        navigate("/lecturerdashboard");
       }
       // } else {
       //   setErrorMessage("Login failed. No token received.");
@@ -143,7 +143,12 @@ const Login = () => {
                 Remember Me
               </label>
             </div>
-            <button type="submit" disabled={isSubmitting}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="login-submit-button "
+              style={{ width: "100%", height: "45px" }}
+            >
               LOGIN
             </button>
             {errorMessage && (

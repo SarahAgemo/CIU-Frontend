@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DashboardCard from './DashboardCard'; 
-import Dash from './LecturerDashboard.module.css';
+import DashboardCard from '../../components/lecturer/DashboardCard'; 
+import Dash from './LecturerDashboardContent.module.css';
 
 export default function LecturerDashboardContent() {
   const [lecturerMetrics, setLecturerMetrics] = useState([]);
@@ -16,7 +16,9 @@ export default function LecturerDashboardContent() {
         setLecturerMetrics([
           { title: "Courses", value: data.coursesCount, icon: "📘" },
           { title: "Students Enrolled", value: data.studentsCount, icon: "👩‍🎓" },
+          { title: "Question Banks", value: data.upcomingExamsCount, icon: "📝" },
           { title: "Upcoming Exams", value: data.upcomingExamsCount, icon: "📝" },
+          { title: "Ongoing Exams", value: data.upcomingExamsCount, icon: "📝" },
         ]);
       } catch (error) {
         console.error("Error fetching metrics:", error);

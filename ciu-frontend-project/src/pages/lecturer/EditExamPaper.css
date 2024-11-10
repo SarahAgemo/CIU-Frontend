@@ -1,48 +1,50 @@
-/* Wrapper container */
-.edit-exam-paper-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
+*{
+  font-family: "Roboto Slab";
+ }
+ 
+   .edit-exam-paper-container {
+    width: 600px;
+    height: 600px;
+    margin-left: 120px;
+    margin-top: 50px;
+    padding: 50px;
+    background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Header */
   .edit-exam-paper-header {
     font-size: 24px;
     font-weight: bold;
-    color: #333;
+    color: #106053;
     text-align: center;
     margin-bottom: 20px;
   }
   
-  /* Form labels */
+  
   .edit-exam-paper-label {
     font-weight: bold;
     margin-top: 10px;
-    color:#106010 ;
+    color: #106053;
   }
   
-  /* Input fields */
   .edit-exam-paper-input {
     width: 100%;
     padding: 10px;
     margin-top: 5px;
+    margin-bottom: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
   }
   
-  /* Options inputs */
   .edit-exam-paper-option-input {
     width: 100%;
     padding: 8px;
-    margin-top: 5px;
+    margin-top: 10px;
     border: 1px solid #ced4da;
     border-radius: 4px;
   }
   
-  /* Alert messages */
   .alert {
     padding: 10px;
     margin-bottom: 15px;
@@ -59,20 +61,20 @@
     color: #721c24;
   }
   
-  /* Save button */
   .edit-exam-paper-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 15px;
     background-color: #106053;
-    color: #fff;
     border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
+    display: block;
+    margin:auto;
+    width: fit-content;
+    
   }
   
   .edit-exam-paper-button:hover {

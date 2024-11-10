@@ -1,93 +1,65 @@
-import React, { useState, useEffect } from 'react';
-import { Clock } from 'lucide-react';
-import DoExam from './DoExamContent.module.css';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import "./DoExamContent.module.css"
 
-// Function to fetch exams from both endpoints
-const fetchAvailableExams = async () => {
-    const csvResponse = await fetch('http://localhost:3000/exam-paper');
-    const manualResponse = await fetch('http://localhost:3000/manualAssessment');
+function DoExamList() {
+  const [examPapers, setExamPapers] = useState([]);
+  const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize useNavigate
 
-    // Check if the responses are successful
-    if (!csvResponse.ok || !manualResponse.ok) {
-        throw new Error('Failed to fetch exams');
-    }
+  // Fetching published exams (drafts = false)
+  useEffect(() => {
+    const fetchPublishedExamPapers = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/exam-paper?isDraft=false');
+        if (!response.ok) throw new Error('Failed to fetch published exam papers');
+        const data = await response.json();
+        setExamPapers(data); // Store exams in state
+      } catch (error) {
+        setError('Error fetching published exam papers: ' + error.message);
+      }
+    };
 
-    const csvExams = await csvResponse.json();
-    const manualExams = await manualResponse.json();
+    fetchPublishedExamPapers();
+  }, []);
 
-    // Combine both exam lists
-    return [...csvExams, ...manualExams];
-};
+  // Function to navigate to the exam page for attempting the exam
+  const handleDoExam = (examId) => {
+    navigate(`/proctoring`); // Navigate to the "Do Exam" page for the selected exam
+  };
 
-const ExamCard = ({ exam }) => {
-    const scheduledDate = new Date(exam.scheduledDate);
-    const startTime = new Date(exam.startTime);
-    const endTime = new Date(exam.endTime);
+  if (error) return <div className="alert alert-danger">{error}</div>;
+  if (!examPapers.length) return <div>No published exams available to attempt.</div>;
 
-    return (
-        <div className={DoExam["exam-card"]}>
-            <h3>{exam.title}</h3>
-            <div className={DoExam["exam-details"]}>
-                <p><strong>Description:</strong> {exam.description}</p>
-                <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
-                <p><strong>Duration:</strong> {exam.duration} minutes</p>
-                <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
-                <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
-                <p><strong>Course Unit Code:</strong> {exam.courseId}</p>
-                <p><strong>Course Unit Code:</strong> {exam.courseName}</p>
-            </div>
-            <div className={DoExam["exam-actions"]}>
-                <button className={DoExam["do-exam-btn"]}>DO EXAM</button>
-                <a href="#" className={DoExam["schedule-reminder"]}>
-                    Schedule Reminder <Clock size={16} />
-                </a>
-            </div>
-        </div>
-    );
-};
-
-export default function MainContent() {
-    const [availableExams, setAvailableExams] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-  
-    useEffect(() => {
-      const loadExams = async () => {
-        try {
-          const exams = await fetchAvailableExams(); 
-          
-          const student = JSON.parse(localStorage.getItem("user"))
-         console.log(exams,student.CourseId)
-         let myarray = []
-         exams.map(available =>{
-          if (available.courseId === student.CourseId){
-            myarray.push(available)
-          }})
-          setAvailableExams(myarray);
-          console.log(myarray)
-
-        } catch (err) {
-          setError(err.message); // Capture any errors
-        } finally {
-          setLoading(false); // Stop loading
-        }
-      };
-      loadExams();
-    }, []);
-  
-    if (loading) return <p>Loading exams...</p>;
-    if (error) return <p>Error: {error}</p>;
-
-    return (
-      <main className={DoExam["main-content"]}>
-        <h2 className={DoExam["page-title"]}>AVAILABLE EXAMS</h2>
-        <div className={DoExam["exam-list"]}>
-          {availableExams.map(exam => (
-            <ExamCard key={exam.id} exam={exam} />
+  return (
+    <div className="exam-list-container"style={{ width: "100%" }}>
+      <h3>Available Exams</h3>
+      <table className="glass-table" style={{ width: "100%" }}>
+        <thead>
+          <tr>
+            <th>CourseUnit</th>
+            <th>Title</th>
+            <th>Instructions</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {examPapers.map((exam) => (
+            <tr key={exam.id}>
+              <td>{exam.courseUnit}</td>
+              <td>{exam.title}</td>
+              <td>{exam.description}</td>
+              <td>
+                <button className="/proctoring" onClick={() => handleDoExam(exam.id)}>
+                  Do Exam
+                </button>
+              </td>
+            </tr>
           ))}
-        </div>
-      </main>
-    );
+        </tbody>
+      </table>
+    </div>
+  );
 }
+
+export default DoExamList;
