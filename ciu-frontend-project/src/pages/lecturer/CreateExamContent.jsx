@@ -96,6 +96,13 @@ export default function CreateExamContent() {
         if (name === 'scheduledDate') {
             // Automatically update startTime with the time portion of scheduledDate
             const selectedDateTime = moment(value);
+            const currentTime = moment();
+    
+    // Check if the scheduled date-time is at least 24 hours from the current time
+    if (selectedDateTime.isBefore(currentTime.add(24, 'hours'))) {
+        alert('Scheduled date and time must be at least 24 hours from the current time.');
+        return;
+    }
             const startTime = selectedDateTime.format('HH:mm');
             setFormData((prevData) => ({
                 ...prevData,
