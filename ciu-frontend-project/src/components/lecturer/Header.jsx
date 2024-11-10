@@ -35,6 +35,7 @@ import axios from 'axios';
 export default function Header() {
     const [user, setUser] = useState({ name: '', role: '' }); // State to store lecturer profile
     const [error, setError] = useState(''); // State for any errors
+    const [currentTime, setCurrentTime] = useState(new Date());
 
     useEffect(() => {
         const fetchLecturerProfile = async () => {
@@ -62,6 +63,12 @@ export default function Header() {
         };
 
         fetchLecturerProfile();
+        const interval = setInterval(() => {
+            setCurrentTime(new Date());
+          }, 1000);
+      
+          // Clear the interval when the component is unmounted
+          return () => clearInterval(interval);
     }, []);
     return (
         <header className={LecturerHeader["header"]}>
@@ -69,9 +76,19 @@ export default function Header() {
                 <img src="/CIU exam system logo.png" alt="Clarke University Logo" className={LecturerHeader["logo"]} />
             </div>
             <div className={LecturerHeader["user-controls"]}>
+            <div id="timedate">
+             <a id="month">{currentTime.toLocaleString('default', { month: 'long' })}</a>{' '}
+             <a id="day">{currentTime.getDate()}</a>,{' '}
+             <a id="year">{currentTime.getFullYear()}</a>
+             <br />
+             <a id="hour">{currentTime.getHours().toString().padStart(2, '0')}</a> :
+             <a id="min">{currentTime.getMinutes().toString().padStart(2, '0')}</a> :
+            <a id="s">{currentTime.getSeconds().toString().padStart(2, '0')}</a>
+        </div>
                 <button className={LecturerHeader["icon-button"]}>
                     <Settings size={24} />
                 </button>
+
                 <button className={LecturerHeader["icon-button"]}>
                     <Bell size={24} />
                 </button>
