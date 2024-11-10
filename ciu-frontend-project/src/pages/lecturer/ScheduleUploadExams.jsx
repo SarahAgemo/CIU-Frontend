@@ -170,173 +170,6 @@ export default function ScheduleUploadExams() {
     }
   };
 
-  // return (
-  //     <div className={uploadExam["form-container"]}>
-  //         <h2 className={uploadExam["form-title"]}>Schedule Upload Exams</h2>
-  //         {error && <div className="alert alert-danger">{error}</div>}
-  //         {success && <div className="alert alert-success">{success}</div>}
-  //         <form onSubmit={handleSubmit}>
-  //             {/* Exam Title, Description */}
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>Exam Title</label>
-  //                 <input
-  //                     type="text"
-  //                     name="title"
-  //                     className={uploadExam["form-control"]}
-  //                     value={examData.title}
-  //                     onChange={handleChange}
-  //                     required
-  //                 />
-  //             </div>
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>Instructions</label>
-  //                 <textarea
-  //                     name="description"
-  //                     className={uploadExam["form-control"]}
-  //                     value={examData.description}
-  //                     onChange={handleChange}
-  //                     required
-  //                 ></textarea>
-  //             </div>
-
-  //            {/* Course Selection Dropdown */}
-  //            <div className={uploadExam["form-group"]}>
-  //                 <label>Select Course</label>
-  //                 <select
-  //                     name="courseId"
-  //                     className={uploadExam["form-control"]}
-  //                     value={examData.courseId}
-  //                     onChange={handleInputChange}
-  //                     required
-  //                 >
-  //                     <option value="">Select a course</option>
-  //                     {courses.length > 0 ? (
-  //                         courses.map((course) => (
-  //                             <option key={course.id} value={course.id}>
-  //                                 {course.courseName}
-  //                             </option>
-  //                         ))
-  //                     ) : (
-  //                         <option disabled>No courses available</option>
-  //                     )}
-  //                 </select>
-  //             </div>
-
-  //           {/* Course Unit Dropdown */}
-
-  // <div className={uploadExam["form-group"]}>
-  //     <label>Course Unit</label>
-  //     <select
-  //         name="courseUnit"
-  //         className={uploadExam["form-control"]}
-  //         value={examData.courseUnit}
-  //         onChange={handleInputChange}
-  //         required
-  //         disabled={!examData.courseId}
-  //     >
-  //         <option value="">Select a course unit</option>
-  //         {Array.isArray(courseUnits) && courseUnits.length > 0 ? (
-  //             courseUnits.map((unit) => (
-  //                 <option key={unit.id} value={unit.unitName}>
-  //                     {unit.unitName}
-  //                 </option>
-  //             ))
-  //         ) : (
-  //             <option disabled>No course units available</option>
-  //         )}
-  //     </select>
-  // </div>
-
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>Course Unit Code</label>
-  //                 <input
-  //                     type="text"
-  //                     name="courseUnitCode"
-  //                     className={uploadExam["form-control"]}
-  //                     value={examData.courseUnitCode}
-  //                     onChange={handleChange}
-  //                     required
-  //                 />
-  //             </div>
-
-  //             {/* Exam Date, Duration, Start Time, End Time */}
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>Scheduled Date</label>
-  //                 <input
-  //                     type="datetime-local" // Use datetime-local for date and time input
-  //                     name="scheduledDate"
-  //                     className={uploadExam["form-control"]}
-  //                     value={moment(examData.scheduledDate).format('YYYY-MM-DDTHH:mm')}
-  //                     onChange={handleChange}
-  //                     required
-  //                 />
-  //             </div>
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>Duration (minutes)</label>
-  //                 <input
-  //                     type="number"
-  //                     name="duration"
-  //                     className={uploadExam["form-control"]}
-  //                     value={examData.duration}
-  //                     onChange={handleChange}
-  //                     required
-  //                 />
-  //             </div>
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>Start Time</label>
-  //                 <input
-  //                     type="time"
-  //                     name="startTime"
-  //                     className={uploadExam["form-control"]}
-  //                     value={examData.startTime}
-  //                     onChange={handleChange}
-  //                     required
-  //                 />
-  //             </div>
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>End Time</label>
-  //                 <input
-  //                     type="time"
-  //                     name="endTime"
-  //                     className={uploadExam["form-control"]}
-  //                     value={examData.endTime}
-  //                     onChange={handleChange}
-  //                     required
-  //                 />
-  //             </div>
-
-  //             {/* Created By */}
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>Created By</label>
-  //                 <input
-  //                     type="text"
-  //                     name="createdBy"
-  //                     className={uploadExam["form-control"]}
-  //                     value={examData.createdBy}
-  //                     onChange={handleChange}
-  //                     required
-  //                 />
-  //             </div>
-
-  //             {/* File Upload */}
-  //             <div className={uploadExam["form-group"]}>
-  //                 <label>Upload CSV File</label>
-  //                 <input
-  //                     type="file"
-  //                     className={uploadExam["form-control"]}
-  //                     accept=".csv"
-  //                     onChange={handleFileUpload}
-  //                     required
-  //                 />
-  //             </div>
-
-  //             <button type="submit" className={uploadExam["btn-primary"]}>
-  //                 Upload Exam Paper
-  //             </button>
-  //         </form>
-  //     </div>
-  // );
-
   return (
     <div className={Dash.lecturerDashboard}>
       <div className={Dash.dashboard}>
@@ -350,7 +183,11 @@ export default function ScheduleUploadExams() {
             />
           )}
           <div className={Dash.backButtonContainer}>
-            <BackButton targetPath="/lecturerdashboard" size={30} color="#106053" />
+            <BackButton
+              targetPath="/lecturerdashboard"
+              size={30}
+              color="#106053"
+            />
           </div>
           <div className={uploadExam["uploadExam-form-container"]}>
             <h2 className={uploadExam["uploadExam-form-title"]}>
@@ -366,7 +203,10 @@ export default function ScheduleUploadExams() {
                 {success}
               </div>
             )}
-            <form className={uploadExam["uploadExam-form"]} onSubmit={handleSubmit}>
+            <form
+              className={uploadExam["uploadExam-form"]}
+              onSubmit={handleSubmit}
+            >
               <div className={uploadExam["uploadExam-form-group"]}>
                 <label className={uploadExam["uploadExam-label"]}>
                   Exam Title
