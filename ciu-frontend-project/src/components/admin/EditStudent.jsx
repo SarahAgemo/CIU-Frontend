@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from './Header1';
 import Sidebar1 from './SideBar1';
@@ -90,107 +90,125 @@ const EditStudent = () => {
   };
 
   return (
-    <div className="layout-container">
+    <div style={styles.container}>
       <Header />
-      <div className="main-content">
+      <div style={styles.mainContent}>
         <Sidebar1 />
-        <div className="edit-student-content">
-          <div
-            style={{
-              padding: '30px',
-              borderRadius: '12px',
-              backgroundColor: 'rgba(255, 255, 255, 0.95)',
-              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
-              width: '80%',
-              maxWidth: '600px',
-              margin: 'auto',
-            }}
-          >
-            <h2 style={{ textAlign: 'center', color: '#065c4c' }}>Edit Student</h2>
-            <form onSubmit={handleSubmit}>
-              {/* First Name and Last Name */}
-              <div style={{ display: 'flex', marginBottom: '20px' }}>
-                <div style={{ flex: '1', marginRight: '20px' }}>
-                  <label style={labelStyle}>First Name:</label>
-                  <input type="text" name="firstName" value={user.firstName} onChange={handleChange} required style={inputStyle} />
-                </div>
-                <div style={{ flex: '1' }}>
-                  <label style={labelStyle}>Last Name:</label>
-                  <input type="text" name="lastName" value={user.lastName} onChange={handleChange} required style={inputStyle} />
-                </div>
+        <div style={styles.formContainer}>
+          <h2 style={styles.header}>Edit Student</h2>
+          <form onSubmit={handleSubmit}>
+            <div style={styles.row}>
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>First Name:</label>
+                <input type="text" name="firstName" value={user.firstName} onChange={handleChange} required style={styles.input} />
               </div>
-
-              {/* Email and Program */}
-              <div style={{ display: 'flex', marginBottom: '20px' }}>
-                <div style={{ flex: '1', marginRight: '20px' }}>
-                  <label style={labelStyle}>Email:</label>
-                  <input type="email" name="email" value={user.email} onChange={handleChange} required style={inputStyle} />
-                </div>
-                <div style={{ flex: '1' }}>
-                  <label style={labelStyle}>Program:</label>
-                  <input type="text" name="program" value={user.program} onChange={handleChange} required style={inputStyle} />
-                </div>
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>Last Name:</label>
+                <input type="text" name="lastName" value={user.lastName} onChange={handleChange} required style={styles.input} />
               </div>
+            </div>
 
-              {/* Registration No and Password */}
-              <div style={{ display: 'flex', marginBottom: '20px' }}>
-                <div style={{ flex: '1', marginRight: '20px' }}>
-                  <label style={labelStyle}>Registration No:</label>
-                  <input type="text" name="registrationNo" value={user.registrationNo} onChange={handleChange} required style={inputStyle} />
-                </div>
-                <div style={{ flex: '1' }}>
-                  <label style={labelStyle}>Password:</label>
-                  <input type="password" name="password" value={user.password} onChange={handleChange} required style={inputStyle} />
-                </div>
+            <div style={styles.row}>
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>Email:</label>
+                <input type="email" name="email" value={user.email} onChange={handleChange} required style={styles.input} />
               </div>
-
-              {/* Role and Course ID */}
-              <div style={{ display: 'flex', marginBottom: '20px' }}>
-                <div style={{ flex: '1', marginRight: '20px' }}>
-                  <label style={labelStyle}>Role:</label>
-                  <input type="text" name="role" value={user.role} onChange={handleChange} required style={inputStyle} />
-                </div>
-                <div style={{ flex: '1' }}>
-                  <label style={labelStyle}>Course ID:</label>
-                  <input type="number" name="courseId" value={user.courseId} onChange={handleChange} required style={inputStyle} />
-                </div>
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>Program:</label>
+                <input type="text" name="program" value={user.program} onChange={handleChange} required style={styles.input} />
               </div>
+            </div>
 
-              <button type="submit" style={submitButtonStyle}>
-                Update User
-              </button>
-            </form>
-          </div>
+            <div style={styles.row}>
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>Registration No:</label>
+                <input type="text" name="registrationNo" value={user.registrationNo} onChange={handleChange} required style={styles.input} />
+              </div>
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>Password:</label>
+                <input type="password" name="password" value={user.password} onChange={handleChange} required style={styles.input} />
+              </div>
+            </div>
+
+            <div style={styles.row}>
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>Role:</label>
+                <input type="text" name="role" value={user.role} onChange={handleChange} required style={styles.input} />
+              </div>
+              <div style={styles.inputGroup}>
+                <label style={styles.label}>Course ID:</label>
+                <input type="number" name="courseId" value={user.courseId} onChange={handleChange} required style={styles.input} />
+              </div>
+            </div>
+
+            <button type="submit" style={styles.button}>
+              Update User
+            </button>
+          </form>
         </div>
       </div>
     </div>
   );
 };
 
-// Styles
-const labelStyle = {
-  display: 'block',
-  marginBottom: '5px',
-  color: '#106053',
-  textTransform: 'uppercase'
-};
-
-const inputStyle = {
-  width: '100%',
-  padding: '12px',
-  border: '1px solid #106053',
-  fontSize: '16px',
-};
-
-const submitButtonStyle = {
-  width: '100%',
-  padding: '12px',
-  backgroundColor: '#065c4c',
-  color: 'white',
-  border: 'none',
-  cursor: 'pointer',
-  fontSize: '16px',
-  transition: 'background-color 0.3s',
+// Inline Styles
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
+  mainContent: {
+    display: 'flex',
+    flex: 1,
+  },
+  formContainer: {
+    padding: '30px',
+    borderRadius: '12px',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)',
+    width: '80%',
+    maxWidth: '600px',
+    margin: 'auto',
+  },
+  header: {
+    textAlign: 'center',
+    color: '#065c4c',
+  },
+  row: {
+    display: 'flex',
+    marginBottom: '20px',
+  },
+  inputGroup: {
+    flex: '1',
+    marginRight: '20px',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '5px',
+    color: '#106053',
+    textTransform: 'uppercase',
+  },
+  input: {
+    width: '100%',
+    padding: '12px',
+    border: '1px solid #106053',
+    fontSize: '16px',
+  },
+  button: {
+    width: '100%',
+    padding: '12px',
+    backgroundColor: '#065c4c',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '16px',
+    transition: 'background-color 0.3s',
+  },
 };
 
 export default EditStudent;
+
+
+
+
