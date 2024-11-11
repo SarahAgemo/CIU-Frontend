@@ -30,6 +30,8 @@ import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 import TokenPasswordPage from "./components/admin/TokenPasswordPage";
+import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
+import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -91,6 +93,8 @@ function App() {
               <Route path="/request-token" element={<RequestToken />} />
 
               {/* Admin */}
+              <Route path="/admin-exam-paper/:id/questions" element={<AdminQuestionsPreview />}/>
+              <Route path="/admin-exam-paper/:id" element={<AdminExamPaperPreview/>} />
               <Route path="/registers" element={<Registration />} />
               <Route path="/manage" element={<ManageUsers />} />
               <Route path="/register" element={<RegForm />} />

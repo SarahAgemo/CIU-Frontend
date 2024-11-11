@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./ExamPaperPreview.css";
-import Header from "../../components/lecturer/HeaderPop";
-import Sidebar from "../../components/lecturer/SideBarPop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
+import "../../pages/lecturer/ExamPaperPreview.css";
+import Header from "../../components/admin/Headerpop";
+import Sidebar from "../../components/admin/SideBarpop";
+import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
 
-function ExamPaperPreview() {
+function AdminExamPaperPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -28,9 +28,9 @@ function ExamPaperPreview() {
   const { id } = useParams(); // Get the exam paper ID from the URL
   const navigate = useNavigate(); // Initialize useNavigate
   const [examData, setExamData] = useState(null);
+  const [error, setError] = useState("");
   const [isDraft, setIsDraft] = useState(true);
   const [status, setStatus] = useState(true);
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
   useEffect(() => {
@@ -50,133 +50,72 @@ function ExamPaperPreview() {
     fetchExamData();
   }, [id]);
 
-  const handleEdit = () => {
-    if (!isDraft) {
-      window.alert("You cannot edit an already published exam.");
-      return; // Stop execution if the exam is published
-    }
-    navigate(`/exam-paper/${id}/edit`);
-  };
 
   const handlePreviewQuestions = () => {
-    navigate(`/exam-paper/${id}/questions`);
+    navigate(`/admin-exam-paper/${id}/questions`);
   };
 
-  const handleDelete = async () => {
+  const handleApproval = async () => {
     if (!isDraft) {
-      window.alert("You cannot delete an already published exam.");
-      return; // Stop execution if the exam is published
-    }
-
-    if (window.confirm("Are you sure you want to delete this exam paper?")) {
-      try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
-          method: "DELETE",
-        });
-        if (!response.ok) {
-          const errorData = await response.json(); // Parse the error response
-          throw new Error(errorData.message); // Use the message from the error response
-        }
-        setSuccess("Exam paper deleted successfully");
-        navigate("/schedule-upload-exams/exam-list"); // Redirect to the exam papers list
-      } catch (error) {
-        setError("Error deleting exam paper: " + error.message);
+        window.alert("You cannot approve an already published exam.");
+        return; 
       }
-    }
-  };
 
-  const handlePublish = async () => {
+    if (status === "approved") {
+        window.alert("Exam is already approved.");
+        return; 
+      }
     try {
-      if (isDraft === "true") {
-        window.alert("This exam is already published.");
-        return;
-      }
-
-      if (examData.status !== "approved") {
-        window.alert("You can only publish approved assessments.");
-        // setError("You can only publish approved assessments.");
-        return;
-      }
-
       const response = await fetch(
-        `http://localhost:3000/exam-paper/${id}/publish`,
-        {
-          method: "PATCH",
-        }
+        `http://localhost:3000/exam-paper/${id}/approve`, 
+        { method: "PATCH" }
       );
-
+      
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message);
       }
-
+      
       const updatedExamData = await response.json();
-      setSuccess("Exam paper published successfully");
-      setExamData(updatedExamData);
-      navigate("/published-exam-papers");
+      setExamData(updatedExamData); // Update local state with the approved data
+      setSuccess("Exam approved successfully");
+      navigate(`/admin-exam-list`);
     } catch (error) {
-      setError("Error publishing exam paper: " + error.message);
+      setError("Error approving exam: " + error.message);
     }
-};
+  };
 
-const handleUnpublish = async () => {
-  try {
-    if (isDraft) {
-      window.alert("This exam is not published.");
-      return;
-    }
-
-    const response = await fetch(
-      `http://localhost:3000/exam-paper/${id}/unpublish`,
-      {
-        method: "PATCH",
+  const handleRejection = async () => {
+    if (!isDraft) {
+        window.alert("You cannot reject an already published exam.");
+        return; 
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message);
-    }
-
-    const updatedExamData = await response.json();
-    setSuccess("Exam paper unpublished successfully");
-    setExamData(updatedExamData);
-  } catch (error) {
-    setError("Error unpublishing exam paper: " + error.message);
-  }
-}; 
-
-
-const handleRequestApproval = async () => {
-  if (status === "approved") {
-    window.alert("Exam is already approved.");
-    return; 
-  }
-  try {
-    const response = await fetch(
-      `http://localhost:3000/exam-paper/${id}/request-approval`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: "pending" }), 
+    if (status === "rejected") {
+        window.alert("Exam is already rejected.");
+        return; 
       }
-    );
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/exam-paper/${id}/reject`, 
+        { method: "PATCH" }
+      );
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+      
+      const updatedExamData = await response.json();
+      setExamData(updatedExamData); // Update local state with the approved data
+      setSuccess("Exam rejected successfully");
+      navigate(`/admin-exam-list`);
+    } catch (error) {
+      setError("Error rejecting exam: " + error.message);
     }
-
-    const updatedExamData = await response.json();
-    setSuccess("Approval requested successfully. Status set to pending.");
-    setExamData(updatedExamData); 
-    navigate("/schedule-upload-exams/exam-list");
-  } catch (error) {
-    setError("Error requesting approval: " + error.message);
-  }
-};
+  };
+  
 
 
   if (error) return <div className="alert alert-danger">{error}</div>;
@@ -465,7 +404,7 @@ const handleRequestApproval = async () => {
             />
           )}
           <div className={Dash.backButtonContainer}>
-            <BackButton targetPath="/schedule-upload-exams/exam-list" size={30} color="#106053" />
+            <BackButton targetPath="/admin-exam-list" size={30} color="#106053" />
           </div>
           <div className="exam-preview__container mt-5">
             <h3 className="exam-preview__title">Exam Paper Preview</h3>
@@ -548,11 +487,11 @@ const handleRequestApproval = async () => {
                       <strong>Questions</strong>
                     </td>
                     <td>
-                      {examData.questions && examData.questions.length > 0
-                        ? `${examData.questions.length}`
-                        : "(No questions added)"}
+                      {examData.questions.length}{" "}
+                      {examData.questions.length === 0
+                        ? "(No questions added)"
+                        : ""}
                     </td>
-
                   </tr>
                 </tbody>
               </table>
@@ -566,36 +505,17 @@ const handleRequestApproval = async () => {
                 Preview Questions
               </button>
               <button
-                onClick={handleEdit}
-                className="exam-preview__btn exam-preview__btn--warning"
+                onClick={handleApproval}
+                className="exam-preview__btn exam-preview__btn--info"
               >
-                Edit Exam Paper
+                Approve Exam
               </button>
               <button
-                onClick={handleDelete}
-                className="exam-preview__btn exam-preview__btn--danger"
+                onClick={handleRejection}
+                className="exam-preview__btn exam-preview__btn--info"
               >
-                Delete Exam Paper
+                Reject Exam
               </button>
-               <button 
-                onClick={handleRequestApproval}
-                className="exam-preview__btn exam-preview__btn--success"
-               >
-                  Request Approval
-               </button>
-                <button
-                  onClick={handlePublish}
-                  className="exam-preview__btn exam-preview__btn--success"
-                >
-                  Publish
-                </button>
-                <button
-                  onClick={handleUnpublish}
-                  className="exam-preview__btn exam-preview__btn--success"
-                >
-                  Unpublish
-                </button>
-
             </div>
           </div>
         </div>
@@ -604,4 +524,4 @@ const handleRequestApproval = async () => {
   );
 }
 
-export default ExamPaperPreview;
+export default AdminExamPaperPreview;

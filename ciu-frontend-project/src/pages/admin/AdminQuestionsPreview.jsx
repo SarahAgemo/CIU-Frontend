@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa"; // Import icons for edit and delete
-import "./QuestionsPreview.css";
-import Header from "../../components/lecturer/HeaderPop";
-import Sidebar from "../../components/lecturer/SideBarPop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
+import "../../pages/lecturer/QuestionsPreview.css";
+import Header from "../../components/admin/Headerpop";
+import Sidebar from "../../components/admin/SideBarpop";
+import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
 
-function QuestionsPreview() {
+function AdminQuestionsPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -29,19 +29,12 @@ function QuestionsPreview() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
-  const [isDraft, setIsDraft] = useState(true);
   const [error, setError] = useState("");
   const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const examresponse = await fetch(`http://localhost:3000/exam-paper/${id}`);
-        if (!examresponse.ok) throw new Error("Failed to fetch exam data");
-
-        const examdata = await examresponse.json();
-        setIsDraft(examdata.isDraft);
-
         console.log("Fetching questions for exam paper ID:", id);
         const response = await fetch(
           `http://localhost:3000/exam-paper/${id}/questions`
@@ -65,51 +58,7 @@ function QuestionsPreview() {
     fetchQuestions();
   }, [id]);
 
-  const handleDeleteQuestion = async (questionId) => {
-    if (!isDraft) {
-      window.alert("You cannot delete questions in an already published exam.");
-      return; // Stop execution if the exam is published
-    }
-    
-    
-    if (window.confirm("Are you sure you want to delete this question?")) {
-      try {
-        console.log(
-          `Attempting to delete question ID: ${questionId} from exam paper ID: ${id}`
-        );
-        const response = await fetch(
-          `http://localhost:3000/exam-paper/${id}/question/${questionId}`,
-          {
-            method: "DELETE",
-          }
-        );
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(
-            `Failed to delete question: ${
-              errorData.message || response.statusText
-            }`
-          );
-        }
-
-        setQuestions(questions.filter((q) => q.id !== questionId));
-        console.log(`Question ${questionId} deleted successfully`);
-      } catch (error) {
-        console.error("Error deleting question:", error);
-        setError("Error deleting question: " + error.message);
-      }
-    }
-  };
-
-  const handleEditQuestion = (questionId) => {
-    if (!isDraft) {
-      window.alert("You cannot edit questions in an already published exam.");
-      return; // Stop execution if the exam is published
-    }
-
-    navigate(`/exam-paper/${id}/question/${questionId}`);
-  };
 
   const handleOptionChange = (questionId, selectedOption) => {
     setSelectedAnswers((prevSelectedAnswers) => ({
@@ -229,7 +178,7 @@ function QuestionsPreview() {
             />
           )}
           <div className={Dash.backButtonContainer}>
-            <BackButton targetPath={`/exam-paper/${id}`} size={30} color="#106053" />
+            <BackButton targetPath={`/admin-exam-paper/${id}`} size={30} color="#106053" />
           </div>
           <div className="questions-preview-container mt-5">
             <h3 className="questions-preview-header">Questions Preview</h3>
@@ -265,21 +214,6 @@ function QuestionsPreview() {
                 <div className="question-answer">
                   <strong>Correct Answer:</strong> {question.answer}
                 </div>
-                <div className="question-actions">
-                  <button
-                    onClick={() => handleEditQuestion(question.id)}
-                    className="btn btn-warning me-1 icon-button"
-                  >
-                    <FaEdit className="icon-edit" />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteQuestion(question.id)}
-                    className="btn btn-warning me-1 icon-button"
-                  >
-                    <FaTrash  className="icon-trash" />
-                    {/* <FaTrash /> */}
-                  </button>
-                </div>
               </div>
             ))}
           </div>
@@ -289,4 +223,4 @@ function QuestionsPreview() {
   );
 }
 
-export default QuestionsPreview;
+export default AdminQuestionsPreview;
