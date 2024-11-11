@@ -94,46 +94,46 @@ export default function CreateExamContent() {
 
         // Auto-calculate endTime based on startTime and duration
         if (name === 'scheduledDate') {
-            // Automatically update startTime with the time portion of scheduledDate
-            const selectedDateTime = moment(value);
-            const currentTime = moment();
-    
+    // Automatically update startTime with the time portion of scheduledDate
+    const selectedDateTime = moment(value);
+    const currentTime = moment();
+
     // Check if the scheduled date-time is at least 24 hours from the current time
     if (selectedDateTime.isBefore(currentTime.add(24, 'hours'))) {
         alert('Scheduled date and time must be at least 24 hours from the current time.');
         return;
     }
-            const startTime = selectedDateTime.format('HH:mm');
-            setFormData((prevData) => ({
-                ...prevData,
-                startTime
-            }));
-        
-            // Calculate endTime if duration is provided
-            if (formData.duration) {
-                const [durationHours, durationMinutes] = formData.duration.split(':').map(Number);
-                const endTime = selectedDateTime
-                    .add(durationHours, 'hours')
-                    .add(durationMinutes, 'minutes')
-                    .format('HH:mm');
-                setFormData((prevData) => ({
-                    ...prevData,
-                    endTime
-                }));
-            }
-        } else if (name === 'duration' && formData.startTime) {
-            // Calculate endTime based on startTime and updated duration
-            const startTimeMoment = moment(formData.scheduledDate);
-            const [durationHours, durationMinutes] = value.split(':').map(Number);
-            const endTime = startTimeMoment
-                .add(durationHours, 'hours')
-                .add(durationMinutes, 'minutes')
-                .format('HH:mm');
-            setFormData((prevData) => ({
-                ...prevData,
-                endTime
-            }));
-        }
+    const startTime = selectedDateTime.format('HH:mm');
+    setFormData((prevData) => ({
+        ...prevData,
+        startTime
+    }));
+
+    // Calculate endTime if duration is provided
+    if (formData.duration) {
+        const [durationHours, durationMinutes] = formData.duration.split(':').map(Number);
+        const endTime = selectedDateTime
+            .add(durationHours, 'hours')
+            .add(durationMinutes, 'minutes')
+            .format('HH:mm');
+        setFormData((prevData) => ({
+            ...prevData,
+            endTime
+        }));
+    }
+} else if (name === 'duration' && formData.startTime) {
+    // Calculate endTime based on startTime and updated duration
+    const startTimeMoment = moment(formData.scheduledDate);
+    const [durationHours, durationMinutes] = value.split(':').map(Number);
+    const endTime = startTimeMoment
+        .add(durationHours, 'hours')
+        .add(durationMinutes, 'minutes')
+        .format('HH:mm');
+    setFormData((prevData) => ({
+        ...prevData,
+        endTime
+    }));
+}
     };
     const handleQuestionChange = (index, e) => {
         const { name, value } = e.target;
