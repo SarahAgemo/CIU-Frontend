@@ -30,6 +30,8 @@ import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 import TokenPasswordPage from "./components/admin/TokenPasswordPage";
+import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
+import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -48,8 +50,9 @@ import ManualEditExamPaper from "./pages/lecturer/ManualEditExamPaper.jsx";
 import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.jsx";
 import ManualPublishedExamList from "./pages/lecturer/ManualPublishedExamList.jsx";
 import LecturerDashboard from "./components/lecturer/LecturerDashboard.jsx";
-import { SidebarProvider2 } from "./components/lecturer/SideBarContext2.jsx";
+import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
 import LectCourses from "./pages/lecturer/LectCourses.jsx";
+import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -66,6 +69,8 @@ import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from "./components/lecturer/QuestionBankPage.jsx";
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
+
+
 
 import "./App.css";
 
@@ -88,6 +93,8 @@ function App() {
               <Route path="/request-token" element={<RequestToken />} />
 
               {/* Admin */}
+              <Route path="/admin-exam-paper/:id/questions" element={<AdminQuestionsPreview />}/>
+              <Route path="/admin-exam-paper/:id" element={<AdminExamPaperPreview/>} />
               <Route path="/registers" element={<Registration />} />
               <Route path="/manage" element={<ManageUsers />} />
               <Route path="/register" element={<RegForm />} />
@@ -198,6 +205,11 @@ function App() {
               <Route
                 path="/passed-exams-questions"
                 element={<PassedExamsQuestionsPage />}
+              />
+
+              <Route
+                path="/question-bank/:bankId/preview"
+                element={<QuestionBankPreview />}
               />
 
               {/* Student - Protected route*/}

@@ -59,6 +59,18 @@ h3 {
     color:  #106053; /* Green for published status */
 }
 
+.status-text.pending {
+    color:  #555f5d; /* Green for published status */
+}
+
+.status-text.approved {
+    color:  #18bb59; /* Green for published status */
+}
+
+.status-text.rejected {
+    color:  #f73131; /* Green for published status */
+}
+
 .preview-button {
     padding: 6px 12px; /* Padding for preview button */
     border: none; /* Remove border */
