@@ -50,7 +50,8 @@ export default function Header() {
         <button className={Head["icon-button"]}>
           <Settings size={24} />
         </button>
-        <Link to="/notifications">
+        <Link to="/student/notifications/<userId>
+">
         <button className={Head["icon-button"]}>
           <Bell size={24} />
         </button>
