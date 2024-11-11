@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
@@ -31,7 +30,7 @@ function TableBody({ children }) {
     return <tbody>{children}</tbody>;
 }
 
-// UserList component without action buttons
+// UserList component
 function UserList({ users }) {
     const cols = ['#', 'Faculty Name', 'Course Name', 'Course Units', 'Course Unit Code'];
 
@@ -44,8 +43,28 @@ function UserList({ users }) {
                         <th scope="row">{index + 1}</th>
                         <td>{user.facultyName}</td>
                         <td>{user.courseName}</td>
-                        <td>{user.courseUnits}</td>
-                        <td>{user.courseUnitCode}</td>
+                        <td>
+                            <ul>
+                                {Array.isArray(user.courseUnits) ? (
+                                    user.courseUnits.map((unit, i) => (
+                                        <li key={i}>{unit}</li>
+                                    ))
+                                ) : (
+                                    <li>{user.courseUnits}</li>
+                                )}
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                {Array.isArray(user.courseUnitCode) ? (
+                                    user.courseUnitCode.map((code, i) => (
+                                        <li key={i}>{code}</li>
+                                    ))
+                                ) : (
+                                    <li>{user.courseUnitCode}</li>
+                                )}
+                            </ul>
+                        </td>
                     </tr>
                 ))}
             </TableBody>
@@ -54,10 +73,10 @@ function UserList({ users }) {
 }
 
 // Main CoursesViewOnlyPage component
-// Rename the main component back to CoursesViewOnly
 function LectCourses() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -73,8 +92,6 @@ function LectCourses() {
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
-
-    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:3000/coursesAdd')
@@ -111,6 +128,5 @@ function LectCourses() {
     );
 }
 
-// Export the component with the original name
+// Export the component
 export default LectCourses;
-
