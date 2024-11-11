@@ -55,11 +55,11 @@ import LectCourses from "./pages/lecturer/LectCourses.jsx";
 import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 
 // Student
-import StudentDashboard from "./pages/student/StudentDashboard.jsx";
-import DoExam from "./pages/student/DoExam.jsx";
-import SupportPage from "./pages/student/SupportPage.jsx";
-import FAQpage from "./pages/student/FAQpage.jsx";
-import ReportIssue from "./pages/student/ReportIssue.jsx";
+import StudentDashboard from "./pages/student/StudentDashboard";
+import DoExam from "./pages/student/DoExam";
+import SupportPage from "./pages/student/SupportPage";
+import FAQpage from "./pages/student/FAQpage";
+import ReportIssue from "./pages/student/ReportIssue";
 import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";

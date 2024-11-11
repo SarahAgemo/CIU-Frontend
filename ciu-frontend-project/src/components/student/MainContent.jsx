@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Search, FileText, ClipboardList, MessageSquare, X } from 'lucide-react';
 import axios from 'axios';
@@ -7,7 +6,7 @@ import Main from './MainContent.module.css';
 // API call to fetch upcoming exams only
 const fetchUpcomingExams = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/upcoming-exams');  // Assuming this endpoint fetches only upcoming exams
+    const response = await axios.get('http://localhost:3000/exam-paper?isDraft=false');  // Assuming this endpoint fetches only upcoming exams
     return response.data;  // Return the list of upcoming exams
   } catch (error) {
     console.error('Error fetching upcoming exams:', error);
@@ -22,9 +21,9 @@ const UpcomingExamsTable = ({ exams }) => (
         <tr>
           <th>Date</th>
           <th>Time</th>
-          <th>Exam</th>
-          <th>Course</th>
-          <th>Actions</th>
+          <th>Exam Title</th>
+          <th>CourseUnit</th>
+          {/* <th>Actions</th> */}
         </tr>
       </thead>
       <tbody>
@@ -33,10 +32,10 @@ const UpcomingExamsTable = ({ exams }) => (
             <td>{new Date(exam.scheduledDate).toLocaleDateString()}</td>
             <td>{new Date(exam.startTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} - {new Date(exam.endTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
             <td>{exam.title}</td>
-            <td>{exam.course.courseName}</td>
-            <td>
+            <td>{exam.courseUnit}</td>
+            {/* <td>
               <button className={Main["do-exam-btn"]}>Do Exam</button>
-            </td>
+            </td> */}
           </tr>
         ))}
       </tbody>
@@ -62,8 +61,7 @@ const Modal = ({ isOpen, onClose, children, title }) => {
 
 function DashboardCard({ icon, title, badge, onClick, isActive }) {
   return (
-    <div className={`${Main["dashboard-card"]} ${isActive ? Main["active"] : ''}`}
-      onClick={onClick}>
+    <div className={`${Main["dashboard-card"]} ${isActive ? Main["active"] : ''}`} onClick={onClick}>
       <div className={Main["card-icon"]}>{icon}</div>
       <h3>{title}</h3>
       {badge && <span className={Main["badge"]}>{badge}</span>}
@@ -76,21 +74,50 @@ export default function MainContent() {
   const [upcomingExams, setUpcomingExams] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [studentCourses, setStudentCourses] = useState([]);
+  const [filteredExams, setFilteredExams] = useState([]);
 
-  // Fetch upcoming exams only once component is mounted
+  // Fetch student details and upcoming exams only once component is mounted
   useEffect(() => {
-    const loadUpcomingExams = async () => {
+    const loadData = async () => {
       try {
-        const exams = await fetchUpcomingExams();  // Fetch upcoming exams only
+        // Get student data from localStorage
+        const studentData = localStorage.getItem("user");
+        if (!studentData) {
+          throw new Error("No student data found in localStorage.");
+        }
+
+        const student = JSON.parse(studentData);
+
+        // Fetch student details to get the registered courses
+        const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+        const studentDetails = response.data;
+
+        // Check if the student has registered courses
+        if (!studentDetails.courseId) {
+          throw new Error("No courses registered for the student.");
+        }
+
+        // Ensure courseId is an array (in case it's a single value or string)
+        const courses = Array.isArray(studentDetails.courseId) ? studentDetails.courseId : [studentDetails.courseId];
+        setStudentCourses(courses);
+
+        // Fetch upcoming exams
+        const exams = await fetchUpcomingExams();
         setUpcomingExams(exams);
+
+        // Filter exams based on the student's registered courses
+        const filtered = exams.filter(exam => courses.includes(exam.courseId));
+        setFilteredExams(filtered);
+        setLoading(false);
+
       } catch (err) {
-        setError('Failed to fetch upcoming exams: ' + err.message);
-      } finally {
+        setError('Failed to fetch data: ' + err.message);
         setLoading(false);
       }
     };
 
-    loadUpcomingExams();
+    loadData();
   }, []);
 
   const handleCardClick = (modalType) => {
@@ -109,36 +136,30 @@ export default function MainContent() {
         <div className={Main["welcome-overlay"]}>
           <h2>Welcome back!</h2>
           <p>Do your exams from wherever you are</p>
-          {/* <div className={Main["search-bar"]}>
-            <Search size={20} />
-            <input type="text" placeholder="Search..." />
-          </div> */}
         </div>
       </div>
 
       <div className={Main["dashboard-cards"]}>
-        <DashboardCard 
-          icon={<FileText size={48} />} 
-          title="Upcoming Exams" 
+        <DashboardCard
+          icon={<FileText size={48} />}
+          title="Upcoming Exams"
           onClick={() => handleCardClick('upcoming')}
           isActive={activeModal === 'upcoming'}
         />
-        <DashboardCard 
-          icon={<ClipboardList size={48} />} 
-          title="Completed Exams" 
+        <DashboardCard
+          icon={<ClipboardList size={48} />}
+          title="Completed Exams"
           onClick={() => handleCardClick('completed')}
           isActive={activeModal === 'completed'}
         />
-        {/* <DashboardCard icon={<MessageSquare size={48} />} title="Messages" badge="1" /> */}
       </div>
 
-      {/* Modal for Upcoming Exams */}
-      <Modal 
-        isOpen={activeModal === 'upcoming'} 
+      <Modal
+        isOpen={activeModal === 'upcoming'}
         onClose={() => setActiveModal(null)}
         title="Upcoming Exams"
       >
-        <UpcomingExamsTable exams={upcomingExams} />
+        <UpcomingExamsTable exams={filteredExams} />
       </Modal>
     </main>
   );
