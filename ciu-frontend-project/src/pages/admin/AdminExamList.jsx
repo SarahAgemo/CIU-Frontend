@@ -110,8 +110,10 @@ function AdminExamList() {
                                                 ? "approved"
                                                 : exam.status === "rejected"
                                                 ? "rejected"
-                                                : exam.status === "Published"
+                                                : exam.status === "published"
                                                 ? "published"
+                                                : exam.status === "unpublished"
+                                                ? "unpublished"
                                                 : ""
                                             }`}
                                         >

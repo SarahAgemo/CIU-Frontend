@@ -71,6 +71,10 @@ h3 {
     color:  #f73131; /* Green for published status */
 }
 
+.status-text.unpublished {
+    color:  #f73131; /* Green for published status */
+}
+
 .preview-button {
     padding: 6px 12px; /* Padding for preview button */
     border: none; /* Remove border */
