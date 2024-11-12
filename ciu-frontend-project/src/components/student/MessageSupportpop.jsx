@@ -4,7 +4,39 @@ import { useNavigate } from 'react-router-dom';
 import Mess from './MessageSupportpop.module.css';
 
 function MessageSupport() {
+  const [regno, setRegno] = useState(''); // State for registration number
+  const [issueDescription, setIssueDescription] = useState(''); // State for issue description
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Data to be sent in the request body
+    const reportData = {
+      regno: regno,
+      issueDescription: issueDescription,
+    };
+
+    try {
+      const response = await fetch('http://localhost:3000/students/report', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(reportData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit the report. Please try again.");
+      }
+
+      alert("Your message has been sent successfully!");
+      setRegno(''); // Clear input after submission
+      setIssueDescription(''); // Clear input after submission
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
+  };
 
   return (
     <div className={Mess["message-support"]}>
@@ -15,17 +47,30 @@ function MessageSupport() {
         <img src="/image 2.png" alt="404 Error Illustration" />
       </div>
       <h1 className={Mess["support-title"]}>MESSAGE SUPPORT</h1>
-      <form className={Mess["support-form"]}>
+      <form className={Mess["support-form"]} onSubmit={handleSubmit}>
         <div className={Mess["form-group"]}>
-          <label htmlFor="problem-category" className={Mess["form-label"]}>Choose Problem category</label>
-          <select id="problem-category" className={Mess["form-select"]}>
-            <option value="">Select a category</option>
-            {/* Add more options here */}
-          </select>
+          <label htmlFor="regno" className={Mess["form-label"]}>Registration Number</label>
+          <input
+            type="text"
+            id="regno"
+            className={Mess["form-input"]}
+            value={regno}
+            onChange={(e) => setRegno(e.target.value)}
+            placeholder="Enter your registration number"
+            required
+          />
         </div>
         <div className={Mess["form-group"]}>
-          <label htmlFor="message" className={Mess["form-label"]}>Your message</label>
-          <textarea id="message" className={Mess["form-textarea"]} rows="4"></textarea>
+          <label htmlFor="issueDescription" className={Mess["form-label"]}>Describe Your Issue</label>
+          <textarea
+            id="issueDescription"
+            className={Mess["form-textarea"]}
+            rows="4"
+            value={issueDescription}
+            onChange={(e) => setIssueDescription(e.target.value)}
+            placeholder="Enter your message here"
+            required
+          ></textarea>
         </div>
         <button type="submit" className={Mess["send-button"]}>SEND</button>
       </form>

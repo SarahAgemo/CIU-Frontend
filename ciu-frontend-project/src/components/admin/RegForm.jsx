@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/admin/Headerpop';
 import Sidebar from '../../components/admin/SideBarpop';
-import MobileMenu from "../../components/admin/MobileMenu"
-import './RegForm.css'; 
+import MobileMenu from "../../components/admin/MobileMenu";
+import './RegForm.css';
 
 const RegForm = () => {
   const [user, setUser] = useState({
@@ -47,6 +47,12 @@ const RegForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const emailRegex = /^[a-zA-Z]+@student\.ciu\.ac\.ug$/;
+    if (!emailRegex.test(user.email)) {
+      alert("Email format should be 'firstname@student.ciu.ac.ug'");
+      return;
+    }
 
     if (!user.courseId) {
       alert('Course ID should not be empty');
@@ -96,23 +102,23 @@ const RegForm = () => {
     }
   };
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 991)
-    }
+      setIsMobile(window.innerWidth <= 991);
+    };
 
-    window.addEventListener('resize', handleResize)
-    handleResize()
+    window.addEventListener('resize', handleResize);
+    handleResize();
 
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen)
-  }
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   return (
     <div className="this-container">
@@ -124,7 +130,6 @@ const RegForm = () => {
           <div style={{ padding: '30px', borderRadius: '12px', backgroundColor: 'rgba(255, 255, 255, 0.95)', boxShadow: '0 4px 20px rgba(0, 0, 0, 0.2)', width: '80%', maxWidth: '600px' }}>
             <h2 style={{ textAlign: 'center', color: '#065c4c' }}>User Registration</h2>
             <form onSubmit={handleSubmit}>
-              {/* First Name and Last Name */}
               <div style={{ display: 'flex', marginBottom: '20px' }}>
                 <div style={{ flex: '1', marginRight: '20px' }}>
                   <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>First Name:</label>
@@ -134,6 +139,7 @@ const RegForm = () => {
                     value={user.firstName}
                     onChange={handleChange}
                     required
+                    placeholder="Enter your first name"
                     style={{
                       width: '100%',  
                       padding: '12px',
@@ -150,6 +156,7 @@ const RegForm = () => {
                     value={user.lastName}
                     onChange={handleChange}
                     required
+                    placeholder="Enter your last name"
                     style={{
                       width: '100%',
                       padding: '12px',
@@ -160,7 +167,6 @@ const RegForm = () => {
                 </div>
               </div>
 
-              {/* Email and Course ID */}
               <div style={{ display: 'flex', marginBottom: '20px' }}>
                 <div style={{ flex: '1', marginRight: '20px' }}>
                   <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Email:</label>
@@ -170,6 +176,7 @@ const RegForm = () => {
                     value={user.email}
                     onChange={handleChange}
                     required
+                    placeholder="firstname@student.ciu.ac.ug"
                     style={{
                       width: '100%',
                       padding: '12px',
@@ -210,7 +217,6 @@ const RegForm = () => {
                 </div>
               </div>
 
-              {/* Registration No and Password */}
               <div style={{ display: 'flex', marginBottom: '20px' }}>
                 <div style={{ flex: '1', marginRight: '20px' }}>
                   <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Registration No:</label>
@@ -220,6 +226,7 @@ const RegForm = () => {
                     value={user.registrationNo}
                     onChange={handleChange}
                     required
+                    placeholder="Enter your registration number"
                     style={{
                       width: '100%',
                       padding: '12px',
@@ -236,6 +243,7 @@ const RegForm = () => {
                     value={user.password}
                     onChange={handleChange}
                     required
+                    placeholder="Enter your password"
                     style={{
                       width: '100%',
                       padding: '12px',
@@ -246,7 +254,6 @@ const RegForm = () => {
                 </div>
               </div>
 
-              {/* Role and DateTime */}
               <div style={{ display: 'flex', marginBottom: '20px' }}>
                 <div style={{ flex: '1', marginRight: '20px' }}>
                   <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Role:</label>
@@ -256,6 +263,7 @@ const RegForm = () => {
                     value={user.role}
                     onChange={handleChange}
                     required
+                    placeholder="e.g., student"
                     style={{
                       width: '100%',
                       padding: '12px',
@@ -282,8 +290,22 @@ const RegForm = () => {
                 </div>
               </div>
 
-              {/* Submit Button */}
-              <button type="submit" style={{ width: '100%', padding: '12px', backgroundColor: '#106053', color: '#fff', fontSize: '18px', textTransform: 'uppercase', cursor: 'pointer' }}>
+              <button
+                type="submit"
+                style={{
+                  width: '100%',
+                  padding: '15px',
+                  backgroundColor: '#106053',
+                  color: '#fff',
+                  fontSize: '16px',
+                  fontWeight: 'bold',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.3s ease',
+                }}
+                onMouseEnter={(e) => e.target.style.backgroundColor = '#0c4b42'}
+                onMouseLeave={(e) => e.target.style.backgroundColor = '#106053'}
+              >
                 Register
               </button>
             </form>
