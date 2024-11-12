@@ -6,10 +6,29 @@ import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
+import { Snackbar, Alert, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 
 function ExamPaperPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [examData, setExamData] = useState(null);
+  const [isDraft, setIsDraft] = useState(true);
+  const [status, setStatus] = useState(true);
+
+  // Dialog states
+  const [deleteDialog, setDeleteDialog] = useState(false);
+  const [publishDialog, setPublishDialog] = useState(false);
+  const [unpublishDialog, setUnpublishDialog] = useState(false);
+  const [approvalDialog, setApprovalDialog] = useState(false);
+
+  // Snackbar state
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'info'
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -22,16 +41,24 @@ function ExamPaperPreview() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleSnackbar = (message, severity = 'info') => {
+    setSnackbar({
+      open: true,
+      message,
+      severity
+    });
+  };
+
+  const closeSnackbar = () => {
+    setSnackbar(prev => ({
+      ...prev,
+      open: false
+    }));
+  };
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-  const { id } = useParams(); // Get the exam paper ID from the URL
-  const navigate = useNavigate(); // Initialize useNavigate
-  const [examData, setExamData] = useState(null);
-  const [isDraft, setIsDraft] = useState(true);
-  const [status, setStatus] = useState(true);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     const fetchExamData = async () => {
@@ -43,7 +70,7 @@ function ExamPaperPreview() {
         setIsDraft(data.isDraft);
         setStatus(data.status);
       } catch (error) {
-        setError("Error fetching exam paper: " + error.message);
+        handleSnackbar("Error fetching exam paper: " + error.message, "error");
       }
     };
 
@@ -52,8 +79,8 @@ function ExamPaperPreview() {
 
   const handleEdit = () => {
     if (!isDraft) {
-      window.alert("You cannot edit an already published exam.");
-      return; // Stop execution if the exam is published
+      handleSnackbar("You cannot edit an already published exam.", "error");
+      return;
     }
     navigate(`/exam-paper/${id}/edit`);
   };
@@ -64,421 +91,228 @@ function ExamPaperPreview() {
 
   const handleDelete = async () => {
     if (!isDraft) {
-      window.alert("You cannot delete an already published exam.");
-      return; // Stop execution if the exam is published
+      handleSnackbar("You cannot delete an already published exam.", "error");
+      return;
     }
-
-    if (window.confirm("Are you sure you want to delete this exam paper?")) {
-      try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
-          method: "DELETE",
-        });
-        if (!response.ok) {
-          const errorData = await response.json(); // Parse the error response
-          throw new Error(errorData.message); // Use the message from the error response
-        }
-        setSuccess("Exam paper deleted successfully");
-        navigate("/schedule-upload-exams/exam-list"); // Redirect to the exam papers list
-      } catch (error) {
-        setError("Error deleting exam paper: " + error.message);
-      }
-    }
+    setDeleteDialog(true);
   };
 
-  const handlePublish = async () => {
+  const confirmDelete = async () => {
     try {
-      if (isDraft === "true") {
-        window.alert("This exam is already published.");
-        return;
-      }
-
-      if (examData.status !== "approved") {
-        window.alert("You can only publish approved assessments.");
-        // setError("You can only publish approved assessments.");
-        return;
-      }
-
-      const response = await fetch(
-        `http://localhost:3000/exam-paper/${id}/publish`,
-        {
-          method: "PATCH",
-        }
-      );
-
+      const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
+        method: "DELETE",
+      });
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message);
       }
+      handleSnackbar("Exam paper deleted successfully", "success");
+      navigate("/schedule-upload-exams/exam-list");
+    } catch (error) {
+      handleSnackbar("Error deleting exam paper: " + error.message, "error");
+    } finally {
+      setDeleteDialog(false);
+    }
+  };
 
+  const handlePublish = () => {
+    if (isDraft === "true") {
+      handleSnackbar("This exam is already published.", "warning");
+      return;
+    }
+    if (examData.status !== "approved") {
+      handleSnackbar("You can only publish approved assessments.", "warning");
+      return;
+    }
+    setPublishDialog(true);
+  };
+
+  const confirmPublish = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/exam-paper/${id}/publish`, {
+        method: "PATCH",
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
       const updatedExamData = await response.json();
-      setSuccess("Exam paper published successfully");
+      handleSnackbar("Exam paper published successfully", "success");
       setExamData(updatedExamData);
       navigate("/published-exam-papers");
     } catch (error) {
-      setError("Error publishing exam paper: " + error.message);
+      handleSnackbar("Error publishing exam paper: " + error.message, "error");
+    } finally {
+      setPublishDialog(false);
     }
-};
+  };
 
-const handleUnpublish = async () => {
-  try {
+  const handleUnpublish = () => {
     if (isDraft) {
-      window.alert("This exam is not published.");
+      handleSnackbar("This exam is not published.", "warning");
       return;
     }
+    setUnpublishDialog(true);
+  };
 
-    const response = await fetch(
-      `http://localhost:3000/exam-paper/${id}/unpublish`,
-      {
+  const confirmUnpublish = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/exam-paper/${id}/unpublish`, {
         method: "PATCH",
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
       }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message);
+      const updatedExamData = await response.json();
+      handleSnackbar("Exam paper unpublished successfully", "success");
+      setExamData(updatedExamData);
+    } catch (error) {
+      handleSnackbar("Error unpublishing exam paper: " + error.message, "error");
+    } finally {
+      setUnpublishDialog(false);
     }
+  };
 
-    const updatedExamData = await response.json();
-    setSuccess("Exam paper unpublished successfully");
-    setExamData(updatedExamData);
-  } catch (error) {
-    setError("Error unpublishing exam paper: " + error.message);
-  }
-}; 
+  const handleRequestApproval = () => {
+    if (status === "approved") {
+      handleSnackbar("Exam is already approved.", "warning");
+      return;
+    }
+    setApprovalDialog(true);
+  };
 
-
-const handleRequestApproval = async () => {
-  if (status === "approved") {
-    window.alert("Exam is already approved.");
-    return; 
-  }
-  try {
-    const response = await fetch(
-      `http://localhost:3000/exam-paper/${id}/request-approval`,
-      {
+  const confirmRequestApproval = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/exam-paper/${id}/request-approval`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ status: "pending" }), 
+        body: JSON.stringify({ status: "pending" }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
       }
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message);
+      const updatedExamData = await response.json();
+      handleSnackbar("Approval requested successfully. Status set to pending.", "success");
+      setExamData(updatedExamData);
+      navigate("/schedule-upload-exams/exam-list");
+    } catch (error) {
+      handleSnackbar("Error requesting approval: " + error.message, "error");
+    } finally {
+      setApprovalDialog(false);
     }
+  };
 
-    const updatedExamData = await response.json();
-    setSuccess("Approval requested successfully. Status set to pending.");
-    setExamData(updatedExamData); 
-    navigate("/schedule-upload-exams/exam-list");
-  } catch (error) {
-    setError("Error requesting approval: " + error.message);
-  }
-};
-
-
-  if (error) return <div className="alert alert-danger">{error}</div>;
   if (!examData) return <div>Loading...</div>;
-
-  // return (
-  //   <div className="container mt-5">
-  //     <h3>Exam Paper Preview</h3>
-  //     <table className="table table-bordered">
-  //       <tbody>
-  //         <tr>
-  //           <td><strong>Title</strong></td>
-  //           <td>{examData.title}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Description</strong></td>
-  //           <td>{examData.description}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Course ID</strong></td>
-  //           <td>{examData.courseId}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Course Unit</strong></td>
-  //           <td>{examData.courseUnit}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Course Unit Code</strong></td>
-  //           <td>{examData.courseUnitCode}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Scheduled Date</strong></td>
-  //           <td>{examData.scheduledDate}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Duration</strong></td>
-  //           <td>{examData.duration}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Start Time</strong></td>
-  //           <td>{examData.startTime}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>End Time</strong></td>
-  //           <td>{examData.endTime}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Created By</strong></td>
-  //           <td>{examData.createdBy}</td>
-  //         </tr>
-  //         <tr>
-  //           <td><strong>Questions</strong></td>
-  //           <td>{examData.questions.length} {examData.questions.length === 0 ? "(No questions added)" : ""}</td>
-  //         </tr>
-  //       </tbody>
-  //     </table>
-
-  //     <div className="mt-3">
-  //       <button onClick={handlePreviewQuestions} className="btn btn-info mr-2">
-  //         Preview Questions
-  //       </button>
-  //       <button onClick={handleEdit} className="btn btn-warning mr-2">
-  //         Edit Exam Paper
-  //       </button>
-  //       <button onClick={handleDelete} className="btn btn">
-  //         Delete Exam Paper
-  //       </button>
-  //       {examData.isDraft && (
-  //         <button onClick={handlePublish} className="btn btn-success ml-2">
-  //           Publish
-  //         </button>
-  //       )}
-  //     </div>
-
-  //     {success && <div className="alert alert-success mt-3">{success}</div>}
-  //   </div>
-  // );
-
-  // return (
-  //   <div className="container mt-5">
-  //     <h3>Exam Paper Preview</h3>
-  //     {error && <div className="alert alert-danger">{error}</div>}
-  //     {success && <div className="alert alert-success">{success}</div>}
-
-  //     <div className="table-container">
-  //       <table className="table table-bordered">
-  //         <tbody>
-  //           <tr>
-  //             <td><strong>Title</strong></td>
-  //             <td>{examData.title}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Description</strong></td>
-  //             <td>{examData.description}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Course ID</strong></td>
-  //             <td>{examData.courseId}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Course Unit</strong></td>
-  //             <td>{examData.courseUnit}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Course Unit Code</strong></td>
-  //             <td>{examData.courseUnitCode}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Scheduled Date</strong></td>
-  //             <td>{examData.scheduledDate}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Duration</strong></td>
-  //             <td>{examData.duration}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Start Time</strong></td>
-  //             <td>{examData.startTime}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>End Time</strong></td>
-  //             <td>{examData.endTime}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Created By</strong></td>
-  //             <td>{examData.createdBy}</td>
-  //           </tr>
-  //           <tr>
-  //             <td><strong>Questions</strong></td>
-  //             <td>{examData.questions.length} {examData.questions.length === 0 ? "(No questions added)" : ""}</td>
-  //           </tr>
-  //         </tbody>
-  //       </table>
-  //     </div>
-
-  //     <div className="btn-container">
-  //       <button onClick={handlePreviewQuestions} className="btn btn-info">
-  //         Preview Questions
-  //       </button>
-  //       <button onClick={handleEdit} className="btn btn-warning">
-  //         Edit Exam Paper
-  //       </button>
-  //       <button onClick={handleDelete} className="btn btn-danger">
-  //         Delete Exam Paper
-  //       </button>
-  //       {examData.isDraft && (
-  //         <button onClick={handlePublish} className="btn btn-success">
-  //           Publish
-  //         </button>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
-
-  // return (
-  //   <div className="exam-preview__container mt-5">
-  //     <h3 className="exam-preview__title">Exam Paper Preview</h3>
-  //     {error && (
-  //       <div className="exam-preview__alert exam-preview__alert--danger">
-  //         {error}
-  //       </div>
-  //     )}
-  //     {success && (
-  //       <div className="exam-preview__alert exam-preview__alert--success">
-  //         {success}
-  //       </div>
-  //     )}
-
-  //     <div className="exam-preview__table-container">
-  //       <table className="exam-preview__table table-bordered">
-  //         <tbody>
-  //           <tr>
-  //             <td>
-  //               <strong>Title</strong>
-  //             </td>
-  //             <td>{examData.title}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Description</strong>
-  //             </td>
-  //             <td>{examData.description}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Course ID</strong>
-  //             </td>
-  //             <td>{examData.courseId}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Course Unit</strong>
-  //             </td>
-  //             <td>{examData.courseUnit}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Course Unit Code</strong>
-  //             </td>
-  //             <td>{examData.courseUnitCode}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Scheduled Date</strong>
-  //             </td>
-  //             <td>{examData.scheduledDate}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Duration</strong>
-  //             </td>
-  //             <td>{examData.duration}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Start Time</strong>
-  //             </td>
-  //             <td>{examData.startTime}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>End Time</strong>
-  //             </td>
-  //             <td>{examData.endTime}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Created By</strong>
-  //             </td>
-  //             <td>{examData.createdBy}</td>
-  //           </tr>
-  //           <tr>
-  //             <td>
-  //               <strong>Questions</strong>
-  //             </td>
-  //             <td>
-  //               {examData.questions.length}{" "}
-  //               {examData.questions.length === 0 ? "(No questions added)" : ""}
-  //             </td>
-  //           </tr>
-  //         </tbody>
-  //       </table>
-  //     </div>
-
-  //     <div className="exam-preview__btn-container">
-  //       <button
-  //         onClick={handlePreviewQuestions}
-  //         className="exam-preview__btn exam-preview__btn--info"
-  //       >
-  //         Preview Questions
-  //       </button>
-  //       <button
-  //         onClick={handleEdit}
-  //         className="exam-preview__btn exam-preview__btn--warning"
-  //       >
-  //         Edit Exam Paper
-  //       </button>
-  //       <button
-  //         onClick={handleDelete}
-  //         className="exam-preview__btn exam-preview__btn--danger"
-  //       >
-  //         Delete Exam Paper
-  //       </button>
-  //       {examData.isDraft && (
-  //         <button
-  //           onClick={handlePublish}
-  //           className="exam-preview__btn exam-preview__btn--success"
-  //         >
-  //           Publish
-  //         </button>
-  //       )}
-  //     </div>
-  //   </div>
-  // );
 
   return (
     <div className={Dash.lecturerDashboard}>
+      {/* Snackbar Component */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={closeSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{ width: '50%' }}
+      >
+        <Alert onClose={closeSnackbar} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteDialog}
+        onClose={() => setDeleteDialog(false)}
+      >
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this exam paper? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialog(false)}>Cancel</Button>
+          <Button onClick={confirmDelete} color="error" variant="contained">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Publish Confirmation Dialog */}
+      <Dialog
+        open={publishDialog}
+        onClose={() => setPublishDialog(false)}
+      >
+        <DialogTitle>Confirm Publish</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to publish this exam paper?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setPublishDialog(false)}>Cancel</Button>
+          <Button onClick={confirmPublish} color="primary" variant="contained">
+            Publish
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Unpublish Confirmation Dialog */}
+      <Dialog
+        open={unpublishDialog}
+        onClose={() => setUnpublishDialog(false)}
+      >
+        <DialogTitle>Confirm Unpublish</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to unpublish this exam paper?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setUnpublishDialog(false)}>Cancel</Button>
+          <Button onClick={confirmUnpublish} color="primary" variant="contained">
+            Unpublish
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Request Approval Dialog */}
+      <Dialog
+        open={approvalDialog}
+        onClose={() => setApprovalDialog(false)}
+      >
+        <DialogTitle>Confirm Request Approval</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to request approval for this exam paper?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setApprovalDialog(false)}>Cancel</Button>
+          <Button onClick={confirmRequestApproval} color="primary" variant="contained">
+            Request Approval
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <div className={Dash.dashboard}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={Dash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
-            <MobileMenu
-              isOpen={isMobileMenuOpen}
-              toggleMenu={toggleMobileMenu}
-            />
+            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
           )}
           <div className={Dash.backButtonContainer}>
             <BackButton targetPath="/schedule-upload-exams/exam-list" size={30} color="#106053" />
           </div>
+
+          {/* Rest of your existing JSX remains the same */}
           <div className="exam-preview__container mt-5">
             <h3 className="exam-preview__title">Exam Paper Preview</h3>
-            {error && (
-              <div className="exam-preview__alert exam-preview__alert--danger">
-                {error}
-              </div>
-            )}
-            {success && (
-              <div className="exam-preview__alert exam-preview__alert--success">
-                {success}
-              </div>
-            )}
 
             <div className="exam-preview__table-container">
               <table className="exam-preview__table table-bordered">
@@ -577,25 +411,24 @@ const handleRequestApproval = async () => {
               >
                 Delete Exam Paper
               </button>
-               <button 
+              <button
                 onClick={handleRequestApproval}
                 className="exam-preview__btn exam-preview__btn--success"
-               >
-                  Request Approval
-               </button>
-                <button
-                  onClick={handlePublish}
-                  className="exam-preview__btn exam-preview__btn--success"
-                >
-                  Publish
-                </button>
-                <button
-                  onClick={handleUnpublish}
-                  className="exam-preview__btn exam-preview__btn--success"
-                >
-                  Unpublish
-                </button>
-
+              >
+                Request Approval
+              </button>
+              <button
+                onClick={handlePublish}
+                className="exam-preview__btn exam-preview__btn--success"
+              >
+                Publish
+              </button>
+              <button
+                onClick={handleUnpublish}
+                className="exam-preview__btn exam-preview__btn--success"
+              >
+                Unpublish
+              </button>
             </div>
           </div>
         </div>
