@@ -1,14 +1,13 @@
 
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import createExam from './CreateExamContent.module.css';
 import moment from 'moment';
+import { Snackbar, Alert } from '@mui/material';
 
 export default function CreateExamContent() {
     const navigate = useNavigate();
-
 
     const [formData, setFormData] = useState({
         title: '',
@@ -30,12 +29,13 @@ export default function CreateExamContent() {
         ],
     });
 
-    // Fix 2: Add missing state variables
     const [courses, setCourses] = useState([]);
     const [courseUnits, setCourseUnits] = useState([]);
     const [error, setError] = useState('');
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [snackbarSeverity, setSnackbarSeverity] = useState('error');
 
-    // Fix 3: Update fetch courses useEffect
     useEffect(() => {
         const fetchCourses = async () => {
             try {
@@ -45,12 +45,12 @@ export default function CreateExamContent() {
                 setCourses(data);
             } catch (err) {
                 setError('Error fetching courses: ' + err.message);
+                handleSnackbar('Error fetching courses: ' + err.message, 'error');
             }
         };
         fetchCourses();
     }, []);
 
-    // Fix 4: Update fetch course units useEffect
     useEffect(() => {
         if (formData.courseId) {
             const fetchCourseUnits = async () => {
@@ -64,6 +64,7 @@ export default function CreateExamContent() {
                 } catch (err) {
                     console.error('Error fetching course units:', err);
                     setError('Error fetching course units: ' + err.message);
+                    handleSnackbar('Error fetching course units: ' + err.message, 'error');
                     setCourseUnits([]);
                 }
             };
@@ -73,7 +74,12 @@ export default function CreateExamContent() {
         }
     }, [formData.courseId]);
 
-    // Fix 5: Update handleInputChange
+    const handleSnackbar = (message, severity) => {
+        setSnackbarMessage(message);
+        setSnackbarSeverity(severity);
+        setSnackbarOpen(true);
+    };
+
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setFormData(prevData => ({
@@ -81,7 +87,6 @@ export default function CreateExamContent() {
             [name]: value,
         }));
 
-        // Update course unit code when course unit changes
         if (name === 'courseUnit') {
             const selectedUnit = courseUnits.find(unit => unit.unitName === value);
             if (selectedUnit) {
@@ -92,24 +97,20 @@ export default function CreateExamContent() {
             }
         }
 
-        // Auto-calculate endTime based on startTime and duration
         if (name === 'scheduledDate') {
-            // Automatically update startTime with the time portion of scheduledDate
             const selectedDateTime = moment(value);
             const currentTime = moment();
-    
-    // Check if the scheduled date-time is at least 24 hours from the current time
-    if (selectedDateTime.isBefore(currentTime.add(24, 'hours'))) {
-        alert('Scheduled date and time must be at least 24 hours from the current time.');
-        return;
-    }
+
+            if (selectedDateTime.isBefore(currentTime.add(24, 'hours'))) {
+                handleSnackbar('Scheduled date and time must be at least 24 hours from the current time.', 'error');
+                return;
+            }
             const startTime = selectedDateTime.format('HH:mm');
             setFormData((prevData) => ({
                 ...prevData,
                 startTime
             }));
-        
-            // Calculate endTime if duration is provided
+
             if (formData.duration) {
                 const [durationHours, durationMinutes] = formData.duration.split(':').map(Number);
                 const endTime = selectedDateTime
@@ -122,7 +123,6 @@ export default function CreateExamContent() {
                 }));
             }
         } else if (name === 'duration' && formData.startTime) {
-            // Calculate endTime based on startTime and updated duration
             const startTimeMoment = moment(formData.scheduledDate);
             const [durationHours, durationMinutes] = value.split(':').map(Number);
             const endTime = startTimeMoment
@@ -135,6 +135,7 @@ export default function CreateExamContent() {
             }));
         }
     };
+
     const handleQuestionChange = (index, e) => {
         const { name, value } = e.target;
         const newQuestions = [...formData.questions];
@@ -161,9 +162,9 @@ export default function CreateExamContent() {
         }
     };
 
-
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Prevents the default form submission behavior.
+
         try {
             const payload = {
                 ...formData,
@@ -179,219 +180,248 @@ export default function CreateExamContent() {
                 })),
             };
 
+            // Send the form data to the backend API.
             const response = await axios.post('http://localhost:3000/manual-exam-paper', payload);
+
             console.log('Data posted successfully:', response.data);
+
+            // Display success message using snackbar logic.
+            handleSnackbar('Exam created successfully!', 'success');
+
+            // Redirect to the exam list page after successful creation.
             navigate('/schedule-upload-exams/exam-list');
         } catch (error) {
-            console.error('There was an error!', error);
+            console.error('Error creating exam:', error);
+
+            // Display error message using snackbar logic.
+            handleSnackbar('Failed to create exam: ' + error.message, 'error');
+
+            // Optionally set the error state for more detailed feedback.
             setError('Failed to create exam: ' + error.message);
         }
     };
 
 
+
     return (
         <div className={createExam.formWrapper_createExam}>
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={() => setSnackbarOpen(false)}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                sx={{
+                    width: '50%'
+                }} 
+
+            >
+                <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity}>
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
+            {/* Rest of your component code */}
             <form onSubmit={handleSubmit} className={createExam.formContainer_createExam}>
-                <h2 className={createExam.heading_createExam}>Create Exams</h2>
+                 <h2 className={createExam.heading_createExam}>Create Exams</h2>
 
-                <div className={createExam.formGroup_createExam}>
-                    <label className={createExam.label_createExam}>Assessment Title</label>
-                    <input
-                        type="text"
-                        name="title"
-                        value={formData.title}
-                        onChange={handleInputChange}
-                        className={createExam.formControl_createExam}
-                        placeholder="Assessment Title"
-                        required
-                    />
-                </div>
+                 <div className={createExam.formGroup_createExam}>
+                     <label className={createExam.label_createExam}>Assessment Title</label>
+                     <input
+                         type="text"
+                         name="title"
+                         value={formData.title}
+                         onChange={handleInputChange}
+                         className={createExam.formControl_createExam}
+                         placeholder="Assessment Title"
+                         required
+                     />
+                 </div>
 
-                <div className={createExam.formGroup_createExam}>
-                    <label className={createExam.label_createExam}>Instructions</label>
-                    <textarea
-                        name="description"
-                        value={formData.description}
-                        onChange={handleInputChange}
-                        className={createExam.formControl_createExam}
-                        placeholder="Instructions"
-                        required
-                    ></textarea>
-                </div>
+                 <div className={createExam.formGroup_createExam}>
+                     <label className={createExam.label_createExam}>Instructions</label>
+                     <textarea
+                         name="description"
+                         value={formData.description}
+                         onChange={handleInputChange}
+                         className={createExam.formControl_createExam}
+                         placeholder="Instructions"
+                         required
+                     ></textarea>
+                 </div>
 
-                <div className={createExam.formGroup_createExam}>
-                    <label className={createExam.label_createExam}>Select Course</label>
-                    <select
-                        name="courseId"
-                        className={createExam.formControl_createExam}
-                        value={formData.courseId}
-                        onChange={handleInputChange}
-                        required
-                    >
-                        <option value="">Select a course</option>
-                        {courses.length > 0 ? (
-                            courses.map((course) => (
-                                <option key={course.id} value={course.id}>
-                                    {course.courseName}
-                                </option>
-                            ))
-                        ) : (
-                            <option disabled>No courses available</option>
-                        )}
-                    </select>
-                </div>
+                 <div className={createExam.formGroup_createExam}>
+                     <label className={createExam.label_createExam}>Select Course</label>
+                     <select
+                         name="courseId"
+                         className={createExam.formControl_createExam}
+                         value={formData.courseId}
+                         onChange={handleInputChange}
+                         required
+                     >
+                         <option value="">Select a course</option>
+                         {courses.length > 0 ? (
+                             courses.map((course) => (
+                                 <option key={course.id} value={course.id}>
+                                     {course.courseName}
+                                 </option>
+                             ))
+                         ) : (
+                             <option disabled>No courses available</option>
+                         )}
+                     </select>
+                 </div>
 
-                {/* Course Unit Selection */}
-                <div className={createExam.formGroup_createExam}>
-                    <label className={createExam.label_createExam}>Course Unit</label>
-                    <select
-                        name="courseUnit"
-                        className={createExam.formControl_createExam}
-                        value={formData.courseUnit}
-                        onChange={handleInputChange}
-                        required
-                    >
-                        <option value="">Select a course unit</option>
-                        {Array.isArray(courseUnits) && courseUnits.length > 0 ? (
-                            courseUnits.map((unit) => (
-                                <option key={unit.id} value={unit.unitName}>
-                                    {unit.unitName}
-                                </option>
-                            ))
-                        ) : (
-                            <option disabled>No course units available</option>
-                        )}
-                    </select>
-                </div>
+                 {/* Course Unit Selection */}
+                 <div className={createExam.formGroup_createExam}>
+                     <label className={createExam.label_createExam}>Course Unit</label>
+                     <select
+                         name="courseUnit"
+                         className={createExam.formControl_createExam}
+                         value={formData.courseUnit}
+                         onChange={handleInputChange}
+                         required
+                     >
+                         <option value="">Select a course unit</option>
+                         {Array.isArray(courseUnits) && courseUnits.length > 0 ? (
+                             courseUnits.map((unit) => (
+                                 <option key={unit.id} value={unit.unitName}>
+                                     {unit.unitName}
+                                 </option>
+                             ))
+                         ) : (
+                             <option disabled>No course units available</option>
+                         )}
+                     </select>
+                 </div>
 
-                {/* Course Unit Code */}
-                <div className={createExam.formGroup_createExam}>
-                    <label className={createExam.label_createExam}>Course Unit Code</label>
-                    <input
-                        type="text"
-                        name="courseUnitCode"
-                        className={createExam.formControl_createExam}
-                        value={formData.courseUnitCode}
-                        onChange={handleInputChange}
-                        placeholder="Course Unit Code"
-                        required
-                    />
-                </div>
-                <div className={createExam.formGroup_duration}>
-                    <label className={createExam.label_duration}>Duration (in minutes)</label>
-                    <input
-                        type="text"
-                        name="duration"
-                        value={formData.duration}
-                        onChange={handleInputChange}
-                        className={createExam.input_duration}
-                        placeholder="Duration"
-                        required
-                    />
-                </div>
+                 {/* Course Unit Code */}
+                 <div className={createExam.formGroup_createExam}>
+                     <label className={createExam.label_createExam}>Course Unit Code</label>
+                     <input
+                         type="text"
+                         name="courseUnitCode"
+                         className={createExam.formControl_createExam}
+                         value={formData.courseUnitCode}
+                         onChange={handleInputChange}
+                         placeholder="Course Unit Code"
+                         required
+                     />
+                 </div>
+                 <div className={createExam.formGroup_duration}>
+                     <label className={createExam.label_duration}>Duration (in minutes)</label>
+                     <input
+                         type="text"
+                         name="duration"
+                         value={formData.duration}
+                         onChange={handleInputChange}
+                         className={createExam.input_duration}
+                         placeholder="Duration"
+                         required
+                     />
+                 </div>
 
-                <div className={createExam.formGroup_scheduledDate}>
-                <label className={createExam.label_scheduledDate}>Scheduled Date</label>
-                <input
-                    type="datetime-local"
-                    name="scheduledDate"
-                    value={formData.scheduledDate}
-                    onChange={handleInputChange}
-                    className={createExam.input_scheduledDate}
-                    required
-                />
-            </div>
+                 <div className={createExam.formGroup_scheduledDate}>
+                 <label className={createExam.label_scheduledDate}>Scheduled Date</label>
+                 <input
+                     type="datetime-local"
+                     name="scheduledDate"
+                     value={formData.scheduledDate}
+                     onChange={handleInputChange}
+                     className={createExam.input_scheduledDate}
+                     required
+                 />
+             </div>
 
-                <div className={createExam.formGroup_startTime}>
-                    <label className={createExam.label_startTime}>Start Time</label>
-                    <input
-                        type="time"
-                        name="startTime"
-                        value={formData.startTime}
-                        onChange={handleInputChange}
-                        className={createExam.input_startTime}
-                        required
-                    />
-                </div>
+                 <div className={createExam.formGroup_startTime}>
+                     <label className={createExam.label_startTime}>Start Time</label>
+                     <input
+                         type="time"
+                         name="startTime"
+                         value={formData.startTime}
+                         onChange={handleInputChange}
+                         className={createExam.input_startTime}
+                         required
+                     />
+                 </div>
 
-                <div className={createExam.formGroup_endTime}>
-                    <label className={createExam.label_endTime}>End Time</label>
-                    <input
-                        type="time"
-                        name="endTime"
-                        value={formData.endTime}
-                        className={createExam.input_endTime}
-                        readOnly
-                    />
-                </div>
+                 <div className={createExam.formGroup_endTime}>
+                     <label className={createExam.label_endTime}>End Time</label>
+                     <input
+                         type="time"
+                         name="endTime"
+                         value={formData.endTime}
+                         className={createExam.input_endTime}
+                         readOnly
+                     />
+                 </div>
 
-                <div className={createExam.formGroup_createdBy}>
-                    <label className={createExam.label_createdBy}>Created By</label>
-                    <input
-                        type="text"
-                        name="createdBy"
-                        value={formData.createdBy}
-                        onChange={handleInputChange}
-                        className={createExam.input_createdBy}
-                        placeholder="Created By"
-                        required
-                    />
-                </div>
+                 <div className={createExam.formGroup_createdBy}>
+                     <label className={createExam.label_createdBy}>Created By</label>
+                     <input
+                         type="text"
+                         name="createdBy"
+                         value={formData.createdBy}
+                         onChange={handleInputChange}
+                         className={createExam.input_createdBy}
+                         placeholder="Created By"
+                         required
+                     />
+                 </div>
 
-                {formData.questions.map((question, index) => (
-                    <div key={index} className={createExam.formGroup_question}>
-                        <label className={createExam.label_questionText}>Question Text</label>
-                        <input
-                            type="text"
-                            name="content"
-                            value={question.content}
-                            onChange={(e) => handleQuestionChange(index, e)}
-                            className={createExam.input_questionText}
-                            placeholder="Question"
-                            required
-                        />
-                        <label className={createExam.label_options}>Options (comma-separated)</label>
-                        <input
-                            type="text"
-                            name="options"
-                            value={question.options}
-                            onChange={(e) => handleQuestionChange(index, e)}
-                            className={createExam.input_options}
-                            placeholder="Option1,Option2,Option3,Option4"
-                            required
-                        />
-                        <label className={createExam.label_answer}>Correct Answer</label>
-                        <input
-                            type="text"
-                            name="answer"
-                            value={question.answer}
-                            onChange={(e) => handleQuestionChange(index, e)}
-                            className={createExam.input_answer}
-                            placeholder="Correct Answer"
-                            required
-                        />
-                    </div>
-                ))}
+                 {formData.questions.map((question, index) => (
+                     <div key={index} className={createExam.formGroup_question}>
+                         <label className={createExam.label_questionText}>Question Text</label>
+                         <input
+                             type="text"
+                             name="content"
+                             value={question.content}
+                             onChange={(e) => handleQuestionChange(index, e)}
+                             className={createExam.input_questionText}
+                             placeholder="Question"
+                             required
+                         />
+                         <label className={createExam.label_options}>Options (comma-separated)</label>
+                         <input
+                             type="text"
+                             name="options"
+                             value={question.options}
+                             onChange={(e) => handleQuestionChange(index, e)}
+                             className={createExam.input_options}
+                             placeholder="Option1,Option2,Option3,Option4"
+                             required
+                         />
+                         <label className={createExam.label_answer}>Correct Answer</label>
+                         <input
+                             type="text"
+                             name="answer"
+                             value={question.answer}
+                             onChange={(e) => handleQuestionChange(index, e)}
+                             className={createExam.input_answer}
+                             placeholder="Correct Answer"
+                             required
+                         />
+                     </div>
+                 ))}
 
 
-                {/* Buttons for adding/removing questions */}
-                <div className={createExam.formGroup_createExam}>
-                    <button type="button" onClick={addNewQuestion} className={createExam.addQuestionBtn_createExam}>
-                        + Question
+                 {/* Buttons for adding/removing questions */}
+                 <div className={createExam.formGroup_createExam}>
+                     <button type="button" onClick={addNewQuestion} className={createExam.addQuestionBtn_createExam}>
+                         + Question
+                     </button>
+                     <button type="button" onClick={removeLastQuestion} className={createExam.btnSecondary_createExam}>
+                         - Question
+                     </button>
+                     <button type="submit" className={createExam.btnPrimary_createExam}>
+                     Create Assessment
                     </button>
-                    <button type="button" onClick={removeLastQuestion} className={createExam.btnSecondary_createExam}>
-                        - Question
-                    </button>
-                    <button type="submit" className={createExam.btnPrimary_createExam}>
-                    Create Assessment
-                   </button>
-                </div>
+                 </div>
 
             
                 
-            </form>
+             </form>
         </div>
     );
 }
+
 
 

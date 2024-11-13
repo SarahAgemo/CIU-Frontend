@@ -30,6 +30,8 @@ import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 import TokenPasswordPage from "./components/admin/TokenPasswordPage";
+import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
+import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx"
 
 // Lecturer
@@ -55,11 +57,11 @@ import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 import LecLogin from "./pages/lecturer/LecLogin.jsx"
 
 // Student
-import StudentDashboard from "./pages/student/StudentDashboard.jsx";
-import DoExam from "./pages/student/DoExam.jsx";
-import SupportPage from "./pages/student/SupportPage.jsx";
-import FAQpage from "./pages/student/FAQpage.jsx";
-import ReportIssue from "./pages/student/ReportIssue.jsx";
+import StudentDashboard from "./pages/student/StudentDashboard";
+import DoExam from "./pages/student/DoExam";
+import SupportPage from "./pages/student/SupportPage";
+import FAQpage from "./pages/student/FAQpage";
+import ReportIssue from "./pages/student/ReportIssue";
 import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";
@@ -93,6 +95,8 @@ function App() {
               <Route path="/request-token" element={<RequestToken />} />
 
               {/* Admin */}
+              <Route path="/admin-exam-paper/:id/questions" element={<AdminQuestionsPreview />}/>
+              <Route path="/admin-exam-paper/:id" element={<AdminExamPaperPreview/>} />
               <Route path="/registers" element={<Registration />} />
               <Route path="/manage" element={<ManageUsers />} />
               <Route path="/register" element={<RegForm />} />

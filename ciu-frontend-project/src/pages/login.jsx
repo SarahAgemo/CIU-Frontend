@@ -58,13 +58,24 @@ const Login = () => {
       const response = await axios.post(endpoint, userPayload);
       const accessToken =
         response.data.access_token || response.data.token?.access_token;
-      console.log(accessToken);
-
-      // if (response.data.message === "Login successful") {
+      
+      // Store access token and user data in localStorage
       localStorage.setItem("token", accessToken);
-      localStorage.setItem("user", JSON.stringify(response.data.user));
+     console.log(response.data);
+      // Add this block to save 'CourseId' and other user data for students
+      if (selectedUser === "Student") {
+        const studentData = {
+          courseId: response.data.user.courseId, // Adjust if the field is named differently
+          ...response.data.user // Store any other needed user data
+        };
+        localStorage.setItem("user", JSON.stringify(studentData));
+      } else {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+      }
+
       setSuccessMessage("Login successful!");
 
+      // Redirect to appropriate page based on user role
       if (selectedUser === "Student") {
         navigate("/student");
       } else if (selectedUser === "Administrator") {
@@ -72,9 +83,8 @@ const Login = () => {
       } else if (selectedUser === "Lecturer") {
         navigate("/lecturerdashboard");
       }
-      // } else {
-      //   setErrorMessage("Login failed. No token received.");
-      // }
+
+      
     } catch (error) {
       console.log(error);
       setErrorMessage("Login failed. Please check your credentials.");
@@ -146,7 +156,7 @@ const Login = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="login-submit-button "
+              className="login-submit-button"
               style={{ width: "100%", height: "45px" }}
             >
               LOGIN
