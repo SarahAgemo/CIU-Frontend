@@ -154,6 +154,8 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
                               ? "rejected"
                               : exam.status === "published"
                               ? "published"
+                              : exam.status === "unpublished"
+                              ? "unpublished"
                               : ""
                           }`}
                       >
