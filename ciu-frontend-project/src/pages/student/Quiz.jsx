@@ -420,19 +420,32 @@ const Quiz = () => {
         const percentageScore = ((calculatedScore / questions.length) * 100).toFixed(2);
         setPercentage(percentageScore);
 
-        // Send score and percentage to backend
-        try {
-          await axios.post("http://localhost:3000/scores/submit", {
-            examId: parseInt(examId),
-            userId: parseInt(userId),
-            score: calculatedScore,
-            percentage: parseFloat(percentageScore),
-          });
-          alert(`Your score is: ${calculatedScore}/${questions.length} (${percentageScore}%)`);
-        } catch (error) {
-          console.error("Error submitting score:", error);
-          alert("Failed to submit score to the server.");
-        }
+      try {
+        // Parse userId if it's coming as a JSON string
+        const parsedUserId = typeof userId === 'string' ? JSON.parse(userId) : userId;
+      
+        console.log("Sending data:", {
+          examId: parseInt(examId),
+          userId: parseInt(parsedUserId.id), // Extract the `id` from userId
+          score: calculatedScore,
+          percentage: parseFloat(percentageScore),
+          isManualAssessment: false, // Adjust this based on your logic
+        });
+      
+        await axios.post("http://localhost:3000/scores/submit", {
+          examId: parseInt(examId),
+          userId: parseInt(parsedUserId.id), // Use only the ID
+          score: calculatedScore,
+          percentage: parseFloat(percentageScore),
+          isManualAssessment: false,
+        });
+      
+        alert(`Your score is: ${calculatedScore}/${questions.length} (${percentageScore}%)`);
+      } catch (error) {
+        console.error("Error submitting score:", error);
+        alert("Failed to submit score to the server.");
+      }
+      
 
         navigate("/submit");
       }
