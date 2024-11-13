@@ -7,6 +7,10 @@ import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
 import { Snackbar, Alert, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import { FaEye, FaEdit, FaTrash, FaCheck, FaPaperPlane, FaUndo } from "react-icons/fa";
+
+
+
 
 function ExamPaperPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -116,7 +120,8 @@ function ExamPaperPreview() {
   };
 
   const handlePublish = () => {
-    if (isDraft === "true") {
+   
+    if (isDraft === false) {
       handleSnackbar("This exam is already published.", "warning");
       return;
     }
@@ -393,43 +398,26 @@ function ExamPaperPreview() {
             </div>
 
             <div className="exam-preview__btn-container">
-              <button
-                onClick={handlePreviewQuestions}
-                className="exam-preview__btn exam-preview__btn--info"
-              >
-                Preview Questions
+              <button onClick={handlePreviewQuestions} className="exam-preview__icon-btn" data-tooltip="Preview Questions">
+                <FaEye />
               </button>
-              <button
-                onClick={handleEdit}
-                className="exam-preview__btn exam-preview__btn--warning"
-              >
-                Edit Exam Paper
+              <button onClick={handleEdit} className="exam-preview__icon-btn" data-tooltip="Edit Exam Paper">
+                <FaEdit />
               </button>
-              <button
-                onClick={handleDelete}
-                className="exam-preview__btn exam-preview__btn--danger"
-              >
-                Delete Exam Paper
+              <button onClick={handleRequestApproval} className="exam-preview__icon-btn" data-tooltip="Request Approval">
+                <FaCheck />
               </button>
-              <button
-                onClick={handleRequestApproval}
-                className="exam-preview__btn exam-preview__btn--success"
-              >
-                Request Approval
+              <button onClick={handlePublish} className="exam-preview__icon-btn" data-tooltip="Publish">
+                <FaPaperPlane />
               </button>
-              <button
-                onClick={handlePublish}
-                className="exam-preview__btn exam-preview__btn--success"
-              >
-                Publish
+              <button onClick={handleUnpublish} className="exam-preview__icon-btn" data-tooltip="Unpublish">
+                <FaUndo />
               </button>
-              <button
-                onClick={handleUnpublish}
-                className="exam-preview__btn exam-preview__btn--success"
-              >
-                Unpublish
+              <button onClick={handleDelete} className="exam-preview__delete-icon-btn" data-tooltip="Delete">
+                <FaTrash />
               </button>
             </div>
+
           </div>
         </div>
       </div>

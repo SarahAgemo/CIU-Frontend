@@ -165,7 +165,7 @@ function QuestionsPreview() {
 
   if (!questions.length) return <div>No questions found.</div>;
 
-  return (
+    return (
     <div className={Dash.lecturerDashboard}>
       {/* Snackbar Component */}
       <Snackbar
@@ -222,7 +222,7 @@ function QuestionsPreview() {
             {questions.map((question) => (
               <div key={question.id} className="question-card mb-3">
                 <div className="question-content">
-                  <strong>Q{question.id}: </strong> {question.content}
+                  <strong>Q{question.questionNumber}: </strong> {question.content}
                 </div>
                 <form className="question-options">
                   {question.options.map((option, index) => (

@@ -6,6 +6,7 @@ import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
+import { FaEye, FaCheckCircle, FaBan, FaTimesCircle } from "react-icons/fa";
 
 function AdminExamPaperPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -498,13 +499,10 @@ function AdminExamPaperPreview() {
             </div>
 
             <div className="exam-preview__btn-container">
-              <button
-                onClick={handlePreviewQuestions}
-                className="exam-preview__btn exam-preview__btn--info"
-              >
-                Preview Questions
+            <button onClick={handlePreviewQuestions} className="exam-preview__icon-btn" data-tooltip="Preview Questions">
+                <FaEye />
               </button>
-              <button
+              {/* <button
                 onClick={handleApproval}
                 className="exam-preview__btn exam-preview__btn--info"
               >
@@ -515,6 +513,12 @@ function AdminExamPaperPreview() {
                 className="exam-preview__btn exam-preview__btn--info"
               >
                 Reject Exam
+              </button> */}
+              <button onClick={handleApproval} className="exam-preview__icon-btn" data-tooltip="Approve Exam">
+                <FaCheckCircle/>
+              </button>
+              <button onClick={handleRejection} className="exam-preview__reject-icon-btn" data-tooltip="Reject Exam">
+                <FaTimesCircle />
               </button>
             </div>
           </div>

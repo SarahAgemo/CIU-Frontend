@@ -38,17 +38,18 @@ export default function Dashboard() {
     const fetchStudentCount = async () => {
       try {
         const response = await axios.get('http://localhost:3000/students/count/students');
-        setStudentCount(response.data); // Adjust according to your backend response structure
+        console.log("Student Count Response:", response);
+        setStudentCount(response.data.count || 0);  // Ensure response is not undefined
       } catch (error) {
         console.error("Error fetching student count:", error);
       }
     };
 
-    // Function to fetch program count
     const fetchProgramCount = async () => {
       try {
         const response = await axios.get('http://localhost:3000/students/count/programs');
-        setProgramCount(response.data.count); // Adjust according to your backend response structure
+        console.log("Program Count Response:", response);
+        setProgramCount(response.data.count || 0);  // Ensure response is not undefined
       } catch (error) {
         console.error("Error fetching program count:", error);
       }
@@ -113,7 +114,7 @@ export default function Dashboard() {
     fetchUpcomingAssessmentsCount();
     fetchStudentCount();
     fetchProgramCount();
-  }, []); // Empty dependency array means this runs once after the first render
+  }, []);
 
   return (
     <div className={AdminDash["overall"]}>
@@ -138,5 +139,5 @@ export default function Dashboard() {
       </div>
     </div>
     </div>
-  ); 
+  );
 }
