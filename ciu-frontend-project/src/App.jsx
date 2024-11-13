@@ -208,6 +208,11 @@ function App() {
                 element={<QuestionBankPreview />}
               />
 
+              <Route
+                path="/published-exam-list"
+                element={<PublishedExamList />}
+              />
+
               {/* Student - Protected route*/}
 
               {/* <Route path="/student" element={

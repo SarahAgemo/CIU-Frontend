@@ -8,6 +8,27 @@
     background-color: #f4f4f4;
     padding: 20px;
     flex-direction: column;
+
+  }
+  .tableContainer {
+    margin-bottom: 20px;
+    width: 90%;
+    max-width: 1200px;
+    overflow-x: auto;
+  }
+  .questionTable {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  .formContainer {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .page-title {
