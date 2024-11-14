@@ -220,7 +220,7 @@ export default function CreateExamContent() {
                 <Alert onClose={() => setSnackbarOpen(false)} 
                 severity={snackbarSeverity}
                     sx={{
-                        backgroundColor: snackbarSeverity === 'error' ? '#FDEDED' : '#FFF4E5',
+                        backgroundColor: snackbarSeverity === 'error' ? '#FFF4E5' : '#FFF4E5',
                         color: '#000',
                         display: 'flex',
                         alignItems: 'center'
