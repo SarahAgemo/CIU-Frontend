@@ -188,7 +188,7 @@ const PublishedExamList = () => {
               />
             </div>
             <h2 style={{ marginRight: "700px" }}>Published Exams</h2>
-            <table className="glass-table">
+            <table className="C-glass-table">
               <thead>
                 <tr>
                   <th>CourseUnit</th>
@@ -205,16 +205,17 @@ const PublishedExamList = () => {
                     <td>{exam.description}</td>
                     <td className="space-x-2">
                       <button
-                        className="preview-button"
+                        className="C-preview-button"
                         onClick={() => navigate(`/exam-paper/${exam.id}`)}
                         disabled={loading}
                       >
                         Preview
                       </button>
                       <button
-                        className="flex items-center gap-2 bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 disabled:bg-gray-400"
+                        className="C-add-to-bank-button"
                         onClick={() => handleAddToBank(exam)}
                         disabled={loading}
+                        
                       >
                         <Plus className="w-4 h-4" />
                         Add to Bank
