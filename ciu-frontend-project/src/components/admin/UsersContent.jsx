@@ -35,15 +35,42 @@ function UserList({ users, deleteUser }) {
   const [filteredUsers, setFilteredUsers] = useState(users);
 
   useEffect(() => {
-    const filtered = users.filter(
-      (user) =>
-        `${user.first_name} ${user.last_name}`
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = users.filter((user) =>
+      Object.values(user)
+        .join(" ")
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
     );
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
+
+  const searchContainerStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "20px 0",
+    gap: "0px"
+  };
+
+  const searchButtonStyles = {
+    backgroundColor: "#0F533D",
+    color: "white",
+    padding: "12px 24px",
+    border: "none",
+    cursor: "pointer",
+    minWidth: "200px",
+    fontSize: "16px",
+    marginLeft: "500px"
+  };
+
+  const searchInputStyles = {
+    padding: "12px 16px",
+    border: "1px solid #ddd",
+    borderRadius: "2px",
+    fontSize: "16px",
+    width: "300px",
+    color: "#666"
+  };
 
   const userList = filteredUsers.map((user, index) => (
     <tr key={user.id}>
@@ -53,88 +80,53 @@ function UserList({ users, deleteUser }) {
       <td>{user.email}</td>
       <td>{user.role}</td>
       <td>
-        <button
+        <span
           onClick={() => navigate(`/edit/${user.id}`)}
           type="button"
           className={styles["btn-secondary"]}
         >
-          <FaEdit />
-        </button>
-        <button
+          <FaEdit className="icon-edit" />
+        </span>
+
+        <span
           onClick={() => {
-            if (window.confirm("Are you sure you want to delete this user?")) {
+            if (window.confirm('Are you sure you want to delete this user?')) {
               deleteUser(user.id);
             }
           }}
           type="button"
           className={styles["btn-danger"]}
         >
-          <FaTrash />
-        </button>
+          <FaTrash className="icon-trash" />
+        </span>
       </td>
     </tr>
   ));
 
   return (
     <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          
-          alignItems: "center",
-          padding: "15px",
-          overflow: "hidden",
-          width: "100%",
-          gap: "0px",
-        }}
-      >
-       
-
-        <button
-          onClick={() => navigate("/registers")}
-          type="button"
-          style={{
-            backgroundColor: "#0F533D",
-            color: "white",
-            padding: "12px 24px",
-            border: "none",
-            cursor: "pointer",
-            minWidth: "200px",
-            fontSize: "16px",
-            marginLeft: "500px",
-          }}
+     
+      <div style={searchContainerStyles}>
+        <button 
+          style={searchButtonStyles}
+          onClick={() => navigate('/registers')}
         >
           Add New Lecturer
         </button>
-
         <input
           type="text"
-          placeholder="Search by name..."
+          placeholder="Search users..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{
-            padding: "12px 16px",
-            border: "1px solid #ddd",
-            borderRadius: "2px",
-            fontSize: "16px",
-            width: "300px",
-            color: "#666",
-          }}
+          style={searchInputStyles}
         />
       </div>
-      <h2
-          className="admins-heading"
-          style={{ fontSize: "1.9rem", textAlign: "center", marginRight: "800px"  }}
-        >
-          Lists of Lecturers
-        </h2>
+      <h2 style={{ marginRight: "800px" }}>Lecturers</h2>
+
       <Table>
         <TableHead cols={cols} />
         <TableBody>{userList}</TableBody>
       </Table>
-      
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa"; // Import icons for edit and delete
+import { FaEdit, FaTrash } from "react-icons/fa";
 import "./QuestionsPreview.css";
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
@@ -26,19 +26,18 @@ function QuestionsPreview() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [error, setError] = useState("");
-  const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers
+  const [selectedAnswers, setSelectedAnswers] = useState({});
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         console.log("Fetching questions for exam paper ID:", id);
-        const response = await fetch(
-          `http://localhost:3000/exam-paper/${id}/questions`
-        );
+        const response = await fetch(`http://localhost:3000/exam-paper/${id}/questions`);
         if (!response.ok) throw new Error("Failed to fetch questions");
 
         const data = await response.json();
@@ -61,23 +60,14 @@ function QuestionsPreview() {
   const handleDeleteQuestion = async (questionId) => {
     if (window.confirm("Are you sure you want to delete this question?")) {
       try {
-        console.log(
-          `Attempting to delete question ID: ${questionId} from exam paper ID: ${id}`
-        );
-        const response = await fetch(
-          `http://localhost:3000/exam-paper/${id}/question/${questionId}`,
-          {
-            method: "DELETE",
-          }
-        );
+        console.log(`Attempting to delete question ID: ${questionId} from exam paper ID: ${id}`);
+        const response = await fetch(`http://localhost:3000/exam-paper/${id}/question/${questionId}`, {
+          method: "DELETE",
+        });
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(
-            `Failed to delete question: ${
-              errorData.message || response.statusText
-            }`
-          );
+          throw new Error(`Failed to delete question: ${errorData.message || response.statusText}`);
         }
 
         setQuestions(questions.filter((q) => q.id !== questionId));
@@ -103,8 +93,6 @@ function QuestionsPreview() {
   if (error) return <div className="alert alert-danger">{error}</div>;
   if (!questions.length) return <div>No questions found.</div>;
 
-
-
   return (
     <div className={Dash.lecturerDashboard}>
       <div className={Dash.dashboard}>
@@ -112,19 +100,14 @@ function QuestionsPreview() {
         <div className={Dash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
-            <MobileMenu
-              isOpen={isMobileMenuOpen}
-              toggleMenu={toggleMobileMenu}
-            />
+            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
           )}
           <div className={Dash.backButtonContainer}>
             <BackButton targetPath={`/exam-paper/${id}`} size={30} color="#106053" />
           </div>
           <div className="questions-preview-container mt-5">
             <h3 className="questions-preview-header">Questions Preview</h3>
-            <p className="total-questions">
-              Total Questions: {questions.length}
-            </p>
+            <p className="total-questions">Total Questions: {questions.length}</p>
             {questions.map((question) => (
               <div key={question.id} className="question-card mb-3">
                 <div className="question-content">
@@ -142,10 +125,7 @@ function QuestionsPreview() {
                         checked={selectedAnswers[question.id] === option}
                         onChange={() => handleOptionChange(question.id, option)}
                       />
-                      <label
-                        className="form-check-label"
-                        htmlFor={`question-${question.id}-option-${index}`}
-                      >
+                      <label className="form-check-label" htmlFor={`question-${question.id}-option-${index}`}>
                         {option}
                       </label>
                     </div>
@@ -155,18 +135,11 @@ function QuestionsPreview() {
                   <strong>Correct Answer:</strong> {question.answer}
                 </div>
                 <div className="question-actions">
-                  <button
-                    onClick={() => handleEditQuestion(question.id)}
-                    className="btn btn-warning me-1 icon-button"
-                  >
+                  <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning me-1 icon-button">
                     <FaEdit className="icon-edit" />
                   </button>
-                  <button
-                    onClick={() => handleDeleteQuestion(question.id)}
-                    className="btn btn-warning me-1 icon-button"
-                  >
-                    <FaTrash  className="icon-trash" />
-                    {/* <FaTrash /> */}
+                  <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-warning me-1 icon-button">
+                    <FaTrash className="icon-trash" />
                   </button>
                 </div>
               </div>

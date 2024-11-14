@@ -61,7 +61,7 @@ function ExamList() {
     navigate(`/exam-paper/${examId}`);
   };
 
-  if (error) return <div className="alert alert-danger">{error}</div>;
+  if (error) return <div className="E-alert alert-danger">{error}</div>;
   if (!filteredExamPapers.length) return <div>Loading...</div>;
 
 
@@ -108,7 +108,7 @@ function ExamList() {
           <div className={Dash.backButtonContainer}>
             <BackButton targetPath="/lecturerdashboard" size={30} color="#106053" />
           </div>
-          <div className="exam-list-container">
+          <div className="E-exam-list-container">
             <div className="search-container">
 
             <div style={searchContainerStyles}>
@@ -127,13 +127,15 @@ function ExamList() {
         />
       </div>
             </div>
-            <table className="glass-table">
+            <h2 style={{ marginRight: "850px" }}>Exam Papers</h2>
+            <table className="E-glass-table">
               <thead>
                 <tr>
                   <th>Course Unit</th>
                   <th>Title</th>
                   <th>Instructions</th>
-                  <th>Status</th>
+                  <th>Status</th> {/* Added Status Column */}
+                  <th>Phase</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -144,17 +146,38 @@ function ExamList() {
                     <td>{exam.title}</td>
                     <td>{exam.description}</td>
                     <td>
+                    <span
+                      className={`E-status-text ${
+                        exam.isDraft ? "draft" : "published"
+                      }`}
+                    >
+                      {exam.isDraft ? "Draft" : "Published"}
+                    </span>
+                    </td>
+                    <td>
                       <span
-                        className={`status-text ${
-                          exam.isDraft ? "draft" : "published"
-                        }`}
+                          className={`E-status-text ${
+                              exam.status === "draft"
+                              ? "draft"
+                              : exam.status === "pending"
+                              ? "pending"
+                              : exam.status === "approved"
+                              ? "approved"
+                              : exam.status === "rejected"
+                              ? "rejected"
+                              : exam.status === "published"
+                              ? "published"
+                              : exam.status === "unpublished"
+                              ? "unpublished"
+                              : ""
+                          }`}
                       >
-                        {exam.isDraft ? "Draft" : "Published"}
+                          {exam.status}
                       </span>
                     </td>
                     <td>
                       <button
-                        className="preview-button"
+                        className="E-preview-button"
                         onClick={() => handlePreview(exam.id)}
                       >
                         <FiEye />

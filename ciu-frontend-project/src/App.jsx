@@ -30,6 +30,9 @@ import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 import TokenPasswordPage from "./components/admin/TokenPasswordPage";
+import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
+import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
+import AdminLogin from "./pages/admin/AdminLogin.jsx"
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -51,13 +54,14 @@ import LecturerDashboard from "./components/lecturer/LecturerDashboard.jsx";
 import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
 import LectCourses from "./pages/lecturer/LectCourses.jsx";
 import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
+import LecLogin from "./pages/lecturer/LecLogin.jsx"
 
 // Student
-import StudentDashboard from "./pages/student/StudentDashboard.jsx";
-import DoExam from "./pages/student/DoExam.jsx";
-import SupportPage from "./pages/student/SupportPage.jsx";
-import FAQpage from "./pages/student/FAQpage.jsx";
-import ReportIssue from "./pages/student/ReportIssue.jsx";
+import StudentDashboard from "./pages/student/StudentDashboard";
+import DoExam from "./pages/student/DoExam";
+import SupportPage from "./pages/student/SupportPage";
+import FAQpage from "./pages/student/FAQpage";
+import ReportIssue from "./pages/student/ReportIssue";
 import ExamInstructions from "./pages/student/ExamInstructions";
 import Proctoring from "./pages/student/Proctoring";
 import Quiz from "./pages/student/Quiz";
@@ -91,6 +95,8 @@ function App() {
               <Route path="/request-token" element={<RequestToken />} />
 
               {/* Admin */}
+              <Route path="/admin-exam-paper/:id/questions" element={<AdminQuestionsPreview />}/>
+              <Route path="/admin-exam-paper/:id" element={<AdminExamPaperPreview/>} />
               <Route path="/registers" element={<Registration />} />
               <Route path="/manage" element={<ManageUsers />} />
               <Route path="/register" element={<RegForm />} />
@@ -137,6 +143,11 @@ function App() {
               />
               <Route path="/admin-courses" element={<AdminCourses />} />
               <Route path="/admin-exam-list" element={<AdminExamList />} />
+              <Route
+                path="/Adminlogin"
+                element={<AdminLogin />}
+              />
+
 
               {/* Lecturer */}
               <Route
@@ -165,6 +176,8 @@ function App() {
                 path="/exam-paper/:id/edit"
                 element={<EditExamInterface />}
               />
+            
+              
               <Route
                 path="/published-exam-papers"
                 element={<PublishedExamList />}
@@ -206,6 +219,11 @@ function App() {
               <Route
                 path="/question-bank/:bankId/preview"
                 element={<QuestionBankPreview />}
+              />
+
+              <Route
+                path="/lecturerlogin"
+                element={<LecLogin />}
               />
 
               {/* Student - Protected route*/}

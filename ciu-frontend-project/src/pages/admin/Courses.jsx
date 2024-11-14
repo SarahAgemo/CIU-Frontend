@@ -101,7 +101,7 @@ function UserList({ users, deleteUser }) {
           style={searchInputStyles}
         />
       </div>
-
+      <h2 style={{ marginRight: "800px" }}>Courses</h2>
       <Table>
         <TableHead cols={cols} />
         <TableBody>
@@ -220,10 +220,13 @@ function AdminCourses() {
         <div className={Dash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
-            <MobileMenu
-              isOpen={isMobileMenuOpen}
-              toggleMenu={toggleMobileMenu}
-            />
+            <>
+              <div 
+                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                onClick={toggleMobileMenu}
+              ></div>
+              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            </>
           )}
           <div className={course["users-content"]}>
             <div className={course["row justify-content-center pt-5"]}>

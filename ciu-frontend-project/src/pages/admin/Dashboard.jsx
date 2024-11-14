@@ -38,17 +38,18 @@ export default function Dashboard() {
     const fetchStudentCount = async () => {
       try {
         const response = await axios.get('http://localhost:3000/students/count/students');
-        setStudentCount(response.data); // Adjust according to your backend response structure
+        console.log("Student Count Response:", response);
+        setStudentCount(response.data.count || 0);  // Ensure response is not undefined
       } catch (error) {
         console.error("Error fetching student count:", error);
       }
     };
 
-    // Function to fetch program count
     const fetchProgramCount = async () => {
       try {
         const response = await axios.get('http://localhost:3000/students/count/programs');
-        setProgramCount(response.data.count); // Adjust according to your backend response structure
+        console.log("Program Count Response:", response);
+        setProgramCount(response.data.count || 0);  // Ensure response is not undefined
       } catch (error) {
         console.error("Error fetching program count:", error);
       }
@@ -113,30 +114,36 @@ export default function Dashboard() {
     fetchUpcomingAssessmentsCount();
     fetchStudentCount();
     fetchProgramCount();
-  }, []); // Empty dependency array means this runs once after the first render
+  }, []);
 
-  return (
-    <div className={AdminDash["overall"]}>
-    <div className={AdminDash["dashboard"]}>
+return (
+  <div className={AdminDash["overall"]}>
+    <div className={`${AdminDash["dashboard"]} ${isMobileMenuOpen ? AdminDash["menu-open"] : ""}`}>
       <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
       <div className={AdminDash["dashboard-content"]}>
         {!isMobile && <Sidebar />}
-        {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
-        <main className={AdminDash["main-content"]}>
+        {isMobile && (
+          <>
+            <div 
+              className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+              onClick={toggleMobileMenu}
+            ></div>
+            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+          </>
+        )}
+        <main className={`${AdminDash["main-content"]} ${isMobileMenuOpen ? AdminDash["dimmed"] : ""}`}>
           <h2 className={AdminDash["dashboard-title"]}>Dashboard</h2>
           <div className={AdminDash["dashboard-cards"]}>
             <DashboardCard title="Registered Students" value={studentCount} icon="🎓" />
             <DashboardCard title="Registered Lecturers" value={lecturerCount} icon="👨‍💻" />
             <DashboardCard title="Registered Courses" value={courseCount} icon="📖" />
             <DashboardCard title="Registered Course Units" value={courseUnitCount} icon="📖" />
-            {/* You can add more DashboardCards here if needed */}
             <DashboardCard title="Ongoing Exams/Assessments" value={ongoingAssessmentsCount} icon="📝" />
             <DashboardCard title="Upcoming Exams/Assessments" value={upcomingAssessmentsCount} icon="📝" />
-            
           </div>
         </main>        
       </div>
     </div>
-    </div>
-  ); 
+  </div>
+);
 }
