@@ -50,11 +50,11 @@ export default function Header() {
         <button className={Head["icon-button"]}>
           <Settings size={24} />
         </button>
-        <Link to="/student/notifications">
+        {/* <Link to="/student/notifications">
       <button className={Head["icon-button"]}>
     <Bell size={24} />
      </button>
-      </Link>
+      </Link> */}
 
         <div className={Head["user-info"]}>
           <User size={24} />

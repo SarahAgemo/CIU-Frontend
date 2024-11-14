@@ -251,7 +251,7 @@ function App() {
               />
               <Route path="/instructions" element={<ExamInstructions />} />
               <Route path="/proctoring" element={<Proctoring />} />
-              <Route path="/student/notifications" element={<StudentNotifications />} />
+              <Route path="/notifications" element={<StudentNotifications />} />
               <Route path="/quiz/:id" element={<Quiz />} />
               <Route
                 path="/student/support/message-support"
