@@ -128,7 +128,7 @@ const Registration = () => {
           if (selectedUser === "Administrator") {
             navigate("/adminuser");
           } else if (selectedUser === "Lecturer") {
-            navigate("/token-password-reset");
+            navigate("/dashboard");
           }
         } else {
           setErrors({
