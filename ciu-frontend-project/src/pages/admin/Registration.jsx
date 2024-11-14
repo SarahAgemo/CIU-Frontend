@@ -262,6 +262,30 @@ const Registration = () => {
           border-color: #106053;
           outline: none;
         }
+
+        .overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0, 0, 0, 0.5);
+          display: none;
+          z-index: 998;
+        }
+
+        .overlay.active {
+          display: block;
+        }
+
+        .menu-open .main-content {
+          pointer-events: none;
+        }
+
+        .dimmed {
+          opacity: 0.5;
+          transition: opacity 0.3s ease;
+}
              `}
       </style>
 
@@ -271,10 +295,13 @@ const Registration = () => {
           <div className={AdminDash["dashboard-content"]}>
             {!isMobile && <Sidebar />}
             {isMobile && (
-              <MobileMenu
-                isOpen={isMobileMenuOpen}
-                toggleMenu={toggleMobileMenu}
-              />
+              <>
+                <div 
+                  className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                  onClick={toggleMobileMenu}
+                ></div>
+                <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+              </>
             )}
 
             <div className="container">

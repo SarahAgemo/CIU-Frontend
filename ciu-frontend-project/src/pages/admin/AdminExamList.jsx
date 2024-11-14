@@ -63,10 +63,13 @@ function AdminExamList() {
                 <div className={Dash["dashboard-content"]}>
                     {!isMobile && <Sidebar />}
                     {isMobile && (
-                        <MobileMenu
-                            isOpen={isMobileMenuOpen}
-                            toggleMenu={toggleMobileMenu}
-                        />
+                    <>
+                        <div 
+                        className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                        onClick={toggleMobileMenu}
+                        ></div>
+                        <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+                    </>
                     )}
                     <div className={Dash.backButtonContainer}>
                         <BackButton targetPath="/dashboard" size={30} color="#106053" />
