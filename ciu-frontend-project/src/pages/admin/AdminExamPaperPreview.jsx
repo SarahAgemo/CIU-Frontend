@@ -271,6 +271,7 @@ import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
 
+
 function AdminExamPaperPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -392,7 +393,13 @@ function AdminExamPaperPreview() {
         <div className={Dash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
-            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            <>
+              <div 
+                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`} 
+                onClick={toggleMobileMenu}
+              ></div>
+              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            </>
           )}
           <div className={Dash.backButtonContainer}>
             <BackButton targetPath="/admin-exam-list" size={30} color="#106053" />
