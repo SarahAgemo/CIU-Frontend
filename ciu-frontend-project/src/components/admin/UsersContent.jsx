@@ -141,6 +141,7 @@ function UserList({ users, deleteUser }) {
     const navigate = useNavigate();
 
     const userList = users.map((user, index) => (
+        
         <tr key={user.id}>
             <th scope="row">{index + 1}</th>
             <td>{user.first_name}</td>
@@ -148,15 +149,15 @@ function UserList({ users, deleteUser }) {
             <td>{user.email}</td>
             <td>{user.role}</td>
             <td>
-                <button
+                <span
                     onClick={() => navigate(`/edit/${user.id}`)}
                     type="button"
                     className={styles["btn-secondary"]}
                 >
-                    <FaEdit />
-                </button>
+                    <FaEdit className="icon-edit"/>
+                </span>
 
-                <button
+                <span
                     onClick={() => {
                         if (window.confirm('Are you sure you want to delete this user?')) {
                             deleteUser(user.id);
@@ -165,17 +166,21 @@ function UserList({ users, deleteUser }) {
                     type="button"
                     className={styles["btn-danger"]}
                 >
-                    <FaTrash />
-                </button>
+                    <FaTrash className="icon-trash"/>
+                </span>
             </td>
         </tr>
     ));
 
     return (
+        <div>
+        <h2>Lecturers</h2>
         <Table>
+            
             <TableHead cols={cols} />
             <TableBody>{userList}</TableBody>
         </Table>
+        </div>
     );
 }
 

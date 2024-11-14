@@ -32,6 +32,7 @@ import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 import TokenPasswordPage from "./components/admin/TokenPasswordPage";
 import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
 import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
+import AdminLogin from "./pages/admin/AdminLogin.jsx"
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -53,6 +54,7 @@ import LecturerDashboard from "./components/lecturer/LecturerDashboard.jsx";
 import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
 import LectCourses from "./pages/lecturer/LectCourses.jsx";
 import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
+import LecLogin from "./pages/lecturer/LecLogin.jsx"
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -142,6 +144,11 @@ function App() {
               />
               <Route path="/admin-courses" element={<AdminCourses />} />
               <Route path="/admin-exam-list" element={<AdminExamList />} />
+              <Route
+                path="/Adminlogin"
+                element={<AdminLogin />}
+              />
+
 
               {/* Lecturer */}
               <Route
@@ -170,6 +177,8 @@ function App() {
                 path="/exam-paper/:id/edit"
                 element={<EditExamInterface />}
               />
+            
+              
               <Route
                 path="/published-exam-papers"
                 element={<PublishedExamList />}
@@ -211,6 +220,11 @@ function App() {
               <Route
                 path="/question-bank/:bankId/preview"
                 element={<QuestionBankPreview />}
+              />
+
+              <Route
+                path="/lecturerlogin"
+                element={<LecLogin />}
               />
 
               {/* Student - Protected route*/}
