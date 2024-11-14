@@ -76,64 +76,85 @@ export default function CreateExamContent() {
     // Fix 5: Update handleInputChange
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
 
-        // Update course unit code when course unit changes
+        // Special handling for scheduledDate
+        if (name === 'scheduledDate') {
+            const selectedDateTime = moment(value);
+            const currentTime = moment();
+            const minimumAllowedTime = currentTime.add(24, 'hours');
+
+            // Check if the selected time is less than 24 hours from now
+            if (selectedDateTime.isBefore(minimumAllowedTime)) {
+                alert('Scheduled date and time must be at least 24 hours from the current time.');
+                // Clear the scheduledDate, startTime, and endTime fields
+                setFormData(prevData => ({
+                    ...prevData,
+                    scheduledDate: '',
+                    startTime: '',
+                    endTime: ''
+                }));
+                return;
+            }
+
+            // If the time is valid (more than 24 hours), proceed with setting the times
+            const startTime = selectedDateTime.format('HH:mm');
+            
+            // Calculate endTime if duration is already set
+            let endTime = '';
+            if (formData.duration) {
+                const [durationHours, durationMinutes] = formData.duration.split(':').map(Number);
+                endTime = selectedDateTime
+                    .clone()
+                    .add(durationHours, 'hours')
+                    .add(durationMinutes, 'minutes')
+                    .format('HH:mm');
+            }
+
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value,
+                startTime,
+                endTime
+            }));
+            return;
+        }
+
+        // Handle duration changes
+        if (name === 'duration' && formData.scheduledDate) {
+            const startDateTime = moment(formData.scheduledDate);
+            const [durationHours, durationMinutes] = value.split(':').map(Number);
+            const endTime = startDateTime
+                .clone()
+                .add(durationHours, 'hours')
+                .add(durationMinutes, 'minutes')
+                .format('HH:mm');
+
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value,
+                endTime
+            }));
+            return;
+        }
+
+        // Handle course unit changes
         if (name === 'courseUnit') {
             const selectedUnit = courseUnits.find(unit => unit.unitName === value);
             if (selectedUnit) {
                 setFormData(prevData => ({
                     ...prevData,
-                    courseUnitCode: selectedUnit.unitCode,
+                    [name]: value,
+                    courseUnitCode: selectedUnit.unitCode
                 }));
+                return;
             }
         }
 
-        // Auto-calculate endTime based on startTime and duration
-        if (name === 'scheduledDate') {
-    // Automatically update startTime with the time portion of scheduledDate
-    const selectedDateTime = moment(value);
-    const currentTime = moment();
-
-    // Check if the scheduled date-time is at least 24 hours from the current time
-    if (selectedDateTime.isBefore(currentTime.add(24, 'hours'))) {
-        alert('Scheduled date and time must be at least 24 hours from the current time.');
-        return;
-    }
-    const startTime = selectedDateTime.format('HH:mm');
-    setFormData((prevData) => ({
-        ...prevData,
-        startTime
-    }));
-
-    // Calculate endTime if duration is provided
-    if (formData.duration) {
-        const [durationHours, durationMinutes] = formData.duration.split(':').map(Number);
-        const endTime = selectedDateTime
-            .add(durationHours, 'hours')
-            .add(durationMinutes, 'minutes')
-            .format('HH:mm');
-        setFormData((prevData) => ({
+        // Default handling for other fields
+        setFormData(prevData => ({
             ...prevData,
-            endTime
+            [name]: value
         }));
-    }
-} else if (name === 'duration' && formData.startTime) {
-    // Calculate endTime based on startTime and updated duration
-    const startTimeMoment = moment(formData.scheduledDate);
-    const [durationHours, durationMinutes] = value.split(':').map(Number);
-    const endTime = startTimeMoment
-        .add(durationHours, 'hours')
-        .add(durationMinutes, 'minutes')
-        .format('HH:mm');
-    setFormData((prevData) => ({
-        ...prevData,
-        endTime
-    }));
-}
     };
     const handleQuestionChange = (index, e) => {
         const { name, value } = e.target;
@@ -278,14 +299,14 @@ export default function CreateExamContent() {
                     />
                 </div>
                 <div className={createExam.formGroup_duration}>
-                    <label className={createExam.label_duration}>Duration (in minutes)</label>
+                    <label className={createExam.label_duration}>Duration</label>
                     <input
                         type="text"
                         name="duration"
                         value={formData.duration}
                         onChange={handleInputChange}
                         className={createExam.input_duration}
-                        placeholder="Duration"
+                        placeholder="HH:MM"
                         required
                     />
                 </div>
