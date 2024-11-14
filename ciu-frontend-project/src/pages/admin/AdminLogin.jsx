@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaUser, FaLock } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./AdminLogin.css";
 
 const AdminLogin = () => {
@@ -9,27 +9,43 @@ const AdminLogin = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+
     setIsSubmitting(true);
     setErrorMessage('');
     setSuccessMessage('');
 
-    try {
-      // Replace this with actual admin login logic
-      // Example:
-      // const response = await api.adminLogin({ identifier, password });
-      // if (response.success) {
-      //   setSuccessMessage('Login successful!');
-      //   // Redirect or perform other actions specific to admin
-      // } else {
-      //   setErrorMessage('Invalid credentials.');
-      // }
+    const endpoint = "http://localhost:3000/adminauth/login";
+    const userPayload = { email: identifier, password };
 
-      // Mocking a successful login for demonstration
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      setSuccessMessage('Admin login successful!');
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userPayload),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setSuccessMessage('Admin login successful!');
+
+        // Store access token and admin data in localStorage
+        const accessToken = data.access_token || data.token?.access_token;
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        // Redirect to admin dashboard
+        navigate("/dashboard");
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || 'Invalid credentials.');
+      }
     } catch (error) {
       setErrorMessage('An error occurred during login. Please try again.');
     } finally {
@@ -41,12 +57,11 @@ const AdminLogin = () => {
     <div className="admin-overall">
       <div className="wrapper">
         <div className="top-section">
-        <img src="./src/assets/images/ciu-logo-login.png" alt="Logo" />
+          <img src="./src/assets/images/ciu-logo-login.png" alt="Logo" />
           <h1>ONLINE EXAMINATION SYSTEM</h1>
-
-          <h6>ADMIN LOGIN</h6>
         </div>
         <div className="form-box">
+           <h6>ADMIN LOGIN</h6>
           <form onSubmit={handleSubmit}>
             <div className="input-box">
               <input

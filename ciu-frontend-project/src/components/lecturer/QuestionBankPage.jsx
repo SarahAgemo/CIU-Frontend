@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from 'react';
-import { Trash2, Eye, Download } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import { jsPDF } from 'jspdf';
-import styles from './QuestionBankPage.module.css';
+import React, { useState, useEffect } from "react";
+import { Trash2, Eye, Download } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { jsPDF } from "jspdf";
+import styles from "./QuestionBankPage.module.css";
 
-
-
-import Header from '../../components/lecturer/HeaderPop';
-import Sidebar from '../../components/lecturer/SideBarPop';
+import Header from "../../components/lecturer/HeaderPop";
+import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
-import Dash from '../../components/lecturer/LecturerDashboard.module.css';
+import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 
 const QuestionBank = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [questionBanks, setQuestionBanks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredBanks, setFilteredBanks] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -33,14 +33,48 @@ const QuestionBank = () => {
     fetchQuestionBanks();
   }, []);
 
+  // Filter banks when search term or questionBanks change
+  useEffect(() => {
+    const filterBanks = () => {
+      if (!searchTerm) {
+        setFilteredBanks(questionBanks);
+        return;
+      }
+
+      const searchTermLower = searchTerm.toLowerCase();
+      const filtered = Object.entries(questionBanks).reduce(
+        (acc, [courseUnit, banks]) => {
+          const filteredBanksList = banks.filter(
+            (bank) =>
+              bank.courseUnit.toLowerCase().includes(searchTermLower) ||
+              bank.courseUnitCode.toLowerCase().includes(searchTermLower) ||
+              bank.createdBy.toLowerCase().includes(searchTermLower)
+          );
+
+          if (filteredBanksList.length > 0) {
+            acc[courseUnit] = filteredBanksList;
+          }
+          return acc;
+        },
+        {}
+      );
+
+      setFilteredBanks(filtered);
+    };
+
+    filterBanks();
+  }, [searchTerm, questionBanks]);
+
   const fetchQuestionBanks = async () => {
     try {
-      const response = await fetch('http://localhost:3000/question-bank');
+      const response = await fetch("http://localhost:3000/question-bank");
       const data = await response.json();
-      
+
       const banksWithQuestions = await Promise.all(
         data.map(async (bank) => {
-          const questionsResponse = await fetch(`http://localhost:3000/question-bank/${bank.id}/questions`);
+          const questionsResponse = await fetch(
+            `http://localhost:3000/question-bank/${bank.id}/questions`
+          );
           const questions = await questionsResponse.json();
           return { ...bank, questions };
         })
@@ -55,19 +89,22 @@ const QuestionBank = () => {
       }, {});
 
       setQuestionBanks(groupedBanks);
+      setFilteredBanks(groupedBanks);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching question banks:', error);
+      console.error("Error fetching question banks:", error);
       setLoading(false);
     }
   };
 
   const deleteQuestionBank = async (id) => {
     try {
-      await fetch(`http://localhost:3000/question-bank/${id}`, { method: 'DELETE' });
+      await fetch(`http://localhost:3000/question-bank/${id}`, {
+        method: "DELETE",
+      });
       fetchQuestionBanks();
     } catch (error) {
-      console.error('Error deleting question bank:', error);
+      console.error("Error deleting question bank:", error);
     }
   };
 
@@ -85,7 +122,11 @@ const QuestionBank = () => {
     doc.setFontSize(16);
     let yOffset = 20;
 
-    doc.text(`Question Bank: ${bank.courseUnit} - ${bank.courseUnitCode}`, 10, yOffset);
+    doc.text(
+      `Question Bank: ${bank.courseUnit} - ${bank.courseUnitCode}`,
+      10,
+      yOffset
+    );
     yOffset += 15;
 
     doc.setFontSize(12);
@@ -109,7 +150,11 @@ const QuestionBank = () => {
             doc.addPage();
             yOffset = 20;
           }
-          doc.text(`    ${String.fromCharCode(65 + optIndex)}. ${option}`, 10, yOffset);
+          doc.text(
+            `    ${String.fromCharCode(65 + optIndex)}. ${option}`,
+            10,
+            yOffset
+          );
           yOffset += 7;
         });
       }
@@ -128,6 +173,34 @@ const QuestionBank = () => {
     return <div className="p-6">Loading...</div>;
   }
 
+  const searchContainerStyles = {
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    padding: "20px 0",
+    marginBottom: "20px",
+  };
+
+  const searchButtonStyles = {
+    backgroundColor: "#0F533D",
+    color: "white",
+    padding: "12px 24px",
+    border: "none",
+    cursor: "pointer",
+    minWidth: "200px",
+    fontSize: "16px",
+    marginLeft: "500px",
+  };
+
+  const searchInputStyles = {
+    padding: "12px 16px",
+    border: "1px solid #ddd",
+    borderRadius: "2px",
+    fontSize: "16px",
+    width: "300px",
+    color: "#666",
+  };
+
   return (
     <div className={Dash["overall"]}>
       <div className={Dash["dashboard"]}>
@@ -142,8 +215,28 @@ const QuestionBank = () => {
           )}
 
           <div className={styles.formContainer}>
-            <h2 className={styles.formTitle}>Question Banks</h2>
+            
+
+            {/* Search Container */}
+            <div style={searchContainerStyles}>
+              <button
+                style={searchButtonStyles}
+                onClick={() => navigate("/published-exam-papers")}
+              >
+                Add New Bank
+              </button>
+
+              <input
+                type="text"
+                placeholder="Search by course unit, code or creator..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                style={searchInputStyles}
+              />
+            </div>
+
             <div className={styles.tableContainer}>
+            <h2 style={{ marginRight: "800px" }}>QuestionBanks</h2>
               <table className={styles.questionTable}>
                 <thead>
                   <tr>
@@ -155,7 +248,7 @@ const QuestionBank = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.entries(questionBanks).map(([courseUnit, banks]) => (
+                  {Object.entries(filteredBanks).map(([courseUnit, banks]) =>
                     banks.map((bank) => (
                       <tr key={bank.id}>
                         <td>{bank.courseUnit}</td>
@@ -164,18 +257,18 @@ const QuestionBank = () => {
                         <td>{bank.createdBy}</td>
                         <td>
                           <button onClick={() => handlePreview(bank.id)}>
-                            <Eye /> 
+                            <Eye />
                           </button>
                           <button onClick={() => generatePDF(bank)}>
-                            <Download /> 
+                            <Download />
                           </button>
                           <button onClick={() => deleteQuestionBank(bank.id)}>
-                            <Trash2 /> 
+                            <Trash2 />
                           </button>
                         </td>
                       </tr>
                     ))
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>

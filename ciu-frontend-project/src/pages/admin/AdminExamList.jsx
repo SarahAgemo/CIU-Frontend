@@ -8,12 +8,14 @@ import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
 import { FiEye } from "react-icons/fi";
 
-
-
-
 function AdminExamList() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [examPapers, setExamPapers] = useState([]);
+    const [error, setError] = useState("");
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredExams, setFilteredExams] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleResize = () => {
@@ -26,13 +28,6 @@ function AdminExamList() {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const toggleMobileMenu = () => {
-        setIsMobileMenuOpen(!isMobileMenuOpen);
-    };
-    const [examPapers, setExamPapers] = useState([]);
-    const [error, setError] = useState("");
-    const navigate = useNavigate(); // Initialize useNavigate
-
     useEffect(() => {
         const fetchExamPapers = async () => {
             try {
@@ -40,6 +35,7 @@ function AdminExamList() {
                 if (!response.ok) throw new Error("Failed to fetch exam papers");
                 const data = await response.json();
                 setExamPapers(data);
+                setFilteredExams(data);
             } catch (error) {
                 setError("Error fetching exam papers: " + error.message);
             }
@@ -48,13 +44,54 @@ function AdminExamList() {
         fetchExamPapers();
     }, []);
 
-    const handlePreview = (examId) => {
-        navigate(`/admin-exam-paper/${examId}`); // Navigate to the preview page for the selected exam
+    useEffect(() => {
+        const filtered = examPapers.filter((exam) =>
+            Object.values(exam)
+                .join(" ")
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase())
+        );
+        setFilteredExams(filtered);
+    }, [searchTerm, examPapers]);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
     };
 
-    if (error) return <div className="alert alert-danger">{error}</div>;
-    if (!examPapers.length) return <div>Loading...</div>;
+    const handlePreview = (examId) => {
+        navigate(`/admin-exam-paper/${examId}`);
+    };
 
+    const searchContainerStyles = {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "20px 0",
+        gap: "0px"
+    };
+
+    const searchButtonStyles = {
+        backgroundColor: "#0F533D",
+        color: "white",
+        padding: "12px 24px",
+        border: "none",
+        cursor: "pointer",
+        minWidth: "200px",
+        fontSize: "16px",
+        marginLeft: "500px"
+    };
+
+    const searchInputStyles = {
+        padding: "12px 16px",
+        border: "1px solid #ddd",
+        borderRadius: "2px",
+        fontSize: "16px",
+        width: "300px",
+        color: "#666"
+    };
+
+    if (error) return <div className="E-alert alert-danger">{error}</div>;
+    if (!examPapers.length) return <div>Loading...</div>;
 
     return (
         <div className={Dash.lecturerDashboard}>
@@ -63,69 +100,87 @@ function AdminExamList() {
                 <div className={Dash["dashboard-content"]}>
                     {!isMobile && <Sidebar />}
                     {isMobile && (
-                    <>
-                        <div 
-                        className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
-                        onClick={toggleMobileMenu}
-                        ></div>
-                        <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
-                    </>
+                        <>
+                            <div 
+                                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                                onClick={toggleMobileMenu}
+                            ></div>
+                            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+                        </>
                     )}
                     <div className={Dash.backButtonContainer}>
                         <BackButton targetPath="/dashboard" size={30} color="#106053" />
                     </div>
-                    <div className="exam-list-container">
-                        <h3>Exam Papers</h3>
-                        <table className="glass-table">
+                    <div className="E-exam-list-container">
+                       
+                        
+                        {/* Search Container */}
+                        <div style={searchContainerStyles}>
+                            <button 
+                                style={searchButtonStyles}
+                                onClick={() => navigate('#')}
+                            >
+                                View Exam Paper
+                            </button>
+                            <input
+                                type="text"
+                                placeholder="Search by exam title..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                style={searchInputStyles}
+                            />
+                        </div>
+                        <h2 style={{ marginRight: "800px" }}>Exam Papers</h2>
+                        <table className="E-glass-table">
                             <thead>
                                 <tr>
                                     <th>Course Unit</th>
                                     <th>Title</th>
                                     <th>Instructions</th>
-                                    <th>Status</th> {/* Added Status Column */}
+                                    <th>Status</th>
                                     <th>Phase</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {examPapers.map((exam) => (
+                                {filteredExams.map((exam) => (
                                     <tr key={exam.id}>
                                         <td>{exam.courseUnit}</td>
                                         <td>{exam.title}</td>
                                         <td>{exam.description}</td>
                                         <td>
                                             <span
-                                            className={`status-text ${
-                                                exam.isDraft ? "draft" : "published"
-                                            }`}
+                                                className={`E-status-text ${
+                                                    exam.isDraft ? "draft" : "published"
+                                                }`}
                                             >
-                                            {exam.isDraft ? "Draft" : "Published"}
+                                                {exam.isDraft ? "Draft" : "Published"}
                                             </span>
                                         </td>
                                         <td>
-                                        <span
-                                            className={`status-text ${
-                                                exam.status === "draft"
-                                                ? "draft"
-                                                : exam.status === "pending"
-                                                ? "pending"
-                                                : exam.status === "approved"
-                                                ? "approved"
-                                                : exam.status === "rejected"
-                                                ? "rejected"
-                                                : exam.status === "published"
-                                                ? "published"
-                                                : exam.status === "unpublished"
-                                                ? "unpublished"
-                                                : ""
-                                            }`}
-                                        >
-                                            {exam.status}
-                                        </span>
+                                            <span
+                                                className={`E-status-text ${
+                                                    exam.status === "draft"
+                                                    ? "draft"
+                                                    : exam.status === "pending"
+                                                    ? "pending"
+                                                    : exam.status === "approved"
+                                                    ? "approved"
+                                                    : exam.status === "rejected"
+                                                    ? "rejected"
+                                                    : exam.status === "published"
+                                                    ? "published"
+                                                    : exam.status === "unpublished"
+                                                    ? "unpublished"
+                                                    : ""
+                                                }`}
+                                            >
+                                                {exam.status}
+                                            </span>
                                         </td>
                                         <td>
                                             <button
-                                                className="preview-button"
+                                                className="E-preview-button"
                                                 onClick={() => handlePreview(exam.id)}
                                             >
                                                 <FiEye />
