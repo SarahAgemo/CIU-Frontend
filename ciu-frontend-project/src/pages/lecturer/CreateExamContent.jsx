@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import createExam from './CreateExamContent.module.css';
 import moment from 'moment';
 import { Snackbar, Alert } from '@mui/material';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 
 export default function CreateExamContent() {
     const navigate = useNavigate();
@@ -215,7 +217,16 @@ export default function CreateExamContent() {
                 }} 
 
             >
-                <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity}>
+                <Alert onClose={() => setSnackbarOpen(false)} 
+                severity={snackbarSeverity}
+                    sx={{
+                        backgroundColor: snackbarSeverity === 'error' ? '#FFF4E5' : '#FFF4E5',
+                        color: '#000',
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}
+                    icon={snackbarSeverity === 'error' ? <WarningAmberIcon /> : undefined}
+                >
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
