@@ -173,10 +173,13 @@ function AdminCourses() {
         <div className={Dash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
-            <MobileMenu
-              isOpen={isMobileMenuOpen}
-              toggleMenu={toggleMobileMenu}
-            />
+            <>
+              <div 
+                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                onClick={toggleMobileMenu}
+              ></div>
+              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            </>
           )}
           <div className={course["users-content"]}>
             {" "}

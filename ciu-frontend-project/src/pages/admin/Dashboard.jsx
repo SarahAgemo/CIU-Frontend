@@ -116,28 +116,34 @@ export default function Dashboard() {
     fetchProgramCount();
   }, []);
 
-  return (
-    <div className={AdminDash["overall"]}>
-    <div className={AdminDash["dashboard"]}>
+return (
+  <div className={AdminDash["overall"]}>
+    <div className={`${AdminDash["dashboard"]} ${isMobileMenuOpen ? AdminDash["menu-open"] : ""}`}>
       <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
       <div className={AdminDash["dashboard-content"]}>
         {!isMobile && <Sidebar />}
-        {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
-        <main className={AdminDash["main-content"]}>
+        {isMobile && (
+          <>
+            <div 
+              className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+              onClick={toggleMobileMenu}
+            ></div>
+            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+          </>
+        )}
+        <main className={`${AdminDash["main-content"]} ${isMobileMenuOpen ? AdminDash["dimmed"] : ""}`}>
           <h2 className={AdminDash["dashboard-title"]}>Dashboard</h2>
           <div className={AdminDash["dashboard-cards"]}>
             <DashboardCard title="Registered Students" value={studentCount} icon="🎓" />
             <DashboardCard title="Registered Lecturers" value={lecturerCount} icon="👨‍💻" />
             <DashboardCard title="Registered Courses" value={courseCount} icon="📖" />
             <DashboardCard title="Registered Course Units" value={courseUnitCount} icon="📖" />
-            {/* You can add more DashboardCards here if needed */}
             <DashboardCard title="Ongoing Exams/Assessments" value={ongoingAssessmentsCount} icon="📝" />
             <DashboardCard title="Upcoming Exams/Assessments" value={upcomingAssessmentsCount} icon="📝" />
-            
           </div>
         </main>        
       </div>
     </div>
-    </div>
-  );
+  </div>
+);
 }

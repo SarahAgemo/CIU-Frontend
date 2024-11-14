@@ -85,3 +85,7 @@ export default function Sidebar() {
   margin-right: 8px;
   color: #105F53;
 }
+
+.dropdown-icon.rotated {
+  transform: rotate(180deg);
+}
