@@ -122,6 +122,7 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
                   <th>Title</th>
                   <th>Instructions</th>
                   <th>Status</th> {/* Added Status Column */}
+                  <th>Phase</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -139,6 +140,27 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
                     >
                       {exam.isDraft ? "Draft" : "Published"}
                     </span>
+                    </td>
+                    <td>
+                      <span
+                          className={`status-text ${
+                              exam.status === "draft"
+                              ? "draft"
+                              : exam.status === "pending"
+                              ? "pending"
+                              : exam.status === "approved"
+                              ? "approved"
+                              : exam.status === "rejected"
+                              ? "rejected"
+                              : exam.status === "published"
+                              ? "published"
+                              : exam.status === "unpublished"
+                              ? "unpublished"
+                              : ""
+                          }`}
+                      >
+                          {exam.status}
+                      </span>
                     </td>
                     <td>
                       <button

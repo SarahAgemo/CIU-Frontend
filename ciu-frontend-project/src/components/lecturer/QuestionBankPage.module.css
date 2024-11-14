@@ -1,6 +1,6 @@
 /* src/QuestionBankPage.css */
 
-.question-bank-container {
+/* .question-bank-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,26 +9,29 @@
     padding: 20px;
     flex-direction: column;
 
-  }
+  } */
   .tableContainer {
     margin-bottom: 20px;
-    width: 90%;
-    max-width: 1200px;
-    overflow-x: auto;
+    width: 100%;
+    /* overflow-x: auto; */
   }
   .questionTable {
     width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
     margin-bottom: 20px;
+    border: 1px solid #dee2e6;
   }
+  .questionTable th,td{
+    border: 1px solid #dee2e6;
+  }
+
+    
   .formContainer {
     margin-bottom: 20px;
     width: 100%;
-    max-width: 600px;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   .page-title {
@@ -51,6 +54,40 @@
     align-items: center;
     min-height: 400px;
   }
+
+  .action-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: #fff; /* Text color */
+}
+
+.delete-button {
+    background-color: #dc3545; /* Red for delete */
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.preview-button {
+    background-color: #17a2b8; /* Teal for preview */
+}
+
+.preview-button:hover {
+    background-color: #138496;
+}
+
+.download-button {
+    background-color: #28a745; /* Green for download */
+}
+
+.download-button:hover {
+    background-color: #218838;
+}
   
   .course-list {
     width: 90%;
