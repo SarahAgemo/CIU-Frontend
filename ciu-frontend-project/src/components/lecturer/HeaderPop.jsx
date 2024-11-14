@@ -39,15 +39,12 @@ export default function Header({ toggleMobileMenu, isMobile }) {
         marginLeft: 'auto' // Adjust this value as needed
     }}>
                 <a id="month">{currentTime.toLocaleString('default', { month: 'long' })}</a>{' '}
-    <a id="day">{currentTime.getDate()}</a>,{' '}
-    <a id="year">{currentTime.getFullYear()}</a>
-    <br />
-    <a id="hour">
-        {((currentTime.getHours() % 12) || 12).toString().padStart(2, '0')}
-    </a> :
-    <a id="min">{currentTime.getMinutes().toString().padStart(2, '0')}</a> :
-    <a id="s">{currentTime.getSeconds().toString().padStart(2, '0')}</a>{' '}
-    <a id="ampm">{currentTime.getHours() >= 12 ? 'PM' : 'AM'}</a>
+                <a id="day">{currentTime.getDate()}</a>,{' '}
+                <a id="year">{currentTime.getFullYear()}</a>
+                <br />
+                <a id="hour">{currentTime.getHours().toString().padStart(2, '0')}</a> :
+                <a id="min">{currentTime.getMinutes().toString().padStart(2, '0')}</a> :
+                <a id="s">{currentTime.getSeconds().toString().padStart(2, '0')}</a>
             </div>
 
             <div className={Head["header-icons"]}>
