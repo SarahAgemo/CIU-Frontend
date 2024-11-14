@@ -82,10 +82,66 @@ export default function CreateExamContent() {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value,
-        }));
+
+        // Special handling for scheduledDate
+        if (name === 'scheduledDate') {
+            const selectedDateTime = moment(value);
+            const currentTime = moment();
+            const minimumAllowedTime = currentTime.add(24, 'hours');
+
+            // Check if the selected time is less than 24 hours from now
+            if (selectedDateTime.isBefore(minimumAllowedTime)) {
+                alert('Scheduled date and time must be at least 24 hours from the current time.');
+                // Clear the scheduledDate, startTime, and endTime fields
+                setFormData(prevData => ({
+                    ...prevData,
+                    scheduledDate: '',
+                    startTime: '',
+                    endTime: ''
+                }));
+                return;
+            }
+
+            // If the time is valid (more than 24 hours), proceed with setting the times
+            const startTime = selectedDateTime.format('HH:mm');
+            
+            // Calculate endTime if duration is already set
+            let endTime = '';
+            if (formData.duration) {
+                const [durationHours, durationMinutes] = formData.duration.split(':').map(Number);
+                endTime = selectedDateTime
+                    .clone()
+                    .add(durationHours, 'hours')
+                    .add(durationMinutes, 'minutes')
+                    .format('HH:mm');
+            }
+
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value,
+                startTime,
+                endTime
+            }));
+            return;
+        }
+
+        // Handle duration changes
+        if (name === 'duration' && formData.scheduledDate) {
+            const startDateTime = moment(formData.scheduledDate);
+            const [durationHours, durationMinutes] = value.split(':').map(Number);
+            const endTime = startDateTime
+                .clone()
+                .add(durationHours, 'hours')
+                .add(durationMinutes, 'minutes')
+                .format('HH:mm');
+
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value,
+                endTime
+            }));
+            return;
+        }
 
         if (name === 'courseUnit') {
             const selectedUnit = courseUnits.find(unit => unit.unitName === value);
@@ -314,7 +370,7 @@ export default function CreateExamContent() {
                          value={formData.duration}
                          onChange={handleInputChange}
                          className={createExam.input_duration}
-                         placeholder="Duration"
+                         placeholder="HH:MM"
                          required
                      />
                  </div>
