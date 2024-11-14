@@ -5,6 +5,7 @@ import Header from '../../components/lecturer/HeaderPop';
 import Sidebar from '../../components/lecturer/SideBarPop';
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import './PublishedExamList.css';
+import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 
 const PublishedExamList = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,6 +24,10 @@ const PublishedExamList = () => {
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   const fetchPublishedExamPapers = async () => {
     setLoading(true);
@@ -92,15 +97,15 @@ const PublishedExamList = () => {
   if (loading) return <div className="loading-spinner">Loading...</div>;
 
   return (
-    <div className="overall">
-      <div className="dashboard">
-        <Header />
-        <div className="dashboard-content">
+    <div className={Dash.overall}>
+      <div className={Dash.dashboard}>
+        <Header  toggleMobileMenu={toggleMobileMenu} isMobile={isMobile}/>
+        <div className={Dash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
             <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)} />
           )}
-          <div className="form-container">
+          <div className={Dash["form-container"]}>
             <h3>Published Exam Papers</h3>
             <table className="glass-table">
               <thead>

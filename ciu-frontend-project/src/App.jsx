@@ -176,10 +176,7 @@ function App() {
                 path="/exam-paper/:id/edit"
                 element={<EditExamInterface />}
               />
-              {/* <Route
-               path="/published-exam-list"
-                element={<PublishedExamList />}
-                /> */}
+            
               
               <Route
                 path="/published-exam-papers"
