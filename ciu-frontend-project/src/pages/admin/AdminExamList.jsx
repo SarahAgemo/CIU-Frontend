@@ -49,7 +49,7 @@ function AdminExamList() {
     }, []);
 
     const handlePreview = (examId) => {
-        navigate(`/exam-paper/${examId}`); // Navigate to the preview page for the selected exam
+        navigate(`/admin-exam-paper/${examId}`); // Navigate to the preview page for the selected exam
     };
 
     if (error) return <div className="alert alert-danger">{error}</div>;
@@ -80,6 +80,7 @@ function AdminExamList() {
                                     <th>Title</th>
                                     <th>Instructions</th>
                                     <th>Status</th> {/* Added Status Column */}
+                                    <th>Phase</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -91,11 +92,33 @@ function AdminExamList() {
                                         <td>{exam.description}</td>
                                         <td>
                                             <span
-                                                className={`status-text ${exam.isDraft ? "draft" : "published"
-                                                    }`}
+                                            className={`status-text ${
+                                                exam.isDraft ? "draft" : "published"
+                                            }`}
                                             >
-                                                {exam.isDraft ? "Draft" : "Published"}
+                                            {exam.isDraft ? "Draft" : "Published"}
                                             </span>
+                                        </td>
+                                        <td>
+                                        <span
+                                            className={`status-text ${
+                                                exam.status === "draft"
+                                                ? "draft"
+                                                : exam.status === "pending"
+                                                ? "pending"
+                                                : exam.status === "approved"
+                                                ? "approved"
+                                                : exam.status === "rejected"
+                                                ? "rejected"
+                                                : exam.status === "published"
+                                                ? "published"
+                                                : exam.status === "unpublished"
+                                                ? "unpublished"
+                                                : ""
+                                            }`}
+                                        >
+                                            {exam.status}
+                                        </span>
                                         </td>
                                         <td>
                                             <button
