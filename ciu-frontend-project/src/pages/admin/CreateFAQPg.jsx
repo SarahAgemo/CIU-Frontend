@@ -30,7 +30,15 @@ function Create() {
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={FAQ["app-content"]}>
             {!isMobile && <Sidebar />}
-            {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
+            {isMobile && (
+            <>
+                <div 
+                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                onClick={toggleMobileMenu}
+                ></div>
+                <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            </>
+            )}
             <main className={FAQ["main-content"]}>
             <CreateFAQ />
             </main>
