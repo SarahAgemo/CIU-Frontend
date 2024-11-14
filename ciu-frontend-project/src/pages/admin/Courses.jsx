@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaEdit, FaTrash } from "react-icons/fa"; // Import icons for edit and delete
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
@@ -9,14 +9,14 @@ import course from "./Courses.module.css";
 // At the top of your Courses.jsx file
 import AdminDash from '../../pages/admin/Dashboard'; // Adjust the path based on your file structure
 
-// Table component
+// Table component remains unchanged
 function Table({ children }) {
   return (
     <table className={course["table shadow-lg table-hover"]}>{children}</table>
   );
 }
 
-// TableHead component
+// TableHead component remains unchanged
 function TableHead({ cols }) {
   return (
     <thead>
@@ -31,14 +31,24 @@ function TableHead({ cols }) {
   );
 }
 
-// TableBody component
+// TableBody component remains unchanged
 function TableBody({ children }) {
   return <tbody>{children}</tbody>;
 }
 
-// UserList component
+// Modified UserList component with inline styles
 function UserList({ users, deleteUser }) {
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredUsers, setFilteredUsers] = useState(users);
+
+  useEffect(() => {
+    const filtered = users.filter((user) =>
+      user.courseName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  }, [searchTerm, users]);
+
   const cols = [
     "#",
     "Faculty Name",
@@ -48,19 +58,61 @@ function UserList({ users, deleteUser }) {
     "Actions",
   ];
 
+  const searchContainerStyles = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "20px 0",
+    gap: "0px"
+  };
+
+  const searchButtonStyles = {
+    backgroundColor: "#0F533D",
+    color: "white",
+    padding: "12px 24px",
+    border: "none",
+    cursor: "pointer",
+    minWidth: "200px",
+    fontSize: "16px",
+    marginLeft: "500px"
+  };
+
+  const searchInputStyles = {
+    padding: "12px 16px",
+    border: "1px solid #ddd",
+    borderRadius: "2px",
+    fontSize: "16px",
+    width: "300px",
+    color: "#666"
+  };
+
   return (
     <div>
-      <h3>Courses</h3>
+      <div style={searchContainerStyles}>
+        <button 
+          style={searchButtonStyles}
+          onClick={() => navigate('/regCourse')}
+        >
+          Add New Course
+        </button>
+        <input
+          type="text"
+          placeholder="Search by course..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={searchInputStyles}
+        />
+      </div>
+      <h2 style={{ marginRight: "800px" }}>Courses</h2>
       <Table>
         <TableHead cols={cols} />
         <TableBody>
-          {users.map((user, index) => (
+          {filteredUsers.map((user, index) => (
             <tr key={user.id}>
               <th scope="row">{index + 1}</th>
               <td>{user.facultyName}</td>
               <td>{user.courseName}</td>
               
-              {/* Render Course Units */}
               <td>
                 <ul>
                   {Array.isArray(user.courseUnits) ? (
@@ -71,7 +123,6 @@ function UserList({ users, deleteUser }) {
                 </ul>
               </td>
 
-              {/* Render Course Unit Codes */}
               <td>
                 <ul>
                   {Array.isArray(user.courseUnitCode) ? (
@@ -85,7 +136,6 @@ function UserList({ users, deleteUser }) {
               </td>
 
               <td>
-                {/* Edit Button with Icon */}
                 <span
                   onClick={() => navigate(`/editcourse/${user.id}`)}
                   type="button"
@@ -94,7 +144,6 @@ function UserList({ users, deleteUser }) {
                   <FaEdit className="icon-edit" />
                 </span>
 
-                {/* Delete Button with Icon */}
                 <span
                   onClick={() => {
                     if (
@@ -119,10 +168,11 @@ function UserList({ users, deleteUser }) {
   );
 }
 
-// Main Courses component
+// Main AdminCourses component remains unchanged
 function AdminCourses() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -138,9 +188,7 @@ function AdminCourses() {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-  const [users, setUsers] = useState([]);
 
-  // Fetch users on mount
   useEffect(() => {
     fetch("http://localhost:3000/coursesAdd")
       .then((response) => {
@@ -153,7 +201,6 @@ function AdminCourses() {
       .catch((error) => console.error("Error fetching users:", error));
   }, []);
 
-  // Function to delete a user
   const deleteUser = (id) => {
     fetch(`http://localhost:3000/coursesAdd/${id}`, {
       method: "DELETE",
@@ -184,8 +231,6 @@ function AdminCourses() {
             </>
           )}
           <div className={course["users-content"]}>
-            {" "}
-            {/* Content for the Users page */}
             <div className={course["row justify-content-center pt-5"]}>
               <UserList users={users} deleteUser={deleteUser} />
             </div>
