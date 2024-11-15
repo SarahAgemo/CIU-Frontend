@@ -53,7 +53,7 @@ export default function Header({ toggleMobileMenu, isMobile }) {
       <div className={Head["header-icons"]}>
         {/* Always render the button, and conditionally wrap it with Link */}
         {userId ? (
-          <Link to={'/notifications'} aria-label="Notifications">
+          <Link to={'notifications'} aria-label="Notifications">
             <button className={`${Head["icon-button"]} ${Head["notification-button"]}`} aria-label="Notifications">
               <Bell className={Head["notification-icon"]} />
               <span className={Head["notification-indicator"]} />

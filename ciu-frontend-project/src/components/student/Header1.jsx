@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Settings, Bell, User } from 'lucide-react';
 import axios from 'axios';
 import Head from './Header.module.css'; // Assuming you have CSS modules for styling
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   const [userInfo, setUserInfo] = useState({ name: '', role: '' }); // Default values
@@ -49,9 +50,12 @@ export default function Header() {
         <button className={Head["icon-button"]}>
           <Settings size={24} />
         </button>
-        {/* <button className={Head["icon-button"]}>
-          <Bell size={24} />
-        </button> */}
+        <Link to={'/notifications'} aria-label="Notifications">
+            <button className={`${Head["icon-button"]} ${Head["notification-button"]}`} aria-label="Notifications">
+              <Bell className={Head["notification-icon"]} />
+              <span className={Head["notification-indicator"]} />
+            </button>
+          </Link>
         <div className={Head["user-info"]}>
           <User size={24} />
           <div className={Head["user-details"]}>
