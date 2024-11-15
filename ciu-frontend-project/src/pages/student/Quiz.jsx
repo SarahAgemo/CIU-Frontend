@@ -4,15 +4,15 @@ import axios from "axios";
 import "./Quiz.css";
 
 const Quiz = () => {
-  const [timeLeft, setTimeLeft] = useState(3600); // 1 hour in seconds
+  const [timeLeft, setTimeLeft] = useState(3600);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingStartTime, setRecordingStartTime] = useState(0);
   const [questions, setQuestions] = useState([]);
   const [examDetails, setExamDetails] = useState({});
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [score, setScore] = useState(0); // Score state for autograding
-  const [percentage, setPercentage] = useState(null); // Store the percentage score
+  const [score, setScore] = useState(0);
+  const [percentage, setPercentage] = useState(null);
   const navigate = useNavigate();
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -20,7 +20,7 @@ const Quiz = () => {
   const [awayFromCamera, setAwayFromCamera] = useState(false);
 
   const examId = localStorage.getItem('exam');
-  const userId = localStorage.getItem('user'); // Assuming user ID is stored in local storage
+  const userId = localStorage.getItem('user');
 
   const examQuestion = async () => {
     try {
@@ -130,47 +130,57 @@ const Quiz = () => {
       const recordedVideoURL = URL.createObjectURL(blob);
       localStorage.setItem("recordedVideo", recordedVideoURL);
 
-      // Auto-grading with the correct answers from backend
       let calculatedScore = 0;
       questions.forEach((question) => {
-        if (selectedAnswers[question.id] === question.answer) { // assuming `question.answer` is the correct answer
+        if (selectedAnswers[question.id] === question.answer) {
           calculatedScore += 1;
         }
       });
       setScore(calculatedScore);
 
-      // Calculate percentage score
       const percentageScore = ((calculatedScore / questions.length) * 100).toFixed(2);
       setPercentage(percentageScore);
 
       try {
-        // Parse userId if it's coming as a JSON string
-        const parsedUserId = typeof userId === 'string' ? JSON.parse(userId) : userId;
-      
-        console.log("Sending data:", {
-          examId: parseInt(examId),
-          userId: parseInt(parsedUserId.id), // Extract the `id` from userId
-          score: calculatedScore,
+        let parsedUserId;
+        try {
+          const userObject = JSON.parse(userId);
+          parsedUserId = userObject.id;
+        } catch {
+          parsedUserId = parseInt(userId);
+        }
+
+        const scoreData = {
+          score: parseInt(calculatedScore),
           percentage: parseFloat(percentageScore),
-          isManualAssessment: false, // Adjust this based on your logic
-        });
-      
-        await axios.post("http://localhost:3000/scores/submit", {
-          examId: parseInt(examId),
-          userId: parseInt(parsedUserId.id), // Use only the ID
-          score: calculatedScore,
-          percentage: parseFloat(percentageScore),
-          isManualAssessment: false,
-        });
-      
-        alert(`Your score is: ${calculatedScore}/${questions.length} (${percentageScore}%)`);
+          isManualAssessment: false, // Set this field to indicate it's not a manual assessment
+          student: {
+            connect: {
+              id: parsedUserId
+            }
+          },
+          assessment: {
+            connect: {
+              id: parseInt(examId)
+            }
+          }
+        };
+
+        console.log("Sending score data:", scoreData);
+
+        const response = await axios.post("http://localhost:3000/scores/add", scoreData);
+        
+        if (response.status === 200 || response.status === 201) {
+          alert(`Your score has been submitted successfully! Score: ${calculatedScore}/${questions.length} (${percentageScore}%) (${examId}) (${userId}%)`);
+          navigate("/submit");
+        } else {
+          throw new Error(`Unexpected response status: ${response.status}`);
+        }
       } catch (error) {
         console.error("Error submitting score:", error);
-        alert("Failed to submit score to the server.");
+        console.error("Error details:", error.response?.data);
+        alert("Failed to submit score. Please try again or contact support.");
       }
-      
-
-      navigate("/submit");
     }
   };
 
@@ -265,7 +275,6 @@ const Quiz = () => {
           )}
         </div>
 
-        {/* Display score and percentage if quiz is completed */}
         {percentage !== null && (
           <div className="result-display">
             <h3>Your Final Score: {score}/{questions.length}</h3>

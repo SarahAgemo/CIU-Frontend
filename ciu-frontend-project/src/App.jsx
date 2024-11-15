@@ -69,6 +69,7 @@ import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from "./components/lecturer/QuestionBankPage.jsx";
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
+import SampleComponent from "./pages/student/Submit.jsx";
 
 
 
@@ -249,6 +250,9 @@ function App() {
                 element={<ReportIssue />}
               />
               <Route path="/instructions" element={<ExamInstructions />} />
+              <Route path="/submit" element={< SampleComponent />} />
+              
+
               <Route path="/proctoring" element={<Proctoring />} />
               <Route path="/quiz" element={<Quiz />} />
               <Route
