@@ -432,7 +432,7 @@ const Quiz = () => {
           isManualAssessment: false, // Adjust this based on your logic
         });
       
-        await axios.post("http://localhost:3000/scores/submit", {
+        await axios.post("http://localhost:3000/scores/add", {
           examId: parseInt(examId),
           userId: parseInt(parsedUserId.id), // Use only the ID
           score: calculatedScore,
