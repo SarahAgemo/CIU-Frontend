@@ -1,174 +1,261 @@
-const Registration = () => {
-    return (
-      <div>
-        <style>{`
-          @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
-  
-          .allcss {
-            background: #ebebeb;
-            text-align: center;
-            font-family: 'Roboto', sans-serif;
-          }
-  
-          .container {
-            background-color: #fff;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            padding: 10px 20px;
-            transition: transform 0.2s;
-            width: 500px;
-            text-align: center;
-            margin: 20px auto;
-          }
-  
-          h2 {
-            font-size: x-large;
-            text-align: center;
-            color: #106010;
-          }
-  
-          label {
-            font-size: 15px;
-            display: block;
-            width: 100%;
-            margin-top: 8px;
-            margin-bottom: 5px;
-            text-align: left;
-            color: #106010;
-            font-weight: bold;
-          }
-  
-          input, select, textarea {
-            display: block;
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border: 1px solid #ddd;
-            font-size: 12px;
-            margin-bottom: 5px;
-            transition: border-color 0.3s ease;
-          }
-  
-          .error {
-            color: #938d8d;
-            font-size: 12px;
-            text-align: left;
-            margin-top: 2px;
-          }
-  
-          input.error-input, select.error-input {
-            border-color: red;
-          }
-  
-          button {
-            padding: 10px 15px;
-            margin: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            border: none;
-            color: #fff;
-            cursor: pointer;
-            background-color: #106010;
-            width: 40%;
-            font-size: 16px;
-          }
-  
-          button:hover {
-            background-color: #0c890c;
-          }
-  
-          .button-group {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 15px;
-            gap: 10px;
-          }
-  
-          .button-group button {
-            padding: 10px 15px;
-            border: none;
-            background-color: #f0f0f0;
-            color: #333;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background-color 0.3s ease;
-          }
-  
-          .button-group button.active {
-            background-color: #106010;
-            color: #fff;
-          }
-  
-          .button-group button:hover {
-            background-color: #0c890c;
-            color: #fff;
-          }
-  
-          input.success-input, select.success-input {
-            border-color: green;
-          }
-  
-          input:focus {
-            border-color: #106010;
-            outline: none;
-          }
-        `}</style>
-  
-        <div className="allcss">
-          <div className="container">
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="button-group">
-                <button type="button" className={selectedUser === "Student" ? "active" : ""} onClick={() => handleUserSelection("Student")}>Student</button>
-                <button type="button" className={selectedUser === "Administrator" ? "active" : ""} onClick={() => handleUserSelection("Administrator")}>Administrator</button>
-                <button type="button" className={selectedUser === "Lecturer" ? "active" : ""} onClick={() => handleUserSelection("Lecturer")}>Lecturer</button>
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "../../pages/lecturer/ExamPaperPreview.css";
+import Header from "../../components/admin/Headerpop";
+import Sidebar from "../../components/admin/SideBarpop";
+import MobileMenu from "../../components/admin/MobileMenu";
+import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import BackButton from "../../components/lecturer/BackButton";
+import { FaEye, FaCheckCircle, FaBan, FaTimesCircle } from "react-icons/fa";
+
+function AdminExamPaperPreview() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+  const { id } = useParams(); // Get the exam paper ID from the URL
+  const navigate = useNavigate(); // Initialize useNavigate
+  const [examData, setExamData] = useState(null);
+  const [error, setError] = useState("");
+  const [isDraft, setIsDraft] = useState(true);
+  const [status, setStatus] = useState(true);
+  const [success, setSuccess] = useState("");
+
+  useEffect(() => {
+    const fetchExamData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        if (!response.ok) throw new Error("Failed to fetch exam paper");
+        const data = await response.json();
+        setExamData(data);
+        setIsDraft(data.isDraft);
+        setStatus(data.status);
+      } catch (error) {
+        setError("Error fetching exam paper: " + error.message);
+      }
+    };
+
+    fetchExamData();
+  }, [id]);
+
+
+  const handlePreviewQuestions = () => {
+    navigate(`/admin-exam-paper/${id}/questions`);
+  };
+
+  const handleApproval = async () => {
+    if (!isDraft) {
+      window.alert("You cannot approve an already published exam.");
+      return;
+    }
+
+    if (status === "approved") {
+      window.alert("Exam is already approved.");
+      return;
+    }
+    try {
+      const response = await fetch(
+        `http://localhost:3000/exam-paper/${id}/approve`,
+        { method: "PATCH" }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      const updatedExamData = await response.json();
+      setExamData(updatedExamData); // Update local state with the approved data
+      setSuccess("Exam approved successfully");
+      navigate(`/admin-exam-list`);
+    } catch (error) {
+      setError("Error approving exam: " + error.message);
+    }
+  };
+
+  const handleRejection = async () => {
+    if (!isDraft) {
+      window.alert("You cannot reject an already published exam.");
+      return;
+    }
+
+    if (status === "rejected") {
+      window.alert("Exam is already rejected.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/exam-paper/${id}/reject`,
+        { method: "PATCH" }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message);
+      }
+
+      const updatedExamData = await response.json();
+      setExamData(updatedExamData); // Update local state with the approved data
+      setSuccess("Exam rejected successfully");
+      navigate(`/admin-exam-list`);
+    } catch (error) {
+      setError("Error rejecting exam: " + error.message);
+    }
+  };
+
+
+
+  if (error) return <div className="alert alert-danger">{error}</div>;
+  if (!examData) return <div>Loading...</div>;
+
+  return (
+    <div className={Dash.lecturerDashboard}>
+      <div className={Dash.dashboard}>
+        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+        <div className={Dash["dashboard-content"]}>
+          {!isMobile && <Sidebar />}
+          {isMobile && (
+            <MobileMenu
+              isOpen={isMobileMenuOpen}
+              toggleMenu={toggleMobileMenu}
+            />
+          )}
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath="/admin-exam-list" size={30} color="#106053" />
+          </div>
+          <div className="exam-preview__container mt-5">
+            <h3 className="exam-preview__title">Exam Paper Preview</h3>
+            {error && (
+              <div className="exam-preview__alert exam-preview__alert--danger">
+                {error}
               </div>
-  
-              <label htmlFor="firstName">First Name</label>
-              <input
-                type="text"
-                placeholder="Enter First Name"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleInputChange}
-              />
-              {errors.firstName && <span className="error">{errors.firstName}</span>}
-  
-              <label htmlFor="lastName">Last Name</label>
-              <input
-                type="text"
-                placeholder="Enter Last Name"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleInputChange}
-              />
-              {errors.lastName && <span className="error">{errors.lastName}</span>}
-  
-              <label htmlFor="emailOrStudentNumber">{placeholderText}</label>
-              <input
-                type={selectedUser === "Student" ? "text" : "email"}
-                placeholder={`Enter ${placeholderText}`}
-                name="emailOrStudentNumber"
-                value={formData.emailOrStudentNumber}
-                onChange={handleInputChange}
-              />
-              {errors.emailOrStudentNumber && <span className="error">{errors.emailOrStudentNumber}</span>}
-  
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-                value={formData.password}
-                onChange={handleInputChange}
-              />
-              {errors.password && <span className="error">{errors.password}</span>}
-  
-              <button type="submit">Register</button>
-            </form>
+            )}
+            {success && (
+              <div className="exam-preview__alert exam-preview__alert--success">
+                {success}
+              </div>
+            )}
+
+            <div className="exam-preview__table-container">
+              <table className="exam-preview__table table-bordered">
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>Title</strong>
+                    </td>
+                    <td>{examData.title}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Description</strong>
+                    </td>
+                    <td>{examData.description}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Course ID</strong>
+                    </td>
+                    <td>{examData.courseId}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Course Unit</strong>
+                    </td>
+                    <td>{examData.courseUnit}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Course Unit Code</strong>
+                    </td>
+                    <td>{examData.courseUnitCode}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Scheduled Date</strong>
+                    </td>
+                    <td>{examData.scheduledDate}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Duration</strong>
+                    </td>
+                    <td>{examData.duration}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Start Time</strong>
+                    </td>
+                    <td>{examData.startTime}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>End Time</strong>
+                    </td>
+                    <td>{examData.endTime}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Created By</strong>
+                    </td>
+                    <td>{examData.createdBy}</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Questions</strong>
+                    </td>
+                    <td>
+                      {examData.questions.length}{" "}
+                      {examData.questions.length === 0
+                        ? "(No questions added)"
+                        : ""}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="exam-preview__btn-container">
+              <button onClick={handlePreviewQuestions} className="exam-preview__icon-btn" data-tooltip="Preview Questions">
+                <FaEye />
+              </button>
+              {/* <button
+                onClick={handleApproval}
+                className="exam-preview__btn exam-preview__btn--info"
+              >
+                Approve Exam
+              </button>
+              <button
+                onClick={handleRejection}
+                className="exam-preview__btn exam-preview__btn--info"
+              >
+                Reject Exam
+              </button> */}
+              <button onClick={handleApproval} className="exam-preview__icon-btn" data-tooltip="Approve Exam">
+                <FaCheckCircle />
+              </button>
+              <button onClick={handleRejection} className="exam-preview__reject-icon-btn" data-tooltip="Reject Exam">
+                <FaTimesCircle />
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    );
-  };
-  
-  export default Registration;
-  
+    </div>
+  );
+}
+
+export default AdminExamPaperPreview;
