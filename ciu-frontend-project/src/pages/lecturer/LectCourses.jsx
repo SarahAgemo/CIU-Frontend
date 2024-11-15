@@ -5,12 +5,12 @@ import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
 import course from './LectCourses.module.css';
 
-// Table component
+// Table component remains unchanged
 function Table({ children }) {
     return <table className={course["table shadow-lg table-hover"]}>{children}</table>;
 }
 
-// TableHead component
+// TableHead component remains unchanged
 function TableHead({ cols }) {
     return (
         <thead>
@@ -25,54 +25,110 @@ function TableHead({ cols }) {
     );
 }
 
-// TableBody component
+// TableBody component remains unchanged
 function TableBody({ children }) {
     return <tbody>{children}</tbody>;
 }
 
-// UserList component
+// Modified UserList component with inline styles
 function UserList({ users }) {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredUsers, setFilteredUsers] = useState(users);
+
+    useEffect(() => {
+        const filtered = users.filter((user) =>
+            user.courseName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredUsers(filtered);
+    }, [searchTerm, users]);
+
     const cols = ['#', 'Faculty Name', 'Course Name', 'Course Units', 'Course Unit Code'];
 
+    const searchContainerStyles = {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "20px 0",
+        gap: "0px"
+    };
+
+    const searchButtonStyles = {
+        backgroundColor: "#0F533D",
+        color: "white",
+        padding: "12px 24px",
+        border: "none",
+        cursor: "pointer",
+        minWidth: "200px",
+        fontSize: "16px",
+        marginLeft: "500px"
+    };
+
+    const searchInputStyles = {
+        padding: "12px 16px",
+        border: "1px solid #ddd",
+        borderRadius: "2px",
+        fontSize: "16px",
+        width: "300px",
+        color: "#666"
+    };
+
     return (
-        <Table>
-            <TableHead cols={cols} />
-            <TableBody>
-                {users.map((user, index) => (
-                    <tr key={user.id}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{user.facultyName}</td>
-                        <td>{user.courseName}</td>
-                        <td>
-                            <ul>
-                                {Array.isArray(user.courseUnits) ? (
-                                    user.courseUnits.map((unit, i) => (
-                                        <li key={i}>{unit}</li>
-                                    ))
-                                ) : (
-                                    <li>{user.courseUnits}</li>
-                                )}
-                            </ul>
-                        </td>
-                        <td>
-                            <ul>
-                                {Array.isArray(user.courseUnitCode) ? (
-                                    user.courseUnitCode.map((code, i) => (
-                                        <li key={i}>{code}</li>
-                                    ))
-                                ) : (
-                                    <li>{user.courseUnitCode}</li>
-                                )}
-                            </ul>
-                        </td>
-                    </tr>
-                ))}
-            </TableBody>
-        </Table>
+        <div>
+            <div style={searchContainerStyles}>
+                <button 
+                    style={searchButtonStyles}
+                    onClick={() => navigate('/lect-courses')}
+                >
+                    Search Courses
+                </button>
+                <input
+                    type="text"
+                    placeholder="Search by course name"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    style={searchInputStyles}
+                />
+            </div>
+
+            <Table>
+                <TableHead cols={cols} />
+                <TableBody>
+                    {filteredUsers.map((user, index) => (
+                        <tr key={user.id}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{user.facultyName}</td>
+                            <td>{user.courseName}</td>
+                            <td>
+                                <ul>
+                                    {Array.isArray(user.courseUnits) ? (
+                                        user.courseUnits.map((unit, i) => (
+                                            <li key={i}>{unit}</li>
+                                        ))
+                                    ) : (
+                                        <li>{user.courseUnits}</li>
+                                    )}
+                                </ul>
+                            </td>
+                            <td>
+                                <ul>
+                                    {Array.isArray(user.courseUnitCode) ? (
+                                        user.courseUnitCode.map((code, i) => (
+                                            <li key={i}>{code}</li>
+                                        ))
+                                    ) : (
+                                        <li>{user.courseUnitCode}</li>
+                                    )}
+                                </ul>
+                            </td>
+                        </tr>
+                    ))}
+                </TableBody>
+            </Table>
+        </div>
     );
 }
 
-// Main CoursesViewOnlyPage component
+// Main LectCourses component remains unchanged
 function LectCourses() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
@@ -128,5 +184,4 @@ function LectCourses() {
     );
 }
 
-// Export the component
 export default LectCourses;

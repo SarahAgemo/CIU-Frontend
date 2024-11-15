@@ -298,7 +298,16 @@ function ExamPaperPreview() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setApprovalDialog(false)}>Cancel</Button>
-          <Button onClick={confirmRequestApproval} color="primary" variant="contained">
+          <Button 
+          onClick={confirmRequestApproval} 
+          variant="contained"
+            sx={{
+              backgroundColor: '#106053',
+              '&:hover': {
+                backgroundColor: '#0b3f37' 
+              }
+            }}
+          >
             Request Approval
           </Button>
         </DialogActions>

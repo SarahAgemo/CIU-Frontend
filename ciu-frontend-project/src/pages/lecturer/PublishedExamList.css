@@ -1,7 +1,7 @@
 /* Styles for PublishedExamList component */
 
-.exam-list-container {
-    max-width: 800px;
+.C-exam-list-container {
+    max-width: 500px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f9fa;
@@ -9,7 +9,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  .exam-list-container h3 {
+  .C-exam-list-container h3 {
     font-size: 24px;
     font-weight: bold;
     color: #333;
@@ -18,7 +18,7 @@
   }
   
   /* Glass table styling */
-  .glass-table {
+  .C-glass-table {
     width: 100%;
     border-collapse: collapse;
     background: rgba(255, 255, 255, 0.8);
@@ -26,35 +26,35 @@
     border-radius: 8px;
     overflow: hidden;
   }
-  .form-container{
+  .C-form-container{
     width: 100%;
     
   }
   
-  .glass-table th,
-  .glass-table td {
+  .C-glass-table th,
+  .C-glass-table td {
     padding: 15px;
     border: 1px solid #dee2e6;
     text-align: left;
   }
   
-  .glass-table th {
+  .C-glass-table th {
     background-color: #e9ecef; /* Light background for headers */
     font-weight: bold;
     color: #333;
   }
   
-  .glass-table tbody tr:nth-child(even) {
+  .C-glass-table tbody tr:nth-child(even) {
     background-color: #f8f9fa; /* Light gray for alternating rows */
   }
   
-  .glass-table tbody tr:hover {
+  .C-glass-table tbody tr:hover {
     background-color: #e2e6ea; /* Slight highlight on hover */
   }
   
   /* Action button styles */
-  .preview-button,
-  .add-to-bank-button {
+  .C-preview-button,
+  .C-add-to-bank-button {
     padding: 8px 12px;
     border: none;
     border-radius: 4px;
@@ -62,39 +62,43 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
-  .dashboard-content{
+  .C-dashboard-content{
     display:flex;
-    flex-direction: ;
+    
   }
   
-  .preview-button {
-    background-color: #17a2b8;
+  .C-preview-button {
+    background-color: #106053;
     color: #ffffff;
   }
+
   
-  .preview-button:hover {
-    background-color: #138496; /* Darker shade on hover */
+  
+  .C-preview-button:hover {
+    background-color: #0B3F37; /* Darker shade on hover */
   }
   
-  .add-to-bank-button {
+  .C-add-to-bank-button {
     display: flex;
     align-items: center;
     gap: 5px;
-    background-color: #007bff;
+    background-color: #106053;
     color: #ffffff;
   }
+
   
-  .add-to-bank-button:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+  
+  .C-add-to-bank-button:hover {
+    background-color: #0B3F37; /* Darker shade on hover */
   }
   
-  .add-to-bank-button:disabled {
+  .C-add-to-bank-button:disabled {
     background-color: #6c757d; /* Gray when disabled */
     cursor: not-allowed;
   }
   
   /* Error and loading styles */
-  .alert.alert-danger {
+  .C-alert.alert-danger {
     color: #721c24;
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
@@ -105,7 +109,7 @@
   
   .loading-spinner {
     font-size: 18px;
-    color: #007bff;
+    color: #ffff;
     text-align: center;
     padding: 20px;
   }
