@@ -31,10 +31,18 @@ export default function Lecturers() {
             <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
                 <div className={Manage["app-container"]}>
                     {!isMobile && <Sidebar />}
-                    {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
-                        <main className={Manage["app-content"]}>
+                    {isMobile && (
+                    <>
+                        <div 
+                        className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                        onClick={toggleMobileMenu}
+                        ></div>
+                        <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+                    </>
+                    )}
+                    <main className={Manage["app-content"]}>
                         <ManageLecturers />
-                        </main>
+                    </main>
                 </div>
             </div>
         </div>

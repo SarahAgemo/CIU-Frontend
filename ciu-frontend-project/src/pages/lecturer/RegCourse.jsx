@@ -1,6 +1,4 @@
-
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './RegCourseContent.module.css'; // Import the CSS module
 import Header from '../../components/admin/Headerpop';
 import Sidebar from '../../components/admin/SideBarpop';
@@ -25,6 +23,7 @@ const RegCourse = () => {
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
+
   const [formData, setFormData] = useState({
     facultyName: '',
     courseName: '',
@@ -69,8 +68,8 @@ const RegCourse = () => {
         const payload = {
           facultyName: formData.facultyName,
           courseName: formData.courseName,
-          courseUnits: formData.courseUnits.split(','),
-          courseUnitCode: formData.courseUnitsCode,
+          courseUnits: formData.courseUnits.split(',').map(item => item.trim()), // Ensures no extra spaces
+          courseUnitCode: formData.courseUnitsCode.split(',').map(item => item.trim()), // Ensures no extra spaces
         };
 
         const response = await fetch(endpoint, {
@@ -98,83 +97,18 @@ const RegCourse = () => {
     }
   };
 
-  // return (
-  // <div className={styles.formContainer}> {/* Use module styles */}
-  //   <h2 className={styles.formTitle}>Register Course</h2>
-  //   <form onSubmit={handleSubmit}>
-  //     <div className={styles.formGroup}> {/* Faculty Name */}
-  //       <label className={styles.label} htmlFor='facultyName'>Faculty Name</label>
-  //       <input
-  //         type="text"
-  //         className={styles.formControl} // Use module styles
-  //         placeholder='Enter Faculty Name'
-  //         name='facultyName'
-  //         value={formData.facultyName}
-  //         onChange={handleInputChange}
-  //       />
-  //       {errors.facultyName && <span className={styles.error}>{errors.facultyName}</span>}
-  //     </div>
-
-  //     <div className={styles.formGroup}> {/* Course Name */}
-  //       <label className={styles.label} htmlFor='courseName'>Course Name</label>
-  //       <input
-  //         type="text"
-  //         className={styles.formControl} // Use module styles
-  //         placeholder='Enter Course Name'
-  //         name='courseName'
-  //         value={formData.courseName}
-  //         onChange={handleInputChange}
-  //       />
-  //       {errors.courseName && <span className={styles.error}>{errors.courseName}</span>}
-  //     </div>
-
-  //     <div className={styles.formGroup}> {/* Course Units */}
-  //       <label className={styles.label} htmlFor='courseUnits'>Course Units</label>
-  //       <input
-  //         type="text"
-  //         className={styles.formControl} // Use module styles
-  //         placeholder='Enter Course Units'
-  //         name='courseUnits'
-  //         value={formData.courseUnits}
-  //         onChange={handleInputChange}
-  //       />
-  //       {errors.courseUnits && <span className={styles.error}>{errors.courseUnits}</span>}
-  //     </div>
-
-  //     <div className={styles.formGroup}> {/* Course Units Code */}
-  //       <label className={styles.label} htmlFor='courseUnitsCode'>Course Units Code</label>
-  //       <input
-  //         type="text"
-  //         className={styles.formControl} // Use module styles
-  //         placeholder='Enter Course Units Code'
-  //         name='courseUnitsCode'
-  //         value={formData.courseUnitsCode}
-  //         onChange={handleInputChange}
-  //       />
-  //       {errors.courseUnitsCode && <span className={styles.error}>{errors.courseUnitsCode}</span>}
-  //     </div>
-
-  //     <div className={styles.buttonContainer}> {/* Button Container */}
-  //       <button type='submit' className={styles.btnPrimary}>Submit</button>
-  //       {successMessage && <p className={styles.success}>{successMessage}</p>}
-  //       {errors.server && <span className={styles.error}>{errors.server}</span>}
-  //     </div>
-  //   </form>
-  // </div>
-  // );
-  // 
   return (
     <div className={AdminDash["overall"]}>
-          <div className={AdminDash["dashboard"]}>
-               <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-          <div className={AdminDash["dashboard-content"]}>
-            {!isMobile && <Sidebar />}
-            {isMobile && (
-              <MobileMenu
-                isOpen={isMobileMenuOpen}
-                toggleMenu={toggleMobileMenu}
-              />
-            )}
+      <div className={AdminDash["dashboard"]}>
+        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+        <div className={AdminDash["dashboard-content"]}>
+          {!isMobile && <Sidebar />}
+          {isMobile && (
+            <MobileMenu
+              isOpen={isMobileMenuOpen}
+              toggleMenu={toggleMobileMenu}
+            />
+          )}
           <div className={styles.formContainer}> {/* Use module styles */}
             <h2 className={styles.formTitle}>Register Course</h2>
             <form onSubmit={handleSubmit}>
@@ -195,7 +129,6 @@ const RegCourse = () => {
                 <label className={styles.label} htmlFor='courseName'>Course Name</label>
                 <input
                   type="text"
-
                   className={styles.formControl} // Use module styles
                   placeholder='Enter Course Name'
                   name='courseName'
@@ -210,7 +143,7 @@ const RegCourse = () => {
                 <input
                   type="text"
                   className={styles.formControl} // Use module styles
-                  placeholder='Enter Course Units'
+                  placeholder='You can enter multiple course units separated by commas'
                   name='courseUnits'
                   value={formData.courseUnits}
                   onChange={handleInputChange}
@@ -223,7 +156,7 @@ const RegCourse = () => {
                 <input
                   type="text"
                   className={styles.formControl} // Use module styles
-                  placeholder='Enter Course Units Code'
+                  placeholder='You can enter multiple course unit codes separated by commas'
                   name='courseUnitsCode'
                   value={formData.courseUnitsCode}
                   onChange={handleInputChange}
@@ -240,8 +173,8 @@ const RegCourse = () => {
           </div>
         </div>
       </div>
-      </div>
-      );
+    </div>
+  );
 }
 
-      export default RegCourse;
+export default RegCourse;

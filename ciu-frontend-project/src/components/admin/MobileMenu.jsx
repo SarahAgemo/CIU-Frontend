@@ -18,7 +18,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
   const { activeItem, setActiveItem } = useSidebar();
   const location = useLocation();
   const [isExamsOpen, setIsExamsOpen] = useState(false);
-  const [isManageUsersOpen, setIsManageUsersOpen] = useState(false); // Add this state
+  const [isManageUsersOpen, setIsManageUsersOpen] = useState(false);
 
   const menuItems = [
     { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
@@ -45,7 +45,6 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
         { icon: Library, label: "View Courses", path: "/admin-courses" },
       ],
     },
-    // { icon: Folder, label: 'Course Units', path: '/course-units' },
     { icon: Lock, label: "Create FAQs", path: "/admin/create-faqs" },
     { icon: Calendar, label: "Calendar", path: "/admin/calendar" },
     { icon: LogOut, label: "Logout", path: "/" },
@@ -102,18 +101,15 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
                         className={`${Mobile["mobile-icon"]} ${
                           Mobile["mobile-icon-chevron"]
                         } ${
-                          item.label === "Exams" && isExamsOpen
-                            ? Mobile["rotated"]
-                            : ""
-                        } ${
-                          item.label === "Manage Users" && isManageUsersOpen
+                          (item.label === "Courses" && isExamsOpen) ||
+                          (item.label === "Manage Users" && isManageUsersOpen)
                             ? Mobile["rotated"]
                             : ""
                         }`}
                       />
                     </button>
-                    {(isExamsOpen && item.label === "Courses") ||
-                    (isManageUsersOpen && item.label === "Manage Users") ? (
+                    {((isExamsOpen && item.label === "Courses") ||
+                    (isManageUsersOpen && item.label === "Manage Users")) && (
                       <ul className={Mobile["submenu"]}>
                         {item.subItems.map((subItem, subIndex) => (
                           <li key={subIndex}>
@@ -131,7 +127,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
                           </li>
                         ))}
                       </ul>
-                    ) : null}
+                    )}
                   </div>
                 ) : (
                   <Link

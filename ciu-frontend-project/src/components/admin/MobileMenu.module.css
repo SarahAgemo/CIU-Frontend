@@ -33,11 +33,12 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
   height: 100vh;
   background-color: #f3f4f6;
   transition: left 0.3s ease-in-out;
-  z-index: 1000;
+  z-index: 999;
 }
 
 .mobile-menu.open {
   left: 0;
+  z-index: 1000;
 }
 
 .close-button {

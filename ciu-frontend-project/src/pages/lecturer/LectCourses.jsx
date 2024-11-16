@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
 import course from './LectCourses.module.css';
 
-// Table component
+// Table component remains unchanged
 function Table({ children }) {
     return <table className={course["table shadow-lg table-hover"]}>{children}</table>;
 }
 
-// TableHead component
+// TableHead component remains unchanged
 function TableHead({ cols }) {
     return (
         <thead>
@@ -26,38 +25,201 @@ function TableHead({ cols }) {
     );
 }
 
-// TableBody component
+// TableBody component remains unchanged
 function TableBody({ children }) {
     return <tbody>{children}</tbody>;
 }
 
-// UserList component without action buttons
+// Modified UserList component with inline styles
 function UserList({ users }) {
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filteredUsers, setFilteredUsers] = useState(users);
+
+    useEffect(() => {
+        const filtered = users.filter((user) =>
+            user.courseName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredUsers(filtered);
+    }, [searchTerm, users]);
+
     const cols = ['#', 'Faculty Name', 'Course Name', 'Course Units', 'Course Unit Code'];
 
+    const searchContainerStyles = {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "20px 0",
+        gap: "0px"
+    };
+
+    const searchButtonStyles = {
+        backgroundColor: "#0F533D",
+        color: "white",
+        padding: "12px 24px",
+        border: "none",
+        cursor: "pointer",
+        minWidth: "200px",
+        fontSize: "16px",
+        marginLeft: "500px"
+    };
+
+    const searchInputStyles = {
+        padding: "12px 16px",
+        border: "1px solid #ddd",
+        borderRadius: "2px",
+        fontSize: "16px",
+        width: "300px",
+        color: "#666"
+    };
+
     return (
-        <Table>
-            <TableHead cols={cols} />
-            <TableBody>
-                {users.map((user, index) => (
-                    <tr key={user.id}>
-                        <th scope="row">{index + 1}</th>
-                        <td>{user.facultyName}</td>
-                        <td>{user.courseName}</td>
-                        <td>{user.courseUnits}</td>
-                        <td>{user.courseUnitCode}</td>
-                    </tr>
-                ))}
-            </TableBody>
-        </Table>
+        <div>
+            <div style={searchContainerStyles}>
+                <button 
+                    style={searchButtonStyles}
+                    onClick={() => navigate('/lect-courses')}
+                >
+                    Search Courses
+                </button>
+                <input
+                    type="text"
+                    placeholder="Search by course name"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    style={searchInputStyles}
+                />
+            </div>
+
+            <Table>
+                <TableHead cols={cols} />
+                <TableBody>
+                    {filteredUsers.map((user, index) => (
+                        <tr key={user.id}>
+                            <th scope="row">{index + 1}</th>
+                            <td>{user.facultyName}</td>
+                            <td>{user.courseName}</td>
+                            <td>
+  <ul style={{ 
+    listStyle: "none", 
+    padding: 0,
+    margin: 0 
+  }}>
+    {Array.isArray(user.courseUnits) ? (
+      user.courseUnits.map((unit, i) => (
+        <li 
+          key={i} 
+          style={{
+            position: "relative",
+            paddingLeft: "16px",
+            margin: "4px 0",
+            lineHeight: "1.4",
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
+          <span style={{
+            position: "absolute",
+            left: "0",
+            marginRight: "8px",
+            display: "inline-block",
+            width: "12px"
+          }}>•</span>
+          <span style={{
+            marginLeft: "12px"
+          }}>{unit}</span>
+        </li>
+      ))
+    ) : (
+      <li style={{
+        position: "relative",
+        paddingLeft: "16px",
+        margin: "4px 0",
+        lineHeight: "1.4",
+        display: "flex",
+        alignItems: "center"
+      }}>
+        <span style={{
+          position: "absolute",
+          left: "0",
+          marginRight: "8px",
+          display: "inline-block",
+          width: "12px"
+        }}>•</span>
+        <span style={{
+          marginLeft: "12px"
+        }}>{user.courseUnits}</span>
+      </li>
+    )}
+  </ul>
+</td>
+<td>
+  <ul style={{ 
+    listStyle: "none", 
+    padding: 0,
+    margin: 0 
+  }}>
+    {Array.isArray(user.courseUnitCode) ? (
+      user.courseUnitCode.map((code, i) => (
+        <li 
+          key={i} 
+          style={{
+            position: "relative",
+            paddingLeft: "16px",
+            margin: "4px 0",
+            marginLeft: "-110px",  // Pull items towards left
+            lineHeight: "1.4",
+            display: "flex",
+            alignItems: "center"
+          }}
+        >
+          <span style={{
+            position: "absolute",
+            left: "0",
+            marginRight: "8px",
+            display: "inline-block",
+            width: "12px"
+          }}>•</span>
+          <span style={{
+            marginLeft: "12px"
+          }}>{code}</span>
+        </li>
+      ))
+    ) : (
+      <li style={{
+        position: "relative",
+        paddingLeft: "16px",
+        margin: "4px 0",
+        lineHeight: "1.4",
+        display: "flex",
+        alignItems: "center"
+      }}>
+        <span style={{
+          position: "absolute",
+          left: "0",
+          marginRight: "8px",
+          display: "inline-block",
+          width: "12px"
+        }}>•</span>
+        <span style={{
+          marginLeft: "12px"
+        }}>{user.courseUnitCode}</span>
+      </li>
+    )}
+  </ul>
+</td>
+                        </tr>
+                    ))}
+                </TableBody>
+            </Table>
+        </div>
     );
 }
 
-// Main CoursesViewOnlyPage component
-// Rename the main component back to CoursesViewOnly
+// Main LectCourses component remains unchanged
 function LectCourses() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -73,8 +235,6 @@ function LectCourses() {
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
-
-    const [users, setUsers] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:3000/coursesAdd')
@@ -111,6 +271,4 @@ function LectCourses() {
     );
 }
 
-// Export the component with the original name
 export default LectCourses;
-

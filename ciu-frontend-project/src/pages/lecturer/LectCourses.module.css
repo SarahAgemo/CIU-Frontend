@@ -11,6 +11,29 @@ table {
   }
   
   
+/* Styled lists within table cells */
+.table td ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.table td ul li {
+  position: relative;
+  padding-left: 24px;
+  margin: 4px 0;
+  line-height: 1.4;
+}
+
+.table td ul li::before {
+  content: "•";
+  position: absolute;
+  left: 8px;
+  color: #666;
+}
+
+
+
   th {
     background-color: #f5f5f5; 
     color: #106053; 
@@ -39,35 +62,7 @@ table {
   } 
   
 
-  /* button.btn {
-    padding: 7px 13px;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-  }
-  
 
-  button.btn-primary {
-    background-color:  #106010;
-    color: white;
-  }
-  
-  button.btn-primary:hover {
-    background-color: #0B3F37;
-  }
-  
-
-  button.btn-danger {
-    background-color:  #106010;
-    color: white;
-  }
-  
-  button.btn-danger:hover {
-    background-color: #0B3F37;
-  } */
-  
   
   td:last-child {
     display: flex;
@@ -77,9 +72,7 @@ table {
   
  
   
-  /* button.btn-secondary:hover {
-    background-color: #0B3F37;
-  } */
+
   
  
   @media (max-width: 768px) {
@@ -148,13 +141,7 @@ table {
       margin-top: 20px;
   }
   
-  /* .icon-button {
-      background: none;
-      border: none;
-      margin-left: 10px;
-      cursor: pointer;
-      color: #000;
-  } */
+  
   
   .user-controls {
       display: flex;
@@ -189,4 +176,6 @@ table {
   .active {
       background-color: #989da1;
   }
+  
+
   
