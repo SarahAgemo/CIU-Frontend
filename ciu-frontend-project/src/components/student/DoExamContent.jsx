@@ -129,8 +129,13 @@ export default function AvailableExams() {
         navigate("/proctoring", { state: { exam } });
     };
 
-    if (loading) return <p>Loading exams...</p>;
-    if (error) return <p>Error: {error}</p>;
+    if (loading) {
+        return <div className="spinner"></div>;
+    }
+
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
 
     return (
         <main className={DoExam["main-content"]}>

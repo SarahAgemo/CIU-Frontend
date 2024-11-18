@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const NotificationItem = ({ notification }) => (
@@ -24,6 +25,20 @@ const containerStyle = {
   overflow: 'hidden',
   textAlign: 'center',
   position: 'relative',
+};
+
+const backButtonStyle = {
+  position: 'absolute',
+  top: '20px',
+  left: '20px',
+  padding: '10px 20px',
+  fontSize: '16px',
+  color: '#fff',
+  backgroundColor: 'green',
+  border: 'none',
+  borderRadius: '8px',
+  cursor: 'pointer',
+  transition: 'background-color 0.3s ease',
 };
 
 const listStyle = {
@@ -82,10 +97,10 @@ const openMessageStyle = {
 };
 
 const Notifications = () => {
-  const [notifications, setNotifications] = useState([]);
+  const [notifications, setNotifications] = useState(null);
   const [studentCourses, setStudentCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchStudentData = async () => {
@@ -97,16 +112,15 @@ const Notifications = () => {
 
         const student = JSON.parse(studentData);
         const response = await axios.get(`http://localhost:3000/students/${student.id}`);
-        
+
         if (!response.data || !response.data.courseId) {
           throw new Error('No course data found for this student.');
         }
-        
+
         const courses = Array.isArray(response.data.courseId) ? response.data.courseId : [response.data.courseId];
         setStudentCourses(courses);
       } catch (error) {
         setError('Error fetching student data: ' + error.message);
-        setLoading(false);
       }
     };
 
@@ -116,12 +130,9 @@ const Notifications = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        
         const response = await axios.get('http://localhost:3000/notifications');
-        
-        // Fetch upcoming exams
-        const exams = await axios.get('http://localhost:3000/exam-paper?isDraft=false'); 
-        // Convert upcoming exams to notification format
+
+        const exams = await axios.get('http://localhost:3000/exam-paper?isDraft=false');
         const examNotifications = exams.data.map(exam => ({
           title: `Upcoming Exam: ${exam.title}`,
           message: `The exam for the course ${exam.courseUnit} is scheduled for ${new Date(exam.scheduledDate).toLocaleString()}.`,
@@ -132,10 +143,8 @@ const Notifications = () => {
 
         const filteredExamNotifications = examNotifications.filter(exam => studentCourses.includes(exam.courseId));
 
-        // Combine regular notifications and filtered exam notifications
         const allNotifications = [...response.data, ...filteredExamNotifications];
 
-        // Remove duplicates based on eventType and title
         const uniqueNotifications = allNotifications.filter((notification, index, self) =>
           index === self.findIndex((n) => (
             n.eventType === notification.eventType && n.title === notification.title
@@ -143,10 +152,8 @@ const Notifications = () => {
         );
 
         setNotifications(uniqueNotifications);
-        setLoading(false);
       } catch (error) {
         setError('Failed to fetch notifications: ' + error.message);
-        setLoading(false);
       }
     };
 
@@ -165,42 +172,49 @@ const Notifications = () => {
     );
   };
 
-  if (loading) return <p>Loading notifications...</p>;
-  if (error) return <p>Error: {error}</p>;
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div style={containerStyle}>
+      <button style={backButtonStyle} onClick={() => navigate('/student')}>
+        Back
+      </button>
       <h1>Notifications</h1>
 
-      {/* Notifications List */}
-      <div style={listStyle}>
-        {notifications.length > 0 ? (
-          notifications.map((notification) => (
-            <div
-              key={notification.id}
-              style={{
-                ...notificationStyle,
-                ...(notification.open ? hoverStyle : {}),
-              }}
-              onClick={() => toggleNotification(notification.id)} 
-            >
-              <div style={titleStyle}>
-                {notification.title}
-              </div>
+      {notifications === null ? (
+        <div className="spinner"></div>
+      ) : (
+        <div style={listStyle}>
+          {notifications.length > 0 ? (
+            notifications.map((notification) => (
               <div
+                key={notification.id}
                 style={{
-                  ...messageStyle,
-                  ...(notification.open ? openMessageStyle : {}),
+                  ...notificationStyle,
+                  ...(notification.open ? hoverStyle : {}),
                 }}
+                onClick={() => toggleNotification(notification.id)}
               >
-                {notification.message}
+                <div style={titleStyle}>
+                  {notification.title}
+                </div>
+                <div
+                  style={{
+                    ...messageStyle,
+                    ...(notification.open ? openMessageStyle : {}),
+                  }}
+                >
+                  {notification.message}
+                </div>
               </div>
-            </div>
-          ))
-        ) : (
-          <p>No notifications found.</p>
-        )}
-      </div>
+            ))
+          ) : (
+            <p>No notifications found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

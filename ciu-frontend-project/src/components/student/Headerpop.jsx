@@ -10,30 +10,27 @@ import io from 'socket.io-client';
 const Headerpop = ({ toggleMobileMenu, isMobile }) => {
   const [notifications, setNotifications] = useState([]);
   const [studentCourses, setStudentCourses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // Loading only applies to initial notification fetch
   const [error, setError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
-  const [unreadCount, setUnreadCount] = useState(0);  
-  const [socket, setSocket] = useState(null); 
+  const [unreadCount, setUnreadCount] = useState(0);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    
-    const socketInstance = io('http://localhost:3000'); 
+    const socketInstance = io('http://localhost:3000');
     setSocket(socketInstance);
 
-    
     socketInstance.on('new-notification', (newNotification) => {
       setNotifications(prevNotifications => [newNotification, ...prevNotifications]);
       setUnreadCount(prevUnreadCount => prevUnreadCount + 1);
     });
 
     return () => {
-      socketInstance.disconnect(); 
+      socketInstance.disconnect();
     };
   }, []);
 
   useEffect(() => {
-    
     const fetchStudentData = async () => {
       try {
         const studentData = localStorage.getItem('user');
@@ -43,7 +40,7 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
 
         const student = JSON.parse(studentData);
         const response = await axios.get(`http://localhost:3000/students/${student.id}`);
-        
+
         if (!response.data || !response.data.courseId) {
           throw new Error('No course data found for this student.');
         }
@@ -52,7 +49,6 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
         setStudentCourses(courses);
       } catch (error) {
         setError('Error fetching student data: ' + error.message);
-        setLoading(false);
       }
     };
 
@@ -64,7 +60,6 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
       try {
         const response = await axios.get('http://localhost:3000/notifications');
 
-        
         const exams = await axios.get('http://localhost:3000/exam-paper?isDraft=false');
         const examNotifications = exams.data.map(exam => ({
           title: `Upcoming Exam: ${exam.title}`,
@@ -72,13 +67,12 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
           date: exam.scheduledDate,
           eventType: 'exam',
           courseId: exam.courseId,
-          read: false,  
+          read: false,
         }));
 
         const filteredExamNotifications = examNotifications.filter(exam => studentCourses.includes(exam.courseId));
         const allNotifications = [...response.data, ...filteredExamNotifications];
 
-        
         const uniqueNotifications = allNotifications.filter((notification, index, self) =>
           index === self.findIndex((n) => (
             n.eventType === notification.eventType && n.title === notification.title
@@ -86,11 +80,8 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
         );
 
         setNotifications(uniqueNotifications);
-        
-        
         const unreadNotifications = uniqueNotifications.filter(notification => !notification.read);
         setUnreadCount(unreadNotifications.length);
-
         setLoading(false);
       } catch (error) {
         setError('Failed to fetch notifications: ' + error.message);
@@ -107,19 +98,16 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
     setNotifications(prevNotifications =>
       prevNotifications.map(notification =>
         notification.id === id
-          ? { ...notification, open: !notification.open, read: true }  // Mark as read when clicked
+          ? { ...notification, open: !notification.open, read: true }
           : notification
       )
     );
-    setUnreadCount(prevCount => prevCount - 1); 
+    setUnreadCount(prevCount => prevCount - 1);
   };
 
   const togglePopup = () => {
     setShowPopup((prev) => !prev);
   };
-
-  if (loading) return <p>Loading notifications...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     <header className={Head["header"]}>
@@ -139,8 +127,8 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
           aria-label="Notifications"
         >
           <Bell className={Head["notification-icon"]} />
-          {unreadCount > 0 && (
-            <span className={Head["notification-count"]}>{unreadCount}</span> // Display the count
+          {unreadCount > 0 && !loading && (
+            <span className={Head["notification-count"]}>{unreadCount}</span>
           )}
         </button>
 
