@@ -72,7 +72,7 @@ import QuestionBankPage from "./components/lecturer/QuestionBankPage.jsx";
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
 import SampleComponent from "./pages/student/Submit.jsx";
-
+import ResultComponent from "./pages/student/Result.jsx";
 
 
 import "./App.css";
@@ -255,6 +255,7 @@ function App() {
             } /> */}
 
               {/* Student */}
+              <Route path="student/results" element={<ResultComponent />} />
               <Route path="/student" element={<StudentDashboard />} />
               <Route path="/student/do-exam" element={<DoExam />} />
               <Route path="/student/support" element={<SupportPage />} />

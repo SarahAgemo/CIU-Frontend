@@ -1,0 +1,22 @@
+.ResultPage {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .ResultPage h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .ResultPage p {
+    font-size: 1.2rem;
+    margin: 10px 0;
+  }
+  
+  .ResultPage button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+  
