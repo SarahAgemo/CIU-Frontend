@@ -260,7 +260,16 @@ function ExamPaperPreview() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setPublishDialog(false)}>Cancel</Button>
-          <Button onClick={confirmPublish} color="primary" variant="contained">
+          <Button 
+          onClick={confirmPublish}          
+          variant="contained"
+          sx={{
+            backgroundColor: '#106053',
+            '&:hover': {
+              backgroundColor: '#0b3f37' 
+            }
+          }}
+          >
             Publish
           </Button>
         </DialogActions>
