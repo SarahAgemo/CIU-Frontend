@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -6,7 +5,6 @@ import createExam from './CreateExamContent.module.css';
 import moment from 'moment';
 import { Snackbar, Alert } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-
 
 export default function CreateExamContent() {
     const navigate = useNavigate();
@@ -25,7 +23,7 @@ export default function CreateExamContent() {
         questions: [
             {
                 content: '',
-                options: '',
+                options: [''], // Initialize with one empty option
                 answer: '',
             },
         ],
@@ -165,8 +163,19 @@ export default function CreateExamContent() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault(); // Prevents the default form submission behavior.
-
+        e.preventDefault();
+    
+        // Validate that each answer is within the available options for each question
+        const invalidAnswers = formData.questions.some((question) => {
+            const optionsArray = question.options.split(',').map(option => option.trim());
+            return !optionsArray.includes(question.answer);
+        });
+    
+        if (invalidAnswers) {
+            handleSnackbar('Each answer must be one of the provided options.', 'error');
+            return;
+        }
+    
         try {
             const payload = {
                 ...formData,
@@ -174,35 +183,25 @@ export default function CreateExamContent() {
                 duration: formData.duration,
                 scheduledDate: moment(formData.scheduledDate).format('YYYY-MM-DD HH:mm:ss'),
                 startTime: moment(formData.startTime, 'HH:mm').format('HH:mm:ss'),
-                endTime: moment(formData.endTime, 'HH:mm').format('HH:mm:ss'),
+                endTime: moment(formData.endTime, 'HH:mm:ss'),
                 questions: formData.questions.map((q) => ({
                     content: q.content,
-                    options: q.options.split(','), // Convert to array
+                    options: q.options.split(',').map(option => option.trim()), // Ensure options are an array
                     answer: q.answer,
                 })),
             };
-
-            // Send the form data to the backend API.
+    
             const response = await axios.post('http://localhost:3000/manual-exam-paper', payload);
-
+    
             console.log('Data posted successfully:', response.data);
-
-            // Display success message using snackbar logic.
             handleSnackbar('Exam created successfully!', 'success');
-
-            // Redirect to the exam list page after successful creation.
             navigate('/schedule-upload-exams/exam-list');
         } catch (error) {
             console.error('Error creating exam:', error);
-
-            // Display error message using snackbar logic.
             handleSnackbar('Failed to create exam: ' + error.message, 'error');
-
-            // Optionally set the error state for more detailed feedback.
-            setError('Failed to create exam: ' + error.message);
         }
     };
-
+    
 
 
     return (
@@ -230,7 +229,6 @@ export default function CreateExamContent() {
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
-            {/* Rest of your component code */}
             <form onSubmit={handleSubmit} className={createExam.formContainer_createExam}>
                  <h2 className={createExam.heading_createExam}>Create Exams</h2>
 
@@ -318,14 +316,14 @@ export default function CreateExamContent() {
                      />
                  </div>
                  <div className={createExam.formGroup_duration}>
-                     <label className={createExam.label_duration}>Duration (in minutes)</label>
+                     <label className={createExam.label_duration}>Duration</label>
                      <input
                          type="text"
                          name="duration"
                          value={formData.duration}
                          onChange={handleInputChange}
                          className={createExam.input_duration}
-                         placeholder="Duration"
+                         placeholder="HH:MM"
                          required
                      />
                  </div>
