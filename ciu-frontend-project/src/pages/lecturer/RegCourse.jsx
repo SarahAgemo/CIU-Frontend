@@ -99,16 +99,20 @@ const RegCourse = () => {
 
   return (
     <div className={AdminDash["overall"]}>
-      <div className={AdminDash["dashboard"]}>
+      <div className={`${AdminDash["dashboard"]} ${isMobileMenuOpen ? AdminDash["menu-open"] : ""}`}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={AdminDash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
-            <MobileMenu
-              isOpen={isMobileMenuOpen}
-              toggleMenu={toggleMobileMenu}
-            />
+            <>
+              <div 
+                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                onClick={toggleMobileMenu}
+              ></div>
+              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            </>
           )}
+          <div className={`${styles.mainContentWrapper} ${isMobileMenuOpen ? styles.dimmed : ''}`}>
           <div className={styles.formContainer}> {/* Use module styles */}
             <h2 className={styles.formTitle}>Register Course</h2>
             <form onSubmit={handleSubmit}>
@@ -170,6 +174,7 @@ const RegCourse = () => {
                 {errors.server && <span className={styles.error}>{errors.server}</span>}
               </div>
             </form>
+          </div>
           </div>
         </div>
       </div>
