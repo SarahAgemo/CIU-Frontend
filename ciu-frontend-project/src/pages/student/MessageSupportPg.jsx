@@ -27,13 +27,21 @@ function MessageSupp() {
 
     return (
         <div className={SupportPg["overall"]}>
-        <div className={SupportPg["app"]}>
+        <div className={`${SupportPg["app"]} ${isMobileMenuOpen ? SupportPg["menu-open"] : ""}`}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
             <div className={SupportPg["app-content"]}>
                 {!isMobile && <Sidebar />}
-                {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
+                {isMobile && (
+                <>
+                    <div 
+                    className={`${SupportPg["overlay"]} ${isMobileMenuOpen ? SupportPg["active"] : ""}`} 
+                    onClick={toggleMobileMenu}
+                    ></div>
+                    <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+                </>
+                )}
                 <div className={SupportPg['main-container']}>
-                    <main className={SupportPg["main-content"]}>
+                    <main className={`${SupportPg.mainContentWrapper} ${isMobileMenuOpen ? SupportPg.dimmed : ''}`}>
                         <MessageSupport />
                     </main>
                     <Footer />

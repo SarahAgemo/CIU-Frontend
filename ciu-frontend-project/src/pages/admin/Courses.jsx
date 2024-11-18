@@ -4,10 +4,11 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
-import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import course from "./Courses.module.css";
-// At the top of your Courses.jsx file
-import AdminDash from '../../pages/admin/Dashboard'; // Adjust the path based on your file structure
+import AdminDash from "../../pages/admin/Dashboard";
+import Dash from "../../components/lecturer/lecturerDashboard.module.css"
+
+
 
 // Table component remains unchanged
 function Table({ children }) {
@@ -63,7 +64,7 @@ function UserList({ users, deleteUser }) {
     justifyContent: "space-between",
     alignItems: "center",
     padding: "20px 0",
-    gap: "0px"
+    gap: "0px",
   };
 
   const searchButtonStyles = {
@@ -74,7 +75,7 @@ function UserList({ users, deleteUser }) {
     cursor: "pointer",
     minWidth: "200px",
     fontSize: "16px",
-    marginLeft: "500px"
+    marginLeft: "500px",
   };
 
   const searchInputStyles = {
@@ -83,15 +84,15 @@ function UserList({ users, deleteUser }) {
     borderRadius: "2px",
     fontSize: "16px",
     width: "300px",
-    color: "#666"
+    color: "#666",
   };
 
   return (
     <div>
       <div style={searchContainerStyles}>
-        <button 
+        <button
           style={searchButtonStyles}
-          onClick={() => navigate('/regCourse')}
+          onClick={() => navigate("/regCourse")}
         >
           Add New Course
         </button>
@@ -112,29 +113,157 @@ function UserList({ users, deleteUser }) {
               <th scope="row">{index + 1}</th>
               <td>{user.facultyName}</td>
               <td>{user.courseName}</td>
-              
-              <td>
-                <ul>
-                  {Array.isArray(user.courseUnits) ? (
-                    user.courseUnits.map((unit, i) => <li key={i}>{unit}</li>)
-                  ) : (
-                    <li>{user.courseUnits}</li>
-                  )}
-                </ul>
-              </td>
 
               <td>
-                <ul>
-                  {Array.isArray(user.courseUnitCode) ? (
-                    user.courseUnitCode.map((code, i) => (
-                      <li key={i}>{code}</li>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                  }}
+                >
+                  {Array.isArray(user.courseUnits) ? (
+                    user.courseUnits.map((unit, i) => (
+                      <li
+                        key={i}
+                        style={{
+                          position: "relative",
+                          paddingLeft: "16px", // Reduced padding
+                          margin: "4px 0",
+                          lineHeight: "1.4",
+                          display: "flex", // Added to help with alignment
+                          alignItems: "center", // Vertical centering
+                        }}
+                      >
+                        <span
+                          style={{
+                            position: "absolute",
+                            left: "0", // Moved bullet to edge
+                            marginRight: "8px", // Space between bullet and text
+                            display: "inline-block",
+                            width: "12px", // Fixed width for bullet
+                          }}
+                        >
+                          •
+                        </span>
+                        <span
+                          style={{
+                            marginLeft: "12px", // Consistent text start position
+                          }}
+                        >
+                          {unit}
+                        </span>
+                      </li>
                     ))
                   ) : (
-                    <li>{user.courseUnitCode}</li>
+                    <li
+                      style={{
+                        position: "relative",
+                        paddingLeft: "16px",
+                        margin: "4px 0",
+                        lineHeight: "1.4",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: "absolute",
+                          left: "0",
+                          marginRight: "8px",
+                          display: "inline-block",
+                          width: "12px",
+                        }}
+                      >
+                        •
+                      </span>
+                      <span
+                        style={{
+                          marginLeft: "12px",
+                        }}
+                      >
+                        {user.courseUnits}
+                      </span>
+                    </li>
                   )}
                 </ul>
               </td>
 
+              {/* Apply the same styling to courseUnitCode cell */}
+              <td>
+                <ul
+                  style={{
+                    listStyle: "none",
+                    padding: 0,
+                    margin: 0,
+                  }}
+                >
+                  {Array.isArray(user.courseUnitCode) ? (
+                    user.courseUnitCode.map((code, i) => (
+                      <li
+                        key={i}
+                        style={{
+                          position: "relative",
+                          paddingLeft: "16px",
+                          margin: "4px 0",
+                          lineHeight: "1.4",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <span
+                          style={{
+                            position: "absolute",
+                            left: "0",
+                            marginRight: "8px",
+                            display: "inline-block",
+                            width: "12px",
+                          }}
+                        >
+                          •
+                        </span>
+                        <span
+                          style={{
+                            marginLeft: "12px",
+                          }}
+                        >
+                          {code}
+                        </span>
+                      </li>
+                    ))
+                  ) : (
+                    <li
+                      style={{
+                        position: "relative",
+                        paddingLeft: "16px",
+                        margin: "4px 0",
+                        lineHeight: "1.4",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <span
+                        style={{
+                          position: "absolute",
+                          left: "0",
+                          marginRight: "8px",
+                          display: "inline-block",
+                          width: "12px",
+                        }}
+                      >
+                        •
+                      </span>
+                      <span
+                        style={{
+                          marginLeft: "12px",
+                        }}
+                      >
+                        {user.courseUnitCode}
+                      </span>
+                    </li>
+                  )}
+                </ul>
+              </td>
               <td>
                 <span
                   onClick={() => navigate(`/editcourse/${user.id}`)}

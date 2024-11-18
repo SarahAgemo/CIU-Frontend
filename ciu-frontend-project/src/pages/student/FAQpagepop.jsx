@@ -27,13 +27,21 @@ export default function Questions() {
 
   return (
     <div className={Faqs['overall']}>
-    <div className={Faqs['app']}>
+    <div className={`${Faqs["app"]} ${isMobileMenuOpen ? Faqs["menu-open"] : ""}`}>
       <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
       <div className={Faqs['app-content']}>
         {!isMobile && <Sidebar />}
-        {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
+        {isMobile && (
+          <>
+            <div 
+              className={`${Faqs["overlay"]} ${isMobileMenuOpen ? Faqs["active"] : ""}`} 
+              onClick={toggleMobileMenu}
+            ></div>
+            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+          </>
+        )}
         <div className={Faqs['main-container']}>
-          <main className={Faqs['main-content']}>
+          <main className={`${Faqs['main-content']} ${isMobileMenuOpen ? Faqs["dimmed"] : ""}`}>
             <FAQList />
           </main>
           <Footer />

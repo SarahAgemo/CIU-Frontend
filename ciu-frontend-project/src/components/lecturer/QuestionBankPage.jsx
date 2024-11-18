@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Eye, Download } from "lucide-react";
+import { Trash2, Eye, Download } from "lucide-react";  // Icon imports from lucide-react
 import { useNavigate } from "react-router-dom";
 import { jsPDF } from "jspdf";
 import styles from "./QuestionBankPage.module.css";
@@ -33,7 +33,6 @@ const QuestionBank = () => {
     fetchQuestionBanks();
   }, []);
 
-  // Filter banks when search term or questionBanks change
   useEffect(() => {
     const filterBanks = () => {
       if (!searchTerm) {
@@ -173,34 +172,6 @@ const QuestionBank = () => {
     return <div className="p-6">Loading...</div>;
   }
 
-  const searchContainerStyles = {
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    padding: "20px 0",
-    marginBottom: "20px",
-  };
-
-  const searchButtonStyles = {
-    backgroundColor: "#0F533D",
-    color: "white",
-    padding: "12px 24px",
-    border: "none",
-    cursor: "pointer",
-    minWidth: "200px",
-    fontSize: "16px",
-    marginLeft: "500px",
-  };
-
-  const searchInputStyles = {
-    padding: "12px 16px",
-    border: "1px solid #ddd",
-    borderRadius: "2px",
-    fontSize: "16px",
-    width: "300px",
-    color: "#666",
-  };
-
   return (
     <div className={Dash["overall"]}>
       <div className={Dash["dashboard"]}>
@@ -215,28 +186,8 @@ const QuestionBank = () => {
           )}
 
           <div className={styles.formContainer}>
-            
-
-            {/* Search Container */}
-            <div style={searchContainerStyles}>
-              <button
-                style={searchButtonStyles}
-                onClick={() => navigate("/published-exam-papers")}
-              >
-                Add New Bank
-              </button>
-
-              <input
-                type="text"
-                placeholder="Search by course unit, code or creator..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={searchInputStyles}
-              />
-            </div>
-
             <div className={styles.tableContainer}>
-            <h2 style={{ marginRight: "800px" }}>QuestionBanks</h2>
+              <h2 style={{ marginRight: "800px" }}>QuestionBanks</h2>
               <table className={styles.questionTable}>
                 <thead>
                   <tr>
@@ -256,14 +207,23 @@ const QuestionBank = () => {
                         <td>{bank.questionCount}</td>
                         <td>{bank.createdBy}</td>
                         <td>
-                          <button onClick={() => handlePreview(bank.id)}>
-                            <Eye />
+                          <button
+                            onClick={() => handlePreview(bank.id)}
+                            className={styles["question-bank-action-button"]}
+                          >
+                            <Eye size={20} />
                           </button>
-                          <button onClick={() => generatePDF(bank)}>
-                            <Download />
+                          <button
+                            onClick={() => generatePDF(bank)}
+                            className={styles["question-bank-action-button"]}
+                          >
+                            <Download size={20} />
                           </button>
-                          <button onClick={() => deleteQuestionBank(bank.id)}>
-                            <Trash2 />
+                          <button
+                            onClick={() => deleteQuestionBank(bank.id)}
+                            className={styles["question-bank-deletebutton"]}
+                          >
+                            <Trash2 size={20} />
                           </button>
                         </td>
                       </tr>
