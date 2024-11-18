@@ -1,126 +1,65 @@
 /* src/QuestionBankPage.css */
 
-/* .question-bank-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f4f4f4;
-    padding: 20px;
-    flex-direction: column;
-
-  } */
-  .tableContainer {
-    margin-bottom: 20px;
-    width: 100%;
-    /* overflow-x: auto; */
-  }
-  .questionTable {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #dee2e6;
-  }
-  .questionTable th,td{
-    border: 1px solid #dee2e6;
-  }
-
-    
-  .formContainer {
-    margin-bottom: 20px;
-    width: 100%;
-    padding: 20px;
-    border-radius: 8px;
-  }
-  
-  .page-title {
-    margin-bottom: 20px;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: green; 
-  }
-  
-  .main-card {
-    background-color: #fff;
-    width: 80%;
-    max-width: 900px;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 400px;
-  }
-
-  .action-button {
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    color: #fff; /* Text color */
+/* Styling for action buttons */
+.question-bank-action-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: transparent;  /* No background color */
+  color: #218838;  /* Green for icons */
 }
 
-.delete-button {
-    background-color: #dc3545; /* Red for delete */
+.question-bank-action-button:hover {
+  background-color: #e9f7e9;  /* Light green on hover */
 }
 
-.delete-button:hover {
-    background-color: #c82333;
+.question-bank-deletebutton {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: transparent; /* No background color */
+  color: red; /* Red for delete icon */
 }
 
-.preview-button {
-    background-color: #17a2b8; /* Teal for preview */
+.question-bank-deletebutton:hover {
+  background-color: #f8d7da;  /* Light red on hover */
 }
 
-.preview-button:hover {
-    background-color: #138496;
+/* Other CSS */
+.tableContainer {
+  margin-bottom: 20px;
+  width: 100%;
 }
 
-.download-button {
-    background-color: #28a745; /* Green for download */
+.questionTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #dee2e6;
 }
 
-.download-button:hover {
-    background-color: #218838;
+.questionTable th, td {
+  border: 1px solid #dee2e6;
 }
-  
-  .course-list {
-    width: 90%;
-  }
-  
-  .course-card {
-    border-bottom: 1px solid #ddd;
-    padding: 20px;
-    margin-bottom: 15px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-  }
-  
-  .course-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .course-header h2 {
-    margin: 0;
-    color: green; 
-  }
-  
-  
-  .course-header svg {
-    color: green;
-  }
-  
-  .units-list {
-    list-style-type: circle;
-    margin-top: 10px;
-    padding-left: 25px;
-  }
-  
+
+.formContainer {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.page-title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: green;
+}

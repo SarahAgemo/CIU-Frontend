@@ -1,4 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import StudentExamPage from './pages/StudentExamPage';
+import LecturerProctorPage from './pages/LecturerProctorPage';
+import React from 'react';
 
 // Authentication
 import Login from "./pages/login.jsx";
@@ -90,6 +93,11 @@ function App() {
             {" "}
             {/* lecturer */}
             <Routes>
+
+              {/* livestream proctoring */}
+              <Route path="/student-exam" element={<StudentExamPage />} />
+              <Route path="/lecturer-proctor" element={<LecturerProctorPage />} />
+
               {/* Authentication */}
               <Route path="/" element={<Login />} />
               <Route path="/reset-password" element={<ResetPassword />} />
