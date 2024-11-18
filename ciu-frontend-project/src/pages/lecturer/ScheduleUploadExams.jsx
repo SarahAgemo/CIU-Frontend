@@ -7,6 +7,9 @@ import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
+import { Snackbar, Alert } from '@mui/material';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+
 
 export default function ScheduleUploadExams() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -43,6 +46,10 @@ export default function ScheduleUploadExams() {
     createdBy: "",
     isDraft: false, // Ensure isDraft is a boolean
   });
+  
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('error');
 
   // Fetch courses when component mounts
   useEffect(() => {
@@ -90,7 +97,12 @@ export default function ScheduleUploadExams() {
     }
   }, [examData.courseId]);
 
-
+   
+  const handleSnackbar = (message, severity) => {
+    setSnackbarMessage(message);
+    setSnackbarSeverity(severity);
+    setSnackbarOpen(true);
+  };
 
 
   const handleInputChange = (event) => {
@@ -100,32 +112,31 @@ export default function ScheduleUploadExams() {
       const selectedDateTime = moment(value);
       const now = moment();
       const minimumAllowedTime = now.add(24, 'hours');
-      
+
       if (selectedDateTime.isBefore(minimumAllowedTime)) {
-        setValidationError("Exam must be scheduled at least 24 hours in advance");
-        return; // Don't update the state if validation fails
+        handleSnackbar('Scheduled date and time must be at least 24 hours from the current time.', 'error');
+        return;
       }
 
       const extractedTime = selectedDateTime.format("HH:mm:ss");
-      
-      
+
       setExamData(prevData => {
         const newData = {
           ...prevData,
           scheduledDate: value,
           startTime: extractedTime,
         };
-  
+
         if (prevData.duration) {
           const [hours, minutes] = prevData.duration.split(':').map(Number);
           const durationMinutes = (hours * 60) + minutes;
-          const endTime = moment(dateTime).add(durationMinutes, 'minutes').format("HH:mm:ss");
+          const endTime = moment(selectedDateTime).add(durationMinutes, 'minutes').format("HH:mm:ss");
           newData.endTime = endTime;
         }
-  
+
         return newData;
       });
-    } 
+    }
     else if (name === "duration") {
       // Remove any non-digit characters except colon
       let cleaned = value.replace(/[^\d:]/g, '');
@@ -213,18 +224,15 @@ export default function ScheduleUploadExams() {
   //   return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`;
   // };
 
-   const handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setError("");
-    setSuccess("");
-
 
     const selectedDateTime = moment(examData.scheduledDate);
     const now = moment();
     const minimumAllowedTime = now.add(24, 'hours');
 
     if (selectedDateTime.isBefore(minimumAllowedTime)) {
-      setError("Exam must be scheduled at least 24 hours in advance");
+      handleSnackbar('Exam must be scheduled at least 24 hours in advance', 'error');
       return;
     }
     const formData = new FormData();
@@ -257,17 +265,38 @@ export default function ScheduleUploadExams() {
       });
       if (!response.ok) throw new Error("Failed to upload exam paper");
       const data = await response.json();
-      setSuccess("Exam paper uploaded successfully!");
+      handleSnackbar('Exam paper uploaded successfully!', 'success');
       navigate("/schedule-upload-exams/exam-list", {
         state: { examData: data },
       });
     } catch (error) {
-      setError("Error uploading exam paper: " + error.message);
+      handleSnackbar('Error uploading exam paper: ' + error.message, 'error');
     }
   };
 
   return (
     <div className={Dash.lecturerDashboard}>
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={() => setSnackbarOpen(false)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{ width: '50%' }}
+      >
+        <Alert
+          onClose={() => setSnackbarOpen(false)}
+          severity={snackbarSeverity}
+          sx={{
+            backgroundColor: snackbarSeverity === 'error' ? '#FFF4E5' : '#FFF4E5',
+            color: '#000',
+            display: 'flex',
+            alignItems: 'center'
+          }}
+          icon={snackbarSeverity === 'error' ? <WarningAmberIcon /> : undefined}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
       <div className={Dash.dashboard}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={Dash["dashboard-content"]}>
