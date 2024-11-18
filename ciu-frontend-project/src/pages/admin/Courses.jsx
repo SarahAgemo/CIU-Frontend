@@ -5,6 +5,9 @@ import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
 import course from "./Courses.module.css";
+import AdminDash from "../../pages/admin/Dashboard";
+import Dash from "../../components/lecturer/lecturerDashboard.module.css"
+
 
 
 // Table component remains unchanged
@@ -342,24 +345,21 @@ function AdminCourses() {
   };
 
   return (
-    <div className={course.lecturercourseboard}>
-      <div className={`${course["courseboard"]} ${isMobileMenuOpen ? course["menu-open"] : ""}`}>
+    <div className={Dash.lecturerDashboard}>
+      <div className={Dash.dashboard}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-        <div className={course["courseboard-content"]}>
+        <div className={Dash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
               <div 
-                className={`${course["overlay"]} ${isMobileMenuOpen ? course["active"] : ""}`} 
+                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
                 onClick={toggleMobileMenu}
               ></div>
-              <MobileMenu
-                isOpen={isMobileMenuOpen}
-                toggleMenu={toggleMobileMenu}
-              />
+              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
             </>
           )}
-          <div className={`${course.mainContentWrapper} ${isMobileMenuOpen ? course.dimmed : ''}`}>
+          <div className={course["users-content"]}>
             <div className={course["row justify-content-center pt-5"]}>
               <UserList users={users} deleteUser={deleteUser} />
             </div>
