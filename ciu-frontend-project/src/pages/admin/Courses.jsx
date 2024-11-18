@@ -4,10 +4,8 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
-import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import course from "./Courses.module.css";
-// At the top of your Courses.jsx file
-import AdminDash from "../../pages/admin/Dashboard"; // Adjust the path based on your file structure
+
 
 // Table component remains unchanged
 function Table({ children }) {
@@ -344,17 +342,15 @@ function AdminCourses() {
   };
 
   return (
-    <div className={Dash.lecturerDashboard}>
-      <div className={Dash.dashboard}>
+    <div className={course.lecturercourseboard}>
+      <div className={`${course["courseboard"]} ${isMobileMenuOpen ? course["menu-open"] : ""}`}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-        <div className={Dash["dashboard-content"]}>
+        <div className={course["courseboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div
-                className={`${AdminDash["overlay"]} ${
-                  isMobileMenuOpen ? AdminDash["active"] : ""
-                }`}
+              <div 
+                className={`${course["overlay"]} ${isMobileMenuOpen ? course["active"] : ""}`} 
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu
@@ -363,7 +359,7 @@ function AdminCourses() {
               />
             </>
           )}
-          <div className={course["users-content"]}>
+          <div className={`${course.mainContentWrapper} ${isMobileMenuOpen ? course.dimmed : ''}`}>
             <div className={course["row justify-content-center pt-5"]}>
               <UserList users={users} deleteUser={deleteUser} />
             </div>

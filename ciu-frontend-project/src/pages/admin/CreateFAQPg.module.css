@@ -48,3 +48,37 @@
   opacity: 0.5;
   transition: opacity 0.3s ease;
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 998;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.menuOpen .mainContentWrapper {
+  pointer-events: none;
+}
+
+.dimmed {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.mainContentWrapper {
+  flex: 1;
+  transition: opacity 0.3s ease;
+
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #F9FFFC;
+}
