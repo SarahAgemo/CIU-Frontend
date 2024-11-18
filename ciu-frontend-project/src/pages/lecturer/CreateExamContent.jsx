@@ -9,6 +9,10 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 export default function CreateExamContent() {
     const navigate = useNavigate();
 
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const lecturerId = storedUser?.id; 
+
+
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -19,7 +23,7 @@ export default function CreateExamContent() {
         scheduledDate: '',
         startTime: '',
         endTime: '',
-        createdBy: '',
+        createdBy: lecturerId,
         questions: [
             {
                 content: '',
@@ -352,29 +356,16 @@ export default function CreateExamContent() {
                      />
                  </div>
 
-                 <div className={createExam.formGroup_endTime}>
-                     <label className={createExam.label_endTime}>End Time</label>
-                     <input
-                         type="time"
-                         name="endTime"
-                         value={formData.endTime}
-                         className={createExam.input_endTime}
-                         readOnly
-                     />
-                 </div>
-
-                 <div className={createExam.formGroup_createdBy}>
-                     <label className={createExam.label_createdBy}>Created By</label>
-                     <input
-                         type="text"
-                         name="createdBy"
-                         value={formData.createdBy}
-                         onChange={handleInputChange}
-                         className={createExam.input_createdBy}
-                         placeholder="Created By"
-                         required
-                     />
-                 </div>
+                <div className={createExam.formGroup_endTime}>
+                    <label className={createExam.label_endTime}>End Time</label>
+                    <input
+                        type="time"
+                        name="endTime"
+                        value={formData.endTime}
+                        className={createExam.input_endTime}
+                        readOnly
+                    />
+                </div>
 
                  {formData.questions.map((question, index) => (
                      <div key={index} className={createExam.formGroup_question}>

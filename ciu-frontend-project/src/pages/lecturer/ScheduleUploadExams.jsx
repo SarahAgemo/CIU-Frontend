@@ -14,6 +14,8 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 export default function ScheduleUploadExams() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const lecturerId = storedUser?.id;
 
   useEffect(() => {
     const handleResize = () => {
@@ -43,7 +45,7 @@ export default function ScheduleUploadExams() {
     duration: "",
     startTime: "",
     endTime: "",
-    createdBy: "",
+    createdBy: lecturerId,
     isDraft: false, // Ensure isDraft is a boolean
   });
   
@@ -478,20 +480,6 @@ export default function ScheduleUploadExams() {
             readOnly
           />
         </div>
-
-              <div className={uploadExam["uploadExam-form-group"]}>
-                <label className={uploadExam["uploadExam-label"]}>
-                  Created By
-                </label>
-                <input
-                  type="text"
-                  name="createdBy"
-                  className={uploadExam["uploadExam-form-control"]}
-                  value={examData.createdBy}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
 
               <div className={uploadExam["uploadExam-form-group"]}>
                 <label className={uploadExam["uploadExam-label"]}>
