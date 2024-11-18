@@ -14,6 +14,23 @@ const fetchAvailableExams = async () => {
 };
 
 const ExamCard = ({ exam, onDoExam }) => {
+    const [isEnabled, setIsEnabled] = useState(false);
+
+    useEffect(() => {
+        const startTime = new Date(exam.startTime);
+        const twoMinutesBeforeStart = new Date(startTime.getTime() - 2 * 60 * 1000);
+
+        const checkButtonState = () => {
+            const now = new Date();
+            setIsEnabled(now >= twoMinutesBeforeStart);
+        };
+
+        checkButtonState();
+        const interval = setInterval(checkButtonState, 1000);
+
+        return () => clearInterval(interval);
+    }, [exam.startTime]);
+
     const scheduledDate = new Date(exam.scheduledDate);
     const startTime = new Date(exam.startTime);
     const endTime = new Date(exam.endTime);
@@ -29,11 +46,16 @@ const ExamCard = ({ exam, onDoExam }) => {
                 <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
                 <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
-                {/* <p><strong>Course ID:</strong> {exam.courseId}</p> */}
-                <p><strong>Course Name:</strong> {exam.courseName }</p>
+                <p><strong>Course Name:</strong> {exam.courseName}</p>
             </div>
             <div className={DoExam["exam-actions"]}>
-                <button className={DoExam["do-exam-btn"]} onClick={() => onDoExam(exam)}>DO EXAM</button>
+                <button
+                    className={DoExam["do-exam-btn"]}
+                    onClick={() => onDoExam(exam)}
+                    disabled={!isEnabled}
+                >
+                    DO EXAM
+                </button>
                 <a href="#" className={DoExam["schedule-reminder"]}>
                     Schedule Reminder <Clock size={16} />
                 </a>
@@ -64,27 +86,23 @@ export default function AvailableExams() {
                 if (!studentDetails.courseId) {
                     throw new Error("No courseId found in student data.");
                 }
-            const courses = await axios.get(`http://localhost:3000/coursesAdd`);
-            const returncourses = courses.data;
 
-                  
-                  
+                const courses = await axios.get(`http://localhost:3000/coursesAdd`);
+                const returncourses = courses.data;
 
                 const filteredExams = exams.filter(exam => exam.courseId === studentDetails.courseId);
                 const finalStudentExams = filteredExams.map(studentExam => {
                     const exam = returncourses.find(course => course.id === studentExam.courseId);
-                
                     return {
                         ...studentExam,
                         courseName: exam.courseName 
                     };
                 });
                 
-                console.log(finalStudentExams);
                 setAvailableExams(finalStudentExams);
             } catch (err) {
                 setError(err.message);
-                console.log(error);
+                console.log(err.message);
             } finally {
                 setLoading(false);
             }
@@ -93,9 +111,21 @@ export default function AvailableExams() {
         loadExams();
     }, []);
 
+    // Remove expired exams
+    useEffect(() => {
+        const interval = setInterval(() => {
+            const now = new Date();
+            setAvailableExams((prevExams) =>
+                prevExams.filter((exam) => new Date(exam.endTime) > now)
+            );
+        }, 1000); // Check every second
+
+        return () => clearInterval(interval);
+    }, []);
+
     const handleDoExam = (exam) => {
         console.log(exam);
-        localStorage.setItem('exam' ,exam.id);
+        localStorage.setItem('exam', exam.id);
         navigate("/proctoring", { state: { exam } });
     };
 
@@ -117,4 +147,3 @@ export default function AvailableExams() {
         </main>
     );
 }
-

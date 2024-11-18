@@ -89,3 +89,149 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* Headerpop.module.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.hamburger-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.logo {
+  height: 40px;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.notification-button {
+  margin-right: 20px;
+}
+
+.notification-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-image {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* Notification Pop-up Styling */
+.popup-container {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  z-index: 10;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.close-popup-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.popup-notification {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.popup-notification:hover {
+  background-color: #f9f9f9;
+}
+
+.popup-notification .title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.popup-notification .message {
+  font-size: 14px;
+  color: #555;
+}
+
+.view-all-button {
+  text-align: center;
+  margin-top: 10px;
+  display: block;
+  font-weight: bold;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.view-all-button:hover {
+  text-decoration: underline;
+}
+
+/* Notification count badge */
+.notification-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 18px;
+  height: 18px;
+  background-color: #f44336; /* Red color for the notification badge */
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
