@@ -4,7 +4,7 @@ import LecturerProctorPage from './pages/LecturerProctorPage';
 import React from 'react';
 
 // Authentication
-import Login from "./pages/login.jsx";
+import Login from "./pages/loginoriginal.jsx";
 import ResetPassword from "./components/admin/ResetPassword.jsx";
 import RequestToken from "./components/admin/RequestToken.jsx";
 // import ProtectedRoute from './components/student/ProtectedRoute.jsx';
@@ -36,6 +36,7 @@ import TokenPasswordPage from "./components/admin/TokenPasswordPage";
 import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
 import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx"
+import LandingPage from "./pages/admin/LandingPage.jsx";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -74,7 +75,10 @@ import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from "./components/lecturer/QuestionBankPage.jsx";
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
+import StudentLogin from "./pages/StudentLogin.jsx";
 
+import SampleComponent from "./pages/student/Submit.jsx";
+import ResultComponent from "./pages/student/Result.jsx";
 
 
 import "./App.css";
@@ -121,6 +125,7 @@ function App() {
               <Route path="/adminuser" element={<Adminuser />} />
               <Route path="/editadmin/:id" element={<Editadmin />} />
               <Route path="/adminPassword" element={<ResetAdminPassword />} />
+              <Route path="/landingPage" element={<LandingPage />} />
               <Route
                 path="/lecturerPassword"
                 element={<ResetLecturerPassword />}
@@ -262,6 +267,8 @@ function App() {
             } /> */}
 
               {/* Student */}
+              <Route path="/StudentLogin" element={<StudentLogin />} />
+              <Route path="student/results" element={<ResultComponent />} />
               <Route path="/student" element={<StudentDashboard />} />
               <Route path="/student/do-exam" element={<DoExam />} />
               <Route path="/student/support" element={<SupportPage />} />
@@ -271,6 +278,9 @@ function App() {
                 element={<ReportIssue />}
               />
               <Route path="/instructions" element={<ExamInstructions />} />
+              <Route path="/submit" element={< SampleComponent />} />
+              
+
               <Route path="/proctoring" element={<Proctoring />} />
               <Route path="/quiz" element={<Quiz />} />
               <Route
