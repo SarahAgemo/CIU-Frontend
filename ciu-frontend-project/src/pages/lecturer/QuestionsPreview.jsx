@@ -16,6 +16,7 @@ function QuestionsPreview() {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [isDraft, setIsDraft] = useState(true);
 
   // New states for delete dialog and snackbar
   const [deleteDialog, setDeleteDialog] = useState({
@@ -58,6 +59,22 @@ function QuestionsPreview() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+
+  useEffect(() => {
+    const fetchExamData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        if (!response.ok) throw new Error("Failed to fetch exam paper");
+        const data = await response.json();
+        setIsDraft(data.isDraft);
+      } catch (error) {
+        handleSnackbar("Error fetching exam paper: " + error.message, "error");
+      }
+    };
+
+    fetchExamData();
+  }, [id]);
+
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -81,6 +98,10 @@ function QuestionsPreview() {
   }, [id]);
 
   const handleDeleteQuestion = (questionId) => {
+    if (!isDraft) {
+      handleSnackbar("You cannot delete questions from an already published exam.", "error");
+      return;
+    }
     setDeleteDialog({
       open: true,
       questionId
@@ -111,6 +132,10 @@ function QuestionsPreview() {
   };
 
   const handleEditQuestion = (questionId) => {
+    if (!isDraft) {
+      handleSnackbar("You cannot edit questions in an already published exam.", "error");
+      return;
+    }
     navigate(`/exam-paper/${id}/question/${questionId}`);
   };
 
