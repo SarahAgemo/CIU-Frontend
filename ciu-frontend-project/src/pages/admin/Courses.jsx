@@ -4,10 +4,11 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
-import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import course from "./Courses.module.css";
-// At the top of your Courses.jsx file
-import AdminDash from "../../pages/admin/Dashboard"; // Adjust the path based on your file structure
+import AdminDash from "../../pages/admin/Dashboard";
+import Dash from "../../components/lecturer/lecturerDashboard.module.css"
+
+
 
 // Table component remains unchanged
 function Table({ children }) {
@@ -351,16 +352,11 @@ function AdminCourses() {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div
-                className={`${AdminDash["overlay"]} ${
-                  isMobileMenuOpen ? AdminDash["active"] : ""
-                }`}
+              <div 
+                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
                 onClick={toggleMobileMenu}
               ></div>
-              <MobileMenu
-                isOpen={isMobileMenuOpen}
-                toggleMenu={toggleMobileMenu}
-              />
+              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
             </>
           )}
           <div className={course["users-content"]}>

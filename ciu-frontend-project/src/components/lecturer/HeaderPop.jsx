@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Bell, Menu } from "lucide-react";
 import UserDetailsPopup from "./UserDetailsPop";
+import { Link } from 'react-router-dom';
 import Head from './HeaderPop.module.css';
 
 export default function Header({ toggleMobileMenu, isMobile }) {
@@ -51,10 +52,12 @@ export default function Header({ toggleMobileMenu, isMobile }) {
             </div>
 
             <div className={Head["header-icons"]}>
+                <Link to="/admin/notifications">
                 <button className={Head["icon-button"] + " " + Head["notification-button"]} aria-label="Notifications">
                     <Bell className={Head["notification-icon"]} />
                     <span className={Head["notification-indicator"]} />
                 </button>
+                </Link>
                 <UserDetailsPopup>
                     <button className={Head["profile-button"]} aria-label="User profile">
                         <img

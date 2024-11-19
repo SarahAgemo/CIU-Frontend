@@ -1,6 +1,7 @@
-*{
-  font-family: 'Roboto Slab';
-}
+  *{
+    font-family: 'Roboto', sans-serif;
+  }
+
 table {
     width: 100%;
     border-collapse: collapse;
