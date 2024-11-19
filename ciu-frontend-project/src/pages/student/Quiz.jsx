@@ -174,8 +174,8 @@ const Quiz = () => {
         const response = await axios.post("http://localhost:3000/scores", scoreData);
 
         if (response.status === 200 || response.status === 201) {
-          alert(`Your score has been submitted successfully! Score: )`);
-          navigate("/");
+          alert(`Your score has been submitted successfully! `);
+          navigate("/submit");
         } else {
           throw new Error(`Unexpected response status: ${response.status}`);
         }
@@ -188,7 +188,7 @@ const Quiz = () => {
 
   const handleTabChange = () => {
     alert("Warning: You opened a new tab! The quiz will be auto-submitted.");
-    navigate("/");
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -276,16 +276,13 @@ const Quiz = () => {
             </button>
           )}
         </div>
-{/* 
-        {percentage !== null && (
+
+        {/* {percentage !== null && (
           <div className="result-display">
             <h3>Your Final Score: {score}/{questions.length}</h3>
             <h4>Percentage: {percentage}%</h4>
           </div>
         )} */}
-
-
-
       </div>
     </div>
   );

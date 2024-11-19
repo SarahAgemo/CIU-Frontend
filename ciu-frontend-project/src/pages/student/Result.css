@@ -19,4 +19,59 @@
     margin-top: 20px;
     cursor: pointer;
   }
+
+
+  .ResultPage {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
   
+  .single-result-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .result-card {
+    background: white;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    transition: transform 0.2s ease;
+  }
+  
+  .result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .result-card h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  
+  .result-card p {
+    margin: 12px 0;
+    line-height: 1.6;
+    color: #555;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+  }
+  
+  .result-card p:last-child {
+    border-bottom: none;
+  }
+  
+  .result-card strong {
+    color: #333;
+    font-weight: 600;
+    min-width: 120px;
+    display: inline-block;
+  }
