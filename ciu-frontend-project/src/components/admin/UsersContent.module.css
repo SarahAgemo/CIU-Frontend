@@ -6,6 +6,7 @@
     align-items: center;
     padding: 2rem;
     background-color: #f9f9f9;
+    
 }
 
 .table {
@@ -14,27 +15,27 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     margin-bottom: 1.5rem;
+    margin-left: 50px;
 }
 
 /* Button styling */
-.btn-secondary,
+/* .btn-secondary,
 .btn-danger {
-    background-color: #106010;
-    color: #fff; /* Ensures icons stay white */
+    
     border: none;
-    padding: 2px 4px; /* Minimal padding to fit the icon */
+    padding: 2px 4px; 
     cursor: pointer;
     transition: background-color 0.3s ease;
-    display: flex; /* Use flex to center icons */
+    display: flex;
     justify-content: center;
     align-items: center;
-    width: fit-content; /* Button width fits the content */
-}
-
+    width: fit-content;
+} */
+/* 
 .btn-secondary:hover,
 .btn-danger:hover {
     background-color: #0c890c;
-}
+} */
 
 /* Optional Table Header styling for consistency */
 .table-header {
@@ -43,3 +44,21 @@
     background-color: #106010;
     color: #fff;
 }
+
+.icon-edit {
+    color: #106053;
+    transition: color 0.3s ease;
+  }
+  
+  .icon-edit:hover {
+    color: #0B3F37; /* Darker shade on hover */
+  }
+  
+  .icon-trash {
+    color: #DC3545;
+    transition: color 0.3s ease;
+  }
+  
+  .icon-trash:hover {
+    color: #990808; /* Darker shade on hover */
+  }

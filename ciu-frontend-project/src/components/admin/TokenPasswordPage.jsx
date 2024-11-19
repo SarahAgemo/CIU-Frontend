@@ -35,7 +35,7 @@ export default function TokenPasswordPage() {
                 setSuccessMessage("Token and password saved successfully!");
                 setErrorMessage('');
                 setTimeout(() => {
-                    navigate('/');
+                    navigate('/lecturerlogin');
                 }, 1000);
             } else {
                 const errorData = await response.json();

@@ -27,11 +27,19 @@ export default function StudentsManage() {
 
     return (
         <div className={Manage["overall"]}>
-            <div className={Manage["app-main"]}>
+            <div className={`${AdminDash["app-main"]} ${isMobileMenuOpen ? AdminDash["menu-open"] : ""}`}>
             <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
                 <div className={Manage["app-container"]}>
                     {!isMobile && <Sidebar />}
-                    {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
+                    {isMobile && (
+                    <>
+                        <div 
+                        className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                        onClick={toggleMobileMenu}
+                        ></div>
+                        <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+                    </>
+                    )}
                     <main className={Manage["app-content"]}>
                     <ManageStudents />
                     </main>

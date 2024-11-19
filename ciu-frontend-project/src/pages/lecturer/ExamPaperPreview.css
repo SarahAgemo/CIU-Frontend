@@ -1,5 +1,5 @@
-* {
-  font-family: "Roboto Slab";
+*{
+  font-family: 'Roboto', sans-serif;
 }
 .exam-preview__container {
   font-family: "Roboto Slab";
@@ -46,10 +46,93 @@
 .exam-preview__btn-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
+  gap: 20px;
 }
 
-.exam-preview__btn {
+.exam-preview__icon-btn {
+  background-color: #f2f2f2; /* Light gray background */
+  border: none;
+  border-radius: 50%; /* Makes it circular */
+  padding: 10px;
+  font-size: 20px;
+  color: #106053; /* Icon color */
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.exam-preview__icon-btn:hover {
+  background-color: #106053; /* Dark green on hover */
+  color: #fff;
+}
+
+.exam-preview__reject-icon-btn:hover {
+  background-color: #106053; /* Dark green on hover */
+  color: #fff;
+}
+
+.exam-preview__delete-icon-btn,
+.exam-preview__reject-icon-btn {
+  background-color: #f2f2f2; /* Light gray background */
+  border: none;
+  border-radius: 50%; /* Makes it circular */
+  padding: 10px;
+  font-size: 20px;
+  color: #fc0303; /* Icon color */
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.exam-preview__delete-icon-btn:hover {
+  background-color: #fc0303;
+  color: #fff;
+}
+
+/* Hover text styling */
+.exam-preview__icon-btn::after,
+.exam-preview__reject-icon-btn::after {
+  content: attr(data-tooltip); /* Display the title as hover text */
+  position: absolute;
+  bottom: -35px; /* Adjust position */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f2f2f2; /* Dark background for text */
+  color: #106053;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 15px;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.exam-preview__delete-icon-btn::after{
+  content: attr(data-tooltip); /* Display the title as hover text */
+  position: absolute;
+  bottom: -35px; /* Adjust position */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f2f2f2; /* Dark background for text */
+  color: #fc0303;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 15px;
+  opacity: 0;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.exam-preview__icon-btn:hover::after,
+.exam-preview__delete-icon-btn:hover::after,
+.exam-preview__reject-icon-btn:hover::after  {
+  opacity: 1; 
+}
+
+/* .exam-preview__btn {
   padding: 8px 16px;
   border: none;
   border-radius: 4px;
@@ -91,7 +174,7 @@
 
 .exam-preview__btn--success:hover {
   background-color: #0b3f37;
-}
+} */
 
 .exam-preview__alert {
   padding: 10px;

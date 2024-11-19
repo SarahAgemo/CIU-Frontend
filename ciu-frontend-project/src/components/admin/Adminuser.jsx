@@ -34,11 +34,15 @@ function TableBody({ children }) {
 }
 
 // UserList component
-function UserList({ users, deleteUser }) {
+function UserList({ users, deleteUser, searchTerm }) {
   const cols = ["#", "First Name", "Last Name", "Email", "Role", "Actions"];
   const navigate = useNavigate();
 
-  const userList = users.map((user, index) => (
+  const filteredUsers = users.filter((user) =>
+    `${user.first_name} ${user.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const userList = filteredUsers.map((user, index) => (
     <tr key={user.id}>
       <th scope="row">{index + 1}</th>
       <td>{user.first_name}</td>
@@ -47,7 +51,7 @@ function UserList({ users, deleteUser }) {
       <td>{user.role}</td>
       <td>
         <button
-          onClick={() => navigate(`/editadmin/${user.id}`)} // Updated route path
+          onClick={() => navigate(`/editadmin/${user.id}`)}
           type="button"
           className="admin-icon-button"
         >
@@ -78,15 +82,16 @@ function UserList({ users, deleteUser }) {
 
 // Main Adminuser component
 function Adminuser() {
-  const navigate = useNavigate(); // Add useNavigate here
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/adminReg"); // Updated port
+        const response = await fetch("http://localhost:3000/adminReg");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -106,7 +111,6 @@ function Adminuser() {
   const deleteUser = async (id) => {
     try {
       const response = await fetch(`http://localhost:3000/adminReg/${id}`, {
-        // Updated port
         method: "DELETE",
       });
       if (response.ok) {
@@ -138,37 +142,9 @@ function Adminuser() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  // if (loading) {
-  //     return (
-  //         <div className="layout-container">
-  //             <Header />
-  //             <div className="main-content">
-  //                 <Sidebar1 />
-  //                 <div className="users-content">
-  //                     <div className="container mt-5">
-  //                         <h2>Loading...</h2>
-  //                     </div>
-  //                 </div>
-  //             </div>
-  //         </div>
-  //     );
-  // }
-
-  // if (error) {
-  //     return (
-  //         <div className="layout-container">
-  //             <Header />
-  //             <div className="main-content">
-  //                 <Sidebar1 />
-  //                 <div className="users-content">
-  //                     <div className="container mt-5">
-  //                         <h2>Error: {error}</h2>
-  //                     </div>
-  //                 </div>
-  //             </div>
-  //         </div>
-  //     );
-  // }
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <div className="admins-list-overal1">
@@ -187,7 +163,7 @@ function Adminuser() {
               <h2 className="admins-heading">Lists of Admin</h2>
               <div>
                 <button
-                  onClick={() => navigate("/registers")} // Redirect to register page
+                  onClick={() => navigate("/registers")}
                   type="button"
                   className="admin-custom-button"
                 >
@@ -196,13 +172,13 @@ function Adminuser() {
                 <input
                   type="text"
                   placeholder="Search by name..."
-                  //   value={searchTerm}
-                  //   onChange={handleSearchChange}
+                  value={searchTerm}
+                  onChange={handleSearchChange}
                   className="admin-search-input"
                 />
               </div>
             </div>
-            <UserList users={users} deleteUser={deleteUser} />
+            <UserList users={users} deleteUser={deleteUser} searchTerm={searchTerm} />
           </div>
         </div>
       </div>

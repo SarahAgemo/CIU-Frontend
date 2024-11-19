@@ -26,12 +26,20 @@ function Create() {
 
     return (
         <div className={FAQ["overall"]}>	
-        <div className={FAQ["app"]}>
+        <div className={`${FAQ["app"]} ${isMobileMenuOpen ? FAQ["menu-open"] : ""}`}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={FAQ["app-content"]}>
             {!isMobile && <Sidebar />}
-            {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
-            <main className={FAQ["main-content"]}>
+            {isMobile && (
+            <>
+                <div 
+                className={`${FAQ["overlay"]} ${isMobileMenuOpen ? FAQ["active"] : ""}`} 
+                onClick={toggleMobileMenu}
+                ></div>
+                <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            </>
+            )}
+            <main className={`${FAQ.mainContentWrapper} ${isMobileMenuOpen ? FAQ.dimmed : ''}`}>
             <CreateFAQ />
             </main>
         </div>

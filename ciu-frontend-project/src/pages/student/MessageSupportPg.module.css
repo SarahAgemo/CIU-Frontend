@@ -15,16 +15,6 @@
   flex: 1;
 }
 
-/* .main-content {
-  top: 0;
-  flex: 1;
-  padding: 20px;
-  background-color: #F9FFFC;
-  display:flex;
-  flex: 1;
-  flex-direction: column;
-} */
-
 .main-container {
   flex: 1;
   display: flex;
@@ -47,5 +37,33 @@
     width: 100%;
     padding: 8px;
   }
+}
 
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 998;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.menuOpen .mainContentWrapper {
+  pointer-events: none;
+}
+
+.dimmed {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.mainContentWrapper {
+  flex: 1;
+  transition: opacity 0.3s ease;
 }

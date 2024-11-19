@@ -26,12 +26,22 @@ export default function StudentDashboard() {
 
   return (
     <div className={StudDashboard.studentdash}>
-    <div className={StudDashboard.dashboard}>
+    <div className={`${StudDashboard["dashboard"]} ${isMobileMenuOpen ? StudDashboard["menu-open"] : ""}`}>
       <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
       <div className={StudDashboard['dashboard-content']}>
         {!isMobile && <Sidebar />}
-        {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
+        {isMobile && (
+          <>
+            <div 
+              className={`${StudDashboard["overlay"]} ${isMobileMenuOpen ? StudDashboard["active"] : ""}`} 
+              onClick={toggleMobileMenu}
+            ></div>
+            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+          </>
+        )}
+        <div className={`${StudDashboard.mainContentWrapper} ${isMobileMenuOpen ? StudDashboard.dimmed : ''}`}>
         <MainContent />
+        </div>
       </div>
     </div>
     </div>

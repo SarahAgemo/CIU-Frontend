@@ -1,0 +1,65 @@
+/* src/QuestionBankPage.css */
+
+/* Styling for action buttons */
+.question-bank-action-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: transparent;  /* No background color */
+  color: #218838;  /* Green for icons */
+}
+
+.question-bank-action-button:hover {
+  background-color: #e9f7e9;  /* Light green on hover */
+}
+
+.question-bank-deletebutton {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  background-color: transparent; /* No background color */
+  color: red; /* Red for delete icon */
+}
+
+.question-bank-deletebutton:hover {
+  background-color: #f8d7da;  /* Light red on hover */
+}
+
+/* Other CSS */
+.tableContainer {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.questionTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #dee2e6;
+}
+
+.questionTable th, td {
+  border: 1px solid #dee2e6;
+}
+
+.formContainer {
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.page-title {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: green;
+}
