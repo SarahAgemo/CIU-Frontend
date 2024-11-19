@@ -3,7 +3,7 @@ import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
-import course from './LectCourses.module.css';
+import course from './LecturerCourses.module.css';
 
 // Table component remains unchanged
 function Table({ children }) {
