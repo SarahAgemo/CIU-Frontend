@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Header from '../../components/lecturer/HeaderPop';
 import Sidebar from '../../components/lecturer/SideBarPop';
 import MobileMenu from "../../components/lecturer/MobileMenu";
-import CreateExamContent from './CreateExamContent';
+import CreateExamContent from './ManualCreateExamContent';
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
 import './ScheduleCreateExams.module.css';
 

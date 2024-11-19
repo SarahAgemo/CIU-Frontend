@@ -25,7 +25,7 @@ import ResetAdminPassword from "./components/admin/ResetAdminPassword.jsx";
 import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx";
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
-import RegCourse from "./pages/lecturer/RegCourse.jsx";
+import RegCourse from "./pages/lecturer/CourseRegistration.jsx";
 import AdminCourses from "./pages/admin/Courses.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
 import Lecturers from "./pages/admin/ManageLecturersPg.jsx";
@@ -58,6 +58,7 @@ import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
 import LectCourses from "./pages/lecturer/LectCourses.jsx";
 import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 import LecLogin from "./pages/lecturer/LecLogin.jsx"
+
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -233,6 +234,8 @@ function App() {
                 path="/lecturerlogin"
                 element={<LecLogin />}
               />
+
+             
 
               {/* Student - Protected route*/}
 
