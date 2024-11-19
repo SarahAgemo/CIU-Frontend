@@ -93,10 +93,10 @@
   
   .landing-button {
     display: inline-block;
+    text-decoration: none;
     width: 200px;
     padding: 10px 0;
     margin-top: 5px;
-    /* margin-bottom: 5px; */
     font-size: 1rem;
     font-weight: bold;
     color: #fff;

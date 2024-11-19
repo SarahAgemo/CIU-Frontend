@@ -103,7 +103,7 @@ function App() {
               <Route path="/lecturer-proctor" element={<LecturerProctorPage />} />
 
               {/* Authentication */}
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/request-token" element={<RequestToken />} />
 
