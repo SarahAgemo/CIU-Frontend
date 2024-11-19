@@ -10,7 +10,7 @@ import io from 'socket.io-client';
 const Headerpop = ({ toggleMobileMenu, isMobile }) => {
   const [notifications, setNotifications] = useState([]);
   const [studentCourses, setStudentCourses] = useState([]);
-  const [loading, setLoading] = useState(true); // Loading only applies to initial notification fetch
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
@@ -120,12 +120,49 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
         <img src="/CIU-exam-system-logo.png" alt="System Logo" className={Head["logo"]} />
       </div>
       <div className={Head["header-icons"]}>
-        <button className={Head["icon-button"] + " " + Head["notification-button"]} aria-label="Notifications">
+        {/* Notification button with unread count */}
+        <button
+          className={`${Head["icon-button"]} ${Head["notification-button"]}`}
+          onClick={togglePopup}
+          aria-label="Notifications"
+        >
           <Bell className={Head["notification-icon"]} />
           {unreadCount > 0 && !loading && (
             <span className={Head["notification-count"]}>{unreadCount}</span>
           )}
         </button>
+
+        {/* Notification pop-up */}
+        {showPopup && (
+          <div className={Head["popup-container"]}>
+            <div className={Head["popup-header"]}>
+              
+              <button className={Head["close-popup-button"]} onClick={togglePopup}>X</button>
+            </div>
+            {notifications.length > 0 ? (
+              notifications.slice(0, 5).map((notification) => (
+                <div
+                  key={notification.id}
+                  className={Head["popup-notification"]}
+                  onClick={() => toggleNotification(notification.id)}
+                >
+                  <div className={Head["title"]}>
+                    {notification.title}
+                  </div>
+                  <div className={Head["message"]}>
+                    {notification.message}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>No notifications found.</p>
+            )}
+            {/* Link to View All Notifications */}
+            <Link to="/notifications" className={Head["view-all-button"]}>View All</Link>
+          </div>
+        )}
+
+        {/* User Profile */}
         <UserDetailsPopup>
           <button className={Head["profile-button"]} aria-label="User profile">
             <img
