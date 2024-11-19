@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FaUser, FaLock } from "react-icons/fa";
-import "./Leclogin.css";
+import "./LecturerLogin.css";
 
 const LecLogin = () => {
   const [identifier, setIdentifier] = useState("");
