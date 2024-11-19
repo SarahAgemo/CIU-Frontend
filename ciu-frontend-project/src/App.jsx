@@ -25,7 +25,7 @@ import ResetAdminPassword from "./components/admin/ResetAdminPassword.jsx";
 import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx";
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
-import RegCourse from "./pages/lecturer/RegCourse.jsx";
+import RegCourse from "./pages/lecturer/CourseRegistration.jsx";
 import AdminCourses from "./pages/admin/Courses.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
 import Lecturers from "./pages/admin/ManageLecturersPg.jsx";
@@ -36,6 +36,7 @@ import TokenPasswordPage from "./components/admin/TokenPasswordPage";
 import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
 import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx"
+import LandingPage from "./pages/admin/LandingPage.jsx";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -47,17 +48,18 @@ import QuestionsPreview from "./pages/lecturer/QuestionsPreview.jsx";
 import EditExamPaper from "./pages/lecturer/EditExamPaper.jsx";
 import EditExamInterface from "./pages/lecturer/EditExamInterface.jsx";
 import PublishedExamList from "./pages/lecturer/PublishedExamList.jsx";
-import ManualExamPaperPreview from "./pages/lecturer/ManualExamPaperPreview.jsx";
-import ManualExamList from "./pages/lecturer/ManualExamList.jsx";
-import ManualQuestionsPreview from "./pages/lecturer/ManualQuestionsPreview.jsx";
-import ManualEditExamPaper from "./pages/lecturer/ManualEditExamPaper.jsx";
-import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.jsx";
-import ManualPublishedExamList from "./pages/lecturer/ManualPublishedExamList.jsx";
+// import ManualExamPaperPreview from "./pages/lecturer/ManualExamPaperPreview.jsx";
+// import ManualExamList from "./pages/lecturer/ManualExamList.jsx";
+// import ManualQuestionsPreview from "./pages/lecturer/ManualQuestionsPreview.jsx";
+// import ManualEditExamPaper from "./pages/lecturer/ManualEditExamPaper.jsx";
+// import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.jsx";
+// import ManualPublishedExamList from "./pages/lecturer/ManualPublishedExamList.jsx";
 import LecturerDashboard from "./components/lecturer/LecturerDashboard.jsx";
 import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
-import LectCourses from "./pages/lecturer/LectCourses.jsx";
+import LectCourses from "./pages/lecturer/LecturerCourses.jsx";
 import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
-import LecLogin from "./pages/lecturer/LecLogin.jsx"
+import LecLogin from "./pages/lecturer/LecturerLogin.jsx"
+
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -102,7 +104,7 @@ function App() {
               <Route path="/lecturer-proctor" element={<LecturerProctorPage />} />
 
               {/* Authentication */}
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/request-token" element={<RequestToken />} />
 
@@ -125,6 +127,7 @@ function App() {
               <Route path="/adminuser" element={<Adminuser />} />
               <Route path="/editadmin/:id" element={<Editadmin />} />
               <Route path="/adminPassword" element={<ResetAdminPassword />} />
+              <Route path="/landingPage" element={<LandingPage />} />
               <Route
                 path="/lecturerPassword"
                 element={<ResetLecturerPassword />}
@@ -194,30 +197,30 @@ function App() {
                 path="/published-exam-papers"
                 element={<PublishedExamList />}
               />
-              <Route
+              {/* <Route
                 path="/manual-exam-paper/:id"
                 element={<ManualExamPaperPreview />}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/schedule-create-exams/exam-list"
                 element={<ManualExamList />}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/manual-exam-paper/:id/questions"
                 element={<ManualQuestionsPreview />}
               />
               <Route
                 path="/manual-exam-paper/:id/question/:questionId"
                 element={<ManualEditExamPaper />}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/manual-exam-paper/:id/edit"
                 element={<ManualEditExamInterface />}
-              />
-              <Route
+              /> */}
+              {/* <Route
                 path="/manual-published-exam-papers"
                 element={<ManualPublishedExamList />}
-              />
+              /> */}
               <Route
                 path="/lecturerdashboard"
                 element={<LecturerDashboard />}
@@ -237,6 +240,8 @@ function App() {
                 path="/lecturerlogin"
                 element={<LecLogin />}
               />
+
+             
 
               {/* Student - Protected route*/}
 
