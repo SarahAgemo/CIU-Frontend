@@ -139,21 +139,19 @@ export default function MainContent() {
         </div>
       </div>
 
-      <div className={Main["dashboard-cards"]} style={{ justifyContent: 'center' }}>
+      <div className={Main["dashboard-cards"]}>
         <DashboardCard
           icon={<FileText size={48} />}
           title="Upcoming Exams"
           onClick={() => handleCardClick('upcoming')}
           isActive={activeModal === 'upcoming'}
         />
-        {/*
         <DashboardCard
           icon={<ClipboardList size={48} />}
           title="Completed Exams"
           onClick={() => handleCardClick('completed')}
           isActive={activeModal === 'completed'}
         />
-        */}
       </div>
 
       <Modal
