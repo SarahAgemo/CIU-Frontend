@@ -1,0 +1,124 @@
+.landing-page-container {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+    padding: 20px;
+  }
+  
+  .landing-page-content {
+    display: flex;
+    width: 100%;
+    max-width: 900px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .landing-page-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+    background-color: #105F53;
+  }
+  
+  .landing-page-image img {
+    max-width: 100%;
+    height: auto;
+    width: 600px;
+  }
+  
+  .landing-page-right {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .landing-page-header h1 {
+    font-size: 28px;
+    color: #333;
+    /* margin-bottom: 15px; */
+  }
+  
+  
+  .landing-page-button:hover {
+    opacity: 0.9;
+  }
+  .landing-page-button:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0.95;
+  }
+ 
+  .role-admin:hover {
+    background: #0b3f37; 
+  }
+  
+  .role-lecturer:hover {
+    background: #0b3f37; 
+  }
+  
+  .role-student:hover {
+    background: #0b3f37; 
+  }
+
+  .landing-system-title {
+    font-size: 1.8rem;
+    color: #105F53;
+    text-transform: uppercase;
+    /* margin-bottom: 15px; */
+  }
+   
+  
+  .landing-header .landing-welcome-text {
+    margin-top: 10px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  
+  .landing-description {
+    font-size: 1rem;
+    margin: 3px 0 3px;
+    color: #555;
+  }
+  
+  .landing-button {
+    display: inline-block;
+    width: 200px;
+    padding: 10px 0;
+    margin-top: 5px;
+    /* margin-bottom: 5px; */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #105F53;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .landing-button:hover {
+    background-color: #0b3f37;
+  }
+ 
+  .landing-button-group {
+    margin-bottom: 20px;
+  }
+  
+ 
+  .landing-buttons-section {
+    margin-top: 30px;
+  }
+
+ 
+
