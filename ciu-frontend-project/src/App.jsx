@@ -4,7 +4,7 @@ import LecturerProctorPage from './pages/LecturerProctorPage';
 import React from 'react';
 
 // Authentication
-import Login from "./pages/login.jsx";
+import Login from "./pages/loginoriginal.jsx";
 import ResetPassword from "./components/admin/ResetPassword.jsx";
 import RequestToken from "./components/admin/RequestToken.jsx";
 // import ProtectedRoute from './components/student/ProtectedRoute.jsx';
@@ -74,6 +74,8 @@ import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from "./components/lecturer/QuestionBankPage.jsx";
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
+import StudentLogin from "./pages/StudentLogin.jsx";
+
 import SampleComponent from "./pages/student/Submit.jsx";
 import ResultComponent from "./pages/student/Result.jsx";
 
@@ -263,6 +265,7 @@ function App() {
             } /> */}
 
               {/* Student */}
+              <Route path="/StudentLogin" element={<StudentLogin />} />
               <Route path="student/results" element={<ResultComponent />} />
               <Route path="/student" element={<StudentDashboard />} />
               <Route path="/student/do-exam" element={<DoExam />} />
