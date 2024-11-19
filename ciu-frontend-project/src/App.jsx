@@ -76,6 +76,8 @@ import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestions
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
 import StudentLogin from "./pages/StudentLogin.jsx";
 
+import SampleComponent from "./pages/student/Submit.jsx";
+import ResultComponent from "./pages/student/Result.jsx";
 
 
 import "./App.css";
@@ -264,6 +266,7 @@ function App() {
 
               {/* Student */}
               <Route path="/StudentLogin" element={<StudentLogin />} />
+              <Route path="student/results" element={<ResultComponent />} />
               <Route path="/student" element={<StudentDashboard />} />
               <Route path="/student/do-exam" element={<DoExam />} />
               <Route path="/student/support" element={<SupportPage />} />
@@ -273,6 +276,9 @@ function App() {
                 element={<ReportIssue />}
               />
               <Route path="/instructions" element={<ExamInstructions />} />
+              <Route path="/submit" element={< SampleComponent />} />
+              
+
               <Route path="/proctoring" element={<Proctoring />} />
               <Route path="/quiz" element={<Quiz />} />
               <Route
