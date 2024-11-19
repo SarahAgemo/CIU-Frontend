@@ -6,6 +6,7 @@ import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
+import moment from 'moment';
 import { Snackbar, Alert, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
 import { FaEye, FaEdit, FaTrash, FaCheck, FaPaperPlane, FaUndo } from "react-icons/fa";
 
@@ -374,7 +375,7 @@ function ExamPaperPreview() {
                     <td>
                       <strong>Scheduled Date</strong>
                     </td>
-                    <td>{examData.scheduledDate}</td>
+                    <td>{moment(examData.scheduledDate).format('Do MMMM YYYY, h:mm A')}</td>
                   </tr>
                   <tr>
                     <td>
@@ -386,13 +387,13 @@ function ExamPaperPreview() {
                     <td>
                       <strong>Start Time</strong>
                     </td>
-                    <td>{examData.startTime}</td>
+                    <td>{moment(examData.startTime).format('h:mm A')}</td>
                   </tr>
                   <tr>
                     <td>
                       <strong>End Time</strong>
                     </td>
-                    <td>{examData.endTime}</td>
+                    <td>{moment(examData.endTime).format('h:mm A')}</td>
                   </tr>
                   <tr>
                     <td>
