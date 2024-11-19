@@ -33,6 +33,7 @@ import TokenPasswordPage from "./components/admin/TokenPasswordPage";
 import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
 import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx"
+import LandingPage from "./pages/admin/LandingPage.jsx";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -113,6 +114,7 @@ function App() {
               <Route path="/adminuser" element={<Adminuser />} />
               <Route path="/editadmin/:id" element={<Editadmin />} />
               <Route path="/adminPassword" element={<ResetAdminPassword />} />
+              <Route path="/landingPage" element={<LandingPage />} />
               <Route
                 path="/lecturerPassword"
                 element={<ResetLecturerPassword />}
