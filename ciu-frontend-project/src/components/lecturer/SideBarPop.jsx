@@ -12,7 +12,7 @@ export default function Sidebar() {
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, text: 'Dashboard', path: '/lecturerdashboard' },
     { icon: <FileText size={20} />, text: 'Courses', path: '/lect-courses' },
-    { icon: <HelpCircle size={20} />, text: 'Question Bank', path: '' },
+    { icon: <HelpCircle size={20} />, text: 'Question Bank', path: '/question-bank' },
     { icon: <Video size={20} />, text: 'Proctoring', path: '' },
     { 
       icon: <FileText size={20} />, 

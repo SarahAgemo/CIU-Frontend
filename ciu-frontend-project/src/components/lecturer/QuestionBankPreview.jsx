@@ -1,11 +1,30 @@
-// QuestionBankPreview.jsx
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+
+import Header from '../../components/lecturer/HeaderPop';
+import Sidebar from '../../components/lecturer/SideBarPop';
+import MobileMenu from "../../components/lecturer/MobileMenu";
+import Dash from '../../components/lecturer/LecturerDashboard.module.css';
+import '../../components/lecturer/QuestionBankPreview.css';
 
 const QuestionBankPreview = () => {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const { bankId } = useParams();
+  const [hoveredQuestionId, setHoveredQuestionId] = useState(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -23,29 +42,63 @@ const QuestionBankPreview = () => {
     fetchQuestions();
   }, [bankId]);
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="p-6">
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-bold mb-4">Question Bank Preview</h2>
-        <div className="space-y-4">
-          {questions.map((question, index) => (
-            <div key={question.id} className="border p-4 rounded">
-              <h3 className="font-bold">Question {index + 1}</h3>
-              <p className="mt-2">{question.content}</p>
-              {question.options && (
-                <div className="mt-2">
-                  <h4 className="font-semibold">Options:</h4>
-                  <ul className="list-disc ml-6">
-                    {question.options.map((option, i) => (
-                      <li key={i}>{option}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          ))}
+    <div className={Dash["overall"]}>
+      <div className={Dash["dashboard"]}>
+        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+        <div className={Dash["dashboard-content"]}>
+          {!isMobile && <Sidebar />}
+          {isMobile && (
+            <MobileMenu
+              isOpen={isMobileMenuOpen}
+              toggleMenu={toggleMobileMenu}
+            />
+          )}
+
+          {/* Main Content Section */}
+          <div className="question-preview__container">
+            <h2 className="question-preview__heading">Question Bank Preview</h2>
+
+            {questions.map((question, index) => (
+              <div
+                key={question.id}
+                className={`question-preview__item ${
+                  hoveredQuestionId === question.id ? 'hovered' : ''
+                }`}
+                onMouseEnter={() => setHoveredQuestionId(question.id)}
+                onMouseLeave={() => setHoveredQuestionId(null)}
+              >
+                <h3 className="question-preview__title">
+                  Qn{index + 1}: {question.content}
+                </h3>
+                {question.options && (
+                  <div className="question-preview__options">
+                    <h4>Options:</h4>
+                    <form>
+                      {question.options.map((option, i) => (
+                        <div key={i}>
+                          <label>
+                            <input
+                              type="radio"
+                              name={`question-${question.id}`} // Group by question ID
+                              value={option}
+                            />
+                            {option}
+                          </label>
+                        </div>
+                      ))}
+                    </form>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

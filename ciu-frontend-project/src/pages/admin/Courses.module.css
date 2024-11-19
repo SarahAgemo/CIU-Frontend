@@ -39,7 +39,7 @@ table {
   button.btn {
     padding: 7px 13px;
     border-radius: 4px;
-    /* border: none; */
+   
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
@@ -93,7 +93,7 @@ table {
   }
   
   .icon-trash:hover {
-    color: #990808; /* Darker shade on hover */
+    color: #990808; 
   }
   
  
@@ -204,4 +204,58 @@ table {
   .active {
       background-color: #989da1;
   }
+
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 998;
+  }
+  
+  .overlay.active {
+    display: block;
+  }
+  
+  .menu-open .main-content {
+    pointer-events: none;
+  }
+  
+  .dimmed {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 998;
+  }
+  
+  .overlay.active {
+    display: block;
+  }
+  
+  .menuOpen .mainContentWrapper {
+    pointer-events: none;
+  }
+  
+  .dimmed {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .mainContentWrapper {
+    flex: 1;
+    transition: opacity 0.3s ease;
+  }
+
   
