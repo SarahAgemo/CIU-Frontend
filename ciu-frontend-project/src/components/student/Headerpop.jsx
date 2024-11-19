@@ -120,48 +120,12 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
         <img src="/CIU-exam-system-logo.png" alt="System Logo" className={Head["logo"]} />
       </div>
       <div className={Head["header-icons"]}>
-        {/* Notification button with unread count */}
-        <button
-          className={`${Head["icon-button"]} ${Head["notification-button"]}`}
-          onClick={togglePopup}
-          aria-label="Notifications"
-        >
+        <button className={Head["icon-button"] + " " + Head["notification-button"]} aria-label="Notifications">
           <Bell className={Head["notification-icon"]} />
           {unreadCount > 0 && !loading && (
             <span className={Head["notification-count"]}>{unreadCount}</span>
           )}
         </button>
-
-        {/* Notification pop-up */}
-        {showPopup && (
-          <div className={Head["popup-container"]}>
-            <div className={Head["popup-header"]}>
-              <h3>Notifications</h3>
-              <button className={Head["close-popup-button"]} onClick={togglePopup}>X</button>
-            </div>
-            {notifications.length > 0 ? (
-              notifications.map((notification) => (
-                <div
-                  key={notification.id}
-                  className={Head["popup-notification"]}
-                  onClick={() => toggleNotification(notification.id)}
-                >
-                  <div className={Head["title"]}>
-                    {notification.title}
-                  </div>
-                  <div className={Head["message"]}>
-                    {notification.message}
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>No notifications found.</p>
-            )}
-            <Link to="/notifications" className={Head["view-all-button"]}>View All</Link>
-          </div>
-        )}
-
-        {/* User Profile */}
         <UserDetailsPopup>
           <button className={Head["profile-button"]} aria-label="User profile">
             <img

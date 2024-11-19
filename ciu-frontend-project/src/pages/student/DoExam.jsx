@@ -26,12 +26,22 @@ export default function DoExam() {
 
   return (
     <div className={Doexam.doexam}>
-    <div className={Doexam.dashboard}>
+    <div className={`${Doexam["dashboard"]} ${isMobileMenuOpen ? Doexam["menu-open"] : ""}`}>
       <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
       <div className={Doexam['dashboard-content']}>
         {!isMobile && <Sidebar />}
-        {isMobile && <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />}
+        {isMobile && (
+          <>
+            <div 
+              className={`${Doexam["overlay"]} ${isMobileMenuOpen ? Doexam["active"] : ""}`} 
+              onClick={toggleMobileMenu}
+            ></div>
+            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+          </>
+        )}
+        <div className={`${Doexam.mainContentWrapper} ${isMobileMenuOpen ? Doexam.dimmed : ''}`}>
         <DoExamContent />
+        </div>
       </div>
     </div>
     </div>

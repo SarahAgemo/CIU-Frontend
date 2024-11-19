@@ -1,0 +1,81 @@
+/* Overall container for the notifications */
+.notifications-container {
+  font-family: 'Arial', sans-serif;
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;  /* Center the content */
+  position: relative;
+}
+
+/* Notifications list positioned at the center of the page */
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  /* Center notifications horizontally */
+  justify-content: center; /* Align notifications in the middle vertically */
+  gap: 15px;
+  padding: 20px;
+}
+
+/* Individual notification card */
+.notification-item {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 500px;  /* Limit max width of the notification card */
+  cursor: pointer;
+  opacity: 0.9;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Hover effect for each notification card */
+.notification-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Notification title */
+.notification-title {
+  font-weight: bold;
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 10px;
+  cursor: pointer;
+  text-transform: capitalize;
+  width: 100%;
+  text-align: left;  /* Align title to the left */
+}
+
+/* Notification message (hidden by default) */
+.notification-message {
+  font-size: 16px;
+  color: #555;
+  display: none; /* Initially hide the message */
+  margin-top: 10px;
+  padding: 10px;
+  border-top: 1px solid #eaeaea;
+  width: 100%;
+  text-align: left;  /* Align message to the left */
+}
+
+/* When the message is shown, display it */
+.notification-item.open .notification-message {
+  display: block;
+}
+
+/* Title Section */
+h1 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 20px;
+}

@@ -5,7 +5,6 @@ import axios from "axios";
 import "./Quiz.css";
 
 const Quiz = () => {
-  // ** State Management **
   const [timeLeft, setTimeLeft] = useState(3600); // Default to 1 hour (3600 seconds)
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -15,12 +14,14 @@ const Quiz = () => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [score, setScore] = useState(0);
   const [percentage, setPercentage] = useState(null);
+  const navigate = useNavigate();
+  const videoRef = useRef(null);
+  const mediaRecorderRef = useRef(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [awayFromCamera, setAwayFromCamera] = useState(false);
 
-  // ** References **
-  const videoRef = useRef(null);
-  const mediaRecorderRef = useRef(null);
+  const examId = localStorage.getItem("exam");
+  const userId = localStorage.getItem("user");
 
   // ** Utilities **
   const navigate = useNavigate();
@@ -44,7 +45,8 @@ const Quiz = () => {
       const response = await axios.get(`http://localhost:3000/exam-paper/${examId}`);
       setExamDetails(response.data);
 
-      const durationInMinutes = parseInt(response.data.duration, 10) || 60; // Default to 60 minutes
+      // Ensure duration is a valid number
+      const durationInMinutes = parseInt(response.data.duration, 10) || 60; // Default to 60 minutes if invalid
       setTimeLeft(durationInMinutes * 60); // Convert minutes to seconds
       console.log("Fetched exam details:", response.data);
     } catch (error) {
@@ -69,7 +71,7 @@ const Quiz = () => {
     fetchExamDetails();
 
     return () => clearInterval(timer); 
-  }, []);
+  }, []); 
 
   const formatTime = (seconds) => {
     if (isNaN(seconds) || seconds < 0) return "00:00"; 
@@ -78,10 +80,13 @@ const Quiz = () => {
     return `${minutes < 10 ? "0" : ""}${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  // ** Media Recording **
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+
       if (videoRef.current) videoRef.current.srcObject = stream;
 
       const mediaRecorder = new MediaRecorder(stream);
@@ -180,7 +185,7 @@ const Quiz = () => {
         const response = await axios.post("http://localhost:3000/scores", scoreData);
 
         if (response.status === 200 || response.status === 201) {
-          alert("Your score has been submitted successfully!");
+          alert(`Your score has been submitted successfully! `);
           navigate("/submit");
         } else {
           throw new Error(`Unexpected response status: ${response.status}`);
@@ -216,10 +221,18 @@ const Quiz = () => {
   return (
     <div className="ExamPage">
       <div className="ExamTopbar">
-        <p><strong>Subject:</strong> {examDetails.subject || "Loading..."}</p>
-        <p><strong>Description:</strong> {examDetails.description || "Loading..."}</p>
-        <p><strong>Duration:</strong> {examDetails.duration ? `${examDetails.duration} minutes` : "Loading..."}</p>
-        <p><strong>Time Left:</strong> {formatTime(timeLeft)}</p>
+        <p>
+          <strong>Subject:</strong> {examDetails.subject || "Loading..."}
+        </p>
+        <p>
+          <strong>Description:</strong> {examDetails.description || "Loading..."}
+        </p>
+        <p>
+          <strong>Duration:</strong> {examDetails.duration ? `${examDetails.duration} minutes` : "Loading..."}
+        </p>
+        <p>
+          <strong>Time Left:</strong> {formatTime(timeLeft)}
+        </p>
       </div>
 
       <div className="quiz-content">
@@ -228,7 +241,9 @@ const Quiz = () => {
           <div className="recording-status">
             {isRecording ? (
               <>
-                <span role="img" aria-label="recording" style={{ color: "red", fontSize: "2em" }}>🔴</span>
+                <span role="img" aria-label="recording" style={{ color: "red", fontSize: "2em" }}>
+                  🔴
+                </span>
                 <span>{getRecordingDuration()}</span>
               </>
             ) : (
@@ -271,11 +286,12 @@ const Quiz = () => {
           )}
         </div>
 
-        {questionIndex === questions.length - 1 && (
-          <button className="exam-submit-button" onClick={handleSubmit}>
-            SUBMIT
-          </button>
-        )}
+        {/* {percentage !== null && (
+          <div className="result-display">
+            <h3>Your Final Score: {score}/{questions.length}</h3>
+            <h4>Percentage: {percentage}%</h4>
+          </div>
+        )} */}
       </div>
     </div>
   );

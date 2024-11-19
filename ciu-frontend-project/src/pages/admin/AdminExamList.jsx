@@ -124,7 +124,7 @@ function AdminExamList() {
                             </button>
                             <input
                                 type="text"
-                                placeholder="Search by exam title..."
+                                placeholder="Search by exam status..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
                                 style={searchInputStyles}
