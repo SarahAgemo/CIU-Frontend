@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Snackbar, Alert } from '@mui/material';
-import "./QuestionsPreview.css";
+import "./AssessmentQuestionsPreview.css";
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";

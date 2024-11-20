@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/lecturer/Layout';
-import AddQuestionsContent from './AddQuestionsContent';
+import AddQuestionsContent from './ManualAddQuestionsContent';
 
 export default function AddQuestions() {
     return (

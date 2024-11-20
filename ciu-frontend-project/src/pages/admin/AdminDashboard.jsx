@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import Header from '../../components/admin/Headerpop';
-import Sidebar from '../../components/admin/SideBarpop';
-import MobileMenu from "../../components/admin/MobileMenu";
+import Header from '../../components/admin/Headerpop.jsx';
+import Sidebar from '../../components/admin/SideBarpop.jsx';
+import MobileMenu from "../../components/admin/MobileMenu.jsx";
 import axios from 'axios';
 import DashboardCard from '../../components/admin/DashboardCard.jsx';
-import AdminDash from './Dashboard.module.css';
+import AdminDash from './AdminDashboard.module.css';
 
 export default function Dashboard() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

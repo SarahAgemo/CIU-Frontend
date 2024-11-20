@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../pages/lecturer/ExamList.css";
+import "../../pages/lecturer/ExampaperList.css";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
