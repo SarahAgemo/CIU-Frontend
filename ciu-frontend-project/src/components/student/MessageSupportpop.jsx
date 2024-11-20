@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import Mess from './MessageSupportpop.module.css';
+import React, { useState } from "react";
+import { ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Mess from "./MessageSupportpop.module.css";
 
 function MessageSupport() {
-  const [regno, setRegno] = useState(''); // State for registration number
-  const [issueDescription, setIssueDescription] = useState(''); // State for issue description
+  const [regno, setRegno] = useState(""); // State for registration number
+  const [issueDescription, setIssueDescription] = useState(""); // State for issue description
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,10 +18,10 @@ function MessageSupport() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/students/report', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3000/students/report", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(reportData),
       });
@@ -31,8 +31,8 @@ function MessageSupport() {
       }
 
       alert("Your message has been sent successfully!");
-      setRegno(''); // Clear input after submission
-      setIssueDescription(''); // Clear input after submission
+      setRegno(""); // Clear input after submission
+      setIssueDescription(""); // Clear input after submission
     } catch (error) {
       alert(`Error: ${error.message}`);
     }
@@ -40,16 +40,22 @@ function MessageSupport() {
 
   return (
     <div className={Mess["message-support"]}>
-      <button className={Mess["back-button"]} aria-label="Go back" onClick={() => navigate('/student/support')}>
+      <button
+        className={Mess["back-button"]}
+        aria-label="Go back"
+        onClick={() => navigate("/student/support")}
+      >
         <ArrowLeft />
       </button>
       <div className={Mess["error-illustration"]}>
-        <img src="/image 2.png" alt="404 Error Illustration" />
+        <img src="/Report Issue.png" alt="404 Error Illustration" />
       </div>
       <h1 className={Mess["support-title"]}>MESSAGE SUPPORT</h1>
       <form className={Mess["support-form"]} onSubmit={handleSubmit}>
         <div className={Mess["form-group"]}>
-          <label htmlFor="regno" className={Mess["form-label"]}>Registration Number</label>
+          <label htmlFor="regno" className={Mess["form-label"]}>
+            Registration Number
+          </label>
           <input
             type="text"
             id="regno"
@@ -61,7 +67,9 @@ function MessageSupport() {
           />
         </div>
         <div className={Mess["form-group"]}>
-          <label htmlFor="issueDescription" className={Mess["form-label"]}>Describe Your Issue</label>
+          <label htmlFor="issueDescription" className={Mess["form-label"]}>
+            Describe Your Issue
+          </label>
           <textarea
             id="issueDescription"
             className={Mess["form-textarea"]}
@@ -72,10 +80,16 @@ function MessageSupport() {
             required
           ></textarea>
         </div>
-        <button type="submit" className={Mess["send-button"]}>SEND</button>
+        <div className={Mess["form-button"]}>
+          <button type="submit" className={Mess["send-button"]}>
+            SEND
+          </button>
+        </div>
       </form>
     </div>
   );
 }
 
 export default MessageSupport;
+
+
