@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Snackbar, Alert } from '@mui/material';
 import "./QuestionsPreview.css";
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
@@ -11,6 +12,22 @@ import BackButton from "../../components/lecturer/BackButton";
 function QuestionsPreview() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [questions, setQuestions] = useState([]);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
+  const [isDraft, setIsDraft] = useState(true);
+
+  // New states for delete dialog and snackbar
+  const [deleteDialog, setDeleteDialog] = useState({
+    open: false,
+    questionId: null
+  });
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'info'
+  });
 
   useEffect(() => {
     const handleResize = () => {
@@ -23,95 +40,172 @@ function QuestionsPreview() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleSnackbar = (message, severity = 'info') => {
+    setSnackbar({
+      open: true,
+      message,
+      severity
+    });
+  };
+
+  const closeSnackbar = () => {
+    setSnackbar(prev => ({
+      ...prev,
+      open: false
+    }));
+  };
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [questions, setQuestions] = useState([]);
-  const [error, setError] = useState("");
-  const [selectedAnswers, setSelectedAnswers] = useState({});
+
+  useEffect(() => {
+    const fetchExamData = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        if (!response.ok) throw new Error("Failed to fetch exam paper");
+        const data = await response.json();
+        setIsDraft(data.isDraft);
+      } catch (error) {
+        handleSnackbar("Error fetching exam paper: " + error.message, "error");
+      }
+    };
+
+    fetchExamData();
+  }, [id]);
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        console.log("Fetching questions for exam paper ID:", id);
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}/questions`);
+        const response = await fetch(
+          `http://localhost:3000/exam-paper/${id}/questions`
+        );
         if (!response.ok) throw new Error("Failed to fetch questions");
 
         const data = await response.json();
-        console.log("Fetched questions:", data);
-
         if (Array.isArray(data)) {
           setQuestions(data);
         } else {
           throw new Error("Unexpected data format");
         }
       } catch (error) {
-        console.error("Error fetching questions:", error);
-        setError("Error fetching questions: " + error.message);
+        handleSnackbar("Error fetching questions: " + error.message, "error");
       }
     };
 
     fetchQuestions();
   }, [id]);
 
-  const handleDeleteQuestion = async (questionId) => {
-    if (window.confirm("Are you sure you want to delete this question?")) {
-      try {
-        console.log(`Attempting to delete question ID: ${questionId} from exam paper ID: ${id}`);
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}/question/${questionId}`, {
+  const handleDeleteQuestion = (questionId) => {
+    if (!isDraft) {
+      handleSnackbar("You cannot delete questions from an already published exam.", "error");
+      return;
+    }
+    setDeleteDialog({
+      open: true,
+      questionId
+    });
+  };
+
+  const confirmDelete = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3000/exam-paper/${id}/question/${deleteDialog.questionId}`,
+        {
           method: "DELETE",
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(`Failed to delete question: ${errorData.message || response.statusText}`);
         }
+      );
 
-        setQuestions(questions.filter((q) => q.id !== questionId));
-        console.log(`Question ${questionId} deleted successfully`);
-      } catch (error) {
-        console.error("Error deleting question:", error);
-        setError("Error deleting question: " + error.message);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || response.statusText);
       }
+
+      setQuestions(questions.filter((q) => q.id !== deleteDialog.questionId));
+      handleSnackbar("Question deleted successfully", "success");
+    } catch (error) {
+      handleSnackbar("Error deleting question: " + error.message, "error");
+    } finally {
+      setDeleteDialog({ open: false, questionId: null });
     }
   };
 
   const handleEditQuestion = (questionId) => {
+    if (!isDraft) {
+      handleSnackbar("You cannot edit questions in an already published exam.", "error");
+      return;
+    }
     navigate(`/exam-paper/${id}/question/${questionId}`);
   };
 
   const handleOptionChange = (questionId, selectedOption) => {
-    setSelectedAnswers((prevSelectedAnswers) => ({
-      ...prevSelectedAnswers,
+    setSelectedAnswers((prev) => ({
+      ...prev,
       [questionId]: selectedOption,
     }));
   };
 
-  if (error) return <div className="alert alert-danger">{error}</div>;
   if (!questions.length) return <div>No questions found.</div>;
 
   return (
     <div className={Dash.lecturerDashboard}>
+      {/* Snackbar Component */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={closeSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{ width: '50%' }}
+      >
+        <Alert onClose={closeSnackbar} severity={snackbar.severity}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog
+        open={deleteDialog.open}
+        onClose={() => setDeleteDialog({ open: false, questionId: null })}
+      >
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this question? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialog({ open: false, questionId: null })}>
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="error" variant="contained">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <div className={Dash.dashboard}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={Dash["dashboard-content"]}>
           {!isMobile && <Sidebar />}
           {isMobile && (
-            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            <MobileMenu
+              isOpen={isMobileMenuOpen}
+              toggleMenu={toggleMobileMenu}
+            />
           )}
           <div className={Dash.backButtonContainer}>
             <BackButton targetPath={`/exam-paper/${id}`} size={30} color="#106053" />
           </div>
           <div className="questions-preview-container mt-5">
             <h3 className="questions-preview-header">Questions Preview</h3>
-            <p className="total-questions">Total Questions: {questions.length}</p>
+            <p className="total-questions">
+              Total Questions: {questions.length}
+            </p>
             {questions.map((question) => (
               <div key={question.id} className="question-card mb-3">
                 <div className="question-content">
-                  <strong>Q{question.id}: </strong> {question.content}
+                  <strong>Q{question.questionNumber}: </strong> {question.content}
                 </div>
                 <form className="question-options">
                   {question.options.map((option, index) => (
@@ -125,7 +219,10 @@ function QuestionsPreview() {
                         checked={selectedAnswers[question.id] === option}
                         onChange={() => handleOptionChange(question.id, option)}
                       />
-                      <label className="form-check-label" htmlFor={`question-${question.id}-option-${index}`}>
+                      <label
+                        className="form-check-label"
+                        htmlFor={`question-${question.id}-option-${index}`}
+                      >
                         {option}
                       </label>
                     </div>
@@ -135,10 +232,16 @@ function QuestionsPreview() {
                   <strong>Correct Answer:</strong> {question.answer}
                 </div>
                 <div className="question-actions">
-                  <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning me-1 icon-button">
+                  <button
+                    onClick={() => handleEditQuestion(question.id)}
+                    className="btn btn-warning me-1 icon-button"
+                  >
                     <FaEdit className="icon-edit" />
                   </button>
-                  <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-warning me-1 icon-button">
+                  <button
+                    onClick={() => handleDeleteQuestion(question.id)}
+                    className="btn btn-warning me-1 icon-button"
+                  >
                     <FaTrash className="icon-trash" />
                   </button>
                 </div>

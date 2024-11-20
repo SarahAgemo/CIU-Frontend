@@ -5,7 +5,7 @@ import Header from '../../components/lecturer/HeaderPop';
 import Sidebar from '../../components/lecturer/SideBarPop';
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
-import './QuestionBankPreview.css';
+import '../../components/lecturer/QuestionBankPreview.css';
 
 const QuestionBankPreview = () => {
   const [questions, setQuestions] = useState([]);
@@ -13,7 +13,7 @@ const QuestionBankPreview = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const { bankId } = useParams();
-  const [isHovered, setIsHovered] = useState(false);
+  const [hoveredQuestionId, setHoveredQuestionId] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,53 +61,43 @@ const QuestionBankPreview = () => {
             />
           )}
 
-          {/* Content Section with Custom Inline Styling */}
-          <div style={{
-            
-            backgroundColor: 'white',
-           
-            marginTop: '1rem' ,   
-           
-            alignItems: 'center',
-            padding: '15px',
-            width: '800px',
-            borderRadius: '6px',
-           
-            transition: 'box-shadow 0.3s ease',
-          }}
-         >
-            
-            <div style={{ marginBottom: '1.5rem' }}>
-              {questions.map((question, index) => (
-                <div key={question.id} style={{
-                  padding: '1rem',
-                  marginBottom: '1rem',
-                  border: '1px solid #ddd',
-                  borderRadius: '8px',
-                  transition: 'box-shadow 0.3s ease',  // Smooth transition effect
-                  boxShadow: isHovered ? '0 4px 12px rgba(0, 0, 0, 0.15)' : 'none',
-                
-                }} onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}>
-                  <h3 className="font-bold">Question {index + 1}</h3>
-                  <p className="mt-2">{question.content}</p>
-                  {question.options && (
-                    <div className="mt-2" style={{ display: 'flex',
-                      flexDirection: 'column',
-                      marginBottom: '100px',}}>
-                      <h4 className="font-semibold">Options:</h4>
-                      <ul className="list-disc ml-6" style={{display: 'flex',
-                      flexDirection: 'column',
-                      marginBottom: '10px',}}>
-                        {question.options.map((option, i) => (
-                          <li key={i}>{option}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+          {/* Main Content Section */}
+          <div className="question-preview__container">
+            <h2 className="question-preview__heading">Question Bank Preview</h2>
+
+            {questions.map((question, index) => (
+              <div
+                key={question.id}
+                className={`question-preview__item ${
+                  hoveredQuestionId === question.id ? 'hovered' : ''
+                }`}
+                onMouseEnter={() => setHoveredQuestionId(question.id)}
+                onMouseLeave={() => setHoveredQuestionId(null)}
+              >
+                <h3 className="question-preview__title">
+                  Qn{index + 1}: {question.content}
+                </h3>
+                {question.options && (
+                  <div className="question-preview__options">
+                    <h4>Options:</h4>
+                    <form>
+                      {question.options.map((option, i) => (
+                        <div key={i}>
+                          <label>
+                            <input
+                              type="radio"
+                              name={`question-${question.id}`} // Group by question ID
+                              value={option}
+                            />
+                            {option}
+                          </label>
+                        </div>
+                      ))}
+                    </form>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
       </div>

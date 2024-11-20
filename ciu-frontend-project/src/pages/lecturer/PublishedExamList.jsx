@@ -177,7 +177,7 @@ const PublishedExamList = () => {
                 style={searchButtonStyles}
                 onClick={() => navigate("/schedule-create-exams/exam-list")}
               >
-                Pulish New Exam
+                Publish New Exam
               </button>
               <input
                 type="text"
