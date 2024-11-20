@@ -70,6 +70,7 @@ import { SidebarProvider } from "./components/student/SidebarContext.jsx";
 import QuestionBankPage from "./components/lecturer/QuestionBankPage.jsx";
 import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestionsPage.jsx";
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
+import StudentNotifications from "./pages/student/notifications.jsx";
 import StudentLogin from "./pages/StudentLogin.jsx";
 
 import SampleComponent from "./pages/student/Submit.jsx";
@@ -256,7 +257,8 @@ function App() {
               
 
               <Route path="/proctoring" element={<Proctoring />} />
-              <Route path="/quiz" element={<Quiz />} />
+              <Route path="/notifications" element={<StudentNotifications />} />
+              <Route path="/quiz/:id" element={<Quiz />} />
               <Route
                 path="/student/support/message-support"
                 element={<MessageSupp />}
