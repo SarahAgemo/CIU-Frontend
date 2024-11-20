@@ -35,7 +35,8 @@ import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 import TokenPasswordPage from "./components/admin/TokenPasswordPage";
 import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
 import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
-import AdminLogin from "./pages/admin/AdminLogin.jsx"
+import AdminLogin from "./pages/admin/AdminLogin.jsx";
+import TokenPassword from "./pages/admin/TokenPassword";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
@@ -155,6 +156,11 @@ function App() {0
               <Route
                 path="/Adminlogin"
                 element={<AdminLogin />}
+              />
+
+<Route
+                path="/token-password-student-reset"
+                element={<TokenPassword />}
               />
 
 
