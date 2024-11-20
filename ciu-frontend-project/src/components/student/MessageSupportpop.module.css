@@ -1,7 +1,6 @@
 .message-support {
-  max-width: 600px;
-  margin: 0 auto;
   padding: 20px;
+  background-color: #f9fffc;
 }
 
 .back-button {
@@ -10,18 +9,22 @@
   border-radius: 4px;
   padding: 5px 10px;
   cursor: pointer;
-  margin-bottom: 20px;
 }
 
 .error-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .error-illustration img {
-  /* width: 600px; */
-  max-width: 100%;
+  width: 40%;
   height: auto;
+  align-items: center;
+  justify-content: center;
 }
 
 .support-title {
@@ -50,15 +53,20 @@
   font-weight: bold;
 }
 
-.form-select,
+.form-group input,
 .form-textarea {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border: 0px;
   border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-
-
+.form-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .send-button {
   background-color: #106053;
   color: #fff;
@@ -67,8 +75,10 @@
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .send-button:hover {
-  background-color: #0B3F37;
+  background-color: #0b3f37;
 }
+
