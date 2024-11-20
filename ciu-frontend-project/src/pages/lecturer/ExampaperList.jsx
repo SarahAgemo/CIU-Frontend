@@ -15,6 +15,8 @@ function ExamList() {
   const [filteredExamPapers, setFilteredExamPapers] = useState([]);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchError, setSearchError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -42,6 +44,8 @@ function ExamList() {
         setFilteredExamPapers(data);
       } catch (error) {
         setError("Error fetching exam papers: " + error.message);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -49,10 +53,41 @@ function ExamList() {
   }, []);
 
   useEffect(() => {
+    // Define valid status terms
+    const validStatusTerms = [
+      'draft',
+      'published',
+      'pending',
+      'approved',
+      'rejected',
+      'unpublished'
+    ];
+
+    // Clear any previous search error
+    setSearchError("");
+
+    // If search term is empty, show all papers
+    if (!searchTerm) {
+      setFilteredExamPapers(examPapers);
+      return;
+    }
+
+    // Check if search term matches any valid status
+    const searchLower = searchTerm.toLowerCase();
+    const isValidStatusSearch = validStatusTerms.some(status => 
+      status.includes(searchLower)
+    );
+
+    if (!isValidStatusSearch) {
+      setSearchError("Please search by status (draft, published, pending, approved, rejected, unpublished)");
+      setFilteredExamPapers(examPapers); // Keep showing all papers
+      return;
+    }
+
+    // If valid status search, filter the papers
     const filtered = examPapers.filter((exam) =>
-      exam.courseUnit.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      exam.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      exam.description.toLowerCase().includes(searchTerm.toLowerCase())
+      (exam.isDraft ? "draft" : "published").toLowerCase().includes(searchLower) ||
+      (exam.status || "").toLowerCase().includes(searchLower)
     );
     setFilteredExamPapers(filtered);
   }, [searchTerm, examPapers]);
@@ -60,10 +95,6 @@ function ExamList() {
   const handlePreview = (examId) => {
     navigate(`/exam-paper/${examId}`);
   };
-
-  if (error) return <div className="E-alert alert-danger">{error}</div>;
-  if (!filteredExamPapers.length) return <div>Loading...</div>;
-
 
   const searchContainerStyles = {
     display: "flex",
@@ -93,6 +124,18 @@ function ExamList() {
     color: "#666"
   };
 
+  const errorMessageStyles = {
+    color: '#ff4444',
+    fontSize: '14px',
+    marginTop: '5px',
+    position: 'absolute',
+    top: '100%'
+  };
+
+  if (error) {
+    return <div className="E-alert alert-danger">{error}</div>;
+  }
+
   return (
     <div className={Dash.lecturerDashboard}>
       <div className={Dash.dashboard}>
@@ -110,54 +153,65 @@ function ExamList() {
           </div>
           <div className="E-exam-list-container">
             <div className="search-container">
-
-            <div style={searchContainerStyles}>
-        <button 
-          style={searchButtonStyles}
-          onClick={() => navigate('/schedule-upload-exams/exam-list')}
-        >
-          View Exam Paper
-        </button>
-        <input
-          type="text"
-          placeholder="Search by exam status..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          style={searchInputStyles}
-        />
-      </div>
+              <div style={searchContainerStyles}>
+                <button 
+                  style={searchButtonStyles}
+                  onClick={() => navigate('/schedule-upload-exams/exam-list')}
+                >
+                  View Exam Paper
+                </button>
+                <div style={{ position: 'relative' }}>
+                  <input
+                    type="text"
+                    placeholder="Search by exam status..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    style={searchInputStyles}
+                  />
+                  {searchError && (
+                    <div style={errorMessageStyles}>
+                      {searchError}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
             <h2 style={{ marginRight: "850px" }}>Exam Papers</h2>
-            <table className="E-glass-table">
-              <thead>
-                <tr>
-                  <th>Course Unit</th>
-                  <th>Title</th>
-                  <th>Instructions</th>
-                  <th>Status</th> {/* Added Status Column */}
-                  <th>Phase</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredExamPapers.map((exam) => (
-                  <tr key={exam.id}>
-                    <td>{exam.courseUnit}</td>
-                    <td>{exam.title}</td>
-                    <td>{exam.description}</td>
-                    <td>
-                    <span
-                      className={`E-status-text ${
-                        exam.isDraft ? "draft" : "published"
-                      }`}
-                    >
-                      {exam.isDraft ? "Draft" : "Published"}
-                    </span>
-                    </td>
-                    <td>
-                      <span
+            {isLoading ? (
+              <div>Loading...</div>
+            ) : filteredExamPapers.length === 0 ? (
+              <div>No exam papers found matching your search.</div>
+            ) : (
+              <table className="E-glass-table">
+                <thead>
+                  <tr>
+                    <th>Course Unit</th>
+                    <th>Title</th>
+                    <th>Instructions</th>
+                    <th>Status</th>
+                    <th>Phase</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredExamPapers.map((exam) => (
+                    <tr key={exam.id}>
+                      <td>{exam.courseUnit}</td>
+                      <td>{exam.title}</td>
+                      <td>{exam.description}</td>
+                      <td>
+                        <span
                           className={`E-status-text ${
-                              exam.status === "draft"
+                            exam.isDraft ? "draft" : "published"
+                          }`}
+                        >
+                          {exam.isDraft ? "Draft" : "Published"}
+                        </span>
+                      </td>
+                      <td>
+                        <span
+                          className={`E-status-text ${
+                            exam.status === "draft"
                               ? "draft"
                               : exam.status === "pending"
                               ? "pending"
@@ -171,22 +225,23 @@ function ExamList() {
                               ? "unpublished"
                               : ""
                           }`}
-                      >
+                        >
                           {exam.status}
-                      </span>
-                    </td>
-                    <td>
-                      <button
-                        className="E-preview-button"
-                        onClick={() => handlePreview(exam.id)}
-                      >
-                        <FiEye />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        </span>
+                      </td>
+                      <td>
+                        <button
+                          className="E-preview-button"
+                          onClick={() => handlePreview(exam.id)}
+                        >
+                          <FiEye />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>
