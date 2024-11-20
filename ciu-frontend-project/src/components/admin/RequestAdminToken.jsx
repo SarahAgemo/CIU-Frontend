@@ -131,7 +131,7 @@ const RequestAdminTokenForm = () => {
     <div style={styles.container}>
       {/* Logo */}
       <img src='/ciu-logo-2.png' alt="Logo" style={styles.logo} />
-      <h1 style={styles.title}>CLERK INTERNATIONAL UNIVERSITY</h1>
+      <h1 style={styles.title}>CLARKE INTERNATIONAL UNIVERSITY</h1>
 
       <div style={styles.formContainer}>
         <h2 style={styles.heading}>RESET YOUR PASSWORD USING THE TOKEN SENT TO YOUR EMAIL</h2>
