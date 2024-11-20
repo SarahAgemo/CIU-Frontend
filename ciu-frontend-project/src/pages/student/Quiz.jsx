@@ -22,6 +22,7 @@ const Quiz = () => {
   const examId = localStorage.getItem("exam");
   const userId = localStorage.getItem("user");
 
+  // Fetch exam questions
   const examQuestion = async () => {
     try {
       const response = await axios.get(`http://localhost:3000/exam-paper/${examId}/questions`);
@@ -32,12 +33,11 @@ const Quiz = () => {
     }
   };
 
+  // Fetch exam details (duration, subject, etc.)
   const fetchExamDetails = async () => {
     try {
       const response = await axios.get(`http://localhost:3000/exam-paper/${examId}`);
       setExamDetails(response.data);
-
-      // Ensure duration is a valid number
       const durationInMinutes = parseInt(response.data.duration, 10) || 60; // Default to 60 minutes if invalid
       setTimeLeft(durationInMinutes * 60); // Convert minutes to seconds
       console.log("Fetched exam details:", response.data);
@@ -47,30 +47,33 @@ const Quiz = () => {
   };
 
   useEffect(() => {
+    // Start countdown timer
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
-          clearInterval(timer);  
-          handleSubmit(); 
-          return 0;  
+          clearInterval(timer);
+          handleSubmit();
+          return 0;
         }
-        return prevTime - 1; 
+        return prevTime - 1;
       });
     }, 1000);
 
     examQuestion();
     fetchExamDetails();
 
-    return () => clearInterval(timer); 
-  }, []); 
+    return () => clearInterval(timer);
+  }, []);
 
+  // Format seconds to mm:ss
   const formatTime = (seconds) => {
-    if (isNaN(seconds) || seconds < 0) return "00:00"; 
+    if (isNaN(seconds) || seconds < 0) return "00:00";
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
     return `${minutes < 10 ? "0" : ""}${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
+  // Start webcam recording
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -90,6 +93,7 @@ const Quiz = () => {
       setIsRecording(true);
       setRecordingStartTime(Date.now());
 
+      // Check if user is away from the camera
       const checkCameraInterval = setInterval(() => {
         if (stream.getVideoTracks()[0].readyState !== "live") {
           setAwayFromCamera(true);
@@ -116,15 +120,17 @@ const Quiz = () => {
     };
   }, []);
 
+  // Handle question navigation
   const handleNextQuestion = () => setQuestionIndex((prevIndex) => prevIndex + 1);
-
   const handlePreviousQuestion = () => setQuestionIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
 
+  // Get recording duration in mm:ss format
   const getRecordingDuration = () => {
     const duration = Math.floor((Date.now() - recordingStartTime) / 1000);
     return formatTime(duration);
   };
 
+  // Handle answer selection
   const handleAnswerChange = (questionId, option) => {
     setSelectedAnswers((prevAnswers) => ({
       ...prevAnswers,
@@ -132,6 +138,7 @@ const Quiz = () => {
     }));
   };
 
+  // Submit the quiz and calculate score
   const handleSubmit = async () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
@@ -174,7 +181,7 @@ const Quiz = () => {
         const response = await axios.post("http://localhost:3000/scores", scoreData);
 
         if (response.status === 200 || response.status === 201) {
-          alert(`Your score has been submitted successfully! `);
+          alert("Your score has been submitted successfully!");
           navigate("/submit");
         } else {
           throw new Error(`Unexpected response status: ${response.status}`);
@@ -186,6 +193,7 @@ const Quiz = () => {
     }
   };
 
+  // Handle visibility change (user switching tabs)
   const handleTabChange = () => {
     alert("Warning: You opened a new tab! The quiz will be auto-submitted.");
     navigate("/login");
@@ -208,18 +216,10 @@ const Quiz = () => {
   return (
     <div className="ExamPage">
       <div className="ExamTopbar">
-        <p>
-          <strong>Subject:</strong> {examDetails.subject || "Loading..."}
-        </p>
-        <p>
-          <strong>Description:</strong> {examDetails.description || "Loading..."}
-        </p>
-        <p>
-          <strong>Duration:</strong> {examDetails.duration ? `${examDetails.duration} minutes` : "Loading..."}
-        </p>
-        <p>
-          <strong>Time Left:</strong> {formatTime(timeLeft)}
-        </p>
+        <p><strong>Subject:</strong> {examDetails.subject || "Loading..."}</p>
+        <p><strong>Description:</strong> {examDetails.description || "Loading..."}</p>
+        <p><strong>Duration:</strong> {examDetails.duration ? `${examDetails.duration} minutes` : "Loading..."}</p>
+        <p><strong>Time Left:</strong> {formatTime(timeLeft)}</p>
       </div>
 
       <div className="quiz-content">
@@ -228,9 +228,7 @@ const Quiz = () => {
           <div className="recording-status">
             {isRecording ? (
               <>
-                <span role="img" aria-label="recording" style={{ color: "red", fontSize: "2em" }}>
-                  🔴
-                </span>
+                <span role="img" aria-label="recording" style={{ color: "red", fontSize: "2em" }}>🔴</span>
                 <span>{getRecordingDuration()}</span>
               </>
             ) : (
@@ -262,27 +260,16 @@ const Quiz = () => {
 
         <div className="navigation-buttons">
           {questionIndex > 0 && (
-            <button className="exam-prev-button" onClick={handlePreviousQuestion}>
-              PREVIOUS
-            </button>
+            <button onClick={handlePreviousQuestion}>Previous</button>
           )}
-          {questionIndex < questions.length - 1 ? (
-            <button className="exam-next-button" onClick={handleNextQuestion}>
-              NEXT
-            </button>
-          ) : (
-            <button className="exam-submit-button" onClick={handleSubmit}>
-              SUBMIT
-            </button>
+          {questionIndex < questions.length - 1 && (
+            <button onClick={handleNextQuestion}>Next</button>
           )}
         </div>
 
-        {/* {percentage !== null && (
-          <div className="result-display">
-            <h3>Your Final Score: {score}/{questions.length}</h3>
-            <h4>Percentage: {percentage}%</h4>
-          </div>
-        )} */}
+        <div className="submit-section">
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
       </div>
     </div>
   );

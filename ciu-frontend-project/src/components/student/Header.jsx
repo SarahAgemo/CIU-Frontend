@@ -51,10 +51,11 @@ export default function Header() {
           <Settings size={24} />
         </button>
         <Link to="/notifications">
-        <button className={Head["icon-button"]}>
-          <Bell size={24} />
-        </button>
-        </Link>
+      <button className={Head["icon-button"]}>
+    <Bell size={24} />
+     </button>
+      </Link>
+
         <div className={Head["user-info"]}>
           <User size={24} />
           <div className={Head["user-details"]}>

@@ -76,11 +76,7 @@ export default function UserDetailsPopup({ children }) {
           ) : userData ? (
             <>
               <div className={User["user-info"]}>
-                <img
-                  src={userData.profileImageSrc}
-                  alt="User profile"
-                  className={User["user-avatar"]}
-                />
+                
                 <h2 className={User["user-name"]}>{userData.name}</h2>
                 <p className={User["user-role"]}>{userData.role}</p>
                 <p className={User["user-id"]}>{userData.id}</p>
@@ -90,7 +86,7 @@ export default function UserDetailsPopup({ children }) {
                   <Settings className={User["action-icon"]} />
                   Manage Account
                 </button>
-                <button className={`${User["action-button"]} ${User["logout-button"]}`} onClick={() => console.log("Logout clicked")}>
+                <button className={`${User["action-button"]} ${User["logout-button"]}`} onClick={() => console.log("/")}>
                   <LogOut className={User["action-icon"]} />
                   Logout
                 </button>
