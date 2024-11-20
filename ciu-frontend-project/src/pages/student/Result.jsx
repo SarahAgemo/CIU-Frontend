@@ -13,69 +13,75 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchResults = async () => {
+    const fetchResultsAndExams = async () => {
       try {
+        // Get user data from localStorage
         const userData = localStorage.getItem("user");
         if (!userData) {
-          setError("No user data found. Please log in.");
+          setError("Please log in to view your results");
           setLoading(false);
           return;
         }
 
         const user = JSON.parse(userData);
-        console.log("User data:", user);
-
-        if (!user?.id) {
-          setError("Invalid user data. Please log in again.");
+        if (!user.id) {
+          setError("User ID not found. Please log in again.");
           setLoading(false);
           return;
         }
 
-        // Fetch user's scores
-        const scoresResponse = await axios.get(`http://localhost:3000/scores?userId=${user.id}`);
-        const scores = scoresResponse.data;
-        console.log("Scores data:", scores);
+        // Fetch both scores and exam papers in parallel
+        const [scoresResponse, examsResponse] = await Promise.all([
+          axios.get(`http://localhost:3000/scores/user/${user.id}`),
+          axios.get('http://localhost:3000/exam-paper?isDraft=false')
+        ]);
 
-        if (!scores || scores.length === 0) {
-          setError("No scores found for this student.");
+        console.log("Scores Response:", scoresResponse.data);
+        console.log("Exams Response:", examsResponse.data);
+
+        if (!scoresResponse.data || (Array.isArray(scoresResponse.data) && scoresResponse.data.length === 0)) {
+          setError("No results found for your account");
           setLoading(false);
           return;
         }
 
-        // Get the latest score (assuming the last score is the most recent)
-        const latestScore = scores[scores.length - 1];
+        // Convert scores to array if it's a single object
+        const scores = Array.isArray(scoresResponse.data) 
+          ? scoresResponse.data 
+          : [scoresResponse.data];
 
-        // Fetch the assessment details for the latest score
-        if (latestScore.addAssessmentId) {
-          const assessmentResponse = await axios.get(
-            `http://localhost:3000/exam-paper/${latestScore.addAssessmentId}`
-          );
-          const assessment = assessmentResponse.data;
-          console.log("Fetched assessment:", assessment);
+        // Create a map of exam papers for easy lookup
+        const examPapersMap = examsResponse.data.reduce((acc, exam) => {
+          acc[exam.id] = exam;
+          return acc;
+        }, {});
 
-          const resultDetails = {
-            id: latestScore.id,
-            examId: latestScore.addAssessmentId,
-            courseUnit: assessment.courseUnit,
-            courseUnitCode: assessment.courseUnitCode,
-         title: assessment.title,
-            score: latestScore.score,
-            percentage: latestScore.percentage,
+        // Combine scores with exam paper details
+        const formattedResults = scores.map(score => {
+          const examPaper = examPapersMap[score.addAssessmentId];
+          return {
+            id: score.id,
+            score: score.score,
+            percentage: score.percentage,
+            assessmentId: score.addAssessmentId,
+            courseUnit: examPaper?.courseUnit || 'N/A',
+            courseUnitCode: examPaper?.courseUnitCode || 'N/A',
+            title: examPaper?.title || 'Untitled Assessment',
+            totalMarks: examPaper?.totalMarks || 'N/A'
           };
+        });
 
-          setResults([resultDetails]); // Wrap in array to maintain compatibility with map
-        } else {
-          setError("No assessment details found.");
-        }
+        setResults(formattedResults);
+
       } catch (err) {
-        console.error("Error fetching results:", err);
-        setError("Failed to fetch results. Please try again later.");
+        console.error("Error fetching data:", err);
+        setError(err.response?.data?.message || "Failed to fetch your results");
       } finally {
         setLoading(false);
       }
     };
 
-    fetchResults();
+    fetchResultsAndExams();
   }, []);
 
   if (loading) {
@@ -86,22 +92,10 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
           {!isMobile && <Sidebar />}
           {isMobile && isMobileMenuOpen && <MobileMenu toggleMenu={toggleMobileMenu} />}
           <div className="ResultPage">
-            <h2>Loading results...</h2>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="admin-layout">
-        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-        <div className="this-content">
-          {!isMobile && <Sidebar />}
-          {isMobile && isMobileMenuOpen && <MobileMenu toggleMenu={toggleMobileMenu} />}
-          <div className="ResultPage">
-            <h2>{error}</h2>
+            <div className="loading-container">
+              <div className="loading-spinner"></div>
+              <div className="loading-text">Loading your results...</div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,30 +109,49 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
         {!isMobile && <Sidebar />}
         {isMobile && isMobileMenuOpen && <MobileMenu toggleMenu={toggleMobileMenu} />}
         <div className="ResultPage">
-          <h2>Quiz Results</h2>
-          <div className="single-result-container">
-            {results && results[0] && (
-              <div className="result-card">
-                <h3> {results[0].title || 'Untitled Assessment'}</h3>
-                <p>
-                  <strong>Course Unit:</strong>{" "}
-                  {results[0].courseUnit || 'Not specified'}
-                </p>
-                <p>
-                  <strong>Course Code:</strong>{" "}
-                  {results[0].courseUnitCode || 'Not specified'}
-                </p>
-                <p>
-                  <strong>Score:</strong>{" "}
-                  {results[0].score !== undefined ? results[0].score : "N/A"}
-                </p>
-                <p>
-                  <strong>Percentage:</strong>{" "}
-                  {results[0].percentage !== undefined ? `${results[0].percentage}%` : "N/A"}
-                </p>
-              </div>
-            )}
-          </div>
+          <h2>Your Assessment Results</h2>
+          
+          {error ? (
+            <div className="error-message">
+              {error}
+            </div>
+          ) : (
+            <div className="results-container">
+              {results && results.map((result, index) => (
+                <div key={result.id || index} className="result-card">
+                  <div className="result-header">
+                    <h3>Exam Title:{result.title}</h3>
+                  </div>
+                  <div className="result-details">
+                    <div className="result-item">
+                      <strong>Course Unit:</strong>
+                      <span>{result.courseUnit}</span>
+                    </div>
+                    <div className="result-item">
+                      <strong>Course Code:</strong>
+                      <span>{result.courseUnitCode}</span>
+                    </div>
+                    <div className="result-item">
+                      <strong>Score:</strong>
+                      <span>{result.score} </span>
+                    </div>
+                    <div className="result-item">
+                      <strong>Percentage:</strong>
+                      <span className={`percentage ${result.percentage >= 50 ? 'pass' : 'fail'}`}>
+                        {result.percentage}%
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              
+              {results && results.length === 0 && (
+                <div className="no-results">
+                  No results found
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ import axios from "axios";
 import "./Quiz.css";
 
 const Quiz = () => {
-  const [timeLeft, setTimeLeft] = useState(3600); // Default to 1 hour (3600 seconds)
+  const [timeLeft, setTimeLeft] = useState(3600); 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingStartTime, setRecordingStartTime] = useState(0);
@@ -182,7 +182,7 @@ const Quiz = () => {
 
         if (response.status === 200 || response.status === 201) {
           alert("Your score has been submitted successfully!");
-          navigate("/submit");
+          navigate("/studentdashboard");
         } else {
           throw new Error(`Unexpected response status: ${response.status}`);
         }
@@ -196,7 +196,7 @@ const Quiz = () => {
   // Handle visibility change (user switching tabs)
   const handleTabChange = () => {
     alert("Warning: You opened a new tab! The quiz will be auto-submitted.");
-    navigate("/login");
+    navigate("/student");
   };
 
   useEffect(() => {
@@ -216,26 +216,14 @@ const Quiz = () => {
   return (
     <div className="ExamPage">
       <div className="ExamTopbar">
-        <p><strong>Subject:</strong> {examDetails.subject || "Loading..."}</p>
+        
         <p><strong>Description:</strong> {examDetails.description || "Loading..."}</p>
         <p><strong>Duration:</strong> {examDetails.duration ? `${examDetails.duration} minutes` : "Loading..."}</p>
         <p><strong>Time Left:</strong> {formatTime(timeLeft)}</p>
       </div>
 
       <div className="quiz-content">
-        <div className="media-preview">
-          <video ref={videoRef} autoPlay muted className="video-preview"></video>
-          <div className="recording-status">
-            {isRecording ? (
-              <>
-                <span role="img" aria-label="recording" style={{ color: "red", fontSize: "2em" }}>🔴</span>
-                <span>{getRecordingDuration()}</span>
-              </>
-            ) : (
-              <span>Recording stopped</span>
-            )}
-          </div>
-        </div>
+       
 
         <h2>QUIZ</h2>
         <p className="question-text">
@@ -269,6 +257,20 @@ const Quiz = () => {
 
         <div className="submit-section">
           <button onClick={handleSubmit}>Submit</button>
+        </div>
+
+        <div className="media-preview">
+          <video ref={videoRef} autoPlay muted className="video-preview"></video>
+          <div className="recording-status">
+            {isRecording ? (
+              <>
+                <span role="img" aria-label="recording" style={{ color: "red", fontSize: "1rem" }}>🔴</span>
+                <span>{getRecordingDuration()}</span>
+              </>
+            ) : (
+              <span>Recording stopped</span>
+            )}
+          </div>
         </div>
       </div>
     </div>

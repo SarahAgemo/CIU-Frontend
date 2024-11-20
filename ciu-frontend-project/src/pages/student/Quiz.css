@@ -35,8 +35,8 @@
 
 /* Position the video on the right side and make it float */
 .media-preview {
-  position: absolute;
-  top: 60px;
+  position: fixed;
+  bottom: 60px;
   right: 10px;
   width: 6rem;
   z-index: 1000;
