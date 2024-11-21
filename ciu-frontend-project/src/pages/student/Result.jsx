@@ -63,7 +63,7 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
             percentage: latestScore.percentage,
           };
 
-          setResults([resultDetails]); // Wrap in array to maintain compatibility with map
+          setResults([resultDetails]); 
         } else {
           setError("No assessment details found.");
         }
