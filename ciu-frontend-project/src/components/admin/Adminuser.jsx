@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Headerpop";
 import Sidebar from "./SideBarpop";
 import MobileMenu from "./MobileMenu";
-import { FaUserEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import "./Adminuser.css";
 
 // Table component
@@ -50,24 +49,24 @@ function UserList({ users, deleteUser, searchTerm }) {
       <td>{user.email}</td>
       <td>{user.role}</td>
       <td>
-        <button
+        <span
           onClick={() => navigate(`/editadmin/${user.id}`)}
           type="button"
-          className="admin-icon-button"
+          className="btn-secondary"
         >
-          <FaUserEdit className="admin-list-icon" size={30} />
-        </button>
-        <button
+        <FaEdit className="icon-edit"   />
+        </span>
+        <span
           onClick={() => {
             if (window.confirm("Are you sure you want to delete this user?")) {
               deleteUser(user.id);
             }
           }}
           type="button"
-          className="admin-icon-button"
+          className="btn-danger"
         >
-          <MdDelete className="admin-list-icon" size={30} />
-        </button>
+            <FaTrash className="icon-trash" />
+        </span>
       </td>
     </tr>
   ));

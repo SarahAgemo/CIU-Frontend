@@ -1,0 +1,77 @@
+/* Layout Container */
+.edit-layout-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.edit-main-content {
+    display: flex;
+    flex: 1;
+}
+
+.edit-users-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Container */
+.edit-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.mt-5 {
+    margin-top: 30px;
+}
+
+/* Title */
+.edit-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+.edit-user-form .edit-form-group {
+    margin-bottom: 15px;
+}
+
+.edit-form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.edit-form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Save button styling */
+.edit-save-button {
+    width: fit-content;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    background-color: #106053;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-save-button:hover {
+    background-color: #0c890c;
+}
