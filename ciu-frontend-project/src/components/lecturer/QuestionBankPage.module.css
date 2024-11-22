@@ -1,6 +1,4 @@
-/* src/QuestionBankPage.css */
 
-/* Styling for action buttons */
 .question-bank-action-button {
   padding: 8px 12px;
   border: none;
@@ -9,11 +7,12 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   background-color: transparent;  /* No background color */
-  color: #218838;  /* Green for icons */
+  color: #106053;  /* Green for icons */
 }
 
 .question-bank-action-button:hover {
-  background-color: #e9f7e9;  /* Light green on hover */
+  background-color: #0B3F37;  /* Light green on hover */
+  color: white;
 }
 
 .question-bank-deletebutton {

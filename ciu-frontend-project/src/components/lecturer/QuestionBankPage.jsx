@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Trash2, Eye, Download } from "lucide-react";  // Icon imports from lucide-react
+import { Trash2, Eye, Download } from "lucide-react"; // Icon imports from lucide-react
 import { useNavigate } from "react-router-dom";
 import { jsPDF } from "jspdf";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+} from "@mui/material";
 import styles from "./QuestionBankPage.module.css";
-
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
@@ -16,6 +23,8 @@ const QuestionBank = () => {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredBanks, setFilteredBanks] = useState({});
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false); // Dialog state
+  const [selectedBankId, setSelectedBankId] = useState(null); // Store the ID of the bank to be deleted
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -96,14 +105,21 @@ const QuestionBank = () => {
     }
   };
 
-  const deleteQuestionBank = async (id) => {
+  const handleDeleteClick = (id) => {
+    setSelectedBankId(id); // Store the bank ID
+    setDeleteDialogOpen(true); // Open the dialog
+  };
+
+  const confirmDelete = async () => {
     try {
-      await fetch(`http://localhost:3000/question-bank/${id}`, {
+      await fetch(`http://localhost:3000/question-bank/${selectedBankId}`, {
         method: "DELETE",
       });
-      fetchQuestionBanks();
+      fetchQuestionBanks(); // Refresh the list
     } catch (error) {
       console.error("Error deleting question bank:", error);
+    } finally {
+      setDeleteDialogOpen(false); // Close the dialog
     }
   };
 
@@ -187,7 +203,7 @@ const QuestionBank = () => {
 
           <div className={styles.formContainer}>
             <div className={styles.tableContainer}>
-              <h2 style={{ marginRight: "800px" }}>QuestionBanks</h2>
+              <h2 style={{ marginRight: "100px" }}>Question Banks</h2>
               <table className={styles.questionTable}>
                 <thead>
                   <tr>
@@ -220,7 +236,7 @@ const QuestionBank = () => {
                             <Download size={20} />
                           </button>
                           <button
-                            onClick={() => deleteQuestionBank(bank.id)}
+                            onClick={() => handleDeleteClick(bank.id)}
                             className={styles["question-bank-deletebutton"]}
                           >
                             <Trash2 size={20} />
@@ -235,6 +251,22 @@ const QuestionBank = () => {
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Are you sure you want to delete this question bank? This action cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
+          <Button onClick={confirmDelete} color="error" variant="contained">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

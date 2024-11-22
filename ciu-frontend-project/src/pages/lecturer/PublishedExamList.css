@@ -17,14 +17,14 @@
     margin-bottom: 20px;
   }
   
-  /* Glass table styling */
   .C-glass-table {
-    width: 100%;
+     width: 100%; 
     border-collapse: collapse;
     background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px); /* Apply a blur effect for a glassy look */
+    backdrop-filter: blur(5px); 
     border-radius: 8px;
     overflow: hidden;
+    margin-left: 20px;
   }
   .C-form-container{
     width: 100%;

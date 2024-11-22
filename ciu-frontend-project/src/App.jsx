@@ -11,49 +11,43 @@ import RequestToken from "./components/admin/RequestToken.jsx";
 
 // Admin
 import RegForm from "./components/admin/RegForm.jsx";
-import Registration from "./pages/admin/Registration.jsx";
-import Dashboard from "./pages/admin/Dashboard.jsx";
+import Registration from "./pages/admin/Admin-LecturerRegistration.jsx";
+import Dashboard from "./pages/admin/AdminDashboard.jsx";
 import ManageUsers from "./pages/admin/ManageUsers.jsx";
 import Users from "./components/admin/Users.jsx";
-import EditUser from "./components/admin/EditUser.jsx";
+import EditUser from "./components/admin/EditLecturer.jsx";
 import Layout from "./components/admin/Layout.jsx";
 import Students from "./components/admin/Students.jsx";
 import EditStudent from "./components/admin/EditStudent.jsx";
-import Adminuser from "./components/admin/Adminuser.jsx";
+import Adminuser from "./components/admin/AdminList.jsx";
 import Editadmin from "./components/admin/Editadmin.jsx";
 import ResetAdminPassword from "./components/admin/ResetAdminPassword.jsx";
 import ResetLecturerPassword from "./components/admin/ResetLecturerPassword.jsx";
 import RequestAdminToken from "./components/admin/RequestAdminToken.jsx";
 import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 import RegCourse from "./pages/lecturer/CourseRegistration.jsx";
-import AdminCourses from "./pages/admin/Courses.jsx";
+import AdminCourses from "./pages/admin/AdminCourses.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
-import Lecturers from "./pages/admin/ManageLecturersPg.jsx";
-import StudentsManage from "./pages/admin/ManageStudentsPg.jsx";
+import Lecturers from "./pages/admin/LecturerManagement.jsx";
+import StudentsManage from "./pages/admin/StudentManagement.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 import TokenPasswordPage from "./components/admin/TokenPasswordPage";
 import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
-import AdminQuestionsPreview from "./pages/admin/AdminQuestionsPreview.jsx";
+import AdminQuestionsPreview from "./pages/admin/AdminAssessmentQuestionsPreview.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx"
 import LandingPage from "./pages/admin/LandingPage.jsx";
 
 // Lecturer
-import ScheduleUploadExams from "./pages/lecturer/ScheduleUploadExams.jsx";
-import ScheduleCreateExams from "./pages/lecturer/ScheduleCreateExams.jsx";
+import ScheduleUploadExams from "./pages/lecturer/UploadExampaper.jsx";
+import ScheduleCreateExams from "./pages/lecturer/ManualCreateExams.jsx";
 import AddQuestions from "./pages/lecturer/AddQuestions.jsx";
 import ExamPaperPreview from "./pages/lecturer/ExamPaperPreview.jsx";
-import ExamList from "./pages/lecturer/ExamList.jsx";
-import QuestionsPreview from "./pages/lecturer/QuestionsPreview.jsx";
-import EditExamPaper from "./pages/lecturer/EditExamPaper.jsx";
-import EditExamInterface from "./pages/lecturer/EditExamInterface.jsx";
+import ExamList from "./pages/lecturer/ExampaperList.jsx";
+import QuestionsPreview from "./pages/lecturer/AssessmentQuestionsPreview.jsx";
+import EditExamPaper from "./pages/lecturer/EditExamPaperQuestions.jsx";
+import EditExamInterface from "./pages/lecturer/EditExampaper.jsx";
 import PublishedExamList from "./pages/lecturer/PublishedExamList.jsx";
-// import ManualExamPaperPreview from "./pages/lecturer/ManualExamPaperPreview.jsx";
-// import ManualExamList from "./pages/lecturer/ManualExamList.jsx";
-// import ManualQuestionsPreview from "./pages/lecturer/ManualQuestionsPreview.jsx";
-// import ManualEditExamPaper from "./pages/lecturer/ManualEditExamPaper.jsx";
-// import ManualEditExamInterface from "./pages/lecturer/ManualEditExamInterface.jsx";
-// import ManualPublishedExamList from "./pages/lecturer/ManualPublishedExamList.jsx";
 import LecturerDashboard from "./components/lecturer/LecturerDashboard.jsx";
 import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
 import LectCourses from "./pages/lecturer/LecturerCourses.jsx";
@@ -197,30 +191,7 @@ function App() {
                 path="/published-exam-papers"
                 element={<PublishedExamList />}
               />
-              {/* <Route
-                path="/manual-exam-paper/:id"
-                element={<ManualExamPaperPreview />}
-              /> */}
-              {/* <Route
-                path="/schedule-create-exams/exam-list"
-                element={<ManualExamList />}
-              /> */}
-              {/* <Route
-                path="/manual-exam-paper/:id/questions"
-                element={<ManualQuestionsPreview />}
-              />
-              <Route
-                path="/manual-exam-paper/:id/question/:questionId"
-                element={<ManualEditExamPaper />}
-              /> */}
-              {/* <Route
-                path="/manual-exam-paper/:id/edit"
-                element={<ManualEditExamInterface />}
-              /> */}
-              {/* <Route
-                path="/manual-published-exam-papers"
-                element={<ManualPublishedExamList />}
-              /> */}
+              
               <Route
                 path="/lecturerdashboard"
                 element={<LecturerDashboard />}

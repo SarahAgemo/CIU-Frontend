@@ -122,7 +122,7 @@ const ResetAdminForm = () => {
   return (
     <div style={styles.container}>
       <img src='/ciu-logo-2.png' alt="Logo" style={styles.logo} />
-      <h1 style={styles.title}>CLERK INTERNATIONAL UNIVERSITY</h1> 
+      <h1 style={styles.title}>CLARKE INTERNATIONAL UNIVERSITY</h1> 
 
       <div style={styles.formContainer}>
         <h2 style={styles.heading}>ENTER THE REGISTERED EMAIL AND A RESET TOKEN WILL BE SENT TO YOUR EMAIL TO RESET YOUR PASSWORD</h2>
