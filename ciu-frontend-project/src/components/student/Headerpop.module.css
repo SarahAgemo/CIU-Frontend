@@ -89,3 +89,73 @@
   height: 100%;
   object-fit: cover;
 }
+
+.popup-container {
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  padding: 10px;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.close-popup-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.popup-notification {
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.popup-notification:hover {
+  background-color: #f9f9f9;
+}
+
+.title {
+  font-weight: bold;
+}
+
+.view-all-button {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  
+  color: green;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.view-all-button:hover {
+  background-color: gainsboro;
+}
+
+.notification-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red; /* Red background */
+  color: white; /* White text */
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
