@@ -28,7 +28,11 @@
 
 .image-banner {
   margin-right: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
+.image-banner img {width: 30%;}
 
 .image-content h2 {
   display: flex;

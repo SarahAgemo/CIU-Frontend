@@ -110,3 +110,99 @@
 .error {
   color: #dc2626;
 }
+
+
+/* User Details Popup */
+.user-details-popup {
+  position: relative;
+}
+
+.popup-content {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 300px;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  margin-top: 8px;
+  padding: 16px;
+}
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.close-button:hover {
+  background-color: #f3f4f6;
+}
+
+.close-icon {
+  width: 16px;
+  height: 16px;
+  color: #6b7280;
+}
+
+/* Edit Profile Popup */
+input {
+  width: 100%;
+  padding: 8px;
+  margin: 8px 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
+
+.action-button {
+  padding: 10px 15px;
+  margin-top: 10px;
+  background-color: #105F53;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.action-button:hover {
+  background-color: #0b3f37;
+}
+
+.logout-button {
+  background-color: #dc2626;
+}
+
+.logout-button:hover {
+  background-color: #b91c1c;
+}
+
+/* Login History Popup */
+table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+  background-color: #f3f4f6;
+}
+
+tr:hover {
+  background-color: #f9fafb;
+}

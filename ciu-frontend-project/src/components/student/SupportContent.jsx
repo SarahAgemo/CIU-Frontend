@@ -14,7 +14,7 @@ export default function SupportContent() {
     <main className={Support["support-cont"]}>
       <div className={Support["support-banner"]}>
         <div className={Support["image-banner"]}>
-          <img src="/IMG-20241106-WA0061.jpg" alt="Support Illustration" />
+          <img src="/support.png" alt="Support Illustration" />
         </div>
         <div className={Support["image-content"]}>
           <h2>Welcome to Support</h2>

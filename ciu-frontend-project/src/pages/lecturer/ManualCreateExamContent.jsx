@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import createExam from './CreateExamContent.module.css';
+import createExam from './ManualCreateExamContent.module.css';
 import moment from 'moment';
 import { Snackbar, Alert } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
