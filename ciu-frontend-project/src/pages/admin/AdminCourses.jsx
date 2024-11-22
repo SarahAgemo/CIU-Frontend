@@ -4,20 +4,22 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 import course from "./AdminCourses.module.css";
 import AdminDash from "./AdminDashboard";
-import Dash from "../../components/lecturer/lecturerDashboard.module.css"
+import Dash from "../../components/lecturer/lecturerDashboard.module.css";
 
-
-
-// Table component remains unchanged
+// Table and TableHead components remain the same
 function Table({ children }) {
   return (
     <table className={course["table shadow-lg table-hover"]}>{children}</table>
   );
 }
 
-// TableHead component remains unchanged
 function TableHead({ cols }) {
   return (
     <thead>
@@ -32,16 +34,16 @@ function TableHead({ cols }) {
   );
 }
 
-// TableBody component remains unchanged
 function TableBody({ children }) {
   return <tbody>{children}</tbody>;
 }
 
-// Modified UserList component with inline styles
 function UserList({ users, deleteUser }) {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredUsers, setFilteredUsers] = useState(users);
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
 
   useEffect(() => {
     const filtered = users.filter((user) =>
@@ -49,6 +51,18 @@ function UserList({ users, deleteUser }) {
     );
     setFilteredUsers(filtered);
   }, [searchTerm, users]);
+
+  const handleDeleteClick = (course) => {
+    setSelectedCourse(course);
+    setDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (selectedCourse) {
+      deleteUser(selectedCourse.id);
+    }
+    setDialogOpen(false);
+  };
 
   const cols = [
     "#",
@@ -59,6 +73,7 @@ function UserList({ users, deleteUser }) {
     "Actions",
   ];
 
+  // Styles remain the same
   const searchContainerStyles = {
     display: "flex",
     justifyContent: "space-between",
@@ -89,6 +104,23 @@ function UserList({ users, deleteUser }) {
 
   return (
     <div>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete the course{" "}
+          <strong>{selectedCourse?.courseName}</strong>? This action cannot be undone.
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialogOpen(false)}>
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="error" variant="contained">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <div style={searchContainerStyles}>
         <button
           style={searchButtonStyles}
@@ -113,46 +145,33 @@ function UserList({ users, deleteUser }) {
               <th scope="row">{index + 1}</th>
               <td>{user.facultyName}</td>
               <td>{user.courseName}</td>
-
               <td>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    padding: 0,
-                    margin: 0,
-                  }}
-                >
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                   {Array.isArray(user.courseUnits) ? (
                     user.courseUnits.map((unit, i) => (
                       <li
                         key={i}
                         style={{
                           position: "relative",
-                          paddingLeft: "16px", // Reduced padding
+                          paddingLeft: "16px",
                           margin: "4px 0",
                           lineHeight: "1.4",
-                          display: "flex", // Added to help with alignment
-                          alignItems: "center", // Vertical centering
+                          display: "flex",
+                          alignItems: "center",
                         }}
                       >
                         <span
                           style={{
                             position: "absolute",
-                            left: "0", // Moved bullet to edge
-                            marginRight: "8px", // Space between bullet and text
+                            left: "0",
+                            marginRight: "8px",
                             display: "inline-block",
-                            width: "12px", // Fixed width for bullet
+                            width: "12px",
                           }}
                         >
                           •
                         </span>
-                        <span
-                          style={{
-                            marginLeft: "12px", // Consistent text start position
-                          }}
-                        >
-                          {unit}
-                        </span>
+                        <span style={{ marginLeft: "12px" }}>{unit}</span>
                       </li>
                     ))
                   ) : (
@@ -177,27 +196,15 @@ function UserList({ users, deleteUser }) {
                       >
                         •
                       </span>
-                      <span
-                        style={{
-                          marginLeft: "12px",
-                        }}
-                      >
+                      <span style={{ marginLeft: "12px" }}>
                         {user.courseUnits}
                       </span>
                     </li>
                   )}
                 </ul>
               </td>
-
-              {/* Apply the same styling to courseUnitCode cell */}
               <td>
-                <ul
-                  style={{
-                    listStyle: "none",
-                    padding: 0,
-                    margin: 0,
-                  }}
-                >
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                   {Array.isArray(user.courseUnitCode) ? (
                     user.courseUnitCode.map((code, i) => (
                       <li
@@ -222,13 +229,7 @@ function UserList({ users, deleteUser }) {
                         >
                           •
                         </span>
-                        <span
-                          style={{
-                            marginLeft: "12px",
-                          }}
-                        >
-                          {code}
-                        </span>
+                        <span style={{ marginLeft: "12px" }}>{code}</span>
                       </li>
                     ))
                   ) : (
@@ -253,11 +254,7 @@ function UserList({ users, deleteUser }) {
                       >
                         •
                       </span>
-                      <span
-                        style={{
-                          marginLeft: "12px",
-                        }}
-                      >
+                      <span style={{ marginLeft: "12px" }}>
                         {user.courseUnitCode}
                       </span>
                     </li>
@@ -274,15 +271,7 @@ function UserList({ users, deleteUser }) {
                 </span>
 
                 <span
-                  onClick={() => {
-                    if (
-                      window.confirm(
-                        "Are you sure you want to delete this course?"
-                      )
-                    ) {
-                      deleteUser(user.id);
-                    }
-                  }}
+                  onClick={() => handleDeleteClick(user)}
                   type="button"
                   className="course__btn course__btn--danger"
                 >
