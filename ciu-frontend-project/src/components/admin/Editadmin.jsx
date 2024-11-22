@@ -4,6 +4,7 @@ import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import './EditAdmin.css'
 
 function Editadmin() {
     const { id } = useParams();
@@ -131,7 +132,7 @@ function Editadmin() {
 
     // Main render
     return (
-        <div className={Dash.lecturerDashboard}>
+        <div className={Dash.adDashboard}>
             <div className={Dash.dashboard}>
                 <Header toggleMobileMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)} isMobile={isMobile} />
                 <div className={Dash["dashboard-content"]}>
@@ -143,73 +144,71 @@ function Editadmin() {
                         />
                     )}
                     
-                    <div className="edit-users-content">
-                        <div className="edit-container mt-5">
-                            {error && (
-                                <div className="error-message bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                                    {error}
-                                </div>
-                            )}
-                            
-                            <h2 className="edit-title">Edit Admin User</h2>
-                            <form onSubmit={handleSubmit} className="edit-user-form">
-                                <div className="form-group mb-3">
-                                    <label htmlFor="first_name">First Name</label>
-                                    <input
-                                        type="text"
-                                        id="first_name"
-                                        name="first_name"
-                                        className="form-control"
-                                        value={formData.first_name}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label htmlFor="last_name">Last Name</label>
-                                    <input
-                                        type="text"
-                                        id="last_name"
-                                        name="last_name"
-                                        className="form-control"
-                                        value={formData.last_name}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label htmlFor="email">Email</label>
-                                    <input
-                                        type="email"
-                                        id="email"
-                                        name="email"
-                                        className="form-control"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label htmlFor="role">Role</label>
-                                    <input
-                                        type="text"
-                                        id="role"
-                                        name="role"
-                                        className="form-control"
-                                        value={formData.role}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-
-                                
-                                
-                                <button type="submit" className="btn btn-secondary">
-                                    Save Changes
-                                </button>
-                            </form>
-                        </div>
+                    <div className="edit-admin-layout-container">
+            
+            <div className="edit-admin-main-content">
+               
+                <div className="edit-admin-users-content">  
+                    <div className="edit-admin-container ">
+                        <h2>Edit Admin User</h2>
+                        <form onSubmit={handleSubmit}>
+                            <div className="edit-admin-form-group">
+                                <label htmlFor="first_name">First Name</label>
+                                <input
+                                    type="text"
+                                    id="first_name"
+                                    name="first_name"
+                                    className="edit-admin-form-control"
+                                    value={formData.first_name}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className="edit-admin-form-group">
+                                <label htmlFor="last_name">Last Name</label>
+                                <input
+                                    type="text"
+                                    id="last_name"
+                                    name="last_name"
+                                    className="edit-admin-form-control"
+                                    value={formData.last_name}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className="edit-admin-form-group">
+                                <label htmlFor="email">Email</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    className="edit-admin-form-control"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <div className="edit-admin-form-group">
+                                <label htmlFor="role">Role</label>
+                                <input
+                                    type="text"
+                                    id="role"
+                                    name="role"
+                                    className="edit-admin-form-control"
+                                    value={formData.role}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                           
+                            <button type="submit" className="edit-admin-save-button">
+                                Save Changes
+                            </button>
+                        </form>
                     </div>
+                </div>
+            </div>
+        </div>
                 </div>
             </div>
         </div>

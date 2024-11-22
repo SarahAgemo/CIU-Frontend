@@ -1,23 +1,24 @@
 /* Layout Container */
-.edit-layout-container {
+.edit-admin-layout-container {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    flex: 1;
 }
 
-.edit-main-content {
+.edit-admin-main-content {
     display: flex;
     flex: 1;
 }
 
-.edit-users-content {
+.edit-admin-users-content {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
+   
 }
 
 /* Container */
-.edit-container {
+.edit-admin-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -31,33 +32,37 @@
 }
 
 /* Title */
-.edit-title {
+h2 {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #333;
+    color: #106053;
     margin-bottom: 20px;
 }
 
+label{
+    color: #106053; 
+}
+
 /* Form styling */
-.edit-user-form .edit-form-group {
+.edit-admin-user-form .edit-admin-form-group {
     margin-bottom: 15px;
 }
 
-.edit-form-control {
+.edit-admin-form-control {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
 }
 
-.edit-form-group label {
+.edit-admin-form-group label {
     font-weight: bold;
     margin-bottom: 5px;
     display: block;
 }
 
 /* Save button styling */
-.edit-save-button {
+.edit-admin-save-button {
     width: fit-content;
     font-size: 16px;
     font-weight: bold;
@@ -72,6 +77,6 @@
     cursor: pointer;
 }
 
-.edit-save-button:hover {
-    background-color: #0c890c;
+.edit-admin-save-button:hover {
+    background-color:#0B3F37;
 }
