@@ -82,7 +82,7 @@ function StudentList({ students, deleteStudent, onEdit }) {
           type="button"
           className="students-icon-button"
         >
-          <MdDelete className="student-list-icon" size={30} />
+          <MdDelete className="student-delete-icon" size={30} />
         </button>
       </td>
     </tr>

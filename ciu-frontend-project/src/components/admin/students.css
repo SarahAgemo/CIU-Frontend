@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 .over {
-  font-family: "Roboto Slab", sans-serif;
+  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -10,7 +10,7 @@
   display: flex;
   height: 100vh;
   flex-direction: column;
-  background-color: #f3f4f6;
+  background-color: #ffffff;
 }
 
 .main-content {
@@ -25,7 +25,8 @@
 
 .students-content {
   width: 100%;
-  padding-right: 5px;
+  padding: 20px;
+  background-color: #ffffff;
 }
 
 .students {
@@ -40,7 +41,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   align-items: center;
   padding: 15px;
   overflow: hidden;
@@ -93,7 +94,14 @@
 
 .student-list-icon {
   color: #106053;
+  height: 60%;
 }
+
+.student-delete-icon {
+  color: #DC3545;
+  height: 80%;
+}
+
 
 .modal-overlay {
   position: fixed;

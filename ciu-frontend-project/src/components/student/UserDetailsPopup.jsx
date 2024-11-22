@@ -174,13 +174,13 @@ export default function UserDetailsPopup({ children }) {
                   Edit Profile
                 </button>
               )}
-              <button className={`${User["action-button"]} ${User["logout-button"]}`} onClick={handleLogout}>
-                <LogOut className={User["action-icon"]} />
-                Logout
-              </button>
               <button className={User["action-button"]} onClick={() => setShowLoginHistory(true)}>
                 <UserIcon className={User["action-icon"]} />
                 View Login History
+              </button>
+              <button className={`${User["action-button"]} ${User["logout-button"]}`} onClick={handleLogout}>
+                <LogOut className={User["action-icon"]} />
+                Logout
               </button>
             </>
           ) : (
