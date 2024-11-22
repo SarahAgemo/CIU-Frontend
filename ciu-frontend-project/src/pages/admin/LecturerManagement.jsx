@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import Header from '../../components/admin/Headerpop';
 import Sidebar from '../../components/admin/SideBarpop';
 import MobileMenu from "../../components/admin/MobileMenu"
-import ManageStudents from '../../components/admin/ManageStudents'
-import Manage from './ManageStudentsPg.module.css'
+import ManageLecturers from '../../components/admin/ManageLecturers'
+import Manage from './LecturerManagement.module.css'
 
-export default function StudentsManage() {
+export default function Lecturers() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const [isMobile, setIsMobile] = useState(false)
 
@@ -27,7 +27,7 @@ export default function StudentsManage() {
 
     return (
         <div className={Manage["overall"]}>
-            <div className={`${AdminDash["app-main"]} ${isMobileMenuOpen ? AdminDash["menu-open"] : ""}`}>
+            <div className={Manage["app-main"]}>
             <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
                 <div className={Manage["app-container"]}>
                     {!isMobile && <Sidebar />}
@@ -41,7 +41,7 @@ export default function StudentsManage() {
                     </>
                     )}
                     <main className={Manage["app-content"]}>
-                    <ManageStudents />
+                        <ManageLecturers />
                     </main>
                 </div>
             </div>

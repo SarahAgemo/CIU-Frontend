@@ -4,7 +4,7 @@ import Sidebar from '../../components/admin/SideBarpop';
 import MobileMenu from "../../components/admin/MobileMenu"
 import axios from 'axios';
 import DashboardCard from '../../components/admin/DashboardCard.jsx';
-import AdminDash from './Dashboard.module.css';
+import AdminDash from './AdminDashboard.module.css';
 
 export default function Dashboard() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)

@@ -5,7 +5,7 @@ import Sidebar from "./SideBarpop";
 import MobileMenu from "./MobileMenu";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import "./Adminuser.css";
+import "./AdminList.css";
 
 // Table component
 function Table(props) {

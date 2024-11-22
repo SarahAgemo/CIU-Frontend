@@ -4,8 +4,8 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
-import course from "./Courses.module.css";
-import AdminDash from "../../pages/admin/Dashboard";
+import course from "./AdminCourses.module.css";
+import AdminDash from "./AdminDashboard";
 import Dash from "../../components/lecturer/lecturerDashboard.module.css"
 
 

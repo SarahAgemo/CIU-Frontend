@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './RegCourseContent.module.css';
+import styles from './RegisterCourseContent.module.css';
 import Header from '../../components/admin/Headerpop';
 import Sidebar from '../../components/admin/SideBarpop';
 import MobileMenu from "../../components/admin/MobileMenu";
-import AdminDash from '../admin/Dashboard.module.css';
+import AdminDash from '../admin/AdminDashboard.module.css';
 
 const RegCourse = () => {
   const navigate = useNavigate();

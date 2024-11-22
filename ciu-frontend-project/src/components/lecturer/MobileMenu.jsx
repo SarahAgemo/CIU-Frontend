@@ -21,6 +21,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
         { icon: ClipboardCheck, label: 'Create Assessment', path: '/schedule-create-exams' },
         { icon: ClipboardCheck, label: 'Upload Assessment', path: '/schedule-upload-exams' },
         { icon: ClipboardCheck, label: 'View Exam List', path: '/schedule-upload-exams/exam-list' },
+        { icon: ClipboardCheck, label: 'Published Exams', path: '/published-exam-papers' },
       ],
     },
     { icon: LogOut, label: 'Logout', path: '/' }

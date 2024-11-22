@@ -187,7 +187,7 @@ const QuestionBank = () => {
 
           <div className={styles.formContainer}>
             <div className={styles.tableContainer}>
-              <h2 style={{ marginRight: "800px" }}>QuestionBanks</h2>
+              <h2 style={{ marginRight: "100px" }}>Question Banks</h2>
               <table className={styles.questionTable}>
                 <thead>
                   <tr>
