@@ -15,7 +15,7 @@
 .dashboard-content {
   display: flex;
   flex: 1;
-  overflow: scroll;
+  overflow:hidden;
 }
 
 .dashboard-cards {
@@ -27,7 +27,7 @@
 .main-content {
   flex: 1;
   padding: 24px;
-  overflow: auto;
+  overflow: hidden;
   color: #105F53;
 }
 
