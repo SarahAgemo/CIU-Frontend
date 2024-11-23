@@ -36,9 +36,8 @@ function TableBody({ children }) {
 }
 
 // StudentList component
-function StudentList({ students, deleteStudent }) {
+function StudentList({ students, deleteStudent, onEdit }) {
   const cols = ["#", "First Name", "Last Name", "Email", "Program", "Actions"];
-  const navigate = useNavigate();
 
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -88,10 +87,7 @@ function StudentList({ students, deleteStudent }) {
       <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete{" "}
-          <strong>
-            {selectedStudent?.first_name} {selectedStudent?.last_name}
-          </strong>
+          Are you sure you want to delete this Student Account
           ? This action cannot be undone.
         </DialogContent>
         <DialogActions>
@@ -117,10 +113,25 @@ function StudentList({ students, deleteStudent }) {
 function Students() {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingStudentId, setEditingStudentId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchStudents();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Fetch students from the API
@@ -155,22 +166,18 @@ function Students() {
     fetchStudents(value);
   };
 
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 991);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleEditStudent = (id) => {
+    setEditingStudentId(id);
+    setIsEditModalOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+    setEditingStudentId(null);
   };
 
   return (
@@ -205,13 +212,32 @@ function Students() {
                 />
               </div>
             </div>
-            <StudentList students={students} deleteStudent={deleteStudent} />
+            <StudentList 
+              students={students} 
+              deleteStudent={deleteStudent} 
+              onEdit={handleEditStudent}
+            />
           </div>
         </div>
       </div>
+      {isEditModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <EditStudent 
+              id={editingStudentId} 
+              onClose={handleCloseEditModal}
+              onUpdate={(updatedStudent) => {
+                setStudents(students.map(student => 
+                  student.id === updatedStudent.id ? updatedStudent : student
+                ));
+                handleCloseEditModal();
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export default Students;
-
