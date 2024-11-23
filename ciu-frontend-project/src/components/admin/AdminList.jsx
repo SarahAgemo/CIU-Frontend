@@ -92,10 +92,7 @@ function UserList({ users, deleteUser, searchTerm }) {
       <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete{" "}
-          <strong>
-            {selectedUser?.first_name} {selectedUser?.last_name}
-          </strong>
+          Are you sure you want to delete this Admin Account
           ? This action cannot be undone.
         </DialogContent>
         <DialogActions>

@@ -94,10 +94,7 @@ function StudentList({ students, deleteStudent, onEdit }) {
       <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete{" "}
-          <strong>
-            {selectedStudent?.first_name} {selectedStudent?.last_name}
-          </strong>
+          Are you sure you want to delete this Student Account
           ? This action cannot be undone.
         </DialogContent>
         <DialogActions>
