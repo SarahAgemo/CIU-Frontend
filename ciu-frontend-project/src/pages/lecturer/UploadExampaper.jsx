@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import uploadExam from "./UploadExamContent.module.css"; // Import the updated CSS module
+import uploadExam from "./UploadExampaperContent.module.css"; // Import the updated CSS module
 import moment from "moment"; // Import moment for date/time formatting
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
