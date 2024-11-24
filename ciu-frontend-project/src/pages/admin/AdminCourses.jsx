@@ -10,7 +10,9 @@ import {
   DialogTitle, 
   DialogContent, 
   DialogActions, 
-  Button 
+  Button,
+  Alert,
+  Snackbar
 } from '@mui/material';
 import CourseRegistration from '../lecturer/CourseRegistrationModal';
 import "../../components/admin/AdminList.css";
@@ -230,6 +232,7 @@ function AdminCourses() {
   const [isMobile, setIsMobile] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingCourse, setEditingCourse] = useState(null);
+  const [alertInfo, setAlertInfo] = useState({ open: false, message: '', severity: 'error' });
 
   useEffect(() => {
     fetchUsers();
@@ -256,6 +259,7 @@ function AdminCourses() {
       setUsers(data);
     } catch (error) {
       console.error("Error fetching users:", error);
+      setAlertInfo({ open: true, message: `Error fetching courses: ${error.message}`, severity: 'error' });
     }
   };
 
@@ -266,12 +270,13 @@ function AdminCourses() {
       });
       if (response.ok) {
         setUsers(users.filter((user) => user.id !== id));
+        setAlertInfo({ open: true, message: 'Course deleted successfully', severity: 'success' });
       } else {
-        throw new Error("Failed to delete user");
+        throw new Error("Failed to delete course");
       }
     } catch (error) {
-      console.error("Error deleting user:", error);
-      alert(`Error deleting user: ${error.message}`);
+      console.error("Error deleting course:", error);
+      setAlertInfo({ open: true, message: `Error deleting course: ${error.message}`, severity: 'error' });
     }
   };
 
@@ -328,10 +333,18 @@ function AdminCourses() {
       // Refresh the course list
       await fetchUsers();
       handleCloseModal();
+      setAlertInfo({ open: true, message: `Course ${editingCourse ? 'updated' : 'added'} successfully`, severity: 'success' });
     } catch (error) {
       console.error('Error saving course:', error);
-      alert(`Error saving course: ${error.message}`);
+      setAlertInfo({ open: true, message: `Error saving course: ${error.message}`, severity: 'error' });
     }
+  };
+
+  const handleCloseAlert = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setAlertInfo({ ...alertInfo, open: false });
   };
 
   return (
@@ -377,7 +390,6 @@ function AdminCourses() {
       </div>
 
       <Dialog open={isModalOpen} onClose={handleCloseModal} >
-        {/* <DialogTitle>Edit Course</DialogTitle> */}
         <DialogContent>
           <CourseRegistration
             isOpen={isModalOpen}
@@ -387,9 +399,14 @@ function AdminCourses() {
           />
         </DialogContent>
       </Dialog>
+
+      <Snackbar open={alertInfo.open} autoHideDuration={6000} onClose={handleCloseAlert}>
+        <Alert onClose={handleCloseAlert} severity={alertInfo.severity} sx={{ width: '100%' }}>
+          {alertInfo.message}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
 
 export default AdminCourses;
-
