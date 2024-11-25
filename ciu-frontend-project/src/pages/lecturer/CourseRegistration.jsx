@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styles from './RegisterCourseContent.module.css';
-import Header from '../../components/admin/Headerpop';
-import Sidebar from '../../components/admin/SideBarpop';
-import MobileMenu from "../../components/admin/MobileMenu";
-import AdminDash from '../admin/AdminDashboard.module.css';
+// import styles from './RegisterCourseContent.module.css';
+import styles from './CourseRegistration.module.css';
 
 const RegCourse = () => {
   const navigate = useNavigate();
@@ -105,20 +102,7 @@ const RegCourse = () => {
   };
 
   return (
-    <div className={AdminDash["overall"]}>
-      <div className={`${AdminDash["dashboard"]} ${isMobileMenuOpen ? AdminDash["menu-open"] : ""}`}>
-        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-        <div className={AdminDash["dashboard-content"]}>
-          {!isMobile && <Sidebar />}
-          {isMobile && (
-            <>
-              <div 
-                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
-                onClick={toggleMobileMenu}
-              ></div>
-              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
-            </>
-          )}
+
           <div className={`${styles.mainContentWrapper} ${isMobileMenuOpen ? styles.dimmed : ''}`}>
           <div className={styles.formContainer}>
             <h2 className={styles.formTitle}>Register Course</h2>
@@ -181,9 +165,9 @@ const RegCourse = () => {
             </form>
           </div>
           </div>
-        </div>
-      </div>
-    </div>
+    //     </div>
+    //   </div>
+    // </div>
   );
 }
 
