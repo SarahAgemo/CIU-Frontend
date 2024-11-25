@@ -5,7 +5,6 @@ import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import EditStudent from "./EditStudent";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -38,8 +37,9 @@ function TableBody({ children }) {
 }
 
 // StudentList component
-function StudentList({ students, deleteStudent, onEdit }) {
+function StudentList({ students, deleteStudent }) {
   const cols = ["#", "First Name", "Last Name", "Email", "Program", "Actions"];
+  const navigate = useNavigate();
 
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isDialogOpen, setDialogOpen] = useState(false);
@@ -65,24 +65,18 @@ function StudentList({ students, deleteStudent, onEdit }) {
       <td>{student.program}</td>
       <td>
         <button
-          onClick={() => onEdit(student.id)}
-          // onClick={() => navigate(`/edit-student/${student.id}`)}
+          onClick={() => navigate(`/edit-student/${student.id}`)}
           type="button"
           className="students-icon-button"
         >
           <FaUserEdit className="student-list-icon" size={30} />
         </button>
         <button
-          onClick={() => {
-            if (window.confirm("Are you sure you want to delete this student?")) {
-              deleteStudent(student.id);
-            }
-          }}
-          // onClick={() => handleDeleteClick(student)}
+          onClick={() => handleDeleteClick(student)}
           type="button"
           className="students-icon-button"
         >
-          <MdDelete className="student-delete-icon" size={30} />
+          <MdDelete className="student-list-icon" size={30} />
         </button>
       </td>
     </tr>
@@ -120,25 +114,10 @@ function StudentList({ students, deleteStudent, onEdit }) {
 function Students() {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingStudentId, setEditingStudentId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchStudents();
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 991);
-    };
-
-    window.addEventListener("resize", handleResize);
-    handleResize();
-
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Fetch students from the API
@@ -173,18 +152,22 @@ function Students() {
     fetchStudents(value);
   };
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const handleEditStudent = (id) => {
-    setEditingStudentId(id);
-    setIsEditModalOpen(true);
-  };
-
-  const handleCloseEditModal = () => {
-    setIsEditModalOpen(false);
-    setEditingStudentId(null);
   };
 
   return (
@@ -219,32 +202,13 @@ function Students() {
                 />
               </div>
             </div>
-            <StudentList 
-              students={students} 
-              deleteStudent={deleteStudent} 
-              onEdit={handleEditStudent}
-            />
+            <StudentList students={students} deleteStudent={deleteStudent} />
           </div>
         </div>
       </div>
-      {isEditModalOpen && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <EditStudent 
-              id={editingStudentId} 
-              onClose={handleCloseEditModal}
-              onUpdate={(updatedStudent) => {
-                setStudents(students.map(student => 
-                  student.id === updatedStudent.id ? updatedStudent : student
-                ));
-                handleCloseEditModal();
-              }}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 }
 
 export default Students;
+

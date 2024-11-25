@@ -78,12 +78,6 @@
 }
 .admin-list-icon {
   color: #106053;
-  height: 60%;
-}
-
-.admin-delete-icon {
-  color: #DC3545;
-  height: 80%;
 }
 @media (max-width: 600px) {
   .actions-row {

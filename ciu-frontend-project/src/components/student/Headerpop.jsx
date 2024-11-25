@@ -137,7 +137,7 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
           <div className={Head["popup-container"]}>
             <div className={Head["popup-header"]}>
               
-              <button className={Head["close-popup-button"]} onClick={togglePopup}>x</button>
+              <button className={Head["close-popup-button"]} onClick={togglePopup}>X</button>
             </div>
             {notifications.length > 0 ? (
               notifications.slice(0, 5).map((notification) => (
