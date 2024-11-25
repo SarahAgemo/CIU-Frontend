@@ -14,7 +14,7 @@ import RegForm from "./components/admin/RegForm.jsx";
 import Registration from "./pages/admin/Admin-LecturerRegistration.jsx";
 import Dashboard from "./pages/admin/AdminDashboard.jsx";
 import ManageUsers from "./pages/admin/ManageUsers.jsx";
-import Users from "./components/admin/UsersContent.jsx";
+import Users from "./components/admin/Users.jsx";
 import EditUser from "./components/admin/EditLecturer.jsx";
 import Layout from "./components/admin/Layout.jsx";
 import Students from "./components/admin/Students.jsx";
