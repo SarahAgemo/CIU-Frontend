@@ -6,103 +6,117 @@ import MobileMenu from "../../components/admin/MobileMenu";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import EditStudent from "./EditStudent";
-import { 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
-  DialogActions, 
-  Button, 
-  Snackbar,
-  Alert
-} from "@mui/material";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
 import "./students.css";
 
+// Table component
 function Table(props) {
   return <table className="table shadow-lg table-hover">{props.children}</table>;
 }
 
+// TableHead component
 function TableHead({ cols }) {
+  const printCols = cols.map((colName, index) => (
+    <th scope="col" key={index}>
+      {colName}
+    </th>
+  ));
   return (
     <thead>
-      <tr>
-        {cols.map((colName, index) => (
-          <th scope="col" key={index}>
-            {colName}
-          </th>
-        ))}
-      </tr>
+      <tr>{printCols}</tr>
     </thead>
   );
 }
 
+// TableBody component
 function TableBody({ children }) {
   return <tbody>{children}</tbody>;
 }
 
+// StudentList component
 function StudentList({ students, deleteStudent, onEdit }) {
   const cols = ["#", "First Name", "Last Name", "Email", "Program", "Actions"];
+
   const [selectedStudent, setSelectedStudent] = useState(null);
-  const [isDeleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [isDialogOpen, setDialogOpen] = useState(false);
 
   const handleDeleteClick = (student) => {
     setSelectedStudent(student);
-    setDeleteDialogOpen(true);
+    setDialogOpen(true); // Open the dialog
   };
 
   const confirmDelete = () => {
     if (selectedStudent) {
       deleteStudent(selectedStudent.id);
     }
-    setDeleteDialogOpen(false);
+    setDialogOpen(false); // Close the dialog after confirming
   };
+
+  const studentList = students.map((student, index) => (
+    <tr key={student.id}>
+      <th scope="row">{index + 1}</th>
+      <td>{student.first_name}</td>
+      <td>{student.last_name}</td>
+      <td>{student.email}</td>
+      <td>{student.program}</td>
+      <td>
+        <button
+          onClick={() => onEdit(student.id)}
+          // onClick={() => navigate(`/edit-student/${student.id}`)}
+          type="button"
+          className="students-icon-button"
+        >
+          <FaUserEdit className="student-list-icon" size={30} />
+        </button>
+        <button
+          onClick={() => {
+            if (window.confirm("Are you sure you want to delete this student?")) {
+              deleteStudent(student.id);
+            }
+          }}
+          // onClick={() => handleDeleteClick(student)}
+          type="button"
+          className="students-icon-button"
+        >
+          <MdDelete className="student-delete-icon" size={30} />
+        </button>
+      </td>
+    </tr>
+  ));
 
   return (
     <>
-      <Table className="students-table">
-        <TableHead cols={cols} />
-        <TableBody>
-          {students.map((student, index) => (
-            <tr key={student.id}>
-              <th scope="row">{index + 1}</th>
-              <td>{student.first_name}</td>
-              <td>{student.last_name}</td>
-              <td>{student.email}</td>
-              <td>{student.program}</td>
-              <td>
-                <button
-                  onClick={() => onEdit(student.id)}
-                  type="button"
-                  className="students-icon-button"
-                >
-                  <FaUserEdit className="student-list-icon" size={30} />
-                </button>
-                <button
-                  onClick={() => handleDeleteClick(student)}
-                  type="button"
-                  className="students-icon-button"
-                >
-                  <MdDelete className="student-delete-icon" size={30} />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </TableBody>
-      </Table>
-
-      <Dialog open={isDeleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
+      {/* MUI Dialog for confirmation */}
+      <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete this Student Account? This action cannot be undone.
+          Are you sure you want to delete this Student Account
+          ? This action cannot be undone.
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDeleteDialogOpen(false)}>Cancel</Button>
-          <Button onClick={confirmDelete} color="error" variant="contained">Delete</Button>
+          <Button onClick={() => setDialogOpen(false)}>
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="error" variant="contained">
+            Delete
+          </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Student Table */}
+      <Table className="students-table">
+        <TableHead cols={cols} />
+        <TableBody>{studentList}</TableBody>
+      </Table>
     </>
   );
 }
 
+// Main Students component
 function Students() {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -110,7 +124,6 @@ function Students() {
   const [isMobile, setIsMobile] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingStudentId, setEditingStudentId] = useState(null);
-  const [alertInfo, setAlertInfo] = useState({ open: false, message: '', severity: 'success' });
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -128,37 +141,32 @@ function Students() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Fetch students from the API
   const fetchStudents = async (name = "") => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/faqs/search?name=${name}`
-      );
-      if (!response.ok) {
-        throw new Error('Failed to fetch students');
-      }
-      const data = await response.json();
-      setStudents(data);
-    } catch (error) {
-      setAlertInfo({ open: true, message: error.message, severity: 'error' });
-    }
+    const response = await fetch(
+      `http://localhost:3000/faqs/search?name=${name}`
+    );
+    const data = await response.json();
+    setStudents(data);
   };
 
-  const deleteStudent = async (id) => {
-    try {
-      const response = await fetch(`http://localhost:3000/students/${id}`, {
-        method: "DELETE",
-      });
-      if (response.ok) {
-        setStudents(students.filter((student) => student.id !== id));
-        setAlertInfo({ open: true, message: 'Student deleted successfully.', severity: 'success' });
-      } else {
-        throw new Error('Failed to delete student');
-      }
-    } catch (error) {
-      setAlertInfo({ open: true, message: error.message, severity: 'error' });
-    }
+  // Delete a student
+  const deleteStudent = (id) => {
+    fetch(`http://localhost:3000/students/${id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          setStudents(students.filter((student) => student.id !== id));
+          alert("Student deleted successfully.");
+        } else {
+          console.error("Failed to delete student");
+        }
+      })
+      .catch((error) => console.error("Error deleting student:", error));
   };
 
+  // Handle search input change
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -177,13 +185,6 @@ function Students() {
   const handleCloseEditModal = () => {
     setIsEditModalOpen(false);
     setEditingStudentId(null);
-  };
-
-  const handleCloseAlert = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setAlertInfo({ ...alertInfo, open: false });
   };
 
   return (
@@ -242,12 +243,6 @@ function Students() {
           </div>
         </div>
       )}
-
-      <Snackbar open={alertInfo.open} autoHideDuration={6000} onClose={handleCloseAlert}>
-        <Alert onClose={handleCloseAlert} severity={alertInfo.severity} sx={{ width: '100%' }}>
-          {alertInfo.message}
-        </Alert>
-      </Snackbar>
     </div>
   );
 }
