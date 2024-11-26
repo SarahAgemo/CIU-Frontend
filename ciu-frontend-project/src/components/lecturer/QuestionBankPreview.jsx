@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
+import BackButton from "../../components/lecturer/BackButton";
 import Header from '../../components/lecturer/HeaderPop';
 import Sidebar from '../../components/lecturer/SideBarPop';
 import MobileMenu from "../../components/lecturer/MobileMenu";
@@ -60,6 +61,9 @@ const QuestionBankPreview = () => {
               toggleMenu={toggleMobileMenu}
             />
           )}
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath={"/question-bank"} size={30} color="#106053" />
+          </div>
 
           {/* Main Content Section */}
           <div className="question-preview__container">
