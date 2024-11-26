@@ -16,7 +16,7 @@ export const ExamDetails = () => {
         <div className="wrap-details">
             <h1>ONLINE EXAMINATION SYSTEM</h1>
             <p><strong>Description:</strong> {exam.description}</p>
-            <p><strong>Duration:</strong> {exam.duration} minutes</p>
+            <p><strong>Duration:</strong> {exam.duration} Hours</p>
         </div>
     );
 };
