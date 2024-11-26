@@ -167,7 +167,7 @@ function App() {
                 path="/schedule-create-exams"
                 element={<ScheduleCreateExams />}
               />
-              <Route path="/add-questions" element={<AddQuestions />} />
+              <Route path="/exam-paper/:id/questions/add-question" element={<AddQuestions />} />
               <Route path="/exam-paper/:id" element={<ExamPaperPreview />} />
               <Route
                 path="/schedule-upload-exams/exam-list"

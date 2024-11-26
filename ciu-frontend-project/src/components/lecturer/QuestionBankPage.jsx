@@ -11,6 +11,7 @@ import {
   Button,
 } from "@mui/material";
 import styles from "./QuestionBankPage.module.css";
+import BackButton from "../../components/lecturer/BackButton";
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
@@ -200,7 +201,9 @@ const QuestionBank = () => {
               toggleMenu={toggleMobileMenu}
             />
           )}
-
+          <div className={Dash.backButtonContainer}>
+            <BackButton targetPath={"/lecturerdashboard"} size={30} color="#106053" />
+          </div>
           <div className={styles.formContainer}>
             <div className={styles.tableContainer}>
               <h2 style={{ marginRight: "100px" }}>Question Banks</h2>
