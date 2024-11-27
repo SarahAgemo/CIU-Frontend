@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Header from "../../components/lecturer/HeaderPop";
+import Sidebar from "../../components/lecturer/SideBarPop";
+import MobileMenu from "../../components/lecturer/MobileMenu";
+import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+import { useParams } from "react-router-dom";
 
 function CompletedAssessmentsTable() {
   const [completedAssessments, setCompletedAssessments] = useState([]);
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const {id} = useParams() ;
+
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
 
   useEffect(() => {
     async function fetchCompletedAssessments() {
@@ -53,6 +66,17 @@ function CompletedAssessmentsTable() {
   };
   
   return (
+    <div className={Dash.overall}>
+    <div className={Dash.dashboard}>
+      <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+      <div className={Dash["dashboard-content"]}>
+        {!isMobile && <Sidebar />}
+        {isMobile && (
+          <MobileMenu
+            isOpen={isMobileMenuOpen}
+            toggleMenu={toggleMobileMenu}
+          />
+        )}
     <div>
       <h1>Completed Assessments</h1>
       <table border="1" style={{ width: "100%", borderCollapse: "collapse" }}>
@@ -89,6 +113,9 @@ function CompletedAssessmentsTable() {
           ))}
         </tbody>
       </table>
+    </div>
+    </div>
+    </div>
     </div>
   );
 }
