@@ -43,7 +43,7 @@ const RequestTokenForm = () => {
       if (response.ok) {
         console.log('Password reset successful!');
         // Redirect to login page
-        navigate('/'); // Replace with your login route
+        navigate('/StudentLogin'); // Replace with your login route
       } else {
         const errorData = await response.json();
         console.error('Error:', errorData.message || 'Something went wrong');

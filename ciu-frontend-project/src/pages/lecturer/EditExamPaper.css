@@ -1,67 +1,63 @@
 *{
   font-family: 'Roboto', sans-serif;
 }
- 
-   .edit-exam-paper-container {
-    width: 600px;
-    height: 600px;
-    margin-left: 120px;
+   .edit-exam-interface__container {
+    width: 700px;
+    height: 1000px;
+    margin: 0 auto;
     margin-top: 50px;
-    padding: 50px;
+    padding: 20px;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   }
   
-  .edit-exam-paper-header {
+  .edit-exam-interface__header {
+    color: #106053;
     font-size: 24px;
     font-weight: bold;
-    color: #106053;
-    text-align: center;
     margin-bottom: 20px;
+    text-align: center;
   }
   
-  
-  .edit-exam-paper-label {
-    font-weight: bold;
-    margin-top: 10px;
-    color: #106053;
-  }
-  
-  .edit-exam-paper-input {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    margin-bottom: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-  }
-  
-  .edit-exam-paper-option-input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-  }
-  
-  .alert {
-    padding: 10px;
+  .edit-exam-interface__form-group {
     margin-bottom: 15px;
+  }
+  
+  .edit-exam-interface__label {
+    display: block;
+    font-weight: 600;
+    color: #106053;
+    margin-bottom: 5px;
+  }
+  
+  .edit-exam-interface__form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #495057;
+    border: 1px solid #ced4da;
     border-radius: 4px;
+    transition: border-color 0.2s ease-in-out;
   }
   
-  .alert-success {
-    background-color: #d4edda;
-    color: #155724;
+  .edit-exam-interface__form-control:focus {
+    border-color: #106053;
+    outline: none;
+    box-shadow: 0 0 5px rgba(16, 96, 83, 0.5);
   }
   
-  .alert-danger {
-    background-color: #f8d7da;
+  .edit-exam-interface__alert {
+    padding: 15px;
+    font-size: 14px;
     color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    border-radius: 4px;
+    margin-bottom: 15px;
   }
   
-  .edit-exam-paper-button {
+  .edit-exam-interface__submit-button {
     background-color: #106053;
     border: none;
     color: white;
@@ -77,7 +73,7 @@
     
   }
   
-  .edit-exam-paper-button:hover {
-    background-color: #0B3F37;
+  .edit-exam-interface__submit-button:hover {
+    background-color: #0b3f37;
   }
   

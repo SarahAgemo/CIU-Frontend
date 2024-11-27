@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa"; // Import icons for edit and delete
-import "../../pages/lecturer/QuestionsPreview.css";
+import "../../pages/lecturer/AssessmentQuestionsPreview.css";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
