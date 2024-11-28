@@ -5,6 +5,7 @@ import { io } from 'socket.io-client';
 import UserDetailsPopup from './UserDetailsPopup';  
 
 export default function Header({ toggleMobileMenu, isMobile, profilePhotoUrl }) {
+  const [currentTime, setCurrentTime] = useState(new Date());
   const [notifications, setNotifications] = useState([]);
   const [newNotificationCount, setNewNotificationCount] = useState(0);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false); 
@@ -22,12 +23,14 @@ export default function Header({ toggleMobileMenu, isMobile, profilePhotoUrl }) 
     return () => {
       socket.disconnect();  // Disconnect when the component unmounts
     };
+    
   }, []);
 
   const handleNotificationClick = () => {
     setIsNotificationOpen(!isNotificationOpen); // Toggle notification pop-up
     setNewNotificationCount(0);  // Reset notification count when opened
   };
+  
 
   return (
     <header className={Head["header"]}>
@@ -49,6 +52,21 @@ export default function Header({ toggleMobileMenu, isMobile, profilePhotoUrl }) 
       </div>
 
       <div className={Head["header-icons"]}>
+      <div id="timedate" style={{
+        marginRight: '0%',
+        marginLeft: 'auto' // Adjust this value as needed
+    }}>
+                <a id="month">{currentTime.toLocaleString('default', { month: 'long' })}</a>{' '}
+    <a id="day">{currentTime.getDate()}</a>,{' '}
+    <a id="year">{currentTime.getFullYear()}</a>
+    <br />
+    <a id="hour">
+        {((currentTime.getHours() % 12) || 12).toString().padStart(2, '0')}
+    </a> :
+    <a id="min">{currentTime.getMinutes().toString().padStart(2, '0')}</a> :
+    <a id="s">{currentTime.getSeconds().toString().padStart(2, '0')}</a>{' '}
+    <a id="ampm">{currentTime.getHours() >= 12 ? 'PM' : 'AM'}</a>
+            </div>
         <button
           className={`${Head["icon-button"]} ${Head["notification-button"]}`}
           aria-label="Notifications"
