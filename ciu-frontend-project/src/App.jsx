@@ -37,6 +37,7 @@ import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
 import AdminQuestionsPreview from "./pages/admin/AdminAssessmentQuestionsPreview.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx"
 import LandingPage from "./pages/admin/LandingPage.jsx";
+import StudenttokenPassword from "./components/admin/StudenttokenPassword.jsx";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/UploadExampaper.jsx";
@@ -54,6 +55,7 @@ import LectCourses from "./pages/lecturer/LecturerCourses.jsx";
 import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 import LecLogin from "./pages/lecturer/LecturerLogin.jsx"
 import ResultsTable from "./pages/lecturer/studentResults.jsx"
+import AdmintokenPassword from "./components/admin/AdmintokenPassword.jsx";
 
 
 // Student
@@ -150,6 +152,16 @@ function App() {
               <Route
                 path="/token-password-reset"
                 element={<TokenPasswordPage />}
+              />
+
+              <Route
+                path="/studenttoken-password-reset"
+                element={<StudenttokenPassword />}
+              />
+
+                <Route
+                path="/admintoken-password-reset"
+                element={<AdmintokenPassword/>}
               />
               <Route path="/admin-courses" element={<AdminCourses />} />
               <Route path="/admin-exam-list" element={<AdminExamList />} />
