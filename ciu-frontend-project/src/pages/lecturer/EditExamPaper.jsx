@@ -7,6 +7,8 @@ import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
 import BackButton from "../../components/lecturer/BackButton";
+import { Snackbar, Alert } from '@mui/material';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 function EditExamInterface() {
   
@@ -31,6 +33,8 @@ function EditExamInterface() {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [courseUnits, setCourseUnits] = useState([]);
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  const lecturerName = `${storedUser?.first_name} ${storedUser?.last_name}`;
   const [examData, setExamData] = useState({
     title: "",
     description: "",
@@ -41,10 +45,14 @@ function EditExamInterface() {
     duration: "",
     startTime: "",
     endTime: "",
-    createdBy: "",
+    createdBy: lecturerName,
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('error');
+
 
   // Fetch courses when component mounts
   useEffect(() => {
@@ -133,6 +141,44 @@ function EditExamInterface() {
         }));
       }
     }
+    
+    if (name === 'scheduledDate') {
+      const selectedDateTime = moment(value);
+      const currentTime = moment();
+
+      if (selectedDateTime.isBefore(currentTime.add(24, 'hours'))) {
+          handleSnackbar('Scheduled date and time must be at least 24 hours from the current time.', 'error');
+          return;
+      }
+      const startTime = selectedDateTime.format('HH:mm');
+      setExamData((prevData) => ({
+          ...prevData,
+          startTime
+      }));
+
+      if (examData.duration) {
+          const [durationHours, durationMinutes] = examData.duration.split(':').map(Number);
+          const endTime = selectedDateTime
+              .add(durationHours, 'hours')
+              .add(durationMinutes, 'minutes')
+              .format('HH:mm');
+          setExamData((prevData) => ({
+              ...prevData,
+              endTime
+          }));
+      }
+  } else if (name === 'duration' && examData.startTime) {
+      const startTimeMoment = moment(examData.scheduledDate);
+      const [durationHours, durationMinutes] = value.split(':').map(Number);
+      const endTime = startTimeMoment
+          .add(durationHours, 'hours')
+          .add(durationMinutes, 'minutes')
+          .format('HH:mm');
+      setExamData((prevData) => ({
+          ...prevData,
+          endTime
+      }));
+  }
   };
 
   const handleSubmit = async (e) => {
@@ -140,11 +186,10 @@ function EditExamInterface() {
     try {
       const formattedData = {
         ...examData,
-        scheduledDate: moment(examData.scheduledDate).format(
-          "YYYY-MM-DD HH:mm:ss"
-        ),
-        startTime: moment(examData.startTime, "HH:mm").format("HH:mm:ss"),
-        endTime: moment(examData.endTime, "HH:mm").format("HH:mm:ss"),
+        duration: examData.duration,
+                scheduledDate: moment(examData.scheduledDate).format('YYYY-MM-DD HH:mm:ss'),
+                startTime: moment(examData.startTime, 'HH:mm').format('HH:mm:ss'),
+                endTime: moment(examData.endTime, 'HH:mm:ss'),
       };
 
       const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
@@ -167,6 +212,29 @@ function EditExamInterface() {
 
   return (
     <div className={Dash.lecturerDashboard}>
+                  <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={6000}
+                onClose={() => setSnackbarOpen(false)}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                sx={{
+                    width: '50%'
+                }} 
+
+            >
+                <Alert onClose={() => setSnackbarOpen(false)} 
+                severity={snackbarSeverity}
+                    sx={{
+                        backgroundColor: snackbarSeverity === 'error' ? '#FFF4E5' : '#FFF4E5',
+                        color: '#000',
+                        display: 'flex',
+                        alignItems: 'center'
+                    }}
+                    icon={snackbarSeverity === 'error' ? <WarningAmberIcon /> : undefined}
+                >
+                    {snackbarMessage}
+                </Alert>
+            </Snackbar>
       <div className={Dash.dashboard}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={Dash["dashboard-content"]}>
@@ -271,11 +339,13 @@ function EditExamInterface() {
               Duration (minutes)
             </label>
             <input
-              type="number"
+              type="text"
               name="duration"
               value={examData.duration}
               onChange={handleChange}
               className="edit-exam-interface__form-control"
+              placeholder="HH:MM"
+                         required
             />
           </div>
 
