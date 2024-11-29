@@ -1,58 +1,57 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import "./LecturerLogin.css";
 
 const LecLogin = () => {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (isSubmitting) return;
+    e.preventDefault();
+    if (isSubmitting) return;
 
-  setIsSubmitting(true);
-  setErrorMessage("");
-  setSuccessMessage("");
+    setIsSubmitting(true);
+    setErrorMessage("");
+    setSuccessMessage("");
 
-  const endpoint = "http://localhost:3000/lecturer_auth/login";
-  const userPayload = { email: identifier, password };
+    const endpoint = "http://localhost:3000/lecturer_auth/login";
+    const userPayload = { email: identifier, password };
 
-  try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userPayload),
-    });
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userPayload),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      setSuccessMessage("Login successful!");
+      if (response.ok) {
+        const data = await response.json();
+        setSuccessMessage("Login successful!");
 
-      // Store access token and lecturer data in localStorage
-      const accessToken = data.access_token || data.token?.access_token;
-      localStorage.setItem("token", accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
+        const accessToken = data.access_token || data.token?.access_token;
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
-      // Redirect to lecturer dashboard
-      navigate("/lecturerdashboard");
-    } else {
-      const data = await response.json();
-      setErrorMessage(data.message || "Invalid credentials.");
+        navigate("/lecturerdashboard");
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || "Invalid credentials.");
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred during login. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    setErrorMessage("An error occurred during login. Please try again.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   return (
     <div className="overall">
@@ -62,7 +61,7 @@ const LecLogin = () => {
           <h1>ONLINE EXAMINATION SYSTEM</h1>
         </div>
         <div className="form-box">
-        <h6>LECTURER LOGIN</h6>
+          <h6>LECTURER LOGIN</h6>
           <form onSubmit={handleSubmit}>
             <div className="input-box">
               <input
@@ -76,13 +75,19 @@ const LecLogin = () => {
             </div>
             <div className="input-box">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} // Toggle between password and text
                 placeholder="Password"
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <FaLock className="icon" />
+              <div
+                className="toggle-icon"
+                onClick={() => setShowPassword((prev) => !prev)}
+                style={{ position: "absolute", right: "20px", cursor: "pointer" }}
+              >
+                {showPassword ? <FaEyeSlash className="eye-icon" /> : <FaEye className="eye-icon" />}
+              </div>
             </div>
             <div className="remember-forgot">
               <label>
@@ -93,7 +98,6 @@ const LecLogin = () => {
               type="submit"
               disabled={isSubmitting}
               className="login-submit-button"
-              style={{ width: "100%", height: "45px" }}
             >
               {isSubmitting ? "Logging in..." : "LOGIN"}
             </button>
