@@ -74,6 +74,7 @@ function ResultsTable({ assessmentId }) {
             <table>
               <thead>
                 <tr>
+                  <th>Id</th>
                   <th>Student Name</th>
                   <th>Score</th>
                   <th>Percentage</th>
@@ -82,6 +83,7 @@ function ResultsTable({ assessmentId }) {
               <tbody>
                 {submissions.map((submission, index) => (
                   <tr key={submission.id || index}>
+                    <td>{submission.id}</td>
                     <td>{submission.studentName}</td>
                     <td>{submission.score || "N/A"}</td>
                     <td>
