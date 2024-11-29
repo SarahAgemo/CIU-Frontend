@@ -7,7 +7,7 @@ export function useWebRTC(roomId) {
   const peers = useRef({});
 
   useEffect(() => {
-    const socketInstance = io('http://localhost:3000'); // Initialize socket connection
+    const socketInstance = io('http://localhost:3000/proctor'); // Initialize socket connection
     setSocket(socketInstance); // Store the socket instance
 
     // Emit a signal to join the room once socket is ready
