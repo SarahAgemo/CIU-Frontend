@@ -12,7 +12,6 @@ const RegForm = () => {
     email: '',
     program: '',
     registrationNo: '',
-    password: '',
     role: 'student',
     dateTime: '',
     courseId: '', 
@@ -92,7 +91,6 @@ const RegForm = () => {
         lastName: '',
         email: '',
         registrationNo: '',
-        password: '',
         role: 'students',
         dateTime: '',
         courseId: '',
@@ -235,7 +233,7 @@ const RegForm = () => {
                     }}
                   />
                 </div>
-                <div style={{ flex: '1' }}>
+                {/* <div style={{ flex: '1' }}>
                   <label style={{ display: 'block', marginBottom: '5px', color: '#106053', textTransform: 'uppercase' }}>Password:</label>
                   <input
                     type="password"
@@ -251,7 +249,7 @@ const RegForm = () => {
                       fontSize: '16px',
                     }}
                   />
-                </div>
+                </div> */}
               </div>
 
               <div style={{ display: 'flex', marginBottom: '20px' }}>

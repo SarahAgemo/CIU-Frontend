@@ -15,7 +15,7 @@ export default function ScheduleUploadExams() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const lecturerId = storedUser?.id;
+  const lecturerName = `${storedUser?.first_name} ${storedUser?.last_name}`;
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,7 +45,7 @@ export default function ScheduleUploadExams() {
     duration: "",
     startTime: "",
     endTime: "",
-    createdBy: lecturerId,
+    createdBy: lecturerName,
     isDraft: false, // Ensure isDraft is a boolean
   });
   

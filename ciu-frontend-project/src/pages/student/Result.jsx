@@ -30,49 +30,46 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
           return;
         }
 
-        // Fetch both scores and exam papers in parallel
+        // Fetch scores for the user and exam papers
         const [scoresResponse, examsResponse] = await Promise.all([
           axios.get(`http://localhost:3000/scores/user/${user.id}`),
-          axios.get('http://localhost:3000/exam-paper?isDraft=false')
+          axios.get("http://localhost:3000/exam-paper?isDraft=false"),
         ]);
 
         console.log("Scores Response:", scoresResponse.data);
         console.log("Exams Response:", examsResponse.data);
 
-        if (!scoresResponse.data || (Array.isArray(scoresResponse.data) && scoresResponse.data.length === 0)) {
-          setError("No results found for your account");
-          setLoading(false);
-          return;
-        }
-
-        // Convert scores to array if it's a single object
-        const scores = Array.isArray(scoresResponse.data) 
-          ? scoresResponse.data 
-          : [scoresResponse.data];
-
-        // Create a map of exam papers for easy lookup
+        const scores = scoresResponse.data;
         const examPapersMap = examsResponse.data.reduce((acc, exam) => {
           acc[exam.id] = exam;
           return acc;
         }, {});
 
+        // Filter out unpublished results
+        const publishedResults = scores.filter((score) => score.isPublished);
+
+        if (publishedResults.length === 0) {
+          setError("Results have not yet been published.");
+          setLoading(false);
+          return;
+        }
+
         // Combine scores with exam paper details
-        const formattedResults = scores.map(score => {
+        const formattedResults = publishedResults.map((score) => {
           const examPaper = examPapersMap[score.addAssessmentId];
           return {
             id: score.id,
             score: score.score,
             percentage: score.percentage,
             assessmentId: score.addAssessmentId,
-            courseUnit: examPaper?.courseUnit || 'N/A',
-            courseUnitCode: examPaper?.courseUnitCode || 'N/A',
-            title: examPaper?.title || 'Untitled Assessment',
-            totalMarks: examPaper?.totalMarks || 'N/A'
+            courseUnit: examPaper?.courseUnit || "N/A",
+            courseUnitCode: examPaper?.courseUnitCode || "N/A",
+            title: examPaper?.title || "Untitled Assessment",
+            totalMarks: examPaper?.totalMarks || "N/A",
           };
         });
 
         setResults(formattedResults);
-
       } catch (err) {
         console.error("Error fetching data:", err);
         setError(err.response?.data?.message || "Failed to fetch your results");
@@ -110,45 +107,46 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
         {isMobile && isMobileMenuOpen && <MobileMenu toggleMenu={toggleMobileMenu} />}
         <div className="ResultPage">
           <h2>Your Assessment Results</h2>
-          
+
           {error ? (
-            <div className="error-message">
-              {error}
-            </div>
+            <div className="error-message">{error}</div>
           ) : (
             <div className="results-container">
-              {results && results.map((result, index) => (
-                <div key={result.id || index} className="result-card">
-                  <div className="result-header">
-                    <h3>Exam Title:{result.title}</h3>
+              {results &&
+                results.map((result, index) => (
+                  <div key={result.id || index} className="result-card">
+                    <div className="result-header">
+                      <h3>Exam Title: {result.title}</h3>
+                    </div>
+                    <div className="result-details">
+                      <div className="result-item">
+                        <strong>Course Unit:</strong>
+                        <span>{result.courseUnit}</span>
+                      </div>
+                      <div className="result-item">
+                        <strong>Course Code:</strong>
+                        <span>{result.courseUnitCode}</span>
+                      </div>
+                      <div className="result-item">
+                        <strong>Score:</strong>
+                        <span>{result.score}</span>
+                      </div>
+                      <div className="result-item">
+                        <strong>Percentage:</strong>
+                        <span
+                          className={`percentage ${
+                            result.percentage >= 50 ? "pass" : "fail"
+                          }`}
+                        >
+                          {result.percentage}%
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="result-details">
-                    <div className="result-item">
-                      <strong>Course Unit:</strong>
-                      <span>{result.courseUnit}</span>
-                    </div>
-                    <div className="result-item">
-                      <strong>Course Code:</strong>
-                      <span>{result.courseUnitCode}</span>
-                    </div>
-                    <div className="result-item">
-                      <strong>Score:</strong>
-                      <span>{result.score} </span>
-                    </div>
-                    <div className="result-item">
-                      <strong>Percentage:</strong>
-                      <span className={`percentage ${result.percentage >= 50 ? 'pass' : 'fail'}`}>
-                        {result.percentage}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-              
+                ))}
+
               {results && results.length === 0 && (
-                <div className="no-results">
-                  No results found
-                </div>
+                <div className="no-results">No results found</div>
               )}
             </div>
           )}

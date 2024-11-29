@@ -17,6 +17,7 @@ function QuestionsPreview() {
   const [questions, setQuestions] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [isDraft, setIsDraft] = useState(true);
+  const [status, setStatus] = useState(true);
 
   // New states for delete dialog and snackbar
   const [deleteDialog, setDeleteDialog] = useState({
@@ -67,6 +68,7 @@ function QuestionsPreview() {
         if (!response.ok) throw new Error("Failed to fetch exam paper");
         const data = await response.json();
         setIsDraft(data.isDraft);
+        setStatus(data.status);
       } catch (error) {
         handleSnackbar("Error fetching exam paper: " + error.message, "error");
       }
@@ -98,8 +100,12 @@ function QuestionsPreview() {
   }, [id]);
 
   const handleDeleteQuestion = (questionId) => {
-    if (!isDraft) {
-      handleSnackbar("You cannot delete questions from an already published exam.", "error");
+    if (!isDraft || status === 'approved') {
+      handleSnackbar("You cannot delete questions from an already approved or published exam.", "error");
+      return;
+    }
+    if (status === 'pending') {
+      handleSnackbar("You cannot delete questions in an exam pending approval.", "error");
       return;
     }
     setDeleteDialog({
@@ -132,8 +138,12 @@ function QuestionsPreview() {
   };
 
   const handleEditQuestion = (questionId) => {
-    if (!isDraft) {
-      handleSnackbar("You cannot edit questions in an already published exam.", "error");
+    if (!isDraft || status === "approved") {
+      handleSnackbar("You cannot edit questions in an already approved or published exam.", "error");
+      return;
+    }
+    if (status === 'pending') {
+      handleSnackbar("You cannot edit questions in an exam pending approval.", "error");
       return;
     }
     navigate(`/exam-paper/${id}/question/${questionId}`);
@@ -247,6 +257,26 @@ function QuestionsPreview() {
                 </div>
               </div>
             ))}
+            <div>
+            <button
+                type="button"
+                onClick={() => {
+                  if (!isDraft || status === 'approved') {
+                    handleSnackbar("You cannot add questions to an already approved or published exam.", "error");
+                    return;
+                  }
+                  if (status === 'pending') {
+                    handleSnackbar("You cannot add questions to an exam pending approval.", "error");
+                    return;
+                  }
+                  navigate(`/exam-paper/${id}/questions/add-question`);
+                }}
+                className= 'add-quest'
+            >
+                + Question
+            </button>
+
+            </div>
           </div>
         </div>
       </div>

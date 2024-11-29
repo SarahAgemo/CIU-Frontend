@@ -22,6 +22,7 @@ export default function Sidebar() {
         { text: 'Upload Assessment', path: '/schedule-upload-exams' },
         { text: 'View Exam List', path: '/schedule-upload-exams/exam-list' },
         { text: 'Published Exams', path: '/published-exam-papers' },
+        { text: 'Completed Exams', path: '/completed-Assessments' },
       ],
     },
     { icon: <LogOut size={20} />, text: 'Logout', path: '/' }

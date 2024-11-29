@@ -16,9 +16,9 @@ export default function LecturerDashboardContent() {
         setLecturerMetrics([
           { title: "Courses", value: data.coursesCount, icon: "📘" },
           { title: "Students Enrolled", value: data.studentsCount, icon: "👩‍🎓" },
-          { title: "Question Banks", value: data.upcomingExamsCount, icon: "📝" },
+          { title: "Question Banks", value: data.questionBankCount, icon: "📝" },
           { title: "Upcoming Exams", value: data.upcomingExamsCount, icon: "📝" },
-          { title: "Ongoing Exams", value: data.upcomingExamsCount, icon: "📝" },
+          { title: "Ongoing Exams", value: data.ongoingAssessmentCount, icon: "📝" },
         ]);
       } catch (error) {
         console.error("Error fetching metrics:", error);
