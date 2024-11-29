@@ -104,7 +104,7 @@ const LecLogin = () => {
             {errorMessage && <p className="error-message">{errorMessage}</p>}
             {successMessage && <p className="success-message">{successMessage}</p>}
             <div className="forgot-password">
-              <Link to="/reset-password">Forgot Password?</Link>
+              <Link to="/lecturerPassword">Forgot Password?</Link>
               <span> or </span>
               <Link to="/token-password-reset" className="signInLink">
                 Set password using token

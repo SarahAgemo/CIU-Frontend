@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import add from './AddQuestionsContent.module.css'; // Use your modular CSS
+import add from './ManualAddQuestionsContent.module.css'; // Use your modular CSS
 
 export default function AddQuestionsContent() {
     const [questions, setQuestions] = useState([]);

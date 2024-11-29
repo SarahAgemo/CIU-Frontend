@@ -6,7 +6,7 @@ import Sidebar from '../../components/lecturer/SideBarPop';
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import CreateExamContent from './ManualCreateExamContent';
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
-import './ScheduleCreateExams.module.css';
+import './ManualCreateExams.module.css';
 
 export default function CreateExam() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

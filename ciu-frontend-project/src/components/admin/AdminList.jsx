@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Headerpop";
@@ -5,7 +6,12 @@ import Sidebar from "./SideBarpop";
 import MobileMenu from "./MobileMenu";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import "./Adminuser.css";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import DialogActions from "@mui/material/DialogActions";
+import Button from "@mui/material/Button";
+import "./AdminList.css";
 
 // Table component
 function Table(props) {
@@ -37,6 +43,20 @@ function TableBody({ children }) {
 function UserList({ users, deleteUser, searchTerm }) {
   const cols = ["#", "First Name", "Last Name", "Email", "Role", "Actions"];
   const navigate = useNavigate();
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+
+  const handleDeleteClick = (user) => {
+    setSelectedUser(user);
+    setDialogOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (selectedUser) {
+      deleteUser(selectedUser.id);
+    }
+    setDialogOpen(false);
+  };
 
   const filteredUsers = users.filter((user) =>
     `${user.first_name} ${user.last_name}`.toLowerCase().includes(searchTerm.toLowerCase())
@@ -58,11 +78,7 @@ function UserList({ users, deleteUser, searchTerm }) {
           <FaUserEdit className="admin-list-icon" size={30} />
         </button>
         <button
-          onClick={() => {
-            if (window.confirm("Are you sure you want to delete this user?")) {
-              deleteUser(user.id);
-            }
-          }}
+          onClick={() => handleDeleteClick(user)}
           type="button"
           className="admin-icon-button"
         >
@@ -73,10 +89,28 @@ function UserList({ users, deleteUser, searchTerm }) {
   ));
 
   return (
-    <Table className="admins-table">
-      <TableHead cols={cols} />
-      <TableBody>{userList}</TableBody>
-    </Table>
+    <>
+      <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
+        <DialogTitle>Confirm Delete</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this Admin Account
+          ? This action cannot be undone.
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialogOpen(false)}>
+            Cancel
+          </Button>
+          <Button onClick={confirmDelete} color="error" variant="contained">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Table className="admins-table">
+        <TableHead cols={cols} />
+        <TableBody>{userList}</TableBody>
+      </Table>
+    </>
   );
 }
 

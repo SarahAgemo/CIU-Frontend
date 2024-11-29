@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import uploadExam from "./UploadExamContent.module.css"; // Import the updated CSS module
+import uploadExam from "./UploadExampaperContent.module.css"; // Import the updated CSS module
 import moment from "moment"; // Import moment for date/time formatting
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
@@ -15,7 +15,7 @@ export default function ScheduleUploadExams() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const lecturerId = storedUser?.id;
+  const lecturerName = `${storedUser?.first_name} ${storedUser?.last_name}`;
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,7 +45,7 @@ export default function ScheduleUploadExams() {
     duration: "",
     startTime: "",
     endTime: "",
-    createdBy: lecturerId,
+    createdBy: lecturerName,
     isDraft: false, // Ensure isDraft is a boolean
   });
   

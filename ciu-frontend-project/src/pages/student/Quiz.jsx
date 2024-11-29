@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Quiz.css";
+import quiz from "./Quiz.module.css";
 
-const Quiz = () => {
-  const [timeLeft, setTimeLeft] = useState(3600); // Default to 1 hour (3600 seconds)
+
+
+const Quiz2 = () => {
+  const [timeLeft, setTimeLeft] = useState(0); 
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingStartTime, setRecordingStartTime] = useState(0);
@@ -22,7 +24,6 @@ const Quiz = () => {
   const examId = localStorage.getItem("exam");
   const userId = localStorage.getItem("user");
 
-  // Fetch exam questions
   const examQuestion = async () => {
     try {
       const response = await axios.get(`http://localhost:3000/exam-paper/${examId}/questions`);
@@ -33,21 +34,54 @@ const Quiz = () => {
     }
   };
 
-  // Fetch exam details (duration, subject, etc.)
+  // Parse duration into total seconds
+  const parseDuration = (duration) => {
+    if (!duration) return 0;
+
+    // Split duration as "hh:mm" or handle as total minutes if single value
+    const [hours, minutes] = duration.split(":").map(Number);
+    const totalSeconds = (hours || 0) * 3600 + (minutes || 0) * 60;
+    return totalSeconds;
+  };
+
+  
   const fetchExamDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/exam-paper/${examId}`);
-      setExamDetails(response.data);
-      const durationInMinutes = parseInt(response.data.duration, 10) || 60; // Default to 60 minutes if invalid
-      setTimeLeft(durationInMinutes * 60); // Convert minutes to seconds
-      console.log("Fetched exam details:", response.data);
+      const response = await axios.get("http://localhost:3000/exam-paper?isDraft=false");
+      const examData = response.data.find((exam) => exam.id === parseInt(examId));
+      if (examData) {
+        setExamDetails(examData);
+
+        const durationInSeconds = parseDuration(examData.duration); 
+        if (!isNaN(durationInSeconds) && durationInSeconds > 0) {
+          setTimeLeft(durationInSeconds); 
+        } else {
+          console.warn("Invalid duration value from the false endpoint.");
+          setTimeLeft(3600); 
+        }
+      } else {
+        console.warn("Exam not found in false endpoint data.");
+      }
+      console.log("Fetched exam details from false endpoint:", examData);
     } catch (error) {
       console.error("Error fetching exam details:", error);
     }
   };
 
+  // Fetch specific exam details (backup or other data)
+  const fetchBackupExamDetails = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/exam-paper/${examId}`);
+      console.log("Fetched backup exam details:", response.data);
+    } catch (error) {
+      console.error("Error fetching backup exam details:", error);
+    }
+  };
+
+  // Timer effect to count down every second
   useEffect(() => {
-    // Start countdown timer
+    if (timeLeft === 0) return; // Don't start the timer if timeLeft is 0
+
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
         if (prevTime <= 0) {
@@ -59,18 +93,24 @@ const Quiz = () => {
       });
     }, 1000);
 
+    return () => clearInterval(timer); // Cleanup the interval when component unmounts
+  }, [timeLeft]);
+
+  useEffect(() => {
     examQuestion();
     fetchExamDetails();
-
-    return () => clearInterval(timer);
+    fetchBackupExamDetails();
   }, []);
 
-  // Format seconds to mm:ss
+  
   const formatTime = (seconds) => {
-    if (isNaN(seconds) || seconds < 0) return "00:00";
-    const minutes = Math.floor(seconds / 60);
+    if (isNaN(seconds) || seconds < 0) return "00:00:00";
+
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
-    return `${minutes < 10 ? "0" : ""}${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+
+    return `${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
   // Start webcam recording
@@ -138,7 +178,7 @@ const Quiz = () => {
     }));
   };
 
-  // Submit the quiz and calculate score
+  // // Submit the quiz and calculate score
   const handleSubmit = async () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
@@ -182,7 +222,7 @@ const Quiz = () => {
 
         if (response.status === 200 || response.status === 201) {
           alert("Your score has been submitted successfully!");
-          navigate("/submit");
+          navigate("/student");
         } else {
           throw new Error(`Unexpected response status: ${response.status}`);
         }
@@ -196,7 +236,7 @@ const Quiz = () => {
   // Handle visibility change (user switching tabs)
   const handleTabChange = () => {
     alert("Warning: You opened a new tab! The quiz will be auto-submitted.");
-    navigate("/login");
+    navigate("/student");
   };
 
   useEffect(() => {
@@ -214,65 +254,122 @@ const Quiz = () => {
   }, []);
 
   return (
-    <div className="ExamPage">
-      <div className="ExamTopbar">
-        <p><strong>Subject:</strong> {examDetails.subject || "Loading..."}</p>
-        <p><strong>Description:</strong> {examDetails.description || "Loading..."}</p>
-        <p><strong>Duration:</strong> {examDetails.duration ? `${examDetails.duration} minutes` : "Loading..."}</p>
-        <p><strong>Time Left:</strong> {formatTime(timeLeft)}</p>
-      </div>
-
-      <div className="quiz-content">
-        <div className="media-preview">
-          <video ref={videoRef} autoPlay muted className="video-preview"></video>
-          <div className="recording-status">
-            {isRecording ? (
-              <>
-                <span role="img" aria-label="recording" style={{ color: "red", fontSize: "2em" }}>🔴</span>
-                <span>{getRecordingDuration()}</span>
-              </>
-            ) : (
-              <span>Recording stopped</span>
-            )}
+      <div className={quiz.ExamPage}>
+          <div className={quiz.sidebar}>
+              <div className={quiz.logoContainer}>
+                  <img
+                      src="/CIU-exam-system-logo.png"
+                      alt="Clarke International University"
+                      className={quiz.universityLogo}
+                  />
+                  <div className={quiz.examInfo}>
+                      <div className={quiz.infoRow}>
+                          <span className={quiz.infoLabel}>Subject:</span>
+                          <span className={quiz.infoValue}>{examDetails.courseUnit || "Loading..."}</span>
+                      </div>
+                      <div className={quiz.infoRow}>
+                          <span className={quiz.infoLabel}>Duration:</span>
+                          <span className={quiz.infoValue}>
+                              {examDetails.duration ? `${examDetails.duration} Hours` : "Loading..."}
+                          </span>
+                      </div>
+                      <div className={quiz.progressContainer}>
+                          <div className={quiz.infoRow}>
+                              <span className={quiz.infoLabel}>Progress:</span>
+                              <span className={quiz.progressValue}>0%</span>
+                          </div>
+                          <div className={quiz.progressBar}>
+                              <div className={quiz.progressFill} style={{ width: "0%" }}></div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
           </div>
-        </div>
-
-        <h2>QUIZ</h2>
-        <p className="question-text">
-          Question {questionIndex + 1}: {questions[questionIndex]?.content}
-        </p>
-        <form>
-          {questions[questionIndex]?.options.map((option, index) => (
-            <label className="form-check-label" key={index}>
-              <input
-                className="form-check-input"
-                type="radio"
-                name={`answer-${questionIndex}`}
-                value={option}
-                checked={selectedAnswers[questions[questionIndex]?.id] === option}
-                onChange={() => handleAnswerChange(questions[questionIndex]?.id, option)}
-                required
-              />
-              {option}
-            </label>
-          ))}
-        </form>
-
-        <div className="navigation-buttons">
-          {questionIndex > 0 && (
-            <button onClick={handlePreviousQuestion}>Previous</button>
-          )}
-          {questionIndex < questions.length - 1 && (
-            <button onClick={handleNextQuestion}>Next</button>
-          )}
-        </div>
-
-        <div className="submit-section">
-          <button onClick={handleSubmit}>Submit</button>
-        </div>
+    
+          <div className={quiz.mainContent}>
+              <div className={quiz.header}>
+                  <div className={quiz.recordingIndicator}>
+                      <span className={quiz.recordDot}></span>
+                      REC
+                  </div>
+                  <h1 className={quiz.quizTitle}>QUIZ</h1>
+                  <div className={quiz.headerRight}>
+                      <div className={quiz.timer}>
+                          Time left: <span className={quiz.timeValue}>{formatTime(timeLeft)}</span>
+                      </div>
+                      
+                  </div>
+              </div>
+    
+              <div className={quiz.quizContent}>
+                  <div className={quiz.questionCard}>
+                      <div className={quiz.questionHeader}>
+                          <span className={quiz.questionNumber}>Question {questionIndex + 1}</span>
+                          <span className={quiz.questionMarks}>2 marks</span>
+                      </div>
+                      <div className={quiz.questionText}>
+                          {questions[questionIndex]?.content || "Loading question..."}
+                      </div>
+                      <form className={quiz.optionsContainer}>
+                          {questions[questionIndex]?.options.map((option, index) => (
+                              <label key={index} className={quiz.optionLabel}>
+                                  <input
+                                      type="radio"
+                                      name={`answer-${questionIndex}`}
+                                      value={option}
+                                      checked={selectedAnswers[questions[questionIndex]?.id] === option}
+                                      onChange={() => handleAnswerChange(questions[questionIndex]?.id, option)}
+                                      className={quiz.optionInput}
+                                  />
+                                  <span className={quiz.optionText}>{option}</span>
+                              </label>
+                          ))}
+                      </form>
+                  </div>
+    
+                  <div className={quiz.navigationButtons}>
+                      {questionIndex > 0 && (
+                          <button
+                              onClick={handlePreviousQuestion}
+                              className={`${quiz.navButton} ${quiz.prevButton}`}
+                          >
+                              Previous
+                          </button>
+                      )}
+                      {questionIndex < questions.length - 1 ? (
+                          <button
+                              onClick={handleNextQuestion}
+                              className={`${quiz.navButton} ${quiz.nextButton}`}
+                          >
+                              Next
+                          </button>
+                      ) : (
+                          <button
+                              onClick={handleSubmit}
+                              className={`${quiz.navButton} ${quiz.submitButton}`}
+                          >
+                              Submit
+                          </button>
+                      )}
+                  </div>
+              </div>
+    
+              <div className={quiz.mediaPreview}>
+                  <video ref={videoRef} autoPlay muted className={quiz.videoPreview}></video>
+                  <div className={quiz.recordingStatus}>
+                      {isRecording ? (
+                          <>
+                              <span className={quiz.recordIndicator}></span>
+                              <span className={quiz.recordTime}>{getRecordingDuration()}</span>
+                          </>
+                      ) : (
+                          <span>Recording stopped</span>
+                      )}
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-  );
-};
+    );
+    };
 
-export default Quiz;
+export default Quiz2;
