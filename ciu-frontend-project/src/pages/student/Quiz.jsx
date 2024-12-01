@@ -178,7 +178,7 @@ const Quiz2 = () => {
     }));
   };
 
-  // // Submit the quiz and calculate score
+  //  // Submit the quiz and calculate score
   const handleSubmit = async () => {
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
@@ -232,6 +232,7 @@ const Quiz2 = () => {
       }
     }
   };
+
 
   // Handle visibility change (user switching tabs)
   const handleTabChange = () => {
