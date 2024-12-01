@@ -157,6 +157,92 @@ const ExamCard = ({ exam, onDoExam }) => {
     );
 };
 
+// export default function AvailableExams() {
+//     const [availableExams, setAvailableExams] = useState([]);
+//     const [loading, setLoading] = useState(true);
+//     const [error, setError] = useState(null);
+//     const navigate = useNavigate();
+
+//     useEffect(() => {
+//         const loadExams = async () => {
+//             try {
+//                 // Fetch the list of available exams
+//                 const exams = await fetchAvailableExams();
+                
+//                 // Retrieve student data from localStorage
+//                 const studentData = localStorage.getItem("user");
+//                 if (!studentData) {
+//                     throw new Error("No student data found in localStorage.");
+//                 }
+
+//                 const student = JSON.parse(studentData);
+
+//                 // Fetch student details from backend
+//                 const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+//                 const studentDetails = response.data;
+
+//                 if (!studentDetails.courseId) {
+//                     throw new Error("No courseId found in student data.");
+//                 }
+
+//                 // Fetch courses data
+//                 const coursesResponse = await axios.get(`http://localhost:3000/coursesAdd`);
+//                 const returnCourses = coursesResponse.data;
+
+//                 // Filter exams based on the student's courseId
+//                 const filteredExams = exams.filter(exam => exam.courseId === studentDetails.courseId);
+
+//                 // Add courseName to the exams by matching courseId with course data
+//                 const finalStudentExams = filteredExams.map(studentExam => {
+//                     const course = returnCourses.find(course => course.id === studentExam.courseId);
+//                     return {
+//                         ...studentExam,
+//                         courseName: course ? course.courseName : 'Unknown Course',
+//                     };
+//                 });
+
+//                 // Get the list of exams already submitted by the student from localStorage
+//                 const submittedExams = JSON.parse(localStorage.getItem('submittedExams')) || [];
+
+//                 // Filter out the exams that have already been submitted
+//                 const examsToDisplay = finalStudentExams.filter(exam => !submittedExams.includes(exam.id));
+
+//                 setAvailableExams(examsToDisplay);
+//             } catch (err) {
+//                 setError(err.message);
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+
+//         loadExams();
+//     }, []);
+
+//     // Handle the action when the student clicks "DO EXAM"
+//     const handleDoExam = (exam) => {
+//         localStorage.setItem('exam', exam.id);
+//         navigate("/proctoring", { state: { exam } });
+//     };
+
+//     if (loading) return <p>Loading exams...</p>;
+//     if (error) return <p>Error: {error}</p>;
+
+//     return (
+//         <main className={DoExam["main-content"]}>
+//             <h2 className={DoExam["page-title"]}>AVAILABLE EXAMS</h2>
+//             <div className={DoExam["exam-list"]}>
+//                 {availableExams.length > 0 ? (
+//                     availableExams.map(exam => (
+//                         <ExamCard key={exam.id} exam={exam} onDoExam={handleDoExam} />
+//                     ))
+//                 ) : (
+//                     <p>No published exams available to attempt.</p>
+//                 )}
+//             </div>
+//         </main>
+//     );
+// }
+
 export default function AvailableExams() {
     const [availableExams, setAvailableExams] = useState([]);
     const [loading, setLoading] = useState(true);
