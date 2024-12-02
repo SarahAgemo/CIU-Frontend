@@ -179,3 +179,22 @@ form .forgot-password {
     width: 75vw;
   }
 }
+
+.input-box .toggle-icon {
+  position: absolute;
+  right: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  color: #106053;
+  cursor: pointer;
+}
+.input-box .toggle-icon:hover {
+  color:  #4f4e4e;
+}
+
+.input-box .eye-icon {
+  font-size: 21px; /* Adjust the size as needed */
+}
+
+
