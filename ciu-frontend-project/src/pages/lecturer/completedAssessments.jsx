@@ -41,7 +41,7 @@ function CompletedAssessmentsTable() {
   const handlePublish = async (id) => {
     try {
       console.log("Publishing results for ID:", id); // Debug log to check `id`
-      const response = await axios.patch(`http://localhost:3000/scores/${id}/publishResults`, {
+      const response = await axios.patch(`http://localhost:3000/exam-paper/${id}/publishResults`, {
         isPublished: true, // Ensure this matches the backend's expected format
       });
   
