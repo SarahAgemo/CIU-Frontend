@@ -22,17 +22,17 @@ function CompletedAssessmentsTable() {
   useEffect(() => {
     async function fetchCompletedAssessments() {
       try {
-        const response = await axios.get(
-          "http://localhost:3000/exam-paper/completedAssessments"
-        );
+        const response = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
+        console.log("Fetched Assessments:", response.data); // Debug log
         setCompletedAssessments(response.data);
       } catch (error) {
         console.error("Error fetching completed assessments:", error);
       }
     }
-
+  
     fetchCompletedAssessments();
   }, []);
+  
 
   const handlePreview = (id) => {
     navigate(`/student-results/${id}`);
@@ -40,14 +40,18 @@ function CompletedAssessmentsTable() {
 
   const handlePublish = async (id) => {
     try {
-      console.log("Publishing results for ID:", id); // Debug log to check `id`
+      console.log("Publishing results for ID:", id);
       const response = await axios.patch(`http://localhost:3000/exam-paper/${id}/publishResults`, {
-        isPublished: true, // Ensure this matches the backend's expected format
+        isPublished: true,
       });
   
-      console.log("Response:", response.data); // Debug log to check the server response
+      console.log("Response:", response.data);
   
-      // Update the state to reflect the published status
+      // Refetch the completed assessments
+      const updatedData = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
+      setCompletedAssessments(updatedData.data);
+  
+      // Update the state to reflect the published status locally (optional)
       setCompletedAssessments((prev) =>
         prev.map((assessment) =>
           assessment.id === id
