@@ -76,18 +76,7 @@
     box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); /* Green focus outline */
   }
   
-  /* .form-check-input:checked::before {
-    content: '';
-    display: block;
-    width: 8px;
-    height: 8px;
-    background-color: #106053;
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  } */
+  
   
   /* Question Answer Text */
   .question-answer {

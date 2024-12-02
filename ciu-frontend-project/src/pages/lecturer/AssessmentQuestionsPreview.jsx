@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Snackbar, Alert } from '@mui/material';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button,
+  Snackbar,
+  Alert,
+} from "@mui/material";
 import "./AssessmentQuestionsPreview.css";
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
@@ -21,12 +30,12 @@ function QuestionsPreview() {
   // New states for delete dialog and snackbar
   const [deleteDialog, setDeleteDialog] = useState({
     open: false,
-    questionId: null
+    questionId: null,
   });
   const [snackbar, setSnackbar] = useState({
     open: false,
-    message: '',
-    severity: 'info'
+    message: "",
+    severity: "info",
   });
 
   useEffect(() => {
@@ -40,25 +49,24 @@ function QuestionsPreview() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleSnackbar = (message, severity = 'info') => {
+  const handleSnackbar = (message, severity = "info") => {
     setSnackbar({
       open: true,
       message,
-      severity
+      severity,
     });
   };
 
   const closeSnackbar = () => {
-    setSnackbar(prev => ({
+    setSnackbar((prev) => ({
       ...prev,
-      open: false
+      open: false,
     }));
   };
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
 
   useEffect(() => {
     const fetchExamData = async () => {
@@ -99,12 +107,15 @@ function QuestionsPreview() {
 
   const handleDeleteQuestion = (questionId) => {
     if (!isDraft) {
-      handleSnackbar("You cannot delete questions from an already published exam.", "error");
+      handleSnackbar(
+        "You cannot delete questions from an already published exam.",
+        "error"
+      );
       return;
     }
     setDeleteDialog({
       open: true,
-      questionId
+      questionId,
     });
   };
 
@@ -133,7 +144,10 @@ function QuestionsPreview() {
 
   const handleEditQuestion = (questionId) => {
     if (!isDraft) {
-      handleSnackbar("You cannot edit questions in an already published exam.", "error");
+      handleSnackbar(
+        "You cannot edit questions in an already published exam.",
+        "error"
+      );
       return;
     }
     navigate(`/exam-paper/${id}/question/${questionId}`);
@@ -155,8 +169,8 @@ function QuestionsPreview() {
         open={snackbar.open}
         autoHideDuration={6000}
         onClose={closeSnackbar}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        sx={{ width: '50%' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ width: "50%" }}
       >
         <Alert onClose={closeSnackbar} severity={snackbar.severity}>
           {snackbar.message}
@@ -171,11 +185,14 @@ function QuestionsPreview() {
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this question? This action cannot be undone.
+            Are you sure you want to delete this question? This action cannot be
+            undone.
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDeleteDialog({ open: false, questionId: null })}>
+          <Button
+            onClick={() => setDeleteDialog({ open: false, questionId: null })}
+          >
             Cancel
           </Button>
           <Button onClick={confirmDelete} color="error" variant="contained">
@@ -195,7 +212,11 @@ function QuestionsPreview() {
             />
           )}
           <div className={Dash.backButtonContainer}>
-            <BackButton targetPath={`/exam-paper/${id}`} size={30} color="#106053" />
+            <BackButton
+              targetPath={`/exam-paper/${id}`}
+              size={30}
+              color="#106053"
+            />
           </div>
           <div className="questions-preview-container mt-5">
             <h3 className="questions-preview-header">Questions Preview</h3>
@@ -205,7 +226,8 @@ function QuestionsPreview() {
             {questions.map((question) => (
               <div key={question.id} className="question-card mb-3">
                 <div className="question-content">
-                  <strong>Q{question.questionNumber}: </strong> {question.content}
+                  <strong>Q{question.questionNumber}: </strong>{" "}
+                  {question.content}
                 </div>
                 <form className="question-options">
                   {question.options.map((option, index) => (

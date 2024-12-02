@@ -132,49 +132,6 @@
   opacity: 1; 
 }
 
-/* .exam-preview__btn {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 500;
-  cursor: pointer;
-  margin: 0 10px;
-  transition: background-color 0.3s ease;
-}
-
-.exam-preview__btn--info {
-  background-color: #106053;
-}
-
-.exam-preview__btn--info:hover {
-  background-color: #0b3f37;
-}
-
-.exam-preview__btn--warning {
-  background-color: #106053;
-}
-
-.exam-preview__btn--warning:hover {
-  background-color: #0b3f37;
-}
-
-.exam-preview__btn--danger {
-  background-color: #c41010;
-}
-
-.exam-preview__btn--danger:hover {
-  background-color: #990808;
-}
-
-.exam-preview__btn--success {
-  background-color: #106053;
-}
-
-.exam-preview__btn--success:hover {
-  background-color: #0b3f37;
-} */
 
 .exam-preview__alert {
   padding: 10px;

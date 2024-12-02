@@ -312,7 +312,7 @@ const Registration = () => {
               left: 0;
               right: 0;
               bottom: 0;
-              background-color: #ccc; /* Default background */
+              background-color: #106053;; /* Default background */
               border-radius: 30px;
               transition: background-color 0.4s ease; /* Smooth background transition */
             }

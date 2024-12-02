@@ -7,9 +7,8 @@ import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import BackButton from "../../components/lecturer/BackButton";
-import { Snackbar, Alert } from '@mui/material';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
-
+import { Snackbar, Alert } from "@mui/material";
+import WarningAmberIcon from "@mui/icons-material/WarningAmber";
 
 export default function ScheduleUploadExams() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -48,10 +47,10 @@ export default function ScheduleUploadExams() {
     createdBy: lecturerId,
     isDraft: false, // Ensure isDraft is a boolean
   });
-  
+
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState('error');
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("error");
 
   // Fetch courses when component mounts
   useEffect(() => {
@@ -99,30 +98,31 @@ export default function ScheduleUploadExams() {
     }
   }, [examData.courseId]);
 
-   
   const handleSnackbar = (message, severity) => {
     setSnackbarMessage(message);
     setSnackbarSeverity(severity);
     setSnackbarOpen(true);
   };
 
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    
+
     if (name === "scheduledDate") {
       const selectedDateTime = moment(value);
       const now = moment();
-      const minimumAllowedTime = now.add(24, 'hours');
+      const minimumAllowedTime = now.add(24, "hours");
 
       if (selectedDateTime.isBefore(minimumAllowedTime)) {
-        handleSnackbar('Scheduled date and time must be at least 24 hours from the current time.', 'error');
+        handleSnackbar(
+          "Scheduled date and time must be at least 24 hours from the current time.",
+          "error"
+        );
         return;
       }
 
       const extractedTime = selectedDateTime.format("HH:mm:ss");
 
-      setExamData(prevData => {
+      setExamData((prevData) => {
         const newData = {
           ...prevData,
           scheduledDate: value,
@@ -130,41 +130,42 @@ export default function ScheduleUploadExams() {
         };
 
         if (prevData.duration) {
-          const [hours, minutes] = prevData.duration.split(':').map(Number);
-          const durationMinutes = (hours * 60) + minutes;
-          const endTime = moment(selectedDateTime).add(durationMinutes, 'minutes').format("HH:mm:ss");
+          const [hours, minutes] = prevData.duration.split(":").map(Number);
+          const durationMinutes = hours * 60 + minutes;
+          const endTime = moment(selectedDateTime)
+            .add(durationMinutes, "minutes")
+            .format("HH:mm:ss");
           newData.endTime = endTime;
         }
 
         return newData;
       });
-    }
-    else if (name === "duration") {
+    } else if (name === "duration") {
       // Remove any non-digit characters except colon
-      let cleaned = value.replace(/[^\d:]/g, '');
-      
+      let cleaned = value.replace(/[^\d:]/g, "");
+
       // Handle colon input
-      if (cleaned.includes(':')) {
-        let [hours, minutes] = cleaned.split(':');
-        
+      if (cleaned.includes(":")) {
+        let [hours, minutes] = cleaned.split(":");
+
         // Allow natural typing of hours (no padding)
-        hours = hours || '';
-        
+        hours = hours || "";
+
         // Handle minutes
         if (minutes !== undefined) {
           // Ensure minutes don't exceed 59
           if (minutes.length > 0) {
             const minutesNum = parseInt(minutes);
             if (!isNaN(minutesNum) && minutesNum > 59) {
-              minutes = '59';
+              minutes = "59";
             }
           }
           minutes = minutes.slice(0, 2);
         } else {
-          minutes = '';
+          minutes = "";
         }
-  
-        cleaned = hours + (cleaned.includes(':') ? ':' : '') + minutes;
+
+        cleaned = hours + (cleaned.includes(":") ? ":" : "") + minutes;
       } else {
         // If no colon, treat as either hours or minutes based on length
         if (cleaned.length > 2) {
@@ -174,36 +175,39 @@ export default function ScheduleUploadExams() {
           cleaned = `${hours}:${minutes}`;
         }
       }
-      
-      setExamData(prevData => {
+
+      setExamData((prevData) => {
         const newData = {
           ...prevData,
-          duration: cleaned
+          duration: cleaned,
         };
-  
+
         // Only update end time if we have valid hours and minutes
-        if (prevData.scheduledDate && cleaned.includes(':')) {
-          const [hours, minutes] = cleaned.split(':').map(num => parseInt(num) || 0);
-          const durationMinutes = (hours * 60) + minutes;
+        if (prevData.scheduledDate && cleaned.includes(":")) {
+          const [hours, minutes] = cleaned
+            .split(":")
+            .map((num) => parseInt(num) || 0);
+          const durationMinutes = hours * 60 + minutes;
           const startDateTime = moment(prevData.scheduledDate);
-          const endTime = moment(startDateTime).add(durationMinutes, 'minutes').format("HH:mm:ss");
+          const endTime = moment(startDateTime)
+            .add(durationMinutes, "minutes")
+            .format("HH:mm:ss");
           newData.endTime = endTime;
         }
-  
+
         return newData;
       });
     } else if (name === "courseUnit") {
       const selectedUnit = courseUnits.find((unit) => unit.unitName === value);
-      setExamData(prevData => ({
+      setExamData((prevData) => ({
         ...prevData,
         [name]: value,
-        courseUnitCode: selectedUnit ? selectedUnit.unitCode : ""
+        courseUnitCode: selectedUnit ? selectedUnit.unitCode : "",
       }));
-    }
-    else {
-      setExamData(prevData => ({
+    } else {
+      setExamData((prevData) => ({
         ...prevData,
-        [name]: value
+        [name]: value,
       }));
     }
   };
@@ -221,29 +225,34 @@ export default function ScheduleUploadExams() {
     setCsvFile(e.target.files[0]);
   };
 
-  // const formatTime = (time) => {
-  //   const [hours, minutes] = time.split(":");
-  //   return `${hours.padStart(2, "0")}:${minutes.padStart(2, "0")}:00`;
-  // };
-
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const selectedDateTime = moment(examData.scheduledDate);
     const now = moment();
-    const minimumAllowedTime = now.add(24, 'hours');
+    const minimumAllowedTime = now.add(24, "hours");
 
     if (selectedDateTime.isBefore(minimumAllowedTime)) {
-      handleSnackbar('Exam must be scheduled at least 24 hours in advance', 'error');
+      handleSnackbar(
+        "Exam must be scheduled at least 24 hours in advance",
+        "error"
+      );
       return;
     }
     const formData = new FormData();
     formData.append("file", csvFile);
 
     // Format dates and times for submission
-    const formattedScheduledDate = moment(examData.scheduledDate).format("YYYY-MM-DD HH:mm:ss");
-    const formattedStartTime = moment(examData.startTime, "HH:mm:ss").format("HH:mm:ss");
-    const formattedEndTime = moment(examData.endTime, "HH:mm:ss").format("HH:mm:ss");
+    const formattedScheduledDate = moment(examData.scheduledDate).format(
+      "YYYY-MM-DD HH:mm:ss"
+    );
+    const formattedStartTime = moment(examData.startTime, "HH:mm:ss").format(
+      "HH:mm:ss"
+    );
+    const formattedEndTime = moment(examData.endTime, "HH:mm:ss").format(
+      "HH:mm:ss"
+    );
 
     // Create submission data with the original duration format (HH:MM)
     const submissionData = {
@@ -253,7 +262,7 @@ export default function ScheduleUploadExams() {
       endTime: formattedEndTime,
       // Keep the duration in HH:MM format instead of converting to minutes
       duration: examData.duration,
-      isDraft: Boolean(examData.isDraft)
+      isDraft: Boolean(examData.isDraft),
     };
 
     // Append all data to FormData
@@ -267,12 +276,12 @@ export default function ScheduleUploadExams() {
       });
       if (!response.ok) throw new Error("Failed to upload exam paper");
       const data = await response.json();
-      handleSnackbar('Exam paper uploaded successfully!', 'success');
+      handleSnackbar("Exam paper uploaded successfully!", "success");
       navigate("/schedule-upload-exams/exam-list", {
         state: { examData: data },
       });
     } catch (error) {
-      handleSnackbar('Error uploading exam paper: ' + error.message, 'error');
+      handleSnackbar("Error uploading exam paper: " + error.message, "error");
     }
   };
 
@@ -282,19 +291,20 @@ export default function ScheduleUploadExams() {
         open={snackbarOpen}
         autoHideDuration={6000}
         onClose={() => setSnackbarOpen(false)}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-        sx={{ width: '50%' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        sx={{ width: "50%" }}
       >
         <Alert
           onClose={() => setSnackbarOpen(false)}
           severity={snackbarSeverity}
           sx={{
-            backgroundColor: snackbarSeverity === 'error' ? '#FFF4E5' : '#FFF4E5',
-            color: '#000',
-            display: 'flex',
-            alignItems: 'center'
+            backgroundColor:
+              snackbarSeverity === "error" ? "#FFF4E5" : "#FFF4E5",
+            color: "#000",
+            display: "flex",
+            alignItems: "center",
           }}
-          icon={snackbarSeverity === 'error' ? <WarningAmberIcon /> : undefined}
+          icon={snackbarSeverity === "error" ? <WarningAmberIcon /> : undefined}
         >
           {snackbarMessage}
         </Alert>
@@ -424,62 +434,61 @@ export default function ScheduleUploadExams() {
               </div>
 
               <div className={uploadExam["uploadExam-form-group"]}>
-          <label className={uploadExam["uploadExam-label"]}>
-            Scheduled Date & Time
-          </label>
-          <input
-            type="datetime-local"
-            name="scheduledDate"
-            className={uploadExam["uploadExam-form-control"]}
-            value={examData.scheduledDate}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
+                <label className={uploadExam["uploadExam-label"]}>
+                  Scheduled Date & Time
+                </label>
+                <input
+                  type="datetime-local"
+                  name="scheduledDate"
+                  className={uploadExam["uploadExam-form-control"]}
+                  value={examData.scheduledDate}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
 
-        <div className={uploadExam["uploadExam-form-group"]}>
-      <label className={uploadExam["uploadExam-label"]}>
-        Duration (HH:mm)
-      </label>
-      <input
-        type="text"
-        name="duration"
-        className={uploadExam["uploadExam-form-control"]}
-        value={examData.duration}
-        onChange={handleInputChange}
-        placeholder="HH:MM"
-        
-        required
-      />
-      <small className={uploadExam["uploadExam-form-text"]}>
-        Format: hours:minutes (e.g., 02:30 for 2 hours and 30 minutes)
-      </small>
-    </div>
-        <div className={uploadExam["uploadExam-form-group"]}>
-          <label className={uploadExam["uploadExam-label"]}>
-            Start Time
-          </label>
-          <input
-            type="time"
-            name="startTime"
-            className={uploadExam["uploadExam-form-control"]}
-            value={examData.startTime}
-            readOnly
-          />
-        </div>
+              <div className={uploadExam["uploadExam-form-group"]}>
+                <label className={uploadExam["uploadExam-label"]}>
+                  Duration (HH:mm)
+                </label>
+                <input
+                  type="text"
+                  name="duration"
+                  className={uploadExam["uploadExam-form-control"]}
+                  value={examData.duration}
+                  onChange={handleInputChange}
+                  placeholder="HH:MM"
+                  required
+                />
+                <small className={uploadExam["uploadExam-form-text"]}>
+                  Format: hours:minutes (e.g., 02:30 for 2 hours and 30 minutes)
+                </small>
+              </div>
+              <div className={uploadExam["uploadExam-form-group"]}>
+                <label className={uploadExam["uploadExam-label"]}>
+                  Start Time
+                </label>
+                <input
+                  type="time"
+                  name="startTime"
+                  className={uploadExam["uploadExam-form-control"]}
+                  value={examData.startTime}
+                  readOnly
+                />
+              </div>
 
-        <div className={uploadExam["uploadExam-form-group"]}>
-          <label className={uploadExam["uploadExam-label"]}>
-            End Time
-          </label>
-          <input
-            type="time"
-            name="endTime"
-            className={uploadExam["uploadExam-form-control"]}
-            value={examData.endTime}
-            readOnly
-          />
-        </div>
+              <div className={uploadExam["uploadExam-form-group"]}>
+                <label className={uploadExam["uploadExam-label"]}>
+                  End Time
+                </label>
+                <input
+                  type="time"
+                  name="endTime"
+                  className={uploadExam["uploadExam-form-control"]}
+                  value={examData.endTime}
+                  readOnly
+                />
+              </div>
 
               <div className={uploadExam["uploadExam-form-group"]}>
                 <label className={uploadExam["uploadExam-label"]}>
