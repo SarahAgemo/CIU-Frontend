@@ -78,8 +78,6 @@ import StudentLogin from "./pages/StudentLogin.jsx";
 import CompletedAssessmentsTable from "./pages/lecturer/completedAssessments.jsx"
 import SampleComponent from "./pages/student/Submit.jsx";
 import ResultComponent from "./pages/student/Result.jsx";
-
-
 import "./App.css";
 
 function App() {
