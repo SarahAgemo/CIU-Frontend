@@ -58,8 +58,6 @@ function AdminQuestionsPreview() {
     fetchQuestions();
   }, [id]);
 
-
-
   const handleOptionChange = (questionId, selectedOption) => {
     setSelectedAnswers((prevSelectedAnswers) => ({
       ...prevSelectedAnswers,
@@ -69,102 +67,6 @@ function AdminQuestionsPreview() {
 
   if (error) return <div className="alert alert-danger">{error}</div>;
   if (!questions.length) return <div>No questions found.</div>;
-
-  //   <div className="container mt-5">
-  //     <h3>Questions Preview</h3>
-  //     <p>Total Questions: {questions.length}</p>
-  //     {questions.map((question) => (
-  //       <div key={question.id} className="question-card mb-3" style={{ textAlign: 'left' }}> {/* Ensured text aligns to the left */}
-  //         <div className="question-content" style={{ display: 'flex', alignItems: 'center' }}>
-  //           <strong>Q{question.id}: </strong> {question.content}
-  //         </div>
-  //         <form className="question-options" style={{ display: 'flex', flexDirection: 'column', marginBottom: '0' }}>
-  //           {question.options.map((option, index) => (
-  //             <div key={index} className="form-check" style={{ display: 'flex', alignItems: 'center', marginBottom: '2px' }}>
-  //               <input
-  //                 className="form-check-input me-1" // Adjusted margin to reduce space
-  //                 type="radio"
-  //                 name={`question-${question.id}`} // Group radio buttons by question ID
-  //                 id={`question-${question.id}-option-${index}`}
-  //                 value={option}
-  //                 checked={selectedAnswers[question.id] === option} // Only check if user selects this option
-  //                 onChange={() => handleOptionChange(question.id, option)} // Handle user selection
-  //                 style={{ marginRight: '2px' }} // Further reduced space between radio button and label
-  //               />
-  //               <label className="form-check-label" htmlFor={`question-${question.id}-option-${index}`}>
-  //                 {option}
-  //               </label>
-  //             </div>
-  //           ))}
-  //         </form>
-  //         <div className="question-answer" style={{ marginTop: '5px' }}>
-  //           <strong>Correct Answer:</strong> {question.answer}
-  //         </div>
-  //         <div className="question-actions d-flex" style={{ marginTop: '5px' }}>
-  //           <button onClick={() => handleEditQuestion(question.id)} className="btn btn-warning me-1">
-  //             <FaEdit />
-  //           </button>
-  //           <button onClick={() => handleDeleteQuestion(question.id)} className="btn btn-warning me-1">
-  //             <FaTrash />
-  //           </button>
-  //         </div>
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
-
-  // return (
-  //   <div className="questions-preview-container mt-5">
-  //     <h3 className="questions-preview-header">Questions Preview</h3>
-  //     <p className="total-questions">Total Questions: {questions.length}</p>
-  //     {questions.map((question) => (
-  //       <div key={question.id} className="question-card mb-3">
-  //         <div className="question-content">
-  //           <strong>Q{question.id}: </strong> {question.content}
-  //         </div>
-  //         <form className="question-options">
-  //           {question.options.map((option, index) => (
-  //             <div key={index} className="form-check">
-  //               <input
-  //                 className="form-check-input me-1"
-  //                 type="radio"
-  //                 name={`question-${question.id}`}
-  //                 id={`question-${question.id}-option-${index}`}
-  //                 value={option}
-  //                 checked={selectedAnswers[question.id] === option}
-  //                 onChange={() => handleOptionChange(question.id, option)}
-  //               />
-  //               <label
-  //                 className="form-check-label"
-  //                 htmlFor={`question-${question.id}-option-${index}`}
-  //               >
-  //                 {option}
-  //               </label>
-  //             </div>
-  //           ))}
-  //         </form>
-  //         <div className="question-answer">
-  //           <strong>Correct Answer:</strong> {question.answer}
-  //         </div>
-  //         <div className="question-actions">
-  //           <button
-  //             onClick={() => handleEditQuestion(question.id)}
-  //             className="btn btn-warning me-1 icon-button"
-  //           >
-  //             <FaEdit />
-  //           </button>
-  //           <button
-  //             onClick={() => handleDeleteQuestion(question.id)}
-  //             className="btn btn-warning me-1 icon-button"
-  //           >
-  //             <FaTrash />
-  //           </button>
-  //         </div>
-  //       </div>
-  //     ))}
-  //   </div>
-  // );
-
   return (
     <div className={Dash.lecturerDashboard}>
       <div className={Dash.dashboard}>
@@ -173,15 +75,24 @@ function AdminQuestionsPreview() {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+              <div
+                className={`${AdminDash["overlay"]} ${
+                  isMobileMenuOpen ? AdminDash["active"] : ""
+                }`}
                 onClick={toggleMobileMenu}
               ></div>
-              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+              <MobileMenu
+                isOpen={isMobileMenuOpen}
+                toggleMenu={toggleMobileMenu}
+              />
             </>
           )}
           <div className={Dash.backButtonContainer}>
-            <BackButton targetPath={`/admin-exam-paper/${id}`} size={30} color="#106053" />
+            <BackButton
+              targetPath={`/admin-exam-paper/${id}`}
+              size={30}
+              color="#106053"
+            />
           </div>
           <div className="questions-preview-container mt-5">
             <h3 className="questions-preview-header">Questions Preview</h3>

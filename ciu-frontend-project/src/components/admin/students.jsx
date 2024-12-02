@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
-import { FaUserEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -64,20 +63,21 @@ function StudentList({ students, deleteStudent }) {
       <td>{student.email}</td>
       <td>{student.program}</td>
       <td>
-        <button
-          onClick={() => navigate(`/edit-student/${student.id}`)}
+      <span
+          onClick={() => navigate(`/edit/${user.id}`)}
           type="button"
-          className="students-icon-button"
+          className="btn-secondary"
         >
-          <FaUserEdit className="student-list-icon" size={30} />
-        </button>
-        <button
-          onClick={() => handleDeleteClick(student)}
+          <FaEdit className="icon-edit" />
+        </span>
+
+        <span
+          onClick={() => handleDeleteClick(user)}
           type="button"
-          className="students-icon-button"
+          className="btn-danger"
         >
-          <MdDelete className="student-list-icon" size={30} />
-        </button>
+          <FaTrash className="icon-trash" />
+        </span>
       </td>
     </tr>
   ));
