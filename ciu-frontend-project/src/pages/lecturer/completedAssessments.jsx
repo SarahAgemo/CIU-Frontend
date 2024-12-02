@@ -24,6 +24,7 @@ function CompletedAssessmentsTable() {
       try {
         const response = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
         console.log("Fetched Assessments:", response.data); // Debug log
+        
         setCompletedAssessments(response.data);
       } catch (error) {
         console.error("Error fetching completed assessments:", error);
