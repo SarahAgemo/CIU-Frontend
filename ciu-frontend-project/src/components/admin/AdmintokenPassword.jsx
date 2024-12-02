@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './TokenPasswordPage.css';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import './TokenPasswordPage.css'; // Import your CSS file
 
 export default function TokenPasswordPage() {
     const navigate = useNavigate();
@@ -10,11 +9,11 @@ export default function TokenPasswordPage() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
-    const [showNewPassword, setShowNewPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     const handleSave = async (e) => {
         e.preventDefault();
+
+        // Check if passwords match
         if (newPassword !== confirmPassword) {
             setErrorMessage("Passwords do not match");
             setSuccessMessage('');
@@ -22,23 +21,23 @@ export default function TokenPasswordPage() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/lecturerReg/set-password', {
+            const response = await fetch('http://localhost:3000/adminReg/set-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    setupToken,
-                    newPassword,
-                    confirmPassword,
+                    token: setupToken,         // Match backend field
+                    password: newPassword,     // Match backend field
+                    confirmPassword,           // Match backend field
                 }),
             });
 
             if (response.ok) {
-                setSuccessMessage("Token and password saved successfully!");
+                setSuccessMessage("Password has been set successfully!");
                 setErrorMessage('');
                 setTimeout(() => {
-                    navigate('/lecturerlogin');
+                    navigate('/Adminlogin'); // Redirect to login page
                 }, 1000);
             } else {
                 const errorData = await response.json();
@@ -54,10 +53,10 @@ export default function TokenPasswordPage() {
     return (
         <div className="token-password-container">
             <h2 className="token-password-heading">Reset Your Password</h2>
-
+            
             {errorMessage && <div className="token-password-error-message">{errorMessage}</div>}
             {successMessage && <div className="token-password-success-message">{successMessage}</div>}
-
+            
             <form className="token-password-form" onSubmit={handleSave}>
                 <div className="token-password-form-group">
                     <label className="token-password-label">Setup Token:</label>
@@ -73,44 +72,26 @@ export default function TokenPasswordPage() {
 
                 <div className="token-password-form-group">
                     <label className="token-password-label">New Password:</label>
-                    <div className="token-password-input-wrapper">
-                        <input
-                            className="token-password-input"
-                            type={showNewPassword ? 'text' : 'password'}
-                            value={newPassword}
-                            onChange={(e) => setNewPassword(e.target.value)}
-                            placeholder="Enter new password"
-                            required
-                        />
-                        <button
-                            type="button"
-                            className="token-password-eye-icon"
-                            onClick={() => setShowNewPassword((prev) => !prev)}
-                        >
-                            {showNewPassword ? <FaEyeSlash /> : <FaEye />}
-                        </button>
-                    </div>
+                    <input
+                        className="token-password-input"
+                        type="password"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="Enter new password"
+                        required
+                    />
                 </div>
 
                 <div className="token-password-form-group">
                     <label className="token-password-label">Confirm Password:</label>
-                    <div className="token-password-input-wrapper">
-                        <input
-                            className="token-password-input"
-                            type={showConfirmPassword ? 'text' : 'password'}
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            placeholder="Confirm new password"
-                            required
-                        />
-                        <button
-                            type="button"
-                            className="token-password-eye-icon"
-                            onClick={() => setShowConfirmPassword((prev) => !prev)}
-                        >
-                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
-                        </button>
-                    </div>
+                    <input
+                        className="token-password-input"
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder="Confirm new password"
+                        required
+                    />
                 </div>
 
                 <button type="submit" className="token-password-save-button">Save</button>

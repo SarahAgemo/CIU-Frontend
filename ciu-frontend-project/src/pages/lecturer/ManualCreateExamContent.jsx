@@ -10,7 +10,8 @@ export default function CreateExamContent() {
     const navigate = useNavigate();
 
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    const lecturerId = storedUser?.id; 
+    const lecturerName = `${storedUser?.first_name} ${storedUser?.last_name}`;
+
 
 
     const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ export default function CreateExamContent() {
         scheduledDate: '',
         startTime: '',
         endTime: '',
-        createdBy: lecturerId,
+        createdBy: lecturerName,
         questions: [
             {
                 content: '',
@@ -147,6 +148,13 @@ export default function CreateExamContent() {
         setFormData({ ...formData, questions: newQuestions });
     };
 
+    const removeQuestion = (indexToRemove) => {
+        setFormData((prevState) => ({
+          ...prevState,
+          questions: prevState.questions.filter((_, index) => index !== indexToRemove),
+        }));
+      };
+      
     const addNewQuestion = () => {
         setFormData((prevState) => ({
             ...prevState,
@@ -367,40 +375,49 @@ export default function CreateExamContent() {
                     />
                 </div>
 
-                 {formData.questions.map((question, index) => (
-                     <div key={index} className={createExam.formGroup_question}>
-                         <label className={createExam.label_questionText}>Question Text</label>
-                         <input
-                             type="text"
-                             name="content"
-                             value={question.content}
-                             onChange={(e) => handleQuestionChange(index, e)}
-                             className={createExam.input_questionText}
-                             placeholder="Question"
-                             required
-                         />
-                         <label className={createExam.label_options}>Options (comma-separated)</label>
-                         <input
-                             type="text"
-                             name="options"
-                             value={question.options}
-                             onChange={(e) => handleQuestionChange(index, e)}
-                             className={createExam.input_options}
-                             placeholder="Option1,Option2,Option3,Option4"
-                             required
-                         />
-                         <label className={createExam.label_answer}>Correct Answer</label>
-                         <input
-                             type="text"
-                             name="answer"
-                             value={question.answer}
-                             onChange={(e) => handleQuestionChange(index, e)}
-                             className={createExam.input_answer}
-                             placeholder="Correct Answer"
-                             required
-                         />
-                     </div>
-                 ))}
+                {formData.questions.map((question, index) => (
+                <div key={index} className={createExam.formGroup_question1}>
+                    <label className={createExam.label_questionText}>Question Text</label>
+                    <input
+                    type="text"
+                    name="content"
+                    value={question.content}
+                    onChange={(e) => handleQuestionChange(index, e)}
+                    className={createExam.input_questionText}
+                    placeholder="Question"
+                    required
+                    />
+                    <label className={createExam.label_options}>Options (comma-separated)</label>
+                    <input
+                    type="text"
+                    name="options"
+                    value={question.options}
+                    onChange={(e) => handleQuestionChange(index, e)}
+                    className={createExam.input_options}
+                    placeholder="Option1,Option2,..."
+                    required
+                    />
+                    <label className={createExam.label_answer}>Correct Answer</label>
+                    <input
+                    type="text"
+                    name="answer"
+                    value={question.answer}
+                    onChange={(e) => handleQuestionChange(index, e)}
+                    className={createExam.input_answer}
+                    placeholder="Correct Answer"
+                    required
+                    />
+                    {/* X Button for removing the specific question */}
+                    <button
+                    type="button"
+                    onClick={() => removeQuestion(index)}
+                    className={createExam.removeQuestionButton}
+                    >
+                    X
+                    </button>
+                </div>
+                ))}
+
 
 
                  {/* Buttons for adding/removing questions */}

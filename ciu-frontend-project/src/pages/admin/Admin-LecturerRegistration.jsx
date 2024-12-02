@@ -71,9 +71,9 @@ const Registration = () => {
         "Email must be in the format: firstname@ciu.ac.ug";
     }
 
-    if (selectedUser === "Administrator" && !formData.password.trim()) {
-      errors.password = "Password is required";
-    }
+    // if (selectedUser === "Administrator" && !formData.password.trim()) {
+    //   errors.password = "Password is required";
+    // }
 
     return errors;
   };
@@ -101,7 +101,7 @@ const Registration = () => {
             last_name: formData.lastName,
             email: formData.emailOrStudentNumber,
             role: "administrator",
-            password: formData.password,
+            // password: formData.password,
           };
         }
 
@@ -433,22 +433,7 @@ const Registration = () => {
                   <span className="error">{errors.emailOrStudentNumber}</span>
                 )}
 
-                {selectedUser === "Administrator" && (
-                  <>
-                    <label className="label">Password</label>
-                    <input
-                      type="password"
-                      placeholder="Enter Password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleInputChange}
-                      className="input"
-                    />
-                    {errors.password && (
-                      <span className="error">{errors.password}</span>
-                    )}
-                  </>
-                )}
+                
 
                 <button type="submit" className="register-button">
                   Register as {selectedUser}

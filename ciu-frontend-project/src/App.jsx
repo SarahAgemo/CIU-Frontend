@@ -37,6 +37,7 @@ import AdminExamPaperPreview from "./pages/admin/AdminExamPaperPreview.jsx";
 import AdminQuestionsPreview from "./pages/admin/AdminAssessmentQuestionsPreview.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx"
 import LandingPage from "./pages/admin/LandingPage.jsx";
+import StudenttokenPassword from "./components/admin/StudenttokenPassword.jsx";
 
 // Lecturer
 import ScheduleUploadExams from "./pages/lecturer/UploadExampaper.jsx";
@@ -53,6 +54,8 @@ import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
 import LectCourses from "./pages/lecturer/LecturerCourses.jsx";
 import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 import LecLogin from "./pages/lecturer/LecturerLogin.jsx"
+import ResultsTable from "./pages/lecturer/studentResults.jsx"
+import AdmintokenPassword from "./components/admin/AdmintokenPassword.jsx";
 
 
 // Student
@@ -72,7 +75,7 @@ import PassedExamsQuestionsPage from "./components/lecturer/PassedExamsQuestions
 import AdminExamList from "./pages/admin/AdminExamList.jsx";
 import StudentNotifications from "./pages/student/notifications.jsx";
 import StudentLogin from "./pages/StudentLogin.jsx";
-
+import CompletedAssessmentsTable from "./pages/lecturer/completedAssessments.jsx"
 import SampleComponent from "./pages/student/Submit.jsx";
 import ResultComponent from "./pages/student/Result.jsx";
 
@@ -150,6 +153,16 @@ function App() {
                 path="/token-password-reset"
                 element={<TokenPasswordPage />}
               />
+
+              <Route
+                path="/studenttoken-password-reset"
+                element={<StudenttokenPassword />}
+              />
+
+                <Route
+                path="/admintoken-password-reset"
+                element={<AdmintokenPassword/>}
+              />
               <Route path="/admin-courses" element={<AdminCourses />} />
               <Route path="/admin-exam-list" element={<AdminExamList />} />
               <Route
@@ -167,7 +180,7 @@ function App() {
                 path="/schedule-create-exams"
                 element={<ScheduleCreateExams />}
               />
-              <Route path="/add-questions" element={<AddQuestions />} />
+              <Route path="/exam-paper/:id/questions/add-question" element={<AddQuestions />} />
               <Route path="/exam-paper/:id" element={<ExamPaperPreview />} />
               <Route
                 path="/schedule-upload-exams/exam-list"
@@ -210,6 +223,14 @@ function App() {
               <Route
                 path="/lecturerlogin"
                 element={<LecLogin />}
+              />
+              <Route
+                path="/student-results/:id"
+                element={<ResultsTable />}
+              />
+              <Route
+                path="/completed-Assessments"
+                element={<CompletedAssessmentsTable />}
               />
 
              

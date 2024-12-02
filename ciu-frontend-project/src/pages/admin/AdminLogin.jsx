@@ -106,7 +106,7 @@ const AdminLogin = () => {
             <div className="forgot-password">
               <Link to="/adminPassword">Forgot Password?</Link>
               <span> or </span>
-              <Link to="/token-password-reset" className="signInLink">
+              <Link to="/admintoken-password-reset" className="signInLink">
                 Set password using token
               </Link>
             </div>

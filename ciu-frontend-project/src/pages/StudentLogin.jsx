@@ -111,7 +111,7 @@ const Login = () => {
                 Forgot Password?
               </Link>
               <span> or </span>
-              <Link to="/token-password-reset" className={log.signInLink}>
+              <Link to="/studenttoken-password-reset" className={log.signInLink}>
                 Set password using token
               </Link>
             </div>

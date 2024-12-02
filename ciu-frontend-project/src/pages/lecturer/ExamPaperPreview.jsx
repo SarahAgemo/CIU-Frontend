@@ -83,8 +83,12 @@ function ExamPaperPreview() {
   }, [id]);
 
   const handleEdit = () => {
-    if (!isDraft) {
-      handleSnackbar("You cannot edit an already published exam.", "error");
+    if (!isDraft || status === 'approved') {
+      handleSnackbar("You cannot edit an already approved or published exam.", "error");
+      return;
+    }
+    if (status === 'pending') {
+      handleSnackbar("You cannot edit an exam pending approval.", "error");
       return;
     }
     navigate(`/exam-paper/${id}/edit`);

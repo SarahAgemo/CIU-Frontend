@@ -113,3 +113,23 @@
     color: #990808; /* Darker shade on hover */
   }
   
+  .add-quest{
+    background-color: #106053;
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 20px;
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+
+    width: fit-content;
+    margin-top: 20px;
+    
+  }
+
+  .add-quest:hover {
+    background-color: #0B3F37;
+  }

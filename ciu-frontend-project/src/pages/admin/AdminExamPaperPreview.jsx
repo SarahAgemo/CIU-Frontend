@@ -76,6 +76,13 @@ function AdminExamPaperPreview() {
       setOpenSnackbar(true);
       return;
     }
+    if (status !== "pending") {
+      setSnackbarMessage("You can only approve an exam that's pending approval");
+      setSnackbarSeverity("warning");
+      setOpenSnackbar(true);
+      return;
+    }
+
     setDialogType("approve");
     setDialogOpen(true);
   };
