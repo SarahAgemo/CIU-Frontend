@@ -1,3 +1,4 @@
+/* Base styles remain unchanged */
 .landing-page-container {
   font-family: Arial, sans-serif;
   display: flex;
@@ -5,77 +6,56 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f7f7f7;
+  background-color: #ebebeb;
   padding: 20px;
 }
 
 .landing-page-content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
+  gap: 2rem;
   width: 80%;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  padding: 10px;
 }
 
-.landing-page-image {
+.landing-img {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 90vh;
-  background-color: #105f53;
+
+  /* background-color: #105f53; */
 }
 
 .landing-img img {
-  width: 90%;
+  width: 70%;
 }
 
 .landing-page-header h1 {
-  font-size: 28px;
+  font-size: 2rem;
   color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-weight: bold;
+  text-align: center;
 }
+
+.top-group img {
+  width: 70px;
+}
+
+.top-group {
+  padding: 0px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .top-group p {
   font-size: 28px;
   color: #333;
-  margin-bottom: 1rem;
   font-weight: bold;
-}
-
-.landing-page-button:hover {
-  opacity: 0.9;
-}
-.landing-page-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  opacity: 0.95;
-}
-
-.role-admin:hover {
-  background: #0b3f37;
-}
-
-.role-lecturer:hover {
-  background: #0b3f37;
-}
-
-.role-student:hover {
-  background: #0b3f37;
-}
-
-.landing-system-title {
-  font-size: 1.8rem;
-  color: #105f53;
-  text-transform: uppercase;
-}
-
-.landing-header .landing-welcome-text {
-  margin-top: 10px;
-  font-size: 1.5rem;
-  color: #333;
 }
 
 .landing-description {
@@ -85,41 +65,82 @@
 }
 
 .landing-button {
-  display: inline-block;
+  display: flex;
   text-decoration: none;
   width: 100%;
   padding: 10px 0;
   margin-top: 5px;
   font-size: 1rem;
   font-weight: bold;
-  color: #fff;
-  background-color: #105f53;
+  background-color: #fff;
+  color: #105f53;
   border: none;
   cursor: pointer;
   transition: background 0.3s ease;
+  align-items: center;
+  justify-content: center;
 }
 
 .landing-button:hover {
-  background-color: #0b3f37;
+  background-color: #105f53;
+  color: #fff;
 }
 
 .landing-button-group {
   display: grid;
-  grid-template-rows: 1fr 5fr 1fr;
+  grid-template-rows: 1fr 4fr 1fr;
   margin-bottom: 20px;
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   justify-content: center;
+  text-align: center;
 }
 
-.landing-buttons-section {
-  margin-top: 30px;
+/* Responsive styles */
+@media (max-width: 768px) {
+  .landing-page-content {
+    grid-template-columns: 1fr; /* Stack groups vertically */
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .top-group {
+    flex-direction: column; /* Stack logo and description */
+    align-items: center;
+  }
+
+  .top-group img {
+    width: 50px;
+    margin-bottom: 10px;
+  }
+
+  .top-group p {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .landing-img img {
+    width: 80%;
+  }
+
+  .landing-button {
+    font-size: 0.9rem;
+    padding: 8px 0;
+  }
 }
-.top-group img {
-  width: 70px;
-}
-.top-group {
-  display: flex;
-  justify-content: space-between;
+
+@media (max-width: 480px) {
+  .landing-page-header h1 {
+    font-size: 1.5rem; /* Adjust header size */
+  }
+
+  .landing-img img {
+    width: 90%; /* Increase image size on smaller screens */
+  }
+
+  .landing-button {
+    font-size: 0.8rem;
+    padding: 6px 0;
+  }
 }
