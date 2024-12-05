@@ -117,45 +117,45 @@
 //     );
 // }
 
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import DoExam from './DoExamContent.module.css';
-import axios from 'axios';
+// import React, { useState, useEffect } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import DoExam from './DoExamContent.module.css';
+// import axios from 'axios';
 
-// Function to fetch available exams from the backend
-const fetchAvailableExams = async () => {
-    const response = await fetch('http://localhost:3000/exam-paper?isDraft=false');
-    if (!response.ok) {
-        throw new Error('Failed to fetch exams');
-    }
-    return await response.json();
-};
+// // Function to fetch available exams from the backend
+// const fetchAvailableExams = async () => {
+//     const response = await fetch('http://localhost:3000/exam-paper?isDraft=false');
+//     if (!response.ok) {
+//         throw new Error('Failed to fetch exams');
+//     }
+//     return await response.json();
+// };
 
-// ExamCard component for rendering each exam
-const ExamCard = ({ exam, onDoExam }) => {
-    const scheduledDate = new Date(exam.scheduledDate);
-    const startTime = new Date(exam.startTime);
-    const endTime = new Date(exam.endTime);
+// // ExamCard component for rendering each exam
+// const ExamCard = ({ exam, onDoExam }) => {
+//     const scheduledDate = new Date(exam.scheduledDate);
+//     const startTime = new Date(exam.startTime);
+//     const endTime = new Date(exam.endTime);
 
-    return (
-        <div className={DoExam["exam-card"]}>
-            <h3>{exam.title}</h3>
-            <div className={DoExam["exam-details"]}>
-                <p><strong>Description:</strong> {exam.description}</p>
-                <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
-                <p><strong>Duration:</strong> {exam.duration}</p>
-                <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
-                <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
-                <p><strong>Course Name:</strong> {exam.courseName}</p>
-            </div>
-            <div className={DoExam["exam-actions"]}>
-                <button className={DoExam["do-exam-btn"]} onClick={() => onDoExam(exam)}>DO EXAM</button>
-            </div>
-        </div>
-    );
-};
+//     return (
+//         <div className={DoExam["exam-card"]}>
+//             <h3>{exam.title}</h3>
+//             <div className={DoExam["exam-details"]}>
+//                 <p><strong>Description:</strong> {exam.description}</p>
+//                 <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
+//                 <p><strong>Duration:</strong> {exam.duration}</p>
+//                 <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+//                 <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+//                 <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
+//                 <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
+//                 <p><strong>Course Name:</strong> {exam.courseName}</p>
+//             </div>
+//             <div className={DoExam["exam-actions"]}>
+//                 <button className={DoExam["do-exam-btn"]} onClick={() => onDoExam(exam)}>DO EXAM</button>
+//             </div>
+//         </div>
+//     );
+// };
 
 // export default function AvailableExams() {
 //     const [availableExams, setAvailableExams] = useState([]);
@@ -243,6 +243,46 @@ const ExamCard = ({ exam, onDoExam }) => {
 //     );
 // }
 
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import DoExam from './DoExamContent.module.css';
+import axios from 'axios';
+
+// Function to fetch available exams from the backend
+const fetchAvailableExams = async () => {
+    const response = await fetch('http://localhost:3000/exam-paper?isDraft=false');
+    if (!response.ok) {
+        throw new Error('Failed to fetch exams');
+    }
+    return await response.json();
+};
+
+// ExamCard component for rendering each exam
+const ExamCard = ({ exam, onDoExam }) => {
+    const scheduledDate = new Date(exam.scheduledDate);
+    const startTime = new Date(exam.startTime);
+    const endTime = new Date(exam.endTime);
+
+    return (
+        <div className={DoExam["exam-card"]}>
+            <h3>{exam.title}</h3>
+            <div className={DoExam["exam-details"]}>
+                <p><strong>Description:</strong> {exam.description}</p>
+                <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
+                <p><strong>Duration:</strong> {exam.duration}</p>
+                <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
+                <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
+                <p><strong>Course Name:</strong> {exam.courseName}</p>
+            </div>
+            <div className={DoExam["exam-actions"]}>
+                <button className={DoExam["do-exam-btn"]} onClick={() => onDoExam(exam)}>DO EXAM</button>
+            </div>
+        </div>
+    );
+};
+
 export default function AvailableExams() {
     const [availableExams, setAvailableExams] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -254,7 +294,7 @@ export default function AvailableExams() {
             try {
                 // Fetch the list of available exams
                 const exams = await fetchAvailableExams();
-                
+
                 // Retrieve student data from localStorage
                 const studentData = localStorage.getItem("user");
                 if (!studentData) {

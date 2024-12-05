@@ -178,60 +178,6 @@ const Quiz2 = () => {
     }));
   };
 
-  //  // Submit the quiz and calculate score
-  // const handleSubmit = async () => {
-  //   if (mediaRecorderRef.current) {
-  //     mediaRecorderRef.current.stop();
-  //     setIsRecording(false);
-
-  //     const blob = new Blob(recordedChunks, { type: "video/webm" });
-  //     const recordedVideoURL = URL.createObjectURL(blob);
-  //     localStorage.setItem("recordedVideo", recordedVideoURL);
-
-  //     let calculatedScore = 0;
-  //     questions.forEach((question) => {
-  //       if (selectedAnswers[question.id] === question.answer) {
-  //         calculatedScore += 1;
-  //       }
-  //     });
-  //     setScore(calculatedScore);
-
-  //     const percentageScore = ((calculatedScore / questions.length) * 100).toFixed(2);
-  //     setPercentage(percentageScore);
-
-  //     try {
-  //       let parsedUserId;
-  //       try {
-  //         const userObject = JSON.parse(userId);
-  //         parsedUserId = userObject.id;
-  //       } catch {
-  //         parsedUserId = parseInt(userId);
-  //       }
-
-  //       const scoreData = {
-  //         score: calculatedScore,
-  //         percentage: parseFloat(percentageScore),
-  //         userId: parsedUserId,
-  //         examId: parseInt(examId),
-  //         assessmentType: "add",
-  //       };
-
-  //       console.log("Sending score data:", scoreData);
-
-  //       const response = await axios.post("http://localhost:3000/scores", scoreData);
-
-  //       if (response.status === 200 || response.status === 201) {
-  //         alert("Your score has been submitted successfully!");
-  //         navigate("/student");
-  //       } else {
-  //         throw new Error(`Unexpected response status: ${response.status}`);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error submitting score:", error);
-  //       alert("Failed to submit score. Please try again or contact support.");
-  //     }
-  //   }
-  // };
   const handleSubmit = async () => {
     if (mediaRecorderRef.current) {
         // Stop recording
