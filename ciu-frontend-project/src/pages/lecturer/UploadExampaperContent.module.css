@@ -1,6 +1,6 @@
-*{
+* {
   font-family: "Roboto", sans-serif;
- }
+}
 .uploadExam-form-container {
   background: white;
   padding: 30px;
@@ -16,27 +16,22 @@
 
 .uploadExam-form-title {
   font-size: 28px;
-    color: #106053;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-align: center;
+  color: #106053;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-/* .uploadExam-form-group {
-  margin-bottom: 20px;
-} */
-
 .uploadExam-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px; /* Adds space between form groups */
-    width: 550px; /* Ensures the form takes full width */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 550px;
 }
 
 .uploadExam-label {
   font-weight: bold;
   color: #106053;
-  
 }
 
 .uploadExam-form-control {
@@ -49,17 +44,17 @@
 
 .uploadExam-btn-primary {
   background-color: #106053;
-    border: none;
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    padding: 10px 20px;
-    width: 100%;
-    border-radius: 4px;
-    cursor: pointer;
-    display: block;
-    margin:auto;
-    width: fit-content;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  width: fit-content;
 }
 
 .uploadExam-btn-primary:hover {
