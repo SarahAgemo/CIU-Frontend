@@ -144,7 +144,7 @@ const PublishedExamList = () => {
     cursor: "pointer",
     minWidth: "200px",
     fontSize: "16px",
-    marginLeft: "500px"
+    marginLeft: "500px",
   };
 
   const searchInputStyles = {
@@ -169,8 +169,6 @@ const PublishedExamList = () => {
             />
           )}
           <div className={Dash["form-container"]}>
-            
-
             {/* Search Container */}
             <div style={searchContainerStyles}>
               <button
@@ -215,7 +213,6 @@ const PublishedExamList = () => {
                         className="C-add-to-bank-button"
                         onClick={() => handleAddToBank(exam)}
                         disabled={loading}
-                        
                       >
                         <Plus className="w-4 h-4" />
                         Add to Bank

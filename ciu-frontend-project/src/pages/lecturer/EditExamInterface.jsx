@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from "moment";
-import "./EditExampaper.css";
+import "./EditExamInterface.css";
 import Header from "../../components/lecturer/HeaderPop";
 import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from '../../components/lecturer/LecturerDashboard.module.css';
 import BackButton from "../../components/lecturer/BackButton";
-import { Snackbar, Alert } from '@mui/material';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 function EditExamInterface() {
-  
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -33,8 +30,6 @@ function EditExamInterface() {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [courseUnits, setCourseUnits] = useState([]);
-  const storedUser = JSON.parse(localStorage.getItem("user"));
-  const lecturerName = `${storedUser?.first_name} ${storedUser?.last_name}`;
   const [examData, setExamData] = useState({
     title: "",
     description: "",
@@ -45,14 +40,10 @@ function EditExamInterface() {
     duration: "",
     startTime: "",
     endTime: "",
-    createdBy: lecturerName,
+    createdBy: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState('');
-  const [snackbarSeverity, setSnackbarSeverity] = useState('error');
-
 
   // Fetch courses when component mounts
   useEffect(() => {
@@ -126,70 +117,124 @@ function EditExamInterface() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setExamData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-
-    // Update course unit code when course unit changes
-    if (name === "courseUnit") {
-      const selectedUnit = courseUnits.find((unit) => unit.unitName === value);
-      if (selectedUnit) {
-        setExamData((prevData) => ({
-          ...prevData,
-          courseUnitCode: selectedUnit.unitCode,
-        }));
-      }
-    }
     
-    if (name === 'scheduledDate') {
+    if (name === "scheduledDate") {
       const selectedDateTime = moment(value);
-      const currentTime = moment();
+      const now = moment();
+      const minimumAllowedTime = now.add(24, 'hours');
 
-      if (selectedDateTime.isBefore(currentTime.add(24, 'hours'))) {
-          handleSnackbar('Scheduled date and time must be at least 24 hours from the current time.', 'error');
-          return;
+      if (selectedDateTime.isBefore(minimumAllowedTime)) {
+        setError('Scheduled date and time must be at least 24 hours from the current time.');
+        return;
       }
-      const startTime = selectedDateTime.format('HH:mm');
-      setExamData((prevData) => ({
-          ...prevData,
-          startTime
-      }));
 
-      if (examData.duration) {
-          const [durationHours, durationMinutes] = examData.duration.split(':').map(Number);
-          const endTime = selectedDateTime
-              .add(durationHours, 'hours')
-              .add(durationMinutes, 'minutes')
-              .format('HH:mm');
-          setExamData((prevData) => ({
-              ...prevData,
-              endTime
-          }));
-      }
-  } else if (name === 'duration' && examData.startTime) {
-      const startTimeMoment = moment(examData.scheduledDate);
-      const [durationHours, durationMinutes] = value.split(':').map(Number);
-      const endTime = startTimeMoment
-          .add(durationHours, 'hours')
-          .add(durationMinutes, 'minutes')
-          .format('HH:mm');
-      setExamData((prevData) => ({
+      const extractedTime = selectedDateTime.format("HH:mm:ss");
+
+      setExamData(prevData => {
+        const newData = {
           ...prevData,
-          endTime
+          scheduledDate: value,
+          startTime: extractedTime,
+        };
+
+        if (prevData.duration) {
+          const [hours, minutes] = prevData.duration.split(':').map(Number);
+          const durationMinutes = (hours * 60) + minutes;
+          const endTime = moment(selectedDateTime).add(durationMinutes, 'minutes').format("HH:mm:ss");
+          newData.endTime = endTime;
+        }
+
+        return newData;
+      });
+    }
+    else if (name === "duration") {
+      // Remove any non-digit characters except colon
+      let cleaned = value.replace(/[^\d:]/g, '');
+      
+      // Handle colon input
+      if (cleaned.includes(':')) {
+        let [hours, minutes] = cleaned.split(':');
+        
+        // Allow natural typing of hours (no padding)
+        hours = hours || '';
+        
+        // Handle minutes
+        if (minutes !== undefined) {
+          // Ensure minutes don't exceed 59
+          if (minutes.length > 0) {
+            const minutesNum = parseInt(minutes);
+            if (!isNaN(minutesNum) && minutesNum > 59) {
+              minutes = '59';
+            }
+          }
+          minutes = minutes.slice(0, 2);
+        } else {
+          minutes = '';
+        }
+  
+        cleaned = hours + (cleaned.includes(':') ? ':' : '') + minutes;
+      } else {
+        // If no colon, treat as either hours or minutes based on length
+        if (cleaned.length > 2) {
+          // Split into hours and minutes
+          const hours = cleaned.slice(0, cleaned.length - 2);
+          const minutes = cleaned.slice(-2);
+          cleaned = `${hours}:${minutes}`;
+        }
+      }
+      
+      setExamData(prevData => {
+        const newData = {
+          ...prevData,
+          duration: cleaned
+        };
+  
+        // Only update end time if we have valid hours and minutes
+        if (prevData.scheduledDate && cleaned.includes(':')) {
+          const [hours, minutes] = cleaned.split(':').map(num => parseInt(num) || 0);
+          const durationMinutes = (hours * 60) + minutes;
+          const startDateTime = moment(prevData.scheduledDate);
+          const endTime = moment(startDateTime).add(durationMinutes, 'minutes').format("HH:mm:ss");
+          newData.endTime = endTime;
+        }
+  
+        return newData;
+      });
+    }
+    else if (name === "courseUnit") {
+      const selectedUnit = courseUnits.find((unit) => unit.unitName === value);
+      setExamData(prevData => ({
+        ...prevData,
+        [name]: value,
+        courseUnitCode: selectedUnit ? selectedUnit.unitCode : ""
       }));
-  }
+    }
+    else {
+      setExamData(prevData => ({
+        ...prevData,
+        [name]: value
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const selectedDateTime = moment(examData.scheduledDate);
+      const now = moment();
+      const minimumAllowedTime = now.add(24, 'hours');
+
+      if (selectedDateTime.isBefore(minimumAllowedTime)) {
+        setError('Exam must be scheduled at least 24 hours in advance');
+        return;
+      }
+
       const formattedData = {
         ...examData,
-        duration: examData.duration,
-                scheduledDate: moment(examData.scheduledDate).format('YYYY-MM-DD HH:mm:ss'),
-                startTime: moment(examData.startTime, 'HH:mm').format('HH:mm:ss'),
-                endTime: moment(examData.endTime, 'HH:mm:ss'),
+        scheduledDate: moment(examData.scheduledDate).format("YYYY-MM-DD HH:mm:ss"),
+        startTime: moment(examData.startTime, "HH:mm:ss").format("HH:mm:ss"),
+        endTime: moment(examData.endTime, "HH:mm:ss").format("HH:mm:ss"),
+        duration: examData.duration // Keep original duration format
       };
 
       const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
@@ -208,33 +253,9 @@ function EditExamInterface() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div className="alert alert-danger">{error}</div>;
 
-  
 
   return (
     <div className={Dash.lecturerDashboard}>
-                  <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={6000}
-                onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                sx={{
-                    width: '50%'
-                }} 
-
-            >
-                <Alert onClose={() => setSnackbarOpen(false)} 
-                severity={snackbarSeverity}
-                    sx={{
-                        backgroundColor: snackbarSeverity === 'error' ? '#FFF4E5' : '#FFF4E5',
-                        color: '#000',
-                        display: 'flex',
-                        alignItems: 'center'
-                    }}
-                    icon={snackbarSeverity === 'error' ? <WarningAmberIcon /> : undefined}
-                >
-                    {snackbarMessage}
-                </Alert>
-            </Snackbar>
       <div className={Dash.dashboard}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={Dash["dashboard-content"]}>
@@ -335,42 +356,48 @@ function EditExamInterface() {
           </div>
 
           <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">
-              Duration (minutes)
-            </label>
-            <input
-              type="text"
-              name="duration"
-              value={examData.duration}
-              onChange={handleChange}
-              className="edit-exam-interface__form-control"
-              placeholder="HH:MM"
-                         required
-            />
-          </div>
+        <label className="edit-exam-interface__label">
+          Duration (HH:mm)
+        </label>
+        <input
+          type="text"
+          name="duration"
+          value={examData.duration}
+          onChange={handleChange}
+          placeholder="HH:MM"
+          className="edit-exam-interface__form-control"
+          required
+        />
+        <small className="edit-exam-interface__form-text">
+          Format: hours:minutes (e.g., 02:30 for 2 hours and 30 minutes)
+        </small>
+      </div>
 
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">Start Time</label>
-            <input
-              type="time"
-              name="startTime"
-              value={examData.startTime}
-              onChange={handleChange}
-              className="edit-exam-interface__form-control"
-            />
-          </div>
+      <div className="edit-exam-interface__form-group">
+        <label className="edit-exam-interface__label">
+          Start Time
+        </label>
+        <input
+          type="time"
+          name="startTime"
+          value={examData.startTime}
+          className="edit-exam-interface__form-control"
+          readOnly
+        />
+      </div>
 
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">End Time</label>
-            <input
-              type="time"
-              name="endTime"
-              value={examData.endTime}
-              onChange={handleChange}
-              className="edit-exam-interface__form-control"
-            />
-          </div>
-
+      <div className="edit-exam-interface__form-group">
+        <label className="edit-exam-interface__label">
+          End Time
+        </label>
+        <input
+          type="time"
+          name="endTime"
+          value={examData.endTime}
+          className="edit-exam-interface__form-control"
+          readOnly
+        />
+      </div>
           <div className="edit-exam-interface__form-group">
             <label className="edit-exam-interface__label">Created By</label>
             <input

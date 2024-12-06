@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import Header from '../../components/admin/Headerpop';
-import Sidebar from '../../components/admin/SideBarpop';
+import Header from "../../components/admin/Headerpop";
+import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
-import AdminDash from './AdminDashboard.module.css';
+import AdminDash from "./AdminDashboard.module.css";
 
 const Registration = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -71,9 +71,9 @@ const Registration = () => {
         "Email must be in the format: firstname@ciu.ac.ug";
     }
 
-    if (selectedUser === "Administrator" && !formData.password.trim()) {
-      errors.password = "Password is required";
-    }
+    // if (selectedUser === "Administrator" && !formData.password.trim()) {
+    //   errors.password = "Password is required";
+    // }
 
     return errors;
   };
@@ -101,7 +101,7 @@ const Registration = () => {
             last_name: formData.lastName,
             email: formData.emailOrStudentNumber,
             role: "administrator",
-            password: formData.password,
+            // password: formData.password,
           };
         }
 
@@ -145,190 +145,255 @@ const Registration = () => {
     }
   };
 
-
   return (
     <div>
       <style>
         {`
-              
-        body {
-          background: #ebebeb;
-          text-align: center;
-          font-family: 'Roboto Slab' ;
-        }
+           body {
+              background: #ebebeb;
+              text-align: center;
+              font-family: 'Roboto Slab';
+            }
 
-        
-        h2 {
-          font-size: x-large;
-          color: #106053;
-          margin-top:10px;
-        }
-        
-        .form {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          width: 600px;
-          margin: 0 auto;
-          margin-bottom:10px;
-          padding: 20px;
-          background-color: #ffffff;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-          border-radius: 8px;
-          font-family: 'Roboto Slab';
-        }
-          
-        .label {
-          font-size: 15px;
-          color: #106053;
-          font-weight: bold;
-          text-align: left;
-          margin-bottom:5px;
-          width: 100%;
-          display: block;
-        }
+            h2 {
+              font-size: x-large;
+              color: #106053;
+              margin-top: 10px;
+            }
 
-        .input {
-          width: 100%;
-          padding: 10px;
-          font-size: 14px;
-          margin-bottom:15px;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          box-sizing: border-box;
-          transition: border-color 0.3s ease;
-        }
-          
-        
-        .input:focus {
-          border-color: #106053;
-          outline: none;
-        }
-        .error {
-          color: #dc3545;
-          font-size: 12px;
-          text-align: left;
-          margin-top: 2px;
-        }
+            .form {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              width: 600px;
+              margin: 0 auto;
+              margin-top: 40px;
+              margin-left: 130px;
+              padding: 20px;
+              background-color: #ffffff;
+              box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+              font-family: 'Roboto Slab';
+            }
 
-        .register-button {
-          padding: 10px 15px;
-          margin: 15px;
-          box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-          border: none;
-          color: #fff;
-          cursor: pointer;
-          background-color: #106053;
-          width: 40%;
-          font-size: 16px;
-        }
+            .label {
+              font-size: 15px;
+              color: #106053;
+              font-weight: bold;
+              text-align: left;
+              margin-bottom: 5px;
+              width: 100%;
+              display: block;
+            }
 
-        .register-button:hover {
-          background-color: #0b3f37; 
-        }
+            .input {
+              width: 100%;
+              padding: 10px;
+              font-size: 14px;
+              margin-bottom: 15px;
+              border: 1px solid #ddd;
+              border-radius: 5px;
+              box-sizing: border-box;
+              transition: border-color 0.3s ease;
+            }
 
-        .button-group {
-          display: flex;
-          justify-content: space-around;
-          gap: 60px;
-          margin-bottom: 10px;
-          
-        }
+            .input:focus {
+              border-color: #106053;
+              outline: none;
+            }
 
-        .button-group button {
-          padding: 10px 15px;
-          border: none;
-          background-color: #106053;
-          color: #fff;
-          width: 100px; 
-          height: 40px; 
-          cursor: pointer;
-          font-size: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: background-color 0.3s ease;
-        }
+            .error {
+              color: #dc3545;
+              font-size: 12px;
+              text-align: left;
+              margin-top: 2px;
+            }
 
-        .button-group button:hover {
-          background-color: #0b3f37; /* Darker shade on hover */
-        }
+            .register-button {
+              padding: 10px 15px;
+                margin: 15px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                border: none;
+                color: #fff;
+                cursor: pointer;
+                background-color: #106053;
+                width: 40%;
+                font-size: 16px;
+            }
 
-        .button-group button.active-button {
-          background-color: #0b3f37; 
-          color: #fff;
-        }
-        input:focus {
-          border-color: #106053;
-          outline: none;
-        }
+            .register-button:hover {
+              background-color: #0b3f37;
+            }
 
-        .overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: none;
-          z-index: 998;
-        }
+            .button-group {
+              display: flex;
+              justify-content: space-around;
+              gap: 60px;
+              margin-bottom: 10px;
+            }
 
-        .overlay.active {
-          display: block;
-        }
+            .button-group button {
+              padding: 10px 15px;
+              border: none;
+              background-color: #106053;
+              color: #fff;
+              width: 100px;
+              height: 40px;
+              cursor: pointer;
+              font-size: 12px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              transition: background-color 0.3s ease;
+            }
 
-        .menu-open .main-content {
-          pointer-events: none;
-        }
+            .button-group button:hover {
+              background-color: #0b3f37; /* Darker shade on hover */
+            }
 
-        .dimmed {
-          opacity: 0.5;
-          transition: opacity 0.3s ease;
+            .button-group button.active-button {
+              background-color: #0b3f37;
+              color: #fff;
+            }
+
+            input:focus {
+              border-color: #106053;
+              outline: none;
+            }
+
+            .overlay {
+              position: fixed;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: rgba(0, 0, 0, 0.5);
+              display: none;
+              z-index: 998;
+            }
+
+            .overlay.active {
+              display: block;
+            }
+
+            .menu-open .main-content {
+              pointer-events: none;
+            }
+
+            .dimmed {
+              opacity: 0.5;
+              transition: opacity 0.3s ease;
+            }
+
+            /* NEW: Styles for toggle switch */
+            .toggle-switch {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-bottom: 20px; /* Added space below the switch */
+            }
+
+            .toggle-label {
+              position: relative;
+              display: inline-block;
+              width: 60px; /* Width of the toggle */
+              height: 30px; /* Height of the toggle */
+            }
+
+            .toggle-input {
+              opacity: 0; /* Hide the checkbox */
+              width: 0;
+              height: 0;
+            }
+
+            .toggle-slider {
+              position: absolute;
+              cursor: pointer;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background-color: #106053;; /* Default background */
+              border-radius: 30px;
+              transition: background-color 0.4s ease; /* Smooth background transition */
+            }
+
+            .toggle-slider::before {
+              position: absolute;
+              content: "";
+              height: 24px;
+              width: 24px;
+              left: 3px;
+              bottom: 3px;
+              background-color: white;
+              border-radius: 50%; /* Round the knob */
+              transition: transform 0.4s ease; /* Smooth movement of the knob */
+            }
+
+            .toggle-input:checked + .toggle-slider {
+              background-color: #106053; /* Active background color */
+            }
+
+            .toggle-input:checked + .toggle-slider::before {
+              transform: translateX(30px); /* Move knob to the right */
+            }
+
+            .toggle-text {
+              margin-left: 15px;
+              font-weight: bold;
+              color: #106053;
+            }
+
 }
              `}
       </style>
 
-          <div className={AdminDash["overall"]}>
-          <div className={AdminDash["dashboard"]}>
-               <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+      <div className={AdminDash["overall"]}>
+        <div className={AdminDash["dashboard"]}>
+          <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
           <div className={AdminDash["dashboard-content"]}>
             {!isMobile && <Sidebar />}
             {isMobile && (
               <>
-                <div 
-                  className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                <div
+                  className={`${AdminDash["overlay"]} ${
+                    isMobileMenuOpen ? AdminDash["active"] : ""
+                  }`}
                   onClick={toggleMobileMenu}
                 ></div>
-                <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+                <MobileMenu
+                  isOpen={isMobileMenuOpen}
+                  toggleMenu={toggleMobileMenu}
+                />
               </>
             )}
 
             <div className="container">
-              
               <form onSubmit={handleSubmit} className="form">
-               <h2>Register</h2>
-                <div className="button-group">
-                  <button
-                    type="button"
-                    className={`button ${
-                      selectedUser === "Administrator" ? "active-button" : ""
-                    }`}
-                    onClick={() => handleUserSelection("Administrator")}
-                  >
-                    Administrator
-                  </button>
-                  <button
-                    type="button"
-                    className={`button ${
-                      selectedUser === "Lecturer" ? "active-button" : ""
-                    }`}
-                    onClick={() => handleUserSelection("Lecturer")}
-                  >
-                    Lecturer
-                  </button>
+                <h2>Register</h2>
+
+                {/* Toggle Switch */}
+                <div className="toggle-switch">
+                  <label className="toggle-label">
+                    <input
+                      type="checkbox"
+                      checked={selectedUser === "Administrator"}
+                      onChange={(e) =>
+                        handleUserSelection(
+                          e.target.checked ? "Administrator" : "Lecturer"
+                        )
+                      }
+                      className="toggle-input"
+                    />
+                    <span className="toggle-slider"></span>
+                  </label>
+                  <span className="toggle-text">
+                    {selectedUser === "Administrator"
+                      ? "Administrator"
+                      : "Lecturer"}
+                  </span>
                 </div>
 
+                {/* Form Fields */}
                 <label className="label">First Name</label>
                 <input
                   type="text"
@@ -368,25 +433,10 @@ const Registration = () => {
                   <span className="error">{errors.emailOrStudentNumber}</span>
                 )}
 
-                {selectedUser === "Administrator" && (
-                  <>
-                    <label className="label">Password</label>
-                    <input
-                      type="password"
-                      placeholder="Enter Password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleInputChange}
-                      className="input"
-                    />
-                    {errors.password && (
-                      <span className="error">{errors.password}</span>
-                    )}
-                  </>
-                )}
+                
 
                 <button type="submit" className="register-button">
-                  Register
+                  Register as {selectedUser}
                 </button>
 
                 {successMessage && <p className="success">{successMessage}</p>}

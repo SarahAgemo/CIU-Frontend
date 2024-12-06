@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/admin/Headerpop";
 import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
-import { FaUserEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -64,20 +63,21 @@ function StudentList({ students, deleteStudent }) {
       <td>{student.email}</td>
       <td>{student.program}</td>
       <td>
-        <button
-          onClick={() => navigate(`/edit-student/${student.id}`)}
+      <span
+          onClick={() => navigate(`/edit/${user.id}`)}
           type="button"
-          className="students-icon-button"
+          className="btn-secondary"
         >
-          <FaUserEdit className="student-list-icon" size={30} />
-        </button>
-        <button
-          onClick={() => handleDeleteClick(student)}
+          <FaEdit className="icon-edit" />
+        </span>
+
+        <span
+          onClick={() => handleDeleteClick(user)}
           type="button"
-          className="students-icon-button"
+          className="btn-danger"
         >
-          <MdDelete className="student-list-icon" size={30} />
-        </button>
+          <FaTrash className="icon-trash" />
+        </span>
       </td>
     </tr>
   ));
@@ -88,13 +88,11 @@ function StudentList({ students, deleteStudent }) {
       <Dialog open={isDialogOpen} onClose={() => setDialogOpen(false)}>
         <DialogTitle>Confirm Delete</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete this Student Account
-          ? This action cannot be undone.
+          Are you sure you want to delete this Student Account? This action
+          cannot be undone.
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setDialogOpen(false)}>
-            Cancel
-          </Button>
+          <Button onClick={() => setDialogOpen(false)}>Cancel</Button>
           <Button onClick={confirmDelete} color="error" variant="contained">
             Delete
           </Button>
@@ -122,27 +120,38 @@ function Students() {
 
   // Fetch students from the API
   const fetchStudents = async (name = "") => {
-    const response = await fetch(
-      `http://localhost:3000/faqs/search?name=${name}`
-    );
-    const data = await response.json();
-    setStudents(data);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/faqs/search?name=${name}`
+      );
+      if (!response.ok) {
+        console.error(`Failed to fetch students. Status: ${response.status}`);
+        return;
+      }
+      const data = await response.json();
+      setStudents(data);
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
   };
 
   // Delete a student
-  const deleteStudent = (id) => {
-    fetch(`http://localhost:3000/students/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => {
-        if (response.ok) {
-          setStudents(students.filter((student) => student.id !== id));
-          alert("Student deleted successfully.");
-        } else {
-          console.error("Failed to delete student");
-        }
-      })
-      .catch((error) => console.error("Error deleting student:", error));
+  const deleteStudent = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:3000/students/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        console.error(`Failed to delete student. Status: ${response.status}`);
+        alert("Failed to delete student.");
+        return;
+      }
+      setStudents(students.filter((student) => student.id !== id));
+      alert("Student deleted successfully.");
+    } catch (error) {
+      console.error("Error deleting student:", error);
+      alert("An error occurred while trying to delete the student.");
+    }
   };
 
   // Handle search input change
@@ -211,4 +220,3 @@ function Students() {
 }
 
 export default Students;
-
