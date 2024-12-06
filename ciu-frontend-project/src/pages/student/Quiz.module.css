@@ -1,3 +1,30 @@
+.resumeNotice {
+  background-color: #e3f2fd;
+  padding: 10px 20px;
+  margin: 10px;
+  border-radius: 4px;
+  border-left: 4px solid #2196f3;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.resumeNotice p {
+  margin: 5px 0;
+  color: #1565c0;
+  font-size: 14px;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #2196f3;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+
 .ExamPage {
   display: grid;
   grid-template-columns: 300px 1fr;
