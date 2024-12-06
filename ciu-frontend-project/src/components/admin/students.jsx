@@ -64,7 +64,7 @@ function StudentList({ students, deleteStudent }) {
       <td>{student.program}</td>
       <td>
       <span
-          onClick={() => navigate(`/edit/${user.id}`)}
+          onClick={() => navigate(`/edit-student/${student.id}`)}
           type="button"
           className="btn-secondary"
         >
@@ -72,7 +72,7 @@ function StudentList({ students, deleteStudent }) {
         </span>
 
         <span
-          onClick={() => handleDeleteClick(user)}
+          onClick={() => handleDeleteClick(student)}
           type="button"
           className="btn-danger"
         >
