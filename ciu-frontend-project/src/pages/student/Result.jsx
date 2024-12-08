@@ -15,7 +15,6 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
   useEffect(() => {
     const fetchResultsAndExams = async () => {
       try {
-        // Get user data from localStorage
         const userData = localStorage.getItem("user");
         if (!userData) {
           setError("Please log in to view your results");
@@ -30,14 +29,10 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
           return;
         }
 
-        // Fetch scores for the user and exam papers
         const [scoresResponse, examsResponse] = await Promise.all([
           axios.get(`http://localhost:3000/scores/user/${user.id}`),
           axios.get("http://localhost:3000/exam-paper?isDraft=false"),
         ]);
-
-        console.log("Scores Response:", scoresResponse.data);
-        console.log("Exams Response:", examsResponse.data);
 
         const scores = scoresResponse.data;
         const examPapersMap = examsResponse.data.reduce((acc, exam) => {
@@ -45,8 +40,10 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
           return acc;
         }, {});
 
-        // Filter out unpublished results
-        const publishedResults = scores.filter((score) => score.isPublished);
+        const publishedResults = scores.filter((score) => {
+          const examPaper = examPapersMap[score.addAssessmentId];
+          return examPaper?.isPublished;
+        });
 
         if (publishedResults.length === 0) {
           setError("Results have not yet been published.");
@@ -54,7 +51,6 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
           return;
         }
 
-        // Combine scores with exam paper details
         const formattedResults = publishedResults.map((score) => {
           const examPaper = examPapersMap[score.addAssessmentId];
           return {
@@ -71,7 +67,6 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
 
         setResults(formattedResults);
       } catch (err) {
-        console.error("Error fetching data:", err);
         setError(err.response?.data?.message || "Failed to fetch your results");
       } finally {
         setLoading(false);
@@ -111,41 +106,37 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
           {error ? (
             <div className="error-message">{error}</div>
           ) : (
-            <div className="results-container">
-              {results &&
-                results.map((result, index) => (
-                  <div key={result.id || index} className="result-card">
-                    <div className="result-header">
-                      <h3>Exam Title: {result.title}</h3>
-                    </div>
-                    <div className="result-details">
-                      <div className="result-item">
-                        <strong>Course Unit:</strong>
-                        <span>{result.courseUnit}</span>
-                      </div>
-                      <div className="result-item">
-                        <strong>Course Code:</strong>
-                        <span>{result.courseUnitCode}</span>
-                      </div>
-                      <div className="result-item">
-                        <strong>Score:</strong>
-                        <span>{result.score}</span>
-                      </div>
-                      <div className="result-item">
-                        <strong>Percentage:</strong>
-                        <span
+            <div className="results-table-container">
+              {results && results.length > 0 ? (
+                <table className="results-table">
+                  <thead>
+                    <tr>
+                      <th>Exam Title</th>
+                      <th>Course Unit</th>
+                      <th>Course Code</th>
+                      <th>Score</th>
+                      <th>Percentage</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {results.map((result, index) => (
+                      <tr key={result.id || index}>
+                        <td>{result.title}</td>
+                        <td>{result.courseUnit}</td>
+                        <td>{result.courseUnitCode}</td>
+                        <td>{result.score}</td>
+                        <td
                           className={`percentage ${
                             result.percentage >= 50 ? "pass" : "fail"
                           }`}
                         >
                           {result.percentage}%
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-
-              {results && results.length === 0 && (
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
                 <div className="no-results">No results found</div>
               )}
             </div>

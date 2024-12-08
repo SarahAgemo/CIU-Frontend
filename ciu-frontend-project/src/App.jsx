@@ -104,6 +104,7 @@ function App() {
               <Route path="/request-token" element={<RequestToken />} />
 
               {/* Admin */}
+              <Route path="/" element={<LandingPage />} />
               <Route path="/admin-exam-paper/:id/questions" element={<AdminQuestionsPreview />}/>
               <Route path="/admin-exam-paper/:id" element={<AdminExamPaperPreview/>} />
               <Route path="/registers" element={<Registration />} />
