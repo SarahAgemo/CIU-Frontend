@@ -399,7 +399,7 @@
 //             I have read the instructions & consent to the capture of my video and audio for remote proctoring purposes.
 //           </label>
 //         </div>
-        
+
 //         <div className={proct["button-wrapper"]}>
 //           <button
 //             className={proct["begin-exam-btn"]}
@@ -441,6 +441,7 @@ const Proctoring = () => {
   const [secureBrowser, setSecureBrowser] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
   const [beginExamEnabled, setBeginExamEnabled] = useState(false);
+  const [warnings, setWarnings] = useState(0);
 
   const videoRef = useRef(null);
   const audioStream = useRef(null);
@@ -518,14 +519,38 @@ const Proctoring = () => {
   }, [videoEnabled, audioEnabled, secureBrowser, consentGiven]);
 
   const handleBeginExam = () => {
-    console.log("Exam ID:", examId);  // Check if the examId is valid
+    console.log("Exam ID:", examId); // Check if the examId is valid
     if (beginExamEnabled) {
       navigate(`/quiz/${examId}`);
     } else {
       alert("Please ensure all conditions are met before starting the exam.");
     }
   };
-  
+  // Logic for detecting face position and generating warnings
+  const detectFacePosition = () => {
+    // Random simulation for head not facing the camera
+    const userNotLookingAtCamera = Math.random() > 0.8;
+
+    if (userNotLookingAtCamera) {
+      setWarnings((prevWarnings) => prevWarnings + 1);
+      alert(`Warning ${warnings + 1}: Please stay in front of the camera.`);
+
+      // Auto-submit exam after two warnings
+      if (warnings + 1 >= 10) {
+        alert("Exam auto-submitted due to multiple warnings.");
+        window.location.href = "/submit-exam"; // Redirect after auto-submission
+      }
+    }
+  };
+
+  // Effect to simulate continuous face detection every 5 seconds
+  useEffect(() => {
+    const faceDetectionInterval = setInterval(() => {
+      detectFacePosition();
+    }, 5000); // Check every 5 seconds
+
+    return () => clearInterval(faceDetectionInterval); // Clean up interval on component unmount
+  }, [warnings]);
 
   return (
     <div className={proct["proctoring-overall"]}>
@@ -542,8 +567,14 @@ const Proctoring = () => {
             backgroundColor: videoEnabled ? "#ffffff" : "#ebebeb",
           }}
         >
-          {!videoEnabled && <TbDeviceComputerCamera className={proct["video-icon"]} />}
-          <video ref={videoRef} autoPlay style={{ display: videoEnabled ? "block" : "none" }} />
+          {!videoEnabled && (
+            <TbDeviceComputerCamera className={proct["video-icon"]} />
+          )}
+          <video
+            ref={videoRef}
+            autoPlay
+            style={{ display: videoEnabled ? "block" : "none" }}
+          />
         </div>
 
         <div className={proct["verification-boxes"]}>
@@ -586,10 +617,11 @@ const Proctoring = () => {
             onChange={handleConsentChange}
           />
           <label htmlFor="consent">
-            I have read the instructions & consent to the capture of my video and audio for remote proctoring purposes.
+            I have read the instructions & consent to the capture of my video
+            and audio for remote proctoring purposes.
           </label>
         </div>
-        
+
         <div className={proct["button-wrapper"]}>
           <button
             className={proct["begin-exam-btn"]}
