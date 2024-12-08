@@ -176,7 +176,7 @@ function ExamList() {
                 </div>
               </div>
             </div>
-            <h2 style={{ marginRight: "850px" }}>Exam Papers</h2>
+            <h2 style={{ marginRight: "700px" }}>Exam Papers</h2>
             {isLoading ? (
               <div>Loading...</div>
             ) : filteredExamPapers.length === 0 ? (
