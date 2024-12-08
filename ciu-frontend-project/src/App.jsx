@@ -56,6 +56,7 @@ import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 import LecLogin from "./pages/lecturer/LecturerLogin.jsx"
 import ResultsTable from "./pages/lecturer/studentResults.jsx"
 import AdmintokenPassword from "./components/admin/AdmintokenPassword.jsx";
+import OngoingAssessments from "./pages/lecturer/OngoingAssessments.jsx";
 
 
 // Student
@@ -79,6 +80,7 @@ import CompletedAssessmentsTable from "./pages/lecturer/completedAssessments.jsx
 import SampleComponent from "./pages/student/Submit.jsx";
 import ResultComponent from "./pages/student/Result.jsx";
 import "./App.css";
+
 
 function App() {
   return (
@@ -185,6 +187,7 @@ function App() {
                 path="/schedule-upload-exams/exam-list"
                 element={<ExamList />}
               />
+              <Route path="/ongoing-exams" element={<OngoingAssessments />} />
               <Route
                 path="/exam-paper/:id/questions"
                 element={<QuestionsPreview />}
