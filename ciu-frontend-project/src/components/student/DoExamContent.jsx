@@ -13,9 +13,12 @@ const fetchAvailableExams = async () => {
 };
 
 const ExamCard = ({ exam, onDoExam }) => {
+    const now = new Date();
     const scheduledDate = new Date(exam.scheduledDate);
     const startTime = new Date(exam.startTime);
-    const endTime = new Date(exam.endTime);
+
+    // Check if the button should be enabled
+    const isButtonDisabled = !(now >= scheduledDate && now >= startTime);
 
     return (
         <div className={DoExam["exam-card"]}>
@@ -23,16 +26,20 @@ const ExamCard = ({ exam, onDoExam }) => {
             <div className={DoExam["exam-details"]}>
                 <p><strong>Description:</strong> {exam.description}</p>
                 <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
-                <p><strong>Duration:</strong> {exam.duration} </p>
+                <p><strong>Duration:</strong> {exam.duration}</p>
                 <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-                <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
                 <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
-                {/* <p><strong>Course ID:</strong> {exam.courseId}</p> */}
-                <p><strong>Course Name:</strong> {exam.courseName }</p>
+                <p><strong>Course Name:</strong> {exam.courseName}</p>
             </div>
             <div className={DoExam["exam-actions"]}>
-                <button className={DoExam["do-exam-btn"]} onClick={() => onDoExam(exam)}>DO EXAM</button>
+                <button
+                    className={DoExam["do-exam-btn"]}
+                    onClick={() => onDoExam(exam)}
+                    disabled={isButtonDisabled} // Disable the button if the exam is not yet available
+                >
+                    DO EXAM
+                </button>
                 <a href="#" className={DoExam["schedule-reminder"]}>
                     Schedule Reminder <Clock size={16} />
                 </a>
@@ -63,27 +70,24 @@ export default function AvailableExams() {
                 if (!studentDetails.courseId) {
                     throw new Error("No courseId found in student data.");
                 }
-            const courses = await axios.get(`http://localhost:3000/coursesAdd`);
-            const returncourses = courses.data;
 
-                  
-                  
+                const courses = await axios.get(`http://localhost:3000/coursesAdd`);
+                const returncourses = courses.data;
 
                 const filteredExams = exams.filter(exam => exam.courseId === studentDetails.courseId);
                 const finalStudentExams = filteredExams.map(studentExam => {
                     const exam = returncourses.find(course => course.id === studentExam.courseId);
-                
+
                     return {
                         ...studentExam,
-                        courseName: exam.courseName 
+                        courseName: exam.courseName
                     };
                 });
-                
-                console.log(finalStudentExams);
+
                 setAvailableExams(finalStudentExams);
             } catch (err) {
                 setError(err.message);
-                console.log(error);
+                console.error(err);
             } finally {
                 setLoading(false);
             }
@@ -94,7 +98,7 @@ export default function AvailableExams() {
 
     const handleDoExam = (exam) => {
         console.log(exam);
-        localStorage.setItem('exam' ,exam.id);
+        localStorage.setItem('exam', exam.id);
         navigate("/proctoring", { state: { exam } });
     };
 
@@ -116,4 +120,3 @@ export default function AvailableExams() {
         </main>
     );
 }
-

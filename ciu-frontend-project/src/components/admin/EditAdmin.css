@@ -1,0 +1,82 @@
+/* Layout Container */
+.edit-admin-layout-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.edit-admin-main-content {
+    display: flex;
+    flex: 1;
+}
+
+.edit-admin-users-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+   
+}
+
+/* Container */
+.edit-admin-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.mt-5 {
+    margin-top: 30px;
+}
+
+/* Title */
+h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #106053;
+    margin-bottom: 20px;
+}
+
+label{
+    color: #106053; 
+}
+
+/* Form styling */
+.edit-admin-user-form .edit-admin-form-group {
+    margin-bottom: 15px;
+}
+
+.edit-admin-form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.edit-admin-form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Save button styling */
+.edit-admin-save-button {
+    width: fit-content;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    background-color: #106053;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-admin-save-button:hover {
+    background-color:#0B3F37;
+}
