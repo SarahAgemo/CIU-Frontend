@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 body{
     background: #ebebeb;
@@ -110,4 +110,206 @@ input.success-input, select.success-input {
 input:focus {
     border-color: #106010;
     outline: none;
-}
+} */
+
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+.registrationFormContainer {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .registrationFormHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .registrationFormHeader h2 {
+    color: #106053;
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #106053;
+    cursor: pointer;
+    padding: 0;
+  }
+  
+  .registrationForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  .buttonGroup button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #e0e0e0;
+    color: #333;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    flex: 1;
+    margin: 0 5px;
+  }
+  
+  .buttonGroup button:firstChild {
+    margin-left: 0;
+  }
+  
+  .buttonGroup button:lastChild {
+    margin-right: 0;
+  }
+  
+  .buttonGroup button.activeButton {
+    background-color: #106053;
+    color: #fff;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup label {
+    margin-bottom: 5px;
+    color: #106053;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .formGroup input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .formGroup input:focus {
+    border-color: #106053;
+    outline: none;
+  }
+  
+  .error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .registerButton {
+    padding: 12px;
+    background-color: #106053;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+  }
+  
+  .registerButton:hover {
+    background-color: #0b4d3f;
+  }
+  
+  .serverError {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  @media (max-width: 480px) {
+    .registrationFormContainer {
+      padding: 15px;
+    }
+  
+    .buttonGroup {
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .buttonGroup button {
+      margin: 0;
+    }
+  }
+
+  .toggleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin: 0 10px;
+  }
+  
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+  }
+  
+  input:checked + .slider {
+    background-color: #106053;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+  }
+  
+  .activeText {
+    font-weight: bold;
+    color: #106053;
+  }
+  

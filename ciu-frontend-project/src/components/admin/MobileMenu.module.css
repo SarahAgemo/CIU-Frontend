@@ -1,30 +1,3 @@
-/* import { LayoutDashboard, PenTool, FileText, Calendar, HelpCircle, LogOut } from "lucide-react"
-import "./MobileMenu.css"
-
-export default function MobileMenu({ isOpen, toggleMenu }) {
-  const menuItems = [
-    { icon: LayoutDashboard, label: "Dashboard" },
-    { icon: PenTool, label: "Do Exam" },
-    { icon: FileText, label: "Results" },
-    { icon: Calendar, label: "Calendar" },
-    { icon: HelpCircle, label: "Support" },
-    { icon: LogOut, label: "Logout" },
-  ]
-
-  return (
-    <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
-      <nav className="mobile-nav">
-        {menuItems.map((item, index) => (
-          <button key={index} className="mobile-button" onClick={toggleMenu}>
-            <item.icon className="mobile-icon" />
-            {item.label}
-          </button>
-        ))}
-      </nav>
-    </div>
-  )
-} */
-
 .mobile-menu {
   position: fixed;
   top: 0;

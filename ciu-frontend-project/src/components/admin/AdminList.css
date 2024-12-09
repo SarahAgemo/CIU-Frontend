@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 
 .admins-list-overall {
   font-family: "Roboto Slab", sans-serif;
@@ -46,9 +46,9 @@
   width: 100%;
   border-collapse: collapse;
   margin-top: 0px;
-  background-color: white; /* White background */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  border: none; /* Remove borders */
+  background-color: white; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border: none; 
 }
 .admin-custom-button {
   width: 15rem;
@@ -95,4 +95,142 @@
     text-align: center;
   }
 }
+ */
 
+ @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.admins-list-overall {
+  font-family: "Roboto Slab", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.layout-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.main-content {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.users-content {
+  width: 100%;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+}
+.admins-heading {
+  font-size: 2rem;
+  color: #106053;
+}
+.admin-actions-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+  width: 100%;
+}
+.admins-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  border: none; 
+}
+
+.admin-custom-button {
+  width: 15rem;
+  margin-right: auto;
+  background-color: #106053;
+  color: white;
+  border: solid 1px #106053;
+}
+.admin-custom-button:hover {
+  background-color: #004d47;
+  cursor: pointer;
+}
+.admin-search-input {
+  width: 15rem;
+  outline: none;
+  border: solid 1px #106053;
+  border-radius: 0;
+}
+.admin-custom-button,
+.admin-search-input {
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+}
+.admin-icon-button {
+  background-color: transparent;
+  border: none;
+}
+.admin-list-icon {
+  color: #106053;
+  height: 52px;
+}
+
+.admin-delete-icon {
+  color: #DC3545;
+  height: 52px;
+}
+@media (max-width: 600px) {
+  .actions-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-custom-button,
+  .admin-search-input {
+    width: 100%;
+  }
+
+  .admins-heading {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 998;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.menuOpen .mainContentWrapper {
+  pointer-events: none;
+}
+
+.dimmed {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.mainContentWrapper {
+  flex: 1;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+}
