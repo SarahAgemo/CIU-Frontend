@@ -456,7 +456,7 @@
 
 import React, { useState, useEffect } from "react";
 import { FaTimes } from "react-icons/fa";
-import styles from "./Admin-LecturerRegistration.module.css";
+import styles from "./Admin-lecturerRegistration.module.css";
 
 const AdminLecturerRegistration = ({ onClose, onRegister, initialRole }) => {
   const [isLecturer, setIsLecturer] = useState(initialRole === 'lecturer');
