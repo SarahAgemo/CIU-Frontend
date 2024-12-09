@@ -348,7 +348,7 @@ import EditExamPaper from "./pages/lecturer/EditExamPaperQuestions.jsx";
 import EditExamInterface from "./pages/lecturer/EditExamPaper.jsx";
 import PublishedExamList from "./pages/lecturer/PublishedExamList.jsx";
 import LecturerDashboard from "./components/lecturer/LecturerDashboardContent.jsx";
-import { SidebarProvider2 } from "./components/lecturer/SidebarContext2.jsx";
+import { SidebarProvider2 } from "./components/lecturer/SideBarContext2.jsx";
 import LectCourses from "./pages/lecturer/LecturerCourses.jsx";
 import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 import LecLogin from "./pages/lecturer/LecturerLogin.jsx"
