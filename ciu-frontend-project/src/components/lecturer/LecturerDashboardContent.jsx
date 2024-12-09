@@ -51,7 +51,7 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from './Headerpop';
+import Header from './HeaderPop';
 import Sidebar from './SideBarPop';
 import MobileMenu from "../../components/lecturer/MobileMenu"
 import DashboardCard from '../../components/lecturer/DashboardCard'; 
