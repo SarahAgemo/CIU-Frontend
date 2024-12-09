@@ -97,7 +97,7 @@ const Login = () => {
     <div className={log["overall"]}>
       <div className={log["wrapper"]}>
         <div className={log["top-section"]}>
-          <img src="./src/assets/images/ciu-logo-login.png" alt="Logo" />
+          <img src="./public/ciu-logo-login.png" alt="Logo" />
           <h1>ONLINE EXAMINATION SYSTEM</h1>
         </div>
         <div className={log["form-box"]}>
