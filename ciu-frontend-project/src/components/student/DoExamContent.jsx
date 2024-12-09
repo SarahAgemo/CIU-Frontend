@@ -18,7 +18,7 @@ const ExamCard = ({ exam, onDoExam }) => {
     const startTime = new Date(exam.startTime);
 
     // Check if the button should be enabled
-    const isButtonDisabled = !(now >= scheduledDate && now >= startTime);
+    // const isButtonDisabled = !(now >= scheduledDate && now >= startTime);
 
     return (
         <div className={DoExam["exam-card"]}>
@@ -36,7 +36,7 @@ const ExamCard = ({ exam, onDoExam }) => {
                 <button
                     className={DoExam["do-exam-btn"]}
                     onClick={() => onDoExam(exam)}
-                    disabled={isButtonDisabled} 
+                    // disabled={isButtonDisabled} 
                     // Disable the button if the exam is not yet available
                 >
                     DO EXAM
