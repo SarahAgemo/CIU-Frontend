@@ -1,5 +1,5 @@
 /* Styles for PublishedExamList component */
-
+/* 
 .C-exam-list-container {
     max-width: 500px;
     margin: 0 auto;
@@ -39,20 +39,20 @@
   }
   
   .C-glass-table th {
-    background-color: #e9ecef; /* Light background for headers */
+    background-color: #e9ecef; 
     font-weight: bold;
     color: #333;
   }
   
   .C-glass-table tbody tr:nth-child(even) {
-    background-color: #f8f9fa; /* Light gray for alternating rows */
+    background-color: #f8f9fa; 
   }
   
   .C-glass-table tbody tr:hover {
-    background-color: #e2e6ea; /* Slight highlight on hover */
+    background-color: #e2e6ea; 
   }
   
-  /* Action button styles */
+
   .C-preview-button,
   .C-add-to-bank-button {
     padding: 8px 12px;
@@ -75,7 +75,7 @@
   
   
   .C-preview-button:hover {
-    background-color: #0B3F37; /* Darker shade on hover */
+    background-color: #0B3F37; 
   }
   
   .C-add-to-bank-button {
@@ -89,15 +89,14 @@
   
   
   .C-add-to-bank-button:hover {
-    background-color: #0B3F37; /* Darker shade on hover */
+    background-color: #0B3F37; 
   }
   
   .C-add-to-bank-button:disabled {
-    background-color: #6c757d; /* Gray when disabled */
+    background-color: #6c757d; 
     cursor: not-allowed;
   }
-  
-  /* Error and loading styles */
+
   .C-alert.alert-danger {
     color: #721c24;
     background-color: #f8d7da;
@@ -113,4 +112,137 @@
     text-align: center;
     padding: 20px;
   }
+   */
+
   
+   /* Styles for PublishedExamList component */
+
+.C-exam-list-container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.C-exam-list-container h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.C-glass-table {
+  width: 100%; 
+  border-collapse: collapse;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px); 
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 20px;
+}
+.C-form-container{
+  width: 100%;
+  
+}
+
+.C-glass-table th,
+.C-glass-table td {
+  padding: 15px;
+  border: 1px solid #dee2e6;
+  text-align: left;
+}
+
+.C-glass-table th {
+  background-color: #e9ecef; /* Light background for headers */
+  font-weight: bold;
+  color: #333;
+}
+
+.C-glass-table tbody tr:nth-child(even) {
+  background-color: #f8f9fa; /* Light gray for alternating rows */
+}
+
+.C-glass-table tbody tr:hover {
+  background-color: #e2e6ea; /* Slight highlight on hover */
+}
+
+/* Action button styles */
+.C-preview-button,
+.C-add-to-bank-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.C-dashboard-content{
+  display:flex;
+  
+}
+
+.C-preview-button {
+  background-color: #106053;
+  color: #ffffff;
+}
+
+
+
+.C-preview-button:hover {
+  background-color: #0B3F37; /* Darker shade on hover */
+}
+
+.C-add-to-bank-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #106053;
+  color: #ffffff;
+}
+
+
+
+.C-add-to-bank-button:hover {
+  background-color: #0B3F37; /* Darker shade on hover */
+}
+
+.C-add-to-bank-button:disabled {
+  background-color: #6c757d; /* Gray when disabled */
+  cursor: not-allowed;
+}
+
+/* Error and loading styles */
+.C-alert.alert-danger {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.C-spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+}
+
+.C-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(16, 96, 83, 0.3);
+  border-radius: 50%;
+  border-top-color: #106053;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

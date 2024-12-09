@@ -1,0 +1,149 @@
+*{
+    font-family: 'Roboto', sans-serif;
+  }
+  .exam-list-container {
+      max-width: 800px; 
+      margin: 0 auto; 
+      padding: 20px; 
+      background-color: #fff; 
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+  
+  
+  
+  h3 {
+      text-align: center; /* Center the header */
+      font-size: 24px; /* Font size for the header */
+      font-weight: 600; /* Bold header text */
+      color: #106053; /* Dark green color */
+      margin-bottom: 10px; /* Spacing below the header */
+      margin-top: 40px;
+  }
+  
+  /* Table styling */
+  .E-glass-table {
+      width: 100%; /* Full width table */
+      border-collapse: collapse; /* Merge table borders */
+      padding: 20px;
+      border-radius: 6px;    
+  }
+  
+  .E-glass-table th, .glass-table td {
+      padding: 12px; /* Padding inside table cells */
+      border: 1px solid #ddd; /* Light border for table cells */
+      text-align: left; /* Align text to the left */
+      border-radius: 6px;  
+  }
+  
+  .E-glass-table th {
+      color: #106053; /* White text for header */
+      border-radius: 6px;  
+  }
+  
+  .glass-table tr:nth-child(even) {
+      background-color: #f2f2f2; /* Light gray background for even rows */
+      border-radius: 6px;  
+  }
+  
+  .E-status-text {
+      padding: 6px 12px; /* Padding inside status buttons */
+      border: none; /* Remove border */
+      border-radius: 4px; /* Rounded corners for buttons */
+      font-size: 14px; /* Font size for button text */
+      cursor: pointer; /* Pointer cursor on hover */
+      transition: background-color 0.3s ease; /* Transition effect for hover */
+  }
+  
+  .E-status-text.draft {
+      color: #9b6712; /* Orange for draft status */
+  }
+  
+  .E-status-text.published {
+      color:  #106053; /* Green for published status */
+  }
+  
+  .E-status-text.pending {
+      color:  #555f5d; /* Green for published status */
+  }
+  
+  .E-status-text.approved {
+      color:  #18bb59; /* Green for published status */
+  }
+  
+  .E-status-text.rejected {
+      color:  #f73131; /* Green for published status */
+  }
+  
+  .E-status-text.unpublished {
+      color:  #f73131; /* Green for published status */
+  }
+  
+  .E-preview-button {
+      padding: 6px 12px; /* Padding for preview button */
+      border: none; /* Remove border */
+      border-radius: 4px; /* Rounded corners */
+      background-color:  #106053; /* Blue background */
+      color: #fff; /* White text color */
+      cursor: pointer; /* Pointer cursor on hover */
+      transition: background-color 0.3s ease; /* Transition effect for hover */
+  }
+  
+  .E-preview-button:hover {
+      background-color:  #0B3F37; /* Darker blue on hover */
+  }
+  
+  /* Alert messages */
+  .alert {
+      padding: 10px; /* Padding for alert messages */
+      margin-top: 15px; /* Margin above alert messages */
+      border-radius: 4px; /* Rounded corners */
+      font-weight: 500; /* Bold text */
+  }
+  
+  .alert-danger {
+      background-color: #f8d7da; /* Light red background for error */
+      color: #721c24; /* Dark red text */
+  }
+  
+  .E-spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+  
+  .E-spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(16, 96, 83, 0.3);
+    border-radius: 50%;
+    border-top-color: #106053;
+    animation: spin 1s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .overlay.active {
+    display: block;
+  }
+  
+  .menuOpen .mainContentWrapper {
+    pointer-events: none;
+  }
+  
+  .dimmed {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .mainContentWrapper {
+    flex: 1;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+  }

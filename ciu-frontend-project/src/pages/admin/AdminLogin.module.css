@@ -1,0 +1,456 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.admin-overall {
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #ebebeb;
+  padding: 20px 0;
+}
+.wrapper {
+  position: relative;
+  width: 420px;
+  height: 588px;
+  background: white;
+  border-radius: 0px;
+  color: #106053;
+}
+.wrapper .form-box {
+  width: 100%;
+  padding: 40px;
+}
+.top-section {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 185px;
+  background: #106053;
+  background-size: cover;
+  color: white;
+}
+.top-section h1 {
+  font-size: 30px;
+  text-align: center;
+}
+
+.personel-dropdown {
+  position: relative;
+  display: flex;
+  margin-right: 30px;
+  height: 40px;
+  background: white;
+  width: 100%;
+}
+.personel-dropdown .select {
+  width: 85%;
+}
+.select-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #106053;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border: #ebebeb;
+  outline: none;
+  font-size: 16px;
+  box-shadow: 0 4px 8px 0 rgba(235, 235, 235, 1);
+  padding: 10px;
+  cursor: pointer;
+}
+.option-list {
+  width: 85%;
+  overflow: hidden;
+  background: white;
+  list-style: none;
+  position: absolute;
+  z-index: 1000;
+  border: solid 1px #ebebeb;
+  box-shadow: 0 4px 8px 0 rgba(235, 235, 235, 1);
+}
+.option-list li {
+  width: 100%;
+  padding: 10px;
+  cursor: pointer;
+  position: relative;
+}
+.option-list li:hover {
+  color: white;
+  background: #106053;
+}
+
+.icon-div {
+  height: 100%;
+  width: 40px;
+  margin-right: 10px;
+  background-color: white;
+  border-radius: 10px;
+}
+.icon-div .icon {
+  size: 100%;
+}
+form .input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 20px 0;
+  background: #ebebeb;
+}
+
+h6 {
+  font-size: 15px;
+  text-align: center;
+}
+
+.input-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  font-size: 16px;
+  color: black;
+  padding: 20px 45px 20px 20px;
+  margin-bottom: 20px;
+}
+.input-box input::placeholder {
+  color: #4f4e4e;
+}
+
+.toggle-icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  translate: 0 -50%;
+  font-size: 18px;
+}
+
+.remember-forgot {
+  flex-direction: row;
+  flex: 1;
+  display: flex;
+  align-items: center; 
+  /* gap: 10px;  */
+  /* border: 1px solid #ebebeb; */
+  /* padding: 10px 15px; */
+  /* box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); */
+  margin-top: 0;
+  margin-bottom: 20px;
+  width: 30%;
+
+}
+
+.remember-forgot label{
+  accent-color: white;
+  margin-right: 4px;
+  font-size: 14.5px;
+  white-space: nowrap;
+  color: #106053;
+  align-content: flex-end;
+  width: 100%;
+  position: relative;
+}
+
+.forgot-password a {
+  color: #106053;
+  font-size: 14.5px;
+  text-decoration: none;
+}
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+.login-submit-button {
+  width: 100%;
+  height: 45px;
+  background: #106053;
+  color: white;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+}
+.login-submit-button:hover {
+  background: #0b3f37;
+}
+form .forgot-password {
+  margin: 20px 0 15px;
+}
+.success-message {
+  color: green;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  .wrapper {
+    width: 75vw;
+  }
+}
+
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-save-button {
+  background-color: #106053;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.modal-save-button:hover {
+  background-color: #0b4d43;
+}
+
+/* Add any additional styles you need for the modal here */
+
+.reset-password-container {
+  font-family: 'Roboto', sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.reset-password-title {
+  font-size: 1.8rem;
+  color: #106053;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.reset-password-subtitle {
+  font-size: 0.9rem;
+  color: #252525;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.reset-password-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.reset-password-legend {
+  font-size: 1rem;
+  color: #8dc642;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.reset-password-input {
+  width: 80%;
+  padding: 12px;
+  border: 2px solid #065c4c;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  margin-left: 25px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.input-box {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #106053;
+  height: 128px;
+}
+
+.password-toggle:hover {
+  color: #0b4d43;
+}
+
+
+.reset-password-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #106053;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.reset-password-button:hover,
+.reset-password-button-hover {
+  background-color: #b7d1c8;
+  color: #106053;
+}
+
+@media (max-width: 480px) {
+  .reset-password-container {
+    padding: 10px;
+  }
+
+  .reset-password-title {
+    font-size: 1.5rem;
+  }
+
+  .reset-password-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .reset-password-input,
+  .reset-password-button {
+    font-size: 0.9rem;
+  }
+}
+
+/* Existing styles... */
+
+
+/* Updated and new styles for the 'Set your password' form */
+.modal-form .input-box {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin: 0;
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+}
+
+.modal-form .input-box input {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+  padding: 15px 45px 15px 20px;
+}
+
+.modal-form .input-box input::placeholder {
+  color: #999;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #106053;
+  font-size: 18px;
+  padding: 5px;
+}
+
+.password-toggle:hover {
+  color: #0b4d43;
+}
+
+.modal-save-button {
+  background-color: #106053;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.3s, transform 0.2s;
+  align-self: center;
+  width: 100%;
+  max-width: 200px;
+}
+
+.modal-save-button:hover {
+  background-color: #0b4d43;
+  transform: translateY(-2px);
+}
+
+.modal-save-button:active {
+  transform: translateY(0);
+}
+
+
+/* Styles for the Dialog component */
+/* .MuiDialog-paper {
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
+.MuiDialogTitle-root {
+  background-color: #106053;
+  color: white;
+  padding: 16px 24px !important;
+}
+
+.MuiDialogContent-root {
+  padding: 24px !important;
+}
+
+.MuiIconButton-root {
+  color: white !important;
+} */
+
+@media (max-width: 480px) {
+  .modal-form {
+    padding: 15px;
+  }
+
+  .modal-form .input-box {
+    height: 45px;
+  }
+
+  .modal-form .input-box input {
+    font-size: 14px;
+    padding: 12px 40px 12px 15px;
+  }
+
+  .password-toggle {
+    font-size: 16px;
+  }
+
+  .modal-save-button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.modal-title {
+  margin-bottom: 20px;
+  color: #106053;
+  font-size: 1.5rem;
+  text-align: center;
+}
+

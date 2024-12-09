@@ -1,0 +1,237 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+.over {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.layout-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  background-color: #ffffff;
+}
+
+.main-content {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  overflow: hidden;
+  background-color: #ffffff;
+}
+
+.students-content {
+  width: 100%;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.students {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.actions-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #ffffff;
+  align-items: center;
+  padding: 15px;
+  overflow: hidden;
+}
+
+.student-heading {
+  font-size: 2rem;
+  color: #106053;
+}
+
+.students-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  margin-top: 0;
+}
+
+.custom-button {
+  width: 15rem;
+  margin-right: auto;
+  background-color: #106053;
+  color: white;
+  border: solid 1px #106053;
+}
+
+.custom-button:hover {
+  background-color: #004d47;
+  cursor: pointer;
+}
+
+.search-input {
+  width: 15rem;
+  outline: none;
+  border: solid 1px #106053;
+  border-radius: 0;
+}
+
+.custom-button,
+.search-input {
+  height: 2.5rem;
+  padding: 0 1rem;
+  font-size: 1rem;
+}
+
+.students-icon-button {
+  background-color: transparent;
+  border: none;
+}
+
+.student-list-icon {
+  color: #106053;
+  height: 60%;
+}
+
+.student-delete-icon {
+  color: #DC3545;
+  height: 80%;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.edit-student-modal {
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #106053;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  flex: 1;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #106053;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.update-button {
+  background-color: #106053 !important;
+  color: white !important;
+  border: none !important;
+  padding: 0.75rem 1.5rem !important;
+  font-size: 1rem !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  width: 100% !important;
+}
+
+.update-button:hover {
+  background-color: #004d47;
+}
+
+@media (max-width: 600px) {
+  .actions-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .custom-button,
+  .search-input {
+    width: 100%;
+  }
+
+  .student-heading {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 998;
+}
+
+.overlay.active {
+  display: block;
+}
+
+.menuOpen .mainContentWrapper {
+  pointer-events: none;
+}
+
+.dimmed {
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.mainContentWrapper {
+  flex: 1;
+  transition: opacity 0.3s ease;
+  padding: 20px;
+  overflow-y: auto;
+}

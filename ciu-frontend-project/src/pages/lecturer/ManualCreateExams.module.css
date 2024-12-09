@@ -1,0 +1,16 @@
+
+ .createExamForm {
+    padding: 20px;
+  }
+  
+  .createExamForm h2 {
+    margin-bottom: 20px;
+    color: #106053;
+  }
+  
+  .formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
