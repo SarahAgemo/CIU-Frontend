@@ -315,7 +315,7 @@ import ManageUsers from "./pages/admin/ManageUsers.jsx";
 import Users from "./components/admin/UsersContent.jsx";
 import EditUser from "./components/admin/EditLecturer.jsx";
 import Layout from "./components/admin/Layout.jsx";
-import Students from "./components/admin/Students.jsx";
+// import Students from "./components/admin/Students.jsx";
 import EditStudent from "./components/admin/EditStudent.jsx";
 import Adminuser from "./components/admin/AdminList.jsx";
 import Editadmin from "./components/admin/Editadmin.jsx";
