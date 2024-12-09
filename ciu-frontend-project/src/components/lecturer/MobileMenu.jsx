@@ -121,7 +121,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
     { icon: LayoutDashboard, label: 'Dashboard', path: '/lecturerdashboard' },
     { icon: FileText, label: 'Courses', path: '/lect-courses' },
     { icon: HelpCircle, label: 'Question Bank', path: '/question-bank' },
-    { icon: Video, label: 'Proctoring', path: '' },
+    { icon: Video, label: 'Proctoring', path: '/proctoring/ongoing-exams' },
     { icon: FileText, label: 'Exam Management', path: '/exam-management' },
     // { 
     //   icon: FileText, 

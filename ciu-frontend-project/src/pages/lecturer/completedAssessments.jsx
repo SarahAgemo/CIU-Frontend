@@ -137,7 +137,7 @@ import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "./completedAssessments.module.css";
 import BackButton from "../../components/lecturer/BackButton";
 import { useParams } from "react-router-dom";
-import './completedAssessments.css'
+import './completedAssessments.module.css'
 
 function CompletedAssessmentsTable() {
   const [completedAssessments, setCompletedAssessments] = useState([]);
@@ -150,6 +150,29 @@ function CompletedAssessmentsTable() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  // useEffect(() => {
+  //   async function fetchCompletedAssessments() {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
+  //       console.log("Fetched Assessments:", response.data); // Debug log
+  //       setCompletedAssessments(response.data);
+  //     } catch (error) {
+  //       console.error("Error fetching completed assessments:", error);
+  //     }
+  //   }
+  
+  //   fetchCompletedAssessments();
+
+  //   const handleResize = () => {
+  //     setIsMobile(window.innerWidth <= 768);
+  //   };
+
+  //   window.addEventListener('resize', handleResize);
+  //   handleResize();
+
+  //   return () => window.removeEventListener('resize', handleResize);
+  // }, []);
+
   useEffect(() => {
     async function fetchCompletedAssessments() {
       try {
@@ -160,44 +183,51 @@ function CompletedAssessmentsTable() {
         console.error("Error fetching completed assessments:", error);
       }
     }
-  
+
     fetchCompletedAssessments();
-
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
 
   const handlePreview = (id) => {
     navigate(`/student-results/${id}`);
   };
 
+  // const handlePublish = async (id) => {
+  //   try {
+  //     console.log("Publishing results for ID:", id);
+  //     const response = await axios.patch(`http://localhost:3000/exam-paper/${id}/publishResults`, {
+  //       isPublished: true,
+  //     });
+  
+  //     console.log("Response:", response.data);
+  
+  //     // Refetch the completed assessments
+  //     const updatedData = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
+  //     setCompletedAssessments(updatedData.data);
+  
+  //     // Update the state to reflect the published status locally (optional)
+  //     setCompletedAssessments((prev) =>
+  //       prev.map((assessment) =>
+  //         assessment.id === id
+  //           ? { ...assessment, isPublished: true }
+  //           : assessment
+  //       )
+  //     );
+  //   } catch (error) {
+  //     console.error("Error publishing results:", error);
+  //   }
+  // };
+   
   const handlePublish = async (id) => {
     try {
       console.log("Publishing results for ID:", id);
-      const response = await axios.patch(`http://localhost:3000/exam-paper/${id}/publishResults`, {
+      await axios.patch(`http://localhost:3000/exam-paper/${id}/publishResults`, {
         isPublished: true,
       });
-  
-      console.log("Response:", response.data);
-  
-      // Refetch the completed assessments
+
+      // Refetch the completed assessments after publishing
       const updatedData = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
       setCompletedAssessments(updatedData.data);
-  
-      // Update the state to reflect the published status locally (optional)
-      setCompletedAssessments((prev) =>
-        prev.map((assessment) =>
-          assessment.id === id
-            ? { ...assessment, isPublished: true }
-            : assessment
-        )
-      );
     } catch (error) {
       console.error("Error publishing results:", error);
     }
@@ -223,8 +253,8 @@ function CompletedAssessmentsTable() {
               <BackButton targetPath="/exam-management" size={30} color="#106053" />
             </div>
             <h2>Completed Assessments</h2>
-            <div className={Dash.dashboardCards}>
-              <table className={Dash.completedAssessmentsTable}>
+            <div className="tableWrapper">
+              <table className="completedAssessmentsTable">
                 <thead>
                   <tr>
                     <th>Course Unit</th>
@@ -243,15 +273,53 @@ function CompletedAssessmentsTable() {
                           ? new Date(assessment.endTime).toLocaleString()
                           : "N/A"}
                       </td>
-                      <td>
-                        <button onClick={() => handlePreview(assessment.id)}>
+                      <td style={{ display: 'flex', gap: '8px', justifyContent: 'flex-start' }}>
+                        <button
+                          onClick={() => handlePreview(assessment.id)}
+                          style={{
+                            backgroundColor: '#106053',
+                            color: '#ffffff',
+                            padding: '6px 12px',
+                            fontSize: '12px',
+                            border: 'none',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            transition: 'all 0.3s ease',
+                          }}
+                          onMouseEnter={(e) => {
+                            e.target.style.backgroundColor = '#0b4d43';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.backgroundColor = '#106053';
+                          }}
+                        >
                           Preview
                         </button>
                         <button
                           onClick={() => handlePublish(assessment.id)}
+                          style={{
+                            backgroundColor: assessment.isPublished ? '#e0e0e0' : '#106053',
+                            color: assessment.isPublished ? '#a0a0a0' : '#ffffff',
+                            padding: '6px 12px',
+                            fontSize: '12px',
+                            border: 'none',
+                            borderRadius: '4px',
+                            cursor: assessment.isPublished ? 'not-allowed' : 'pointer',
+                            transition: 'all 0.3s ease',
+                          }}
+                          onMouseEnter={(e) => {
+                            if (!assessment.isPublished) {
+                              e.target.style.backgroundColor = '#0b4d43';
+                            }
+                          }}
+                          onMouseLeave={(e) => {
+                            if (!assessment.isPublished) {
+                              e.target.style.backgroundColor = '#106053';
+                            }
+                          }}
                           disabled={assessment.isPublished}
                         >
-                          {assessment.isPublished ? "Published" : "Publish"}
+                          {assessment.isPublished ? 'Published' : 'Publish'}
                         </button>
                       </td>
                     </tr>
@@ -259,6 +327,8 @@ function CompletedAssessmentsTable() {
                 </tbody>
               </table>
             </div>
+
+
           </div>
         </div>
       </div>

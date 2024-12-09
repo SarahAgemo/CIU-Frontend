@@ -355,6 +355,7 @@ import LecLogin from "./pages/lecturer/LecturerLogin.jsx"
 import ResultsTable from "./pages/lecturer/studentResults.jsx"
 import ManageExams from './pages/lecturer/ManageExams.jsx'
 import AdmintokenPassword from "./components/admin/AdmintokenPassword.jsx";
+import OngoingAssessments from "./pages/lecturer/OngoingAssessments.jsx"
 
 
 // Student
@@ -484,6 +485,10 @@ function App() {
               <Route
                 path="/schedule-upload-exams/exam-list"
                 element={<ExamList />}
+              />
+              <Route
+                path="/proctoring/ongoing-exams"
+                element={<OngoingAssessments />}
               />
               <Route
                 path="/exam-paper/:id/questions"

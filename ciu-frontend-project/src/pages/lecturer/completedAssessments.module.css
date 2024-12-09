@@ -141,3 +141,53 @@
     transition: opacity 0.3s ease;
     padding: 20px;
   }
+
+  /* Style for completed assessment buttons */
+.completed-review {
+  background-color: #106053; /* Green background */
+  color: #ffffff; /* White text */
+  font-size: 14px; /* Font size */
+  padding: 10px 20px; /* Padding for a nicer button shape */
+  border: none; /* Remove border */
+  border-radius: 4px; /* Slightly rounded corners */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transition for hover */
+}
+
+/* Hover effect for buttons */
+.completed-review:hover {
+  background-color: #0b4d43; /* Darker green on hover */
+  transform: scale(1.05); /* Slightly enlarge the button */
+}
+
+/* Disabled state for buttons */
+.completed-review:disabled {
+  background-color: #e0e0e0; /* Light gray for disabled state */
+  color: #a0a0a0; /* Dimmed text color */
+  cursor: not-allowed; /* Not-allowed cursor for disabled state */
+  transform: none; /* No scaling */
+}
+
+/* Smaller button styles */
+.completedAssessmentsTable button {
+  border: none; /* Remove border */
+  background-color: #106053; /* Green background */
+  color: #ffffff; /* White text */
+  padding: 6px 12px; /* Smaller padding */
+  font-size: 12px; /* Smaller font size */
+  border-radius: 4px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: all 0.3s ease;
+}
+
+.completedAssessmentsTable button:hover {
+  background-color: #0b4d43; /* Darker green on hover */
+}
+
+.completedAssessmentsTable button:disabled {
+  background-color: #e0e0e0; /* Light gray */
+  color: #a0a0a0; /* Dimmed text */
+  cursor: not-allowed; /* Not-allowed cursor */
+}
+
+ 
