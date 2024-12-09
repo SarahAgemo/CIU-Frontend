@@ -1,6 +1,19 @@
 *{
   font-family: 'Roboto', sans-serif;
 }
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard-content {
+  display: flex;
+  flex: 1;
+  overflow-y: auto;
+}
+
   .questions-preview-header {
     color: #106053;
     font-size: 24px;
@@ -20,11 +33,13 @@
   /* Question Card */
   .question-card {
     padding: 15px;
-    width: 800px;
+    width: 100%;
+    max-width: 800px;
     /* border: 1px solid #ced4da; */
     border-radius: 6px;
     background-color: #ffffff;
     transition: box-shadow 0.3s ease;
+    margin: 20px auto;
   }
   
   .question-card:hover {
@@ -124,23 +139,103 @@
     color: #990808; /* Darker shade on hover */
   }
   
-  .add-quest{
-    background-color: #106053;
-    border: none;
-    color: white;
-    font-weight: bold;
+  /* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #106053;
+}
+
+/* .questions-preview-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  overflow-y: auto;
+} */
+
+.questions-preview-container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.add-quest {
+  background-color: #106053;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto 0;
+  transition: background-color 0.3s ease;
+}
+
+.add-quest:hover {
+  background-color: #0B3F37;
+}
+
+.add-quest svg {
+  margin-right: 8px;
+}
+
+.MuiDialog-paper {
+  max-width: 600px !important;
+  width: 100% !important;
+}
+
+.MuiDialogContent-root {
+  padding: 20px !important;
+}
+
+@media (max-width: 768px) {
+  .question-card {
+    width: 95%;
+    margin: 10px auto;
+  }
+
+  .questions-preview-header {
+    font-size: 20px;
+  }
+
+  .total-questions {
     font-size: 16px;
-    padding: 10px 20px;
-    width: 100%;
-    border-radius: 4px;
-    cursor: pointer;
-    display: block;
-
-    width: fit-content;
-    margin-top: 20px;
-    
   }
 
-  .add-quest:hover {
-    background-color: #0B3F37;
+  .modal-content {
+    width: 95%;
   }
+}

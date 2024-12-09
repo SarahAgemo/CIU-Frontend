@@ -1,0 +1,107 @@
+.edit-lecturer-dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.edit-lecturer-dashboard-wrapper {
+    display: flex;
+    flex: 1;
+}
+
+.edit-lecturer-dashboard-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.edit-lecturer-layout-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.edit-lecturer-main-content {
+    display: flex;
+    flex: 1;
+}
+
+.edit-lecturer-users-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.edit-lecturer-edit-user-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.edit-lecturer-edit-user-form .edit-lecturer-form-group {
+    margin-bottom: 15px;
+}
+
+.edit-lecturer-form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.edit-lecturer-form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.edit-lecturer-password-group {
+    position: relative;
+}
+
+.edit-lecturer-password-input {
+    display: flex;
+    align-items: center;
+}
+
+.edit-lecturer-eye-icon {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+#save-changes {
+   
+    width:fit-content;   
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    background-color: #106053;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 2px;
+}
+.edit-lecturer-save-button {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+    background-color: #106053;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-lecturer-save-button:hover {
+    background-color: #0B3F37;
+}

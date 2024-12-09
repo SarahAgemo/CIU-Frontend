@@ -12,7 +12,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
     { icon: LayoutDashboard, label: "Dashboard", path: "/student" },
     { icon: FileText, label: "Do Exam", path: '/student/do-exam'},
     { icon: ClipboardList, label: "Results", path: '/student/results' },
-    { icon: Calendar, label: "Calendar", path: '/student/calendar' },
+    // { icon: Calendar, label: "Calendar", path: '/student/calendar' },
     { icon: HelpCircle, label: "Support", path: '/student/support' },
     { icon: LogOut, label: "Logout", path: "/" },
   ];

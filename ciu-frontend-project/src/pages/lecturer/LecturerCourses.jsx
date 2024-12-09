@@ -253,17 +253,20 @@ function LectCourses() {
             <div className={Dash.dashboard}>
                 <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
                 <div className={Dash["dashboard-content"]}>
-                    {!isMobile && <Sidebar />}
-                    {isMobile && (
-                        <MobileMenu
-                            isOpen={isMobileMenuOpen}
-                            toggleMenu={toggleMobileMenu}
-                        />
-                    )}
+                  {!isMobile && <Sidebar />}
+                  {isMobile && (
+                    <>
+                      <div 
+                        className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`} 
+                        onClick={toggleMobileMenu}
+                      ></div>
+                      <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+                    </>
+                  )}
                     <div className={course["users-content"]}>
-                        <div className={course["row justify-content-center pt-5"]}>
-                            <UserList users={users} />
-                        </div>
+                      <div className={`${Dash.mainContentWrapper} ${isMobileMenuOpen ? Dash.dimmed : ''}`}>
+                        <UserList users={users} />
+                      </div>
                     </div>
                 </div>
             </div>
