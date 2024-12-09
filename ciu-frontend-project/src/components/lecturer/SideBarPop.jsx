@@ -91,7 +91,7 @@ import React, { useState } from 'react';
 import { LayoutDashboard, FileText, LogOut, Video, HelpCircle, ChevronDown } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSidebar } from './SidebarContext2';
-import Side from './SideBarpop.module.css';
+import Side from './SideBarPop.module.css';
 
 export default function Sidebar() {
   const { activeItem, setActiveItem } = useSidebar();
