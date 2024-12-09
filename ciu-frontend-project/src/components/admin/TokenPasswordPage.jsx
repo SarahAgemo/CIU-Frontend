@@ -87,7 +87,7 @@ export default function TokenPasswordPage() {
                             className="token-password-eye-icon"
                             onClick={() => setShowNewPassword((prev) => !prev)}
                         >
-                            {showNewPassword ? <FaEyeSlash /> : <FaEye />}
+                            {showNewPassword ? <FaEye /> : <FaEyeSlash />}
                         </button>
                     </div>
                 </div>
@@ -108,7 +108,7 @@ export default function TokenPasswordPage() {
                             className="token-password-eye-icon"
                             onClick={() => setShowConfirmPassword((prev) => !prev)}
                         >
-                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                            {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
                         </button>
                     </div>
                 </div>

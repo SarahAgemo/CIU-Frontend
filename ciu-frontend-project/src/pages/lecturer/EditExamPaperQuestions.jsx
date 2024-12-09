@@ -1,40 +1,214 @@
+// import React, { useEffect, useState } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import "./EditExamPaperQuestions.css";
+// import Header from "../../components/lecturer/HeaderPop";
+// import Sidebar from "../../components/lecturer/SideBarPop";
+// import MobileMenu from "../../components/lecturer/MobileMenu";
+// import Dash from "../../components/lecturer/LecturerDashboard.module.css";
+// import BackButton from "../../components/lecturer/BackButton";
+// import { Snackbar, Alert } from '@mui/material';
+
+// function EditExamPaper() {
+//   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+//   const [isMobile, setIsMobile] = useState(false);
+//   const [questionData, setQuestionData] = useState({});
+//   const [error, setError] = useState("");
+//   const [success, setSuccess] = useState("");
+//   const [snackbarOpen, setSnackbarOpen] = useState(false);
+//   const [snackbarMessage, setSnackbarMessage] = useState("");
+//   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+//   useEffect(() => {
+//     const handleResize = () => {
+//       setIsMobile(window.innerWidth <= 991);
+//     };
+
+//     window.addEventListener('resize', handleResize);
+//     handleResize();
+
+//     return () => window.removeEventListener('resize', handleResize);
+//   }, []);
+
+//   const toggleMobileMenu = () => {
+//     setIsMobileMenuOpen(!isMobileMenuOpen);
+//   };
+
+//   const { id, questionId } = useParams();
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const fetchQuestionData = async () => {
+//       try {
+//         const response = await fetch(
+//           `http://localhost:3000/exam-paper/${id}/question/${questionId}`
+//         );
+//         if (!response.ok) throw new Error("Failed to fetch question");
+//         const data = await response.json();
+//         setQuestionData(data);
+//       } catch (error) {
+//         setError("Error fetching question: " + error.message);
+//       }
+//     };
+
+//     if (id && questionId) {
+//       fetchQuestionData();
+//     } else {
+//       setError("Invalid question or exam paper ID.");
+//     }
+//   }, [id, questionId]);
+
+//   const handleQuestionUpdate = async (updatedData) => {
+//     try {
+//       const response = await fetch(
+//         `http://localhost:3000/exam-paper/${id}/question/${questionId}`,
+//         {
+//           method: "PUT",
+//           headers: { "Content-Type": "application/json" },
+//           body: JSON.stringify(updatedData),
+//         }
+//       );
+//       if (!response.ok) throw new Error("Failed to update question");
+//       setSuccess("Question updated successfully!");
+//       setSnackbarMessage("Question updated successfully!");
+//       setSnackbarSeverity("success");
+//       setSnackbarOpen(true);
+//     } catch (error) {
+//       setError("Error updating question: " + error.message);
+//       setSnackbarMessage("Error updating question: " + error.message);
+//       setSnackbarSeverity("error");
+//       setSnackbarOpen(true);
+//     }
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+
+//     if (!questionData.options.includes(questionData.answer)) {
+//       setSnackbarMessage("The answer must be one of the options.");
+//       setSnackbarSeverity("warning");
+//       setSnackbarOpen(true);
+//       return;
+//     }
+
+//     try {
+//       const updatedData = {
+//         content: questionData.content,
+//         options: questionData.options,
+//         answer: questionData.answer,
+//       };
+//       await handleQuestionUpdate(updatedData);
+//       navigate(`/exam-paper/${id}/questions`);
+//     } catch (error) {
+//       setError("Error updating question: " + error.message);
+//       setSnackbarMessage("Error updating question: " + error.message);
+//       setSnackbarSeverity("error");
+//       setSnackbarOpen(true);
+//     }
+//   };
+
+//   return (
+//     <div className={Dash.lecturerDashboard}>
+
+//       <div className={Dash.dashboard}>
+//         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+//         <div className={Dash["dashboard-content"]}>
+//           {!isMobile && <Sidebar />}
+//           {isMobile && (
+//             <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+//           )}
+//           <div className={Dash.backButtonContainer}>
+//             <BackButton targetPath={`/exam-paper/${id}/questions`} size={30} color="#106053" />
+//           </div>
+//           <div className="edit-exam-paper-container mt-5">
+//             <h3 className="edit-exam-paper-header">Edit Question</h3>
+//             {error && <div className="alert alert-danger">{error}</div>}
+//             {success && <div className="alert alert-success">{success}</div>}
+//             <form onSubmit={handleSubmit}>
+//               <div className="mt-3">
+//                 <label className="edit-exam-paper-label">Question:</label>
+//                 <input
+//                   type="text"
+//                   name="content"
+//                   value={questionData.content || ""}
+//                   onChange={(e) =>
+//                     setQuestionData({
+//                       ...questionData,
+//                       content: e.target.value,
+//                     })
+//                   }
+//                   className="edit-exam-paper-input"
+//                 />
+//                 <label className="edit-exam-paper-label">Options:</label>
+//                 {questionData.options &&
+//                   questionData.options.map((option, index) => (
+//                     <div key={index}>
+//                       <input
+//                         type="text"
+//                         name={`option_${index}`}
+//                         value={option || ""}
+//                         onChange={(e) => {
+//                           const updatedOptions = [...questionData.options];
+//                           updatedOptions[index] = e.target.value;
+//                           setQuestionData({
+//                             ...questionData,
+//                             options: updatedOptions,
+//                           });
+//                         }}
+//                         className="edit-exam-paper-option-input mt-1"
+//                       />
+//                     </div>
+//                   ))}
+//                 <label className="edit-exam-paper-label">Answer:</label>
+//                 <input
+//                   type="text"
+//                   name="answer"
+//                   value={questionData.answer || ""}
+//                   onChange={(e) =>
+//                     setQuestionData({ ...questionData, answer: e.target.value })
+//                   }
+//                   className="edit-exam-paper-input mt-1"
+//                 />
+//               </div>
+//               <button type="submit" className="edit-exam-paper-button">
+//                 Save
+//               </button>
+//             </form>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Snackbar */}
+//       <Snackbar
+//                 open={snackbarOpen}
+//                 autoHideDuration={6000}
+//                 onClose={() => setSnackbarOpen(false)}
+//                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+//                 sx={{
+//                     width: '50%'
+//                 }} 
+//       >
+//         <Alert
+//           onClose={() => setSnackbarOpen(false)}
+//           severity={snackbarSeverity}
+
+//         >
+//           {snackbarMessage}
+//         </Alert>
+//       </Snackbar>
+//     </div>
+//   );
+// }
+
+// export default EditExamPaper;
+
+
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import "./EditExamPaperQuestions.css";
-import Header from "../../components/lecturer/HeaderPop";
-import Sidebar from "../../components/lecturer/SideBarPop";
-import MobileMenu from "../../components/lecturer/MobileMenu";
-import Dash from "../../components/lecturer/LecturerDashboard.module.css";
-import BackButton from "../../components/lecturer/BackButton";
 import { Snackbar, Alert } from '@mui/material';
+import styles from './EditExamPaperQuestions.module.css';
 
-function EditExamPaper() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+function EditExamPaper({ id, questionId, onClose, onQuestionUpdate }) {
   const [questionData, setQuestionData] = useState({});
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [snackbarMessage, setSnackbarMessage] = useState("");
-  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 991);
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const { id, questionId } = useParams();
-  const navigate = useNavigate();
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' });
 
   useEffect(() => {
     const fetchQuestionData = async () => {
@@ -46,47 +220,28 @@ function EditExamPaper() {
         const data = await response.json();
         setQuestionData(data);
       } catch (error) {
-        setError("Error fetching question: " + error.message);
+        handleSnackbar("Error fetching question: " + error.message, "error");
       }
     };
 
     if (id && questionId) {
       fetchQuestionData();
-    } else {
-      setError("Invalid question or exam paper ID.");
     }
   }, [id, questionId]);
 
-  const handleQuestionUpdate = async (updatedData) => {
-    try {
-      const response = await fetch(
-        `http://localhost:3000/exam-paper/${id}/question/${questionId}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updatedData),
-        }
-      );
-      if (!response.ok) throw new Error("Failed to update question");
-      setSuccess("Question updated successfully!");
-      setSnackbarMessage("Question updated successfully!");
-      setSnackbarSeverity("success");
-      setSnackbarOpen(true);
-    } catch (error) {
-      setError("Error updating question: " + error.message);
-      setSnackbarMessage("Error updating question: " + error.message);
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
-    }
+  const handleSnackbar = (message, severity = 'info') => {
+    setSnackbar({ open: true, message, severity });
+  };
+
+  const closeSnackbar = () => {
+    setSnackbar(prev => ({ ...prev, open: false }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!questionData.options.includes(questionData.answer)) {
-      setSnackbarMessage("The answer must be one of the options.");
-      setSnackbarSeverity("warning");
-      setSnackbarOpen(true);
+      handleSnackbar("The answer must be one of the options.", "warning");
       return;
     }
 
@@ -96,103 +251,83 @@ function EditExamPaper() {
         options: questionData.options,
         answer: questionData.answer,
       };
-      await handleQuestionUpdate(updatedData);
-      navigate(`/exam-paper/${id}/questions`);
+      const response = await fetch(
+        `http://localhost:3000/exam-paper/${id}/question/${questionId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(updatedData),
+        }
+      );
+      if (!response.ok) throw new Error("Failed to update question");
+      const updatedQuestion = await response.json();
+      onQuestionUpdate(updatedQuestion);
+      onClose();
     } catch (error) {
-      setError("Error updating question: " + error.message);
-      setSnackbarMessage("Error updating question: " + error.message);
-      setSnackbarSeverity("error");
-      setSnackbarOpen(true);
+      handleSnackbar("Error updating question: " + error.message, "error");
     }
   };
 
   return (
-    <div className={Dash.lecturerDashboard}>
-
-      <div className={Dash.dashboard}>
-        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-        <div className={Dash["dashboard-content"]}>
-          {!isMobile && <Sidebar />}
-          {isMobile && (
-            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
-          )}
-          <div className={Dash.backButtonContainer}>
-            <BackButton targetPath={`/exam-paper/${id}/questions`} size={30} color="#106053" />
-          </div>
-          <div className="edit-exam-paper-container mt-5">
-            <h3 className="edit-exam-paper-header">Edit Question</h3>
-            {error && <div className="alert alert-danger">{error}</div>}
-            {success && <div className="alert alert-success">{success}</div>}
-            <form onSubmit={handleSubmit}>
-              <div className="mt-3">
-                <label className="edit-exam-paper-label">Question:</label>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label className={styles.label}>Question:</label>
+          <input
+            type="text"
+            name="content"
+            value={questionData.content || ""}
+            onChange={(e) =>
+              setQuestionData({
+                ...questionData,
+                content: e.target.value,
+              })
+            }
+            className={styles.input}
+          />
+          <label className={styles.label}>Options:</label>
+          {questionData.options &&
+            questionData.options.map((option, index) => (
+              <div key={index}>
                 <input
                   type="text"
-                  name="content"
-                  value={questionData.content || ""}
-                  onChange={(e) =>
+                  name={`option_${index}`}
+                  value={option || ""}
+                  onChange={(e) => {
+                    const updatedOptions = [...questionData.options];
+                    updatedOptions[index] = e.target.value;
                     setQuestionData({
                       ...questionData,
-                      content: e.target.value,
-                    })
-                  }
-                  className="edit-exam-paper-input"
-                />
-                <label className="edit-exam-paper-label">Options:</label>
-                {questionData.options &&
-                  questionData.options.map((option, index) => (
-                    <div key={index}>
-                      <input
-                        type="text"
-                        name={`option_${index}`}
-                        value={option || ""}
-                        onChange={(e) => {
-                          const updatedOptions = [...questionData.options];
-                          updatedOptions[index] = e.target.value;
-                          setQuestionData({
-                            ...questionData,
-                            options: updatedOptions,
-                          });
-                        }}
-                        className="edit-exam-paper-option-input mt-1"
-                      />
-                    </div>
-                  ))}
-                <label className="edit-exam-paper-label">Answer:</label>
-                <input
-                  type="text"
-                  name="answer"
-                  value={questionData.answer || ""}
-                  onChange={(e) =>
-                    setQuestionData({ ...questionData, answer: e.target.value })
-                  }
-                  className="edit-exam-paper-input mt-1"
+                      options: updatedOptions,
+                    });
+                  }}
+                  className={styles.optionInput}
                 />
               </div>
-              <button type="submit" className="edit-exam-paper-button">
-                Save
-              </button>
-            </form>
-          </div>
+            ))}
+          <label className={styles.label}>Answer:</label>
+          <input
+            type="text"
+            name="answer"
+            value={questionData.answer || ""}
+            onChange={(e) =>
+              setQuestionData({ ...questionData, answer: e.target.value })
+            }
+            className={styles.input}
+          />
         </div>
-      </div>
-
-      {/* Snackbar */}
+        <button type="submit" className={styles.saveButton}>
+          Save Changes
+        </button>
+      </form>
       <Snackbar
-                open={snackbarOpen}
-                autoHideDuration={6000}
-                onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-                sx={{
-                    width: '50%'
-                }} 
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={closeSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >
-        <Alert
-          onClose={() => setSnackbarOpen(false)}
-          severity={snackbarSeverity}
-
-        >
-          {snackbarMessage}
+        <Alert onClose={closeSnackbar} severity={snackbar.severity}>
+          {snackbar.message}
         </Alert>
       </Snackbar>
     </div>
@@ -200,3 +335,4 @@ function EditExamPaper() {
 }
 
 export default EditExamPaper;
+
