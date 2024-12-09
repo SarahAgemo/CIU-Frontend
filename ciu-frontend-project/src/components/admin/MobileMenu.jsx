@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   LayoutDashboard,
   Users,
-  Calendar,
+  // Calendar,
   LogOut,
   Lock,
   Library,
@@ -46,7 +46,7 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
       ],
     },
     { icon: Lock, label: "Create FAQs", path: "/admin/create-faqs" },
-    { icon: Calendar, label: "Calendar", path: "/admin/calendar" },
+    // { icon: Calendar, label: "Calendar", path: "/admin/calendar" },
     { icon: LogOut, label: "Logout", path: "/" },
   ];
 

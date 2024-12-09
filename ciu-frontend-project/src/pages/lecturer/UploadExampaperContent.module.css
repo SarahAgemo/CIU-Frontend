@@ -1,4 +1,4 @@
-* {
+/* * {
   font-family: "Roboto", sans-serif;
 }
 .uploadExam-form-container {
@@ -75,4 +75,113 @@
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 10px;
+} */
+
+
+
+*{
+  font-family: "Roboto", sans-serif;
+ }
+.formWrapper_uploadExam {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  margin: 0;
+}
+
+.heading_uploadExam {
+  font-size: 24px;
+  color: #106053;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+/* .uploadExam-form-group {
+  margin-bottom: 20px;
+} */
+
+.form_uploadExam {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+}
+
+.formGroup_uploadExam {
+  margin-bottom: 15px;
+}
+
+.label_uploadExam {
+  font-weight: bold;
+  color: #106053;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.formControl_uploadExam {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.btnPrimary_uploadExam {
+  background-color: #106053;
+  border: none;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  display: block;
+  margin: 20px auto 0;
+  width: auto;
+}
+
+.btnPrimary_uploadExam:hover {
+  background-color: #0b3f37;
+}
+
+.uploadExam-alert-danger {
+  color: red;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.uploadExam-alert-success {
+  color: green;
+  background-color: #d4edda;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.uploadExam-modal-title {
+  font-size: 24px;
+  color: #106053;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.formHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.formText_uploadExam {
+  font-size: 12px;
+  color: #666;
+  margin-top: 5px;
 }
