@@ -50,7 +50,7 @@
 //     <div className={log["overall"]}>
 //       <div className={log["wrapper"]}>
 //         <div className={log["top-section"]}>
-//           <img src="./public/ciu-logo-login.png" alt="Logo" />
+//           <img src="./ciu-logo-login.png" alt="Logo" />
 //           <h1>ONLINE EXAMINATION SYSTEM</h1>
 //         </div>
 //         <div className={log["form-box"]}>
@@ -180,7 +180,7 @@ const StudentLogin = () => {
     <div className={styles.overall}>
       <div className={styles.wrapper}>
         <div className={styles["top-section"]}>
-          <img src="./public/ciu-logo-login.png" alt="Logo" />
+          <img src="./ciu-logo-login.png" alt="Logo" />
           <h1>ONLINE EXAMINATION SYSTEM</h1>
         </div>
         <div className={styles["form-box"]}>

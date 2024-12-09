@@ -57,7 +57,7 @@
 //     <div className="admin-overall">
 //       <div className="wrapper">
 //         <div className="top-section">
-//           <img src="./public/ciu-logo-login.png" alt="Logo" />
+//           <img src="./ciu-logo-login.png" alt="Logo" />
 //           <h1>ONLINE EXAMINATION SYSTEM</h1>
 //         </div>
 //         <div className="form-box">
@@ -191,7 +191,7 @@ const AdminLogin = () => {
     <div className={styles["admin-overall"]}>
       <div className={styles["wrapper"]}>
         <div className={styles["top-section"]}>
-          <img src="./public/ciu-logo-login.png" alt="Logo" />
+          <img src="./ciu-logo-login.png" alt="Logo" />
           <h1>ONLINE EXAMINATION SYSTEM</h1>
         </div>
         <div className={styles["form-box"]}>
