@@ -37,7 +37,9 @@
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .form-group label {
@@ -99,3 +101,13 @@
 .submit-button:hover {
   background-color: #0b4d3f;
 }
+
+.course-select {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  }
+  
