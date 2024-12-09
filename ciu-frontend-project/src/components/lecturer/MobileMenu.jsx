@@ -109,7 +109,7 @@
 import React, { useState } from 'react';
 import { LayoutDashboard, FileText, LogOut, Video, ClipboardCheck, HelpCircle, ChevronDown, X } from "lucide-react"
 import { Link, useLocation } from 'react-router-dom'
-import { useSidebar } from './SidebarContext2';
+import { useSidebar } from './SideBarContext2';
 import Mobile from "./MobileMenu.module.css"
 
 export default function MobileMenu({ isOpen, toggleMenu }) {
