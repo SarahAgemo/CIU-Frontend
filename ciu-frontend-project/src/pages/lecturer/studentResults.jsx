@@ -5,6 +5,7 @@ import Sidebar from "../../components/lecturer/SideBarPop";
 import MobileMenu from "../../components/lecturer/MobileMenu";
 import Dash from "../../components/lecturer/LecturerDashboard.module.css";
 import { useParams } from "react-router-dom";
+import './completedAssessments.css'
 
 function ResultsTable({ assessmentId }) {
   const [submissions, setSubmissions] = useState([]);
@@ -12,6 +13,16 @@ function ResultsTable({ assessmentId }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { id } = useParams();
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 991);
+    };
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -64,44 +75,48 @@ function ResultsTable({ assessmentId }) {
             />
           )}
           <div>
-            <h1>Assessment Results</h1>
-            <table>
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Student Name</th>
-                  <th>Score</th>
-                  <th>Percentage</th>
-                  <th>Grade</th>
-                </tr>
-              </thead>
-              <tbody>
-                {submissions.map((submission, index) => (
-                  <tr key={submission.id || index}>
-                    <td>{submission.id}</td>
-                    <td>{submission.studentName}</td>
-                    <td>{submission.score}</td>
-                    <td
-                      style={{
-                        color: submission.percentage < 50 ? "red" : "black",
-                      }}
-                    >
-                      {submission.percentage !== null &&
-                      submission.percentage !== undefined
-                        ? `${submission.percentage}%`
-                        : ""}
-                    </td>
+            <div className="users-content">
+              <h1 className="completed-textCenter">Assessment Results</h1>
+              <div className="tableContainer">
+                <table className="customTable">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Student Name</th>
+                      <th>Score</th>
+                      <th>Percentage</th>
+                      <th>Grade</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {submissions.map((submission, index) => (
+                      <tr key={submission.id || index}>
+                        <td>{submission.id}</td>
+                        <td>{submission.studentName}</td>
+                        <td>{submission.score}</td>
+                        <td
+                          style={{
+                            color: submission.percentage < 50 ? "red" : "black",
+                          }}
+                        >
+                          {submission.percentage !== null &&
+                            submission.percentage !== undefined
+                            ? `${submission.percentage}%`
+                            : ""}
+                        </td>
 
-                    <td
-                    style={{
-                      color: submission.percentage < 50 ? "red" : "#106053",
-                    }}
-                    >
-                      {submission.percentage >= 50 ? "Pass" : "Fail"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+                        <td
+                          style={{
+                            color: submission.percentage < 50 ? "red" : "#106053",
+                          }}
+                        >
+                          {submission.percentage >= 50 ? "Pass" : "Fail"}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
