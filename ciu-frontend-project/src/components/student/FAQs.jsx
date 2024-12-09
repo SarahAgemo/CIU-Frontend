@@ -30,7 +30,7 @@ export default function SupportContent() {
 
   // Fetch FAQ data from the backend API
   useEffect(() => {
-    fetch('http://localhost:3000/faqs') // Adjust the endpoint accordingly
+    fetch('https://c-i-u-backend.onrender.com/faqs') // Adjust the endpoint accordingly
       .then((response) => response.json())
       .then((data) => setFaqData(data))
       .catch((error) => console.error('Error fetching FAQs:', error));

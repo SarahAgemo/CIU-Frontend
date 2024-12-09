@@ -40,13 +40,13 @@ const Login = () => {
     let userPayload = {};
 
     if (selectedUser === "Lecturer") {
-      endpoint = "http://localhost:3000/lecturer_auth/login";
+      endpoint = "https://c-i-u-backend.onrender.com/lecturer_auth/login";
       userPayload = { email: identifier, password };
     } else if (selectedUser === "Administrator") {
-      endpoint = "http://localhost:3000/adminauth/login";
+      endpoint = "https://c-i-u-backend.onrender.com/adminauth/login";
       userPayload = { email: identifier, password };
     } else if (selectedUser === "Student") {
-      endpoint = "http://localhost:3000/students/login";
+      endpoint = "https://c-i-u-backend.onrender.com/students/login";
       userPayload = { registrationNo: identifier, password };
     } else {
       alert("Please select a valid user role.");
@@ -58,10 +58,10 @@ const Login = () => {
       const response = await axios.post(endpoint, userPayload);
       const accessToken =
         response.data.access_token || response.data.token?.access_token;
-      
+
       // Store access token and user data in localStorage
       localStorage.setItem("token", accessToken);
-     console.log(response.data);
+      console.log(response.data);
       // Add this block to save 'CourseId' and other user data for students
       if (selectedUser === "Student") {
         const studentData = {
@@ -84,7 +84,7 @@ const Login = () => {
         navigate("/lecturerdashboard");
       }
 
-      
+
     } catch (error) {
       console.log(error);
       setErrorMessage("Login failed. Please check your credentials.");
@@ -173,19 +173,19 @@ const Login = () => {
                   selectedUser === "Student"
                     ? "/reset-password"
                     : selectedUser === "Administrator"
-                    ? "/adminPassword"
-                    : selectedUser === "Lecturer"
-                    ? "/lecturerPassword"
-                    : "#"
+                      ? "/adminPassword"
+                      : selectedUser === "Lecturer"
+                        ? "/lecturerPassword"
+                        : "#"
                 }
                 onClick={
                   selectedUser !== "Student" &&
-                  selectedUser !== "Administrator" &&
-                  selectedUser !== "Lecturer"
+                    selectedUser !== "Administrator" &&
+                    selectedUser !== "Lecturer"
                     ? () =>
-                        alert(
-                          "Please contact support for password reset instructions."
-                        )
+                      alert(
+                        "Please contact support for password reset instructions."
+                      )
                     : undefined
                 }
               >

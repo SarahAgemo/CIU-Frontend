@@ -28,7 +28,7 @@ const RequestTokenForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/students/reset-password', {
+      const response = await fetch('https://c-i-u-backend.onrender.com/students/reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const RequestTokenForm = () => {
       border: 'none',
       cursor: 'pointer',
       fontSize: '1.2rem',
-      transition: 'background-color 0.3s ease, color 0.3s ease', 
+      transition: 'background-color 0.3s ease, color 0.3s ease',
       marginTop: '20px',
     },
     buttonHover: {

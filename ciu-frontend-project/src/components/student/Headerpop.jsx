@@ -17,7 +17,7 @@
 //   const [socket, setSocket] = useState(null);
 
 //   useEffect(() => {
-//     const socketInstance = io('http://localhost:3000');
+//     const socketInstance = io('https://c-i-u-backend.onrender.com');
 //     setSocket(socketInstance);
 
 //     socketInstance.on('new-notification', (newNotification) => {
@@ -39,7 +39,7 @@
 //         }
 
 //         const student = JSON.parse(studentData);
-//         const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+//         const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
 
 //         if (!response.data || !response.data.courseId) {
 //           throw new Error('No course data found for this student.');
@@ -58,9 +58,9 @@
 //   useEffect(() => {
 //     const fetchNotifications = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:3000/notifications');
+//         const response = await axios.get('https://c-i-u-backend.onrender.com/notifications');
 
-//         const exams = await axios.get('http://localhost:3000/exam-paper?isDraft=false');
+//         const exams = await axios.get('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');
 //         const examNotifications = exams.data.map(exam => ({
 //           title: `Upcoming Exam: ${exam.title}`,
 //           message: `The exam for the course ${exam.courseUnit} is scheduled for ${new Date(exam.scheduledDate).toLocaleString()}.`,
@@ -136,7 +136,7 @@
 //         {showPopup && (
 //           <div className={Head["popup-container"]}>
 //             <div className={Head["popup-header"]}>
-              
+
 //               <button className={Head["close-popup-button"]} onClick={togglePopup}>X</button>
 //             </div>
 //             {notifications.length > 0 ? (
@@ -199,7 +199,7 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const socketInstance = io('http://localhost:3000');
+    const socketInstance = io('https://c-i-u-backend.onrender.com');
     setSocket(socketInstance);
 
     socketInstance.on('new-notification', (newNotification) => {
@@ -221,7 +221,7 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
         }
 
         const student = JSON.parse(studentData);
-        const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+        const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
 
         if (!response.data || !response.data.courseId) {
           throw new Error('No course data found for this student.');
@@ -240,9 +240,9 @@ const Headerpop = ({ toggleMobileMenu, isMobile }) => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/notifications');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/notifications');
 
-        const exams = await axios.get('http://localhost:3000/exam-paper?isDraft=false');
+        const exams = await axios.get('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');
         const examNotifications = exams.data.map(exam => ({
           title: `Upcoming Exam: ${exam.title}`,
           message: `The exam for the course ${exam.courseUnit} is scheduled for ${new Date(exam.scheduledDate).toLocaleString()}.`,

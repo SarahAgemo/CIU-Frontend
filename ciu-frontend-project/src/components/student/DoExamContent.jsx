@@ -5,7 +5,7 @@
 // import axios from 'axios';
 
 // const fetchAvailableExams = async () => {
-//     const response = await fetch('http://localhost:3000/exam-paper?isDraft=false');
+//     const response = await fetch('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');
 //     if (!response.ok) {
 //         throw new Error('Failed to fetch exams');
 //     }
@@ -65,14 +65,14 @@
 //                 }
 
 //                 const student = JSON.parse(studentData);
-//                 const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+//                 const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
 //                 const studentDetails = response.data;
 
 //                 if (!studentDetails.courseId) {
 //                     throw new Error("No courseId found in student data.");
 //                 }
 
-//                 const courses = await axios.get(`http://localhost:3000/coursesAdd`);
+//                 const courses = await axios.get(`https://c-i-u-backend.onrender.com/coursesAdd`);
 //                 const returncourses = courses.data;
 
 //                 const filteredExams = exams.filter(exam => exam.courseId === studentDetails.courseId);
@@ -128,13 +128,13 @@ import DoExam from './DoExamContent.module.css';
 import axios from 'axios';
 
 const LoadingSpinner = () => (
-  <div className={DoExam.spinner}></div>
+    <div className={DoExam.spinner}></div>
 );
 
 
 // Function to fetch available exams from the backend
 const fetchAvailableExams = async () => {
-    const response = await fetch('http://localhost:3000/exam-paper?isDraft=false');
+    const response = await fetch('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');
     if (!response.ok) {
         throw new Error('Failed to fetch exams');
     }
@@ -162,13 +162,13 @@ const ExamCard = ({ exam, onDoExam }) => {
                 <p><strong>End Time:</strong> {endTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
                 <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
                 <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
-                <p><strong>Course Name:</strong> {exam.courseName }</p>
+                <p><strong>Course Name:</strong> {exam.courseName}</p>
             </div>
             <div className={DoExam["exam-actions"]}>
-                <button className={DoExam["do-exam-btn"]} 
-                    onClick={() => onDoExam(exam)} 
-                    disabled={isButtonDisabled} 
-                    // Disable the button if the exam is not yet available
+                <button className={DoExam["do-exam-btn"]}
+                    onClick={() => onDoExam(exam)}
+                    disabled={isButtonDisabled}
+                // Disable the button if the exam is not yet available
                 >
                     DO EXAM
                 </button>
@@ -191,7 +191,7 @@ export default function AvailableExams() {
             try {
                 // Fetch the list of available exams
                 const exams = await fetchAvailableExams();
-                
+
                 // Retrieve student data from localStorage
                 const studentData = localStorage.getItem("user");
                 if (!studentData) {
@@ -201,19 +201,19 @@ export default function AvailableExams() {
                 const student = JSON.parse(studentData);
 
                 // Fetch student details from backend
-                const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+                const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
                 const studentDetails = response.data;
 
                 if (!studentDetails.courseId) {
                     throw new Error("No courseId found in student data.");
                 }
 
-                const courses = await axios.get(`http://localhost:3000/coursesAdd`);
-                const returncourses = courses.data;              
-                  
+                const courses = await axios.get(`https://c-i-u-backend.onrender.com/coursesAdd`);
+                const returncourses = courses.data;
+
 
                 // Fetch courses data
-                const coursesResponse = await axios.get(`http://localhost:3000/coursesAdd`);
+                const coursesResponse = await axios.get(`https://c-i-u-backend.onrender.com/coursesAdd`);
                 const returnCourses = coursesResponse.data;
 
                 // Filter exams based on the student's courseId

@@ -45,7 +45,7 @@
 //     setLoading(true);
 //     try {
 //       const response = await fetch(
-//         "http://localhost:3000/question-bank/published-assessments"
+//         "https://c-i-u-backend.onrender.com/question-bank/published-assessments"
 //       );
 //       if (!response.ok)
 //         throw new Error("Failed to fetch published exam papers");
@@ -70,7 +70,7 @@
 //       if (isNaN(examId)) throw new Error("Invalid exam ID");
 
 //       const response = await fetch(
-//         `http://localhost:3000/question-bank?courseUnit=${encodeURIComponent(
+//         `https://c-i-u-backend.onrender.com/question-bank?courseUnit=${encodeURIComponent(
 //           exam.courseUnit
 //         )}`
 //       );
@@ -81,7 +81,7 @@
 //       if (existingBanks.length > 0) {
 //         const bankId = Number(existingBanks[0].id);
 //         const addResponse = await fetch(
-//           `http://localhost:3000/question-bank/${bankId}/questions`,
+//           `https://c-i-u-backend.onrender.com/question-bank/${bankId}/questions`,
 //           {
 //             method: "POST",
 //             headers: { "Content-Type": "application/json" },
@@ -100,7 +100,7 @@
 //         }
 //       } else {
 //         const createResponse = await fetch(
-//           "http://localhost:3000/question-bank",
+//           "https://c-i-u-backend.onrender.com/question-bank",
 //           {
 //             method: "POST",
 //             headers: { "Content-Type": "application/json" },
@@ -279,7 +279,7 @@ const PublishedExamList = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        "http://localhost:3000/question-bank/published-assessments"
+        "https://c-i-u-backend.onrender.com/question-bank/published-assessments"
       );
       if (!response.ok)
         throw new Error("Failed to fetch published exam papers");
@@ -304,7 +304,7 @@ const PublishedExamList = () => {
       if (isNaN(examId)) throw new Error("Invalid exam ID");
 
       const response = await fetch(
-        `http://localhost:3000/question-bank?courseUnit=${encodeURIComponent(
+        `https://c-i-u-backend.onrender.com/question-bank?courseUnit=${encodeURIComponent(
           exam.courseUnit
         )}`
       );
@@ -315,7 +315,7 @@ const PublishedExamList = () => {
       if (existingBanks.length > 0) {
         const bankId = Number(existingBanks[0].id);
         const addResponse = await fetch(
-          `http://localhost:3000/question-bank/${bankId}/questions`,
+          `https://c-i-u-backend.onrender.com/question-bank/${bankId}/questions`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -334,7 +334,7 @@ const PublishedExamList = () => {
         }
       } else {
         const createResponse = await fetch(
-          "http://localhost:3000/question-bank",
+          "https://c-i-u-backend.onrender.com/question-bank",
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -404,8 +404,8 @@ const PublishedExamList = () => {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`} 
+              <div
+                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`}
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />

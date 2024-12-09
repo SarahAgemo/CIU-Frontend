@@ -72,7 +72,7 @@
 //   useEffect(() => {
 //     const fetchExamData = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+//         const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
 //         if (!response.ok) throw new Error("Failed to fetch exam paper");
 //         const data = await response.json();
 //         setIsDraft(data.isDraft);
@@ -89,7 +89,7 @@
 //     const fetchQuestions = async () => {
 //       try {
 //         const response = await fetch(
-//           `http://localhost:3000/exam-paper/${id}/questions`
+//           `https://c-i-u-backend.onrender.com/exam-paper/${id}/questions`
 //         );
 //         if (!response.ok) throw new Error("Failed to fetch questions");
 
@@ -125,7 +125,7 @@
 //   const confirmDelete = async () => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3000/exam-paper/${id}/question/${deleteDialog.questionId}`,
+//         `https://c-i-u-backend.onrender.com/exam-paper/${id}/question/${deleteDialog.questionId}`,
 //         {
 //           method: "DELETE",
 //         }
@@ -372,7 +372,7 @@ function QuestionsPreview() {
   useEffect(() => {
     const fetchExamData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
         if (!response.ok) throw new Error("Failed to fetch exam paper");
         const data = await response.json();
         setIsDraft(data.isDraft);
@@ -389,7 +389,7 @@ function QuestionsPreview() {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3000/exam-paper/${id}/questions`
+          `https://c-i-u-backend.onrender.com/exam-paper/${id}/questions`
         );
         if (!response.ok) throw new Error("Failed to fetch questions");
 
@@ -423,7 +423,7 @@ function QuestionsPreview() {
   const confirmDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:3000/exam-paper/${id}/question/${deleteDialog.questionId}`,
+        `https://c-i-u-backend.onrender.com/exam-paper/${id}/question/${deleteDialog.questionId}`,
         {
           method: "DELETE",
         }

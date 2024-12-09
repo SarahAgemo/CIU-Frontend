@@ -24,7 +24,7 @@
 //     setErrorMessage("");
 //     setSuccessMessage("");
 
-//     const endpoint = "http://localhost:3000/students/login";
+//     const endpoint = "https://c-i-u-backend.onrender.com/students/login";
 //     const userPayload = { registrationNo: identifier, password };
 
 //     try {
@@ -154,7 +154,7 @@ const StudentLogin = () => {
     setErrorMessage("");
     setSuccessMessage("");
 
-    const endpoint = "http://localhost:3000/students/login";
+    const endpoint = "https://c-i-u-backend.onrender.com/students/login";
     const userPayload = { registrationNo: identifier, password };
 
     try {
@@ -214,10 +214,10 @@ const StudentLogin = () => {
               </div>
             </div>
             <div className={styles["remember-forgot"]}>
-                <input type="checkbox" />
-                <label>
-                    Remember Me
-                </label>
+              <input type="checkbox" />
+              <label>
+                Remember Me
+              </label>
             </div>
             <button
               type="submit"
@@ -245,10 +245,10 @@ const StudentLogin = () => {
         </div>
       </div>
 
-      <Dialog 
-        open={isResetPasswordModalOpen} 
-        onClose={() => setIsResetPasswordModalOpen(false)} 
-        maxWidth="sm" 
+      <Dialog
+        open={isResetPasswordModalOpen}
+        onClose={() => setIsResetPasswordModalOpen(false)}
+        maxWidth="sm"
         fullWidth
       >
         <DialogTitle>
@@ -270,10 +270,10 @@ const StudentLogin = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog 
-        open={isSetPasswordModalOpen} 
-        onClose={() => setIsSetPasswordModalOpen(false)} 
-        maxWidth="sm" 
+      <Dialog
+        open={isSetPasswordModalOpen}
+        onClose={() => setIsSetPasswordModalOpen(false)}
+        maxWidth="sm"
         fullWidth
       >
         <DialogTitle>

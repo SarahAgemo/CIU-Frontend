@@ -9,9 +9,9 @@
 //   useEffect(() => {
 //     const fetchData = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:3000/exam-paper/count'); 
+//         const response = await axios.get('https://c-i-u-backend.onrender.com/exam-paper/count'); 
 //         const { data } = response;
-        
+
 //         // Set lecturer metrics based on the response from the API
 //         setLecturerMetrics([
 //           { title: "Courses", value: data.coursesCount, icon: "📘" },
@@ -54,7 +54,7 @@ import axios from 'axios';
 import Header from './HeaderPop';
 import Sidebar from './SideBarPop';
 import MobileMenu from "../../components/lecturer/MobileMenu"
-import DashboardCard from '../../components/lecturer/DashboardCard'; 
+import DashboardCard from '../../components/lecturer/DashboardCard';
 import Dash from './LecturerDashboardContent.module.css';
 
 export default function LecturerDashboard() {
@@ -65,9 +65,9 @@ export default function LecturerDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/exam-paper/count'); 
+        const response = await axios.get('https://c-i-u-backend.onrender.com/exam-paper/count');
         const { data } = response;
-        
+
         // Set lecturer metrics based on the response from the API
         setLecturerMetrics([
           { title: "Courses", value: data.coursesCount, icon: "📘" },
@@ -107,14 +107,14 @@ export default function LecturerDashboard() {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`} 
+              <div
+                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`}
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
             </>
           )}
-          
+
           <main className={`${Dash.mainContentWrapper} ${isMobileMenuOpen ? Dash.dimmed : ''}`}>
             <h2 className={Dash.dashboardTitle}>Lecturer Dashboard</h2>
             <div className={Dash.dashboardCards}>

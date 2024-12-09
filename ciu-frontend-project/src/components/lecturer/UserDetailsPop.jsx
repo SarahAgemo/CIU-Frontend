@@ -15,7 +15,7 @@ const fetchLoggedInUserData = async (setUserData, setError) => {
         }
 
         const { id } = user;
-        const response = await axios.get(`http://localhost:3000/lecturerReg/profile/${id}`, {
+        const response = await axios.get(`https://c-i-u-backend.onrender.com/lecturerReg/profile/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -48,7 +48,7 @@ export default function UserDetailsPopup({ children }) {
 
     const closePopup = () => setIsOpen(false)
 
-    
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (popupRef.current && !popupRef.current.contains(event.target)) {

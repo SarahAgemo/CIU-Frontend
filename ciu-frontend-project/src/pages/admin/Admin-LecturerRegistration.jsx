@@ -87,7 +87,7 @@
 //         let payload;
 
 //         if (selectedUser === "Lecturer") {
-//           endpoint = "http://localhost:3000/lecturerReg";
+//           endpoint = "https://c-i-u-backend.onrender.com/lecturerReg";
 //           payload = {
 //             first_name: formData.firstName,
 //             last_name: formData.lastName,
@@ -95,7 +95,7 @@
 //             role: "lecturer",
 //           };
 //         } else if (selectedUser === "Administrator") {
-//           endpoint = "http://localhost:3000/adminReg";
+//           endpoint = "https://c-i-u-backend.onrender.com/adminReg";
 //           payload = {
 //             first_name: formData.firstName,
 //             last_name: formData.lastName,
@@ -433,7 +433,7 @@
 //                   <span className="error">{errors.emailOrStudentNumber}</span>
 //                 )}
 
-                
+
 
 //                 <button type="submit" className="register-button">
 //                   Register as {selectedUser}
@@ -516,7 +516,7 @@ const AdminLecturerRegistration = ({ onClose, onRegister, initialRole }) => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       try {
-        let endpoint = isLecturer ? "http://localhost:3000/lecturerReg" : "http://localhost:3000/adminReg";
+        let endpoint = isLecturer ? "https://c-i-u-backend.onrender.com/lecturerReg" : "https://c-i-u-backend.onrender.com/adminReg";
         let payload = {
           first_name: formData.firstName,
           last_name: formData.lastName,

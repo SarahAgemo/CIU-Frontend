@@ -21,7 +21,7 @@
 //     setErrorMessage("");
 //     setSuccessMessage("");
 
-//     const endpoint = "http://localhost:3000/lecturer_auth/login";
+//     const endpoint = "https://c-i-u-backend.onrender.com/lecturer_auth/login";
 //     const userPayload = { email: identifier, password };
 
 //     try {
@@ -148,38 +148,38 @@ const LecturerLogin = () => {
     setErrorMessage("");
     setSuccessMessage("");
 
-    const endpoint = "http://localhost:3000/lecturer_auth/login";
+    const endpoint = "https://c-i-u-backend.onrender.com/lecturer_auth/login";
     const userPayload = { email: identifier, password };
 
 
-  try {
-    const response = await fetch(endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(userPayload),
-    });
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userPayload),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      setSuccessMessage("Login successful!");
+      if (response.ok) {
+        const data = await response.json();
+        setSuccessMessage("Login successful!");
 
-      const accessToken = data.access_token || data.token?.access_token;
-      localStorage.setItem("token", accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
+        const accessToken = data.access_token || data.token?.access_token;
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
-      navigate("/lecturerdashboard");
-    } else {
-      const data = await response.json();
-      setErrorMessage(data.message || "Invalid credentials.");
+        navigate("/lecturerdashboard");
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || "Invalid credentials.");
+      }
+    } catch (error) {
+      setErrorMessage("An error occurred during login. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    setErrorMessage("An error occurred during login. Please try again.");
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   return (
     <div className={styles["overall"]}>
@@ -249,10 +249,10 @@ const LecturerLogin = () => {
         </div>
       </div>
 
-      <Dialog 
-        open={isResetPasswordModalOpen} 
-        onClose={() => setIsResetPasswordModalOpen(false)} 
-        maxWidth="sm" 
+      <Dialog
+        open={isResetPasswordModalOpen}
+        onClose={() => setIsResetPasswordModalOpen(false)}
+        maxWidth="sm"
         fullWidth
       >
         <DialogTitle>
@@ -274,10 +274,10 @@ const LecturerLogin = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog 
-        open={isSetPasswordModalOpen} 
-        onClose={() => setIsSetPasswordModalOpen(false)} 
-        maxWidth="sm" 
+      <Dialog
+        open={isSetPasswordModalOpen}
+        onClose={() => setIsSetPasswordModalOpen(false)}
+        maxWidth="sm"
         fullWidth
       >
         <DialogTitle>

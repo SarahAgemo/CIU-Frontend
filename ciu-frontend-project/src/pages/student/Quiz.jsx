@@ -46,11 +46,11 @@
 //         isCompleted: false,
 //         status: 'in-progress'
 //       };
-      
+
 //       console.log('Saving progress:', progressData);
 
 //       await axios.post(
-//         `http://localhost:3000/exam-progress/${parsedUserId}/${examId}?isManual=false`,
+//         `https://c-i-u-backend.onrender.com/exam-progress/${parsedUserId}/${examId}?isManual=false`,
 //         progressData,
 //         {
 //           headers: {
@@ -76,17 +76,17 @@
 //       console.log('Attempting to load progress for:', { parsedUserId, examId });
 
 //       const response = await axios.get(
-//         `http://localhost:3000/exam-progress/${parsedUserId}/${examId}?isManual=false`,
+//         `https://c-i-u-backend.onrender.com/exam-progress/${parsedUserId}/${examId}?isManual=false`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`
 //           }
 //         }
 //       );
-      
+
 //       if (response.data) {
 //         console.log('Found saved progress:', response.data);
-        
+
 //         // Set exam state first
 //         setExamState({ 
 //           status: 'in_progress', 
@@ -119,7 +119,7 @@
 //   const completeExamOnServer = async () => {
 //     try {
 //       await axios.patch(
-//         `http://localhost:3000/exam-progress/${userId}/${examId}/complete?isManual=false`,
+//         `https://c-i-u-backend.onrender.com/exam-progress/${userId}/${examId}/complete?isManual=false`,
 //         {},
 //         {
 //           headers: {
@@ -143,7 +143,7 @@
 //       examId,
 //       userId
 //     };
-    
+
 //     localStorage.setItem('examProgress', JSON.stringify(progressData));
 //     await saveProgressToServer();
 //     console.log('Progress saved:', progressData);
@@ -163,18 +163,18 @@
 //     try {
 //       console.log('Fetching questions for exam:', examId);
 //       const response = await axios.get(
-//         `http://localhost:3000/exam-paper/${examId}/questions`,
+//         `https://c-i-u-backend.onrender.com/exam-paper/${examId}/questions`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`
 //           }
 //         }
 //       );
-      
+
 //       if (!response.data || !Array.isArray(response.data)) {
 //         throw new Error('Invalid question data received');
 //       }
-      
+
 //       if (response.data.length === 0) {
 //         throw new Error('No questions found for this exam');
 //       }
@@ -199,7 +199,7 @@
 //     try {
 //       console.log('Fetching exam details for ID:', examId);
 //       const response = await axios.get(
-//         `http://localhost:3000/exam-paper/${examId}`,
+//         `https://c-i-u-backend.onrender.com/exam-paper/${examId}`,
 //         {
 //           headers: {
 //             Authorization: `Bearer ${token}`
@@ -213,7 +213,7 @@
 
 //       console.log('Exam details received:', response.data);
 //       setExamDetails(response.data);
-      
+
 //       const durationInSeconds = parseDuration(response.data.duration);
 //       if (!isNaN(durationInSeconds) && durationInSeconds > 0) {
 //         setTimeLeft(durationInSeconds);
@@ -221,7 +221,7 @@
 //         console.warn('Invalid duration:', response.data.duration);
 //         setTimeLeft(3600);
 //       }
-      
+
 //       return response.data;
 //     } catch (error) {
 //       const errorMessage = error.response?.data?.message || error.message;
@@ -251,7 +251,7 @@
 
 //         // Then try to load progress
 //         const hasServerProgress = await loadProgressFromServer();
-        
+
 //         if (!hasServerProgress) {
 //           // Check local storage if no server progress
 //           const savedProgress = localStorage.getItem('examProgress');
@@ -409,7 +409,7 @@
 
 //         // Submit score
 //         const response = await axios.post(
-//           "http://localhost:3000/scores", 
+//           "https://c-i-u-backend.onrender.com/scores", 
 //           scoreData,
 //           {
 //             headers: {
@@ -424,7 +424,7 @@
 //           // Clear local storage
 //           localStorage.removeItem('examProgress');
 //           setExamState({ status: 'completed', lastSavedAt: null });
-          
+
 //           alert("Your score has been submitted successfully!");
 //           navigate("/student");
 //         } else {
@@ -600,22 +600,22 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { 
-  Snackbar, 
-  Alert, 
-  Dialog, 
-  DialogActions, 
-  DialogContent, 
-  DialogContentText, 
-  DialogTitle, 
-  Button 
+import {
+  Snackbar,
+  Alert,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button
 } from '@mui/material';
 import quiz from "./Quiz.module.css";
 
 
 
 const Quiz2 = () => {
-  const [timeLeft, setTimeLeft] = useState(0); 
+  const [timeLeft, setTimeLeft] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [recordingStartTime, setRecordingStartTime] = useState(0);
@@ -624,7 +624,7 @@ const Quiz2 = () => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [score, setScore] = useState(0);
   const [percentage, setPercentage] = useState(null);
-  const [progress, setProgress] = useState(0); 
+  const [progress, setProgress] = useState(0);
   const navigate = useNavigate();
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
@@ -638,7 +638,7 @@ const Quiz2 = () => {
 
   const examQuestion = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/exam-paper/${examId}/questions`);
+      const response = await axios.get(`https://c-i-u-backend.onrender.com/exam-paper/${examId}/questions`);
       setQuestions(response.data);
       console.log("Fetched questions:", response.data);
     } catch (error) {
@@ -646,7 +646,7 @@ const Quiz2 = () => {
     }
   };
 
-  
+
   const parseDuration = (duration) => {
     if (!duration) return 0;
 
@@ -655,20 +655,20 @@ const Quiz2 = () => {
     return totalSeconds;
   };
 
-  
+
   const fetchExamDetails = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/exam-paper?isDraft=false");
+      const response = await axios.get("https://c-i-u-backend.onrender.com/exam-paper?isDraft=false");
       const examData = response.data.find((exam) => exam.id === parseInt(examId));
       if (examData) {
         setExamDetails(examData);
 
-        const durationInSeconds = parseDuration(examData.duration); 
+        const durationInSeconds = parseDuration(examData.duration);
         if (!isNaN(durationInSeconds) && durationInSeconds > 0) {
-          setTimeLeft(durationInSeconds); 
+          setTimeLeft(durationInSeconds);
         } else {
           console.warn("Invalid duration value from the false endpoint.");
-          setTimeLeft(3600); 
+          setTimeLeft(3600);
         }
       } else {
         console.warn("Exam not found in false endpoint data.");
@@ -679,19 +679,19 @@ const Quiz2 = () => {
     }
   };
 
-  
+
   const fetchBackupExamDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/exam-paper/${examId}`);
+      const response = await axios.get(`https://c-i-u-backend.onrender.com/exam-paper/${examId}`);
       console.log("Fetched backup exam details:", response.data);
     } catch (error) {
       console.error("Error fetching backup exam details:", error);
     }
   };
 
-  
+
   useEffect(() => {
-    if (timeLeft === 0) return; 
+    if (timeLeft === 0) return;
 
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -704,7 +704,7 @@ const Quiz2 = () => {
       });
     }, 1000);
 
-    return () => clearInterval(timer); 
+    return () => clearInterval(timer);
   }, [timeLeft]);
 
   useEffect(() => {
@@ -713,7 +713,7 @@ const Quiz2 = () => {
     fetchBackupExamDetails();
   }, []);
 
-  
+
   const formatTime = (seconds) => {
     if (isNaN(seconds) || seconds < 0) return "00:00:00";
 
@@ -724,7 +724,7 @@ const Quiz2 = () => {
     return `${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
-  
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -744,7 +744,7 @@ const Quiz2 = () => {
       setIsRecording(true);
       setRecordingStartTime(Date.now());
 
-      
+
       const checkCameraInterval = setInterval(() => {
         if (stream.getVideoTracks()[0].readyState !== "live") {
           setAwayFromCamera(true);
@@ -780,17 +780,17 @@ const Quiz2 = () => {
     };
   }, []);
 
-  
+
   const handleNextQuestion = () => setQuestionIndex((prevIndex) => prevIndex + 1);
   const handlePreviousQuestion = () => setQuestionIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
 
-  
+
   const getRecordingDuration = () => {
     const duration = Math.floor((Date.now() - recordingStartTime) / 1000);
     return formatTime(duration);
   };
 
-  
+
   const handleAnswerChange = (questionId, option) => {
     setSelectedAnswers((prevAnswers) => {
       const newAnswers = {
@@ -806,76 +806,76 @@ const Quiz2 = () => {
 
   const handleSubmit = async () => {
     if (mediaRecorderRef.current) {
-        // Stop recording
-        mediaRecorderRef.current.stop();
-        setIsRecording(false);
+      // Stop recording
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
 
-        // Save the recorded video to localStorage
-        const blob = new Blob(recordedChunks, { type: "video/webm" });
-        const recordedVideoURL = URL.createObjectURL(blob);
-        localStorage.setItem("recordedVideo", recordedVideoURL);
+      // Save the recorded video to localStorage
+      const blob = new Blob(recordedChunks, { type: "video/webm" });
+      const recordedVideoURL = URL.createObjectURL(blob);
+      localStorage.setItem("recordedVideo", recordedVideoURL);
 
-        // Calculate the score
-        let calculatedScore = 0;
-        questions.forEach((question) => {
-            if (selectedAnswers[question.id] === question.answer) {
-                calculatedScore += 1;
-            }
-        });
-        setScore(calculatedScore);
-
-        // Calculate the percentage score
-        const percentageScore = ((calculatedScore / questions.length) * 100).toFixed(2);
-        setPercentage(percentageScore);
-
-        try {
-            // Parse user ID from localStorage
-            let parsedUserId;
-            try {
-                const userObject = JSON.parse(userId);
-                parsedUserId = userObject.id;
-            } catch {
-                parsedUserId = parseInt(userId);
-            }
-
-            // Prepare score data payload
-            const scoreData = {
-                score: calculatedScore,
-                percentage: parseFloat(percentageScore),
-                userId: parsedUserId,
-                examId: parseInt(examId),
-                assessmentType: "add",
-            };
-
-            console.log("Sending score data:", scoreData);
-
-            // Submit the score to the backend
-            const response = await axios.post("http://localhost:3000/scores", scoreData);
-
-            if (response.status === 200 || response.status === 201) {
-                alert("Your score has been submitted successfully!");
-
-                // Update submitted exams in localStorage
-                const submittedExams = JSON.parse(localStorage.getItem("submittedExams")) || [];
-                if (!submittedExams.includes(parseInt(examId))) {
-                    submittedExams.push(parseInt(examId));
-                    localStorage.setItem("submittedExams", JSON.stringify(submittedExams));
-                }
-
-                // Navigate to the student dashboard
-                navigate("/student");
-            } else {
-                throw new Error(`Unexpected response status: ${response.status}`);
-            }
-        } catch (error) {
-            console.error("Error submitting score:", error);
-            alert("Failed to submit score. Please try again or contact support.");
+      // Calculate the score
+      let calculatedScore = 0;
+      questions.forEach((question) => {
+        if (selectedAnswers[question.id] === question.answer) {
+          calculatedScore += 1;
         }
+      });
+      setScore(calculatedScore);
+
+      // Calculate the percentage score
+      const percentageScore = ((calculatedScore / questions.length) * 100).toFixed(2);
+      setPercentage(percentageScore);
+
+      try {
+        // Parse user ID from localStorage
+        let parsedUserId;
+        try {
+          const userObject = JSON.parse(userId);
+          parsedUserId = userObject.id;
+        } catch {
+          parsedUserId = parseInt(userId);
+        }
+
+        // Prepare score data payload
+        const scoreData = {
+          score: calculatedScore,
+          percentage: parseFloat(percentageScore),
+          userId: parsedUserId,
+          examId: parseInt(examId),
+          assessmentType: "add",
+        };
+
+        console.log("Sending score data:", scoreData);
+
+        // Submit the score to the backend
+        const response = await axios.post("https://c-i-u-backend.onrender.com/scores", scoreData);
+
+        if (response.status === 200 || response.status === 201) {
+          alert("Your score has been submitted successfully!");
+
+          // Update submitted exams in localStorage
+          const submittedExams = JSON.parse(localStorage.getItem("submittedExams")) || [];
+          if (!submittedExams.includes(parseInt(examId))) {
+            submittedExams.push(parseInt(examId));
+            localStorage.setItem("submittedExams", JSON.stringify(submittedExams));
+          }
+
+          // Navigate to the student dashboard
+          navigate("/student");
+        } else {
+          throw new Error(`Unexpected response status: ${response.status}`);
+        }
+      } catch (error) {
+        console.error("Error submitting score:", error);
+        alert("Failed to submit score. Please try again or contact support.");
+      }
     }
-};
+  };
 
 
-  
+
   const handleTabChange = () => {
     setDialog({
       open: true,
@@ -913,155 +913,155 @@ const Quiz2 = () => {
   }, []);
 
   return (
-      <div className={quiz.ExamPage}>
-          <div className={quiz.sidebar}>
-              <div className={quiz.logoContainer}>
-                  <img
-                      src="/CIU-exam-system-logo.png"
-                      alt="Clarke International University"
-                      className={quiz.universityLogo}
-                  />
-                  <div className={quiz.examInfo}>
-                      <div className={quiz.infoRow}>
-                          <span className={quiz.infoLabel}>Subject:</span>
-                          <span className={quiz.infoValue}>{examDetails.courseUnit || "Loading..."}</span>
-                      </div>
-                      <div className={quiz.infoRow}>
-                          <span className={quiz.infoLabel}>Duration:</span>
-                          <span className={quiz.infoValue}>
-                              {examDetails.duration ? `${examDetails.duration} Hours` : "Loading..."}
-                          </span>
-                      </div>
-                      <div className={quiz.progressContainer}>
-                          <div className={quiz.infoRow}>
-                              <span className={quiz.infoLabel}>Progress:</span>
-                              <span className={quiz.progressValue}>{progress.toFixed(0)}%</span> 
-                          </div>
-                          <div className={quiz.progressBar}>
-                              <div className={quiz.progressFill} style={{ width: `${progress}%` }}></div> 
-                          </div>
-                      </div>
-                  </div>
+    <div className={quiz.ExamPage}>
+      <div className={quiz.sidebar}>
+        <div className={quiz.logoContainer}>
+          <img
+            src="/CIU-exam-system-logo.png"
+            alt="Clarke International University"
+            className={quiz.universityLogo}
+          />
+          <div className={quiz.examInfo}>
+            <div className={quiz.infoRow}>
+              <span className={quiz.infoLabel}>Subject:</span>
+              <span className={quiz.infoValue}>{examDetails.courseUnit || "Loading..."}</span>
+            </div>
+            <div className={quiz.infoRow}>
+              <span className={quiz.infoLabel}>Duration:</span>
+              <span className={quiz.infoValue}>
+                {examDetails.duration ? `${examDetails.duration} Hours` : "Loading..."}
+              </span>
+            </div>
+            <div className={quiz.progressContainer}>
+              <div className={quiz.infoRow}>
+                <span className={quiz.infoLabel}>Progress:</span>
+                <span className={quiz.progressValue}>{progress.toFixed(0)}%</span>
               </div>
+              <div className={quiz.progressBar}>
+                <div className={quiz.progressFill} style={{ width: `${progress}%` }}></div>
+              </div>
+            </div>
           </div>
-    
-          <div className={quiz.mainContent}>
-              <div className={quiz.header}>
-                  <div className={quiz.recordingIndicator}>
-                      <span className={quiz.recordDot}></span>
-                      REC
-                  </div>
-                  <h1 className={quiz.quizTitle}>QUIZ</h1>
-                  <div className={quiz.headerRight}>
-                      <div className={quiz.timer}>
-                          Time left: <span className={quiz.timeValue}>{formatTime(timeLeft)}</span>
-                      </div>
-                      
-                  </div>
-              </div>
-    
-              <div className={quiz.quizContent}>
-                  <div className={quiz.questionCard}>
-                      <div className={quiz.questionHeader}>
-                          <span className={quiz.questionNumber}>Question {questionIndex + 1}</span>
-                          <span className={quiz.questionMarks}>2 marks</span>
-                      </div>
-                      <div className={quiz.questionText}>
-                          {questions[questionIndex]?.content || "Loading question..."}
-                      </div>
-                      <form className={quiz.optionsContainer}>
-                          {questions[questionIndex]?.options.map((option, index) => (
-                              <label key={index} className={quiz.optionLabel}>
-                                  <input
-                                      type="radio"
-                                      name={`answer-${questionIndex}`}
-                                      value={option}
-                                      checked={selectedAnswers[questions[questionIndex]?.id] === option}
-                                      onChange={() => handleAnswerChange(questions[questionIndex]?.id, option)}
-                                      className={quiz.optionInput}
-                                  />
-                                  <span className={quiz.optionText}>{option}</span>
-                              </label>
-                          ))}
-                      </form>
-                  </div>
-    
-                  <div className={quiz.navigationButtons}>
-                      {questionIndex > 0 && (
-                          <button
-                              onClick={handlePreviousQuestion}
-                              className={`${quiz.navButton} ${quiz.prevButton}`}
-                          >
-                              Previous
-                          </button>
-                      )}
-                      {questionIndex < questions.length - 1 ? (
-                          <button
-                              onClick={handleNextQuestion}
-                              className={`${quiz.navButton} ${quiz.nextButton}`}
-                          >
-                              Next
-                          </button>
-                      ) : (
-                          <button
-                              onClick={handleSubmit}
-                              className={`${quiz.navButton} ${quiz.submitButton}`}
-                          >
-                              Submit
-                          </button>
-                      )}
-                  </div>
-              </div>
-    
-              <div className={quiz.mediaPreview}>
-                  <video ref={videoRef} autoPlay muted className={quiz.videoPreview}></video>
-                  <div className={quiz.recordingStatus}>
-                      {isRecording ? (
-                          <>
-                              <span className={quiz.recordIndicator}></span>
-                              <span className={quiz.recordTime}>{getRecordingDuration()}</span>
-                          </>
-                      ) : (
-                          <span>Recording stopped</span>
-                      )}
-                  </div>
-              </div>
-          </div>
-          <Snackbar 
-            open={snackbar.open} 
-            autoHideDuration={6000} 
-            onClose={handleCloseSnackbar}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          >
-            <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
-              {snackbar.message}
-            </Alert>
-          </Snackbar>
-
-          <Dialog
-            open={dialog.open}
-            onClose={handleCloseDialog}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {dialog.content}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleCloseDialog}>Cancel</Button>
-              <Button onClick={() => {
-                handleCloseDialog();
-                dialog.onConfirm && dialog.onConfirm();
-              }} autoFocus>
-                Confirm
-              </Button>
-            </DialogActions>
-          </Dialog>
+        </div>
       </div>
-    );
+
+      <div className={quiz.mainContent}>
+        <div className={quiz.header}>
+          <div className={quiz.recordingIndicator}>
+            <span className={quiz.recordDot}></span>
+            REC
+          </div>
+          <h1 className={quiz.quizTitle}>QUIZ</h1>
+          <div className={quiz.headerRight}>
+            <div className={quiz.timer}>
+              Time left: <span className={quiz.timeValue}>{formatTime(timeLeft)}</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div className={quiz.quizContent}>
+          <div className={quiz.questionCard}>
+            <div className={quiz.questionHeader}>
+              <span className={quiz.questionNumber}>Question {questionIndex + 1}</span>
+              <span className={quiz.questionMarks}>2 marks</span>
+            </div>
+            <div className={quiz.questionText}>
+              {questions[questionIndex]?.content || "Loading question..."}
+            </div>
+            <form className={quiz.optionsContainer}>
+              {questions[questionIndex]?.options.map((option, index) => (
+                <label key={index} className={quiz.optionLabel}>
+                  <input
+                    type="radio"
+                    name={`answer-${questionIndex}`}
+                    value={option}
+                    checked={selectedAnswers[questions[questionIndex]?.id] === option}
+                    onChange={() => handleAnswerChange(questions[questionIndex]?.id, option)}
+                    className={quiz.optionInput}
+                  />
+                  <span className={quiz.optionText}>{option}</span>
+                </label>
+              ))}
+            </form>
+          </div>
+
+          <div className={quiz.navigationButtons}>
+            {questionIndex > 0 && (
+              <button
+                onClick={handlePreviousQuestion}
+                className={`${quiz.navButton} ${quiz.prevButton}`}
+              >
+                Previous
+              </button>
+            )}
+            {questionIndex < questions.length - 1 ? (
+              <button
+                onClick={handleNextQuestion}
+                className={`${quiz.navButton} ${quiz.nextButton}`}
+              >
+                Next
+              </button>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className={`${quiz.navButton} ${quiz.submitButton}`}
+              >
+                Submit
+              </button>
+            )}
+          </div>
+        </div>
+
+        <div className={quiz.mediaPreview}>
+          <video ref={videoRef} autoPlay muted className={quiz.videoPreview}></video>
+          <div className={quiz.recordingStatus}>
+            {isRecording ? (
+              <>
+                <span className={quiz.recordIndicator}></span>
+                <span className={quiz.recordTime}>{getRecordingDuration()}</span>
+              </>
+            ) : (
+              <span>Recording stopped</span>
+            )}
+          </div>
+        </div>
+      </div>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={snackbar.severity} sx={{ width: '100%' }}>
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+
+      <Dialog
+        open={dialog.open}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{dialog.title}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {dialog.content}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Cancel</Button>
+          <Button onClick={() => {
+            handleCloseDialog();
+            dialog.onConfirm && dialog.onConfirm();
+          }} autoFocus>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 };
 
 export default Quiz2;

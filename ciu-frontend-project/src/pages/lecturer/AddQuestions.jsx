@@ -60,7 +60,7 @@ function AddQuestions({ id, onClose, onQuestionAdd }) {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/exam-paper/${id}/add-question`,
+        `https://c-i-u-backend.onrender.com/exam-paper/${id}/add-question`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

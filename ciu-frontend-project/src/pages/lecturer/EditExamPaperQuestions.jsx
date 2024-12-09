@@ -40,7 +40,7 @@
 //     const fetchQuestionData = async () => {
 //       try {
 //         const response = await fetch(
-//           `http://localhost:3000/exam-paper/${id}/question/${questionId}`
+//           `https://c-i-u-backend.onrender.com/exam-paper/${id}/question/${questionId}`
 //         );
 //         if (!response.ok) throw new Error("Failed to fetch question");
 //         const data = await response.json();
@@ -60,7 +60,7 @@
 //   const handleQuestionUpdate = async (updatedData) => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3000/exam-paper/${id}/question/${questionId}`,
+//         `https://c-i-u-backend.onrender.com/exam-paper/${id}/question/${questionId}`,
 //         {
 //           method: "PUT",
 //           headers: { "Content-Type": "application/json" },
@@ -214,7 +214,7 @@ function EditExamPaper({ id, questionId, onClose, onQuestionUpdate }) {
     const fetchQuestionData = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/exam-paper/${id}/question/${questionId}`
+          `https://c-i-u-backend.onrender.com/exam-paper/${id}/question/${questionId}`
         );
         if (!response.ok) throw new Error("Failed to fetch question");
         const data = await response.json();
@@ -252,7 +252,7 @@ function EditExamPaper({ id, questionId, onClose, onQuestionUpdate }) {
         answer: questionData.answer,
       };
       const response = await fetch(
-        `http://localhost:3000/exam-paper/${id}/question/${questionId}`,
+        `https://c-i-u-backend.onrender.com/exam-paper/${id}/question/${questionId}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

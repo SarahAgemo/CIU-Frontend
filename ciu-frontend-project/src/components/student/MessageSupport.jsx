@@ -18,7 +18,7 @@ export default function MessageSupport() {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/students/report', {
+      const response = await fetch('https://c-i-u-backend.onrender.com/students/report', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -49,24 +49,24 @@ export default function MessageSupport() {
         <h2 className={Message["support-title"]}>MESSAGE SUPPORT</h2>
         <form className={Message["support-form"]} onSubmit={handleSubmit}>
           <div className={Message["form-group"]}>
-            <input 
-              type="text" 
-              className={Message["form-control"]} 
-              placeholder="Your Registration Number" 
-              value={regno} 
-              onChange={(e) => setRegno(e.target.value)} 
-              aria-label="Registration Number" 
+            <input
+              type="text"
+              className={Message["form-control"]}
+              placeholder="Your Registration Number"
+              value={regno}
+              onChange={(e) => setRegno(e.target.value)}
+              aria-label="Registration Number"
               required
             />
           </div>
           <div className={Message["form-group"]}>
-            <textarea 
-              className={Message["form-control"]} 
-              rows={5} 
-              placeholder="Your message" 
-              value={issueDescription} 
-              onChange={(e) => setIssueDescription(e.target.value)} 
-              aria-label="Your message" 
+            <textarea
+              className={Message["form-control"]}
+              rows={5}
+              placeholder="Your message"
+              value={issueDescription}
+              onChange={(e) => setIssueDescription(e.target.value)}
+              aria-label="Your message"
               required
             />
           </div>

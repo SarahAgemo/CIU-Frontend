@@ -49,7 +49,7 @@ export default function Header() {
 
                 // Make a request to the backend API to get the lecturer's profile
                 const { id } = user;
-                const response = await axios.get(`http://localhost:3000/lecturerReg/profile/${id}`, {
+                const response = await axios.get(`https://c-i-u-backend.onrender.com/lecturerReg/profile/${id}`, {
                     headers: { Authorization: `Bearer ${token}` },
                 });
 
@@ -65,10 +65,10 @@ export default function Header() {
         fetchLecturerProfile();
         const interval = setInterval(() => {
             setCurrentTime(new Date());
-          }, 1000);
-      
-          // Clear the interval when the component is unmounted
-          return () => clearInterval(interval);
+        }, 1000);
+
+        // Clear the interval when the component is unmounted
+        return () => clearInterval(interval);
     }, []);
     return (
         <header className={LecturerHeader["header"]}>
@@ -76,15 +76,15 @@ export default function Header() {
                 <img src="/CIU exam system logo.png" alt="Clarke University Logo" className={LecturerHeader["logo"]} />
             </div>
             <div className={LecturerHeader["user-controls"]}>
-            <div id="timedate">
-             <a id="month">{currentTime.toLocaleString('default', { month: 'long' })}</a>{' '}
-             <a id="day">{currentTime.getDate()}</a>,{' '}
-             <a id="year">{currentTime.getFullYear()}</a>
-             <br />
-             <a id="hour">{currentTime.getHours().toString().padStart(2, '0')}</a> :
-             <a id="min">{currentTime.getMinutes().toString().padStart(2, '0')}</a> :
-            <a id="s">{currentTime.getSeconds().toString().padStart(2, '0')}</a>
-        </div>
+                <div id="timedate">
+                    <a id="month">{currentTime.toLocaleString('default', { month: 'long' })}</a>{' '}
+                    <a id="day">{currentTime.getDate()}</a>,{' '}
+                    <a id="year">{currentTime.getFullYear()}</a>
+                    <br />
+                    <a id="hour">{currentTime.getHours().toString().padStart(2, '0')}</a> :
+                    <a id="min">{currentTime.getMinutes().toString().padStart(2, '0')}</a> :
+                    <a id="s">{currentTime.getSeconds().toString().padStart(2, '0')}</a>
+                </div>
                 <button className={LecturerHeader["icon-button"]}>
                     <Settings size={24} />
                 </button>
@@ -96,13 +96,13 @@ export default function Header() {
                     <User size={24} />
                     <div className={LecturerHeader["user-details"]}>
                         {error ? (
-                                <span className={LecturerHeader['error-message']}>{error}</span>
-                            ) : (
-                                <>
-                                    <span className={LecturerHeader['user-name']}>{user.name}</span>
-                                    <span className={LecturerHeader['user-role']}>{user.role}</span>
-                                </>
-                            )}
+                            <span className={LecturerHeader['error-message']}>{error}</span>
+                        ) : (
+                            <>
+                                <span className={LecturerHeader['user-name']}>{user.name}</span>
+                                <span className={LecturerHeader['user-role']}>{user.role}</span>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>

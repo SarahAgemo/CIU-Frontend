@@ -42,7 +42,7 @@
 //     useEffect(() => {
 //         const fetchCourses = async () => {
 //             try {
-//                 const response = await fetch('http://localhost:3000/exam-paper/courses');
+//                 const response = await fetch('https://c-i-u-backend.onrender.com/exam-paper/courses');
 //                 if (!response.ok) throw new Error('Failed to fetch courses');
 //                 const data = await response.json();
 //                 setCourses(data);
@@ -58,7 +58,7 @@
 //         if (formData.courseId) {
 //             const fetchCourseUnits = async () => {
 //                 try {
-//                     const response = await fetch(`http://localhost:3000/manual-exam-paper/courses/${formData.courseId}/units`);
+//                     const response = await fetch(`https://c-i-u-backend.onrender.com/manual-exam-paper/courses/${formData.courseId}/units`);
 //                     if (!response.ok) {
 //                         throw new Error('Failed to fetch course units');
 //                     }
@@ -201,7 +201,7 @@
 //                 })),
 //             };
 
-//             const response = await axios.post('http://localhost:3000/manual-exam-paper', payload);
+//             const response = await axios.post('https://c-i-u-backend.onrender.com/manual-exam-paper', payload);
 
 //             console.log('Data posted successfully:', response.data);
 //             handleSnackbar('Exam created successfully!', 'success');
@@ -478,7 +478,7 @@ export default function ManualCreateExamContent({ onClose }) {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/exam-paper/courses"
+          "https://c-i-u-backend.onrender.com/exam-paper/courses"
         );
         if (!response.ok) throw new Error("Failed to fetch courses");
         const data = await response.json();
@@ -496,7 +496,7 @@ export default function ManualCreateExamContent({ onClose }) {
       const fetchCourseUnits = async () => {
         try {
           const response = await fetch(
-            `http://localhost:3000/manual-exam-paper/courses/${formData.courseId}/units`
+            `https://c-i-u-backend.onrender.com/manual-exam-paper/courses/${formData.courseId}/units`
           );
           if (!response.ok) {
             throw new Error("Failed to fetch course units");
@@ -597,7 +597,7 @@ export default function ManualCreateExamContent({ onClose }) {
               options: e.target.value
             };
           }
-          
+
           // For other fields like content or answer
           return {
             ...question,
@@ -606,10 +606,10 @@ export default function ManualCreateExamContent({ onClose }) {
         }
         return question;
       });
-  
-      return { 
-        ...prevState, 
-        questions: updatedQuestions 
+
+      return {
+        ...prevState,
+        questions: updatedQuestions
       };
     });
   };
@@ -632,7 +632,7 @@ export default function ManualCreateExamContent({ onClose }) {
       ],
     }));
   };
-  
+
 
   const removeLastQuestion = () => {
     if (formData.questions.length > 1) {
@@ -710,7 +710,7 @@ export default function ManualCreateExamContent({ onClose }) {
       };
 
       const response = await axios.post(
-        "http://localhost:3000/manual-exam-paper",
+        "https://c-i-u-backend.onrender.com/manual-exam-paper",
         payload
       );
 
@@ -918,7 +918,7 @@ export default function ManualCreateExamContent({ onClose }) {
                   onClick={() => deleteOption(questionIndex, optionIndex)}
                   className={createExam.deleteOptionButton}
                 >
-                   X
+                  X
                 </button>
               </div>
             ))}

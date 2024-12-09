@@ -12,7 +12,7 @@ export default function Header() {
   useEffect(() => {
     // Initialize socket connection only if it doesn't exist yet
     if (!socketRef.current) {
-      const newSocket = io('http://localhost:3000');
+      const newSocket = io('https://c-i-u-backend.onrender.com');
       socketRef.current = newSocket;
 
       // Register admin once connected
@@ -52,7 +52,7 @@ export default function Header() {
       const { id } = user; // Get user ID
       console.log(`Fetching profile for user ID: ${id}`);
 
-      const response = await axios.get(`http://localhost:3000/adminReg/profile/${id}`, {
+      const response = await axios.get(`https://c-i-u-backend.onrender.com/adminReg/profile/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

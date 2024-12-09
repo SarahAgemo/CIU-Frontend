@@ -308,7 +308,7 @@
 //   };
 
 //   useEffect(() => {
-//     fetch("http://localhost:3000/coursesAdd")
+//     fetch("https://c-i-u-backend.onrender.com/coursesAdd")
 //       .then((response) => {
 //         if (!response.ok) {
 //           throw new Error("Network response was not ok");
@@ -320,7 +320,7 @@
 //   }, []);
 
 //   const deleteUser = (id) => {
-//     fetch(`http://localhost:3000/coursesAdd/${id}`, {
+//     fetch(`https://c-i-u-backend.onrender.com/coursesAdd/${id}`, {
 //       method: "DELETE",
 //     })
 //       .then((response) => {
@@ -368,11 +368,11 @@ import Sidebar from "../../components/admin/SideBarpop";
 import MobileMenu from "../../components/admin/MobileMenu";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
-  DialogActions, 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Button,
   Alert,
   Snackbar
@@ -614,7 +614,7 @@ function AdminCourses() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:3000/coursesAdd");
+      const response = await fetch("https://c-i-u-backend.onrender.com/coursesAdd");
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -628,7 +628,7 @@ function AdminCourses() {
 
   const deleteUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/coursesAdd/${id}`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/coursesAdd/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -671,7 +671,7 @@ function AdminCourses() {
       let response;
       if (editingCourse) {
         // Update existing course
-        response = await fetch(`http://localhost:3000/coursesAdd/${editingCourse.id}`, {
+        response = await fetch(`https://c-i-u-backend.onrender.com/coursesAdd/${editingCourse.id}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -680,7 +680,7 @@ function AdminCourses() {
         });
       } else {
         // Add new course
-        response = await fetch('http://localhost:3000/coursesAdd', {
+        response = await fetch('https://c-i-u-backend.onrender.com/coursesAdd', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -742,9 +742,9 @@ function AdminCourses() {
                 />
               </div>
             </div>
-            <UserList 
-              users={users} 
-              deleteUser={deleteUser} 
+            <UserList
+              users={users}
+              deleteUser={deleteUser}
               searchTerm={searchTerm}
               onEdit={handleEditCourse}
             />

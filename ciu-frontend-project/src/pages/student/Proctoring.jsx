@@ -324,7 +324,7 @@
 // //   const handleBeginExam = async () => {
 // //     if (beginExamEnabled) {
 // //       try {
-// //         const { data } = await axios.get(`http://localhost:3000/exam-paper/${examId}/questions-no-answers`);
+// //         const { data } = await axios.get(`https://c-i-u-backend.onrender.com/exam-paper/${examId}/questions-no-answers`);
 // //         setExamQuestions(data);
 
 // //         navigate("/quiz", { state: { questions: data } });
@@ -399,7 +399,7 @@
 // //             I have read the instructions & consent to the capture of my video and audio for remote proctoring purposes.
 // //           </label>
 // //         </div>
-        
+
 // //         <div className={proct["button-wrapper"]}>
 // //           <button
 // //             className={proct["begin-exam-btn"]}
@@ -525,7 +525,7 @@
 //       alert("Please ensure all conditions are met before starting the exam.");
 //     }
 //   };
-  
+
 
 //   return (
 //     <div className={proct["proctoring-overall"]}>
@@ -589,7 +589,7 @@
 //             I have read the instructions & consent to the capture of my video and audio for remote proctoring purposes.
 //           </label>
 //         </div>
-        
+
 //         <div className={proct["button-wrapper"]}>
 //           <button
 //             className={proct["begin-exam-btn"]}
@@ -877,15 +877,15 @@ import { TbDeviceComputerCamera } from "react-icons/tb";
 import { IoExitOutline } from "react-icons/io5";
 import proct from "./Proctoring.module.css";
 import { ExamDetails } from "../../components/student/ExamDetails";
-import { 
-  Snackbar, 
-  Alert, 
-  Dialog, 
-  DialogActions, 
-  DialogContent, 
-  DialogContentText, 
-  DialogTitle, 
-  Button 
+import {
+  Snackbar,
+  Alert,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Button
 } from "@mui/material";
 
 const Proctoring = () => {
@@ -1114,9 +1114,9 @@ const Proctoring = () => {
         </div>
       </div>
 
-      <Snackbar 
-        open={snackbarOpen} 
-        autoHideDuration={6000} 
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
         onClose={() => setSnackbarOpen(false)}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >

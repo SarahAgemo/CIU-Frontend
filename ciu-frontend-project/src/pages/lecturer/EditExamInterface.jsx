@@ -50,7 +50,7 @@ function EditExamInterface() {
     const fetchCourses = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/exam-paper/courses"
+          "https://c-i-u-backend.onrender.com/exam-paper/courses"
         );
         if (!response.ok) throw new Error("Failed to fetch courses");
         const data = await response.json();
@@ -68,7 +68,7 @@ function EditExamInterface() {
       const fetchCourseUnits = async () => {
         try {
           const response = await fetch(
-            `http://localhost:3000/exam-paper/courses/${examData.courseId}/units`
+            `https://c-i-u-backend.onrender.com/exam-paper/courses/${examData.courseId}/units`
           );
           if (!response.ok) throw new Error("Failed to fetch course units");
           const data = await response.json();
@@ -87,7 +87,7 @@ function EditExamInterface() {
   useEffect(() => {
     const fetchExamData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
         if (!response.ok) throw new Error("Failed to fetch exam paper");
         const data = await response.json();
 
@@ -117,7 +117,7 @@ function EditExamInterface() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
+
     if (name === "scheduledDate") {
       const selectedDateTime = moment(value);
       const now = moment();
@@ -150,14 +150,14 @@ function EditExamInterface() {
     else if (name === "duration") {
       // Remove any non-digit characters except colon
       let cleaned = value.replace(/[^\d:]/g, '');
-      
+
       // Handle colon input
       if (cleaned.includes(':')) {
         let [hours, minutes] = cleaned.split(':');
-        
+
         // Allow natural typing of hours (no padding)
         hours = hours || '';
-        
+
         // Handle minutes
         if (minutes !== undefined) {
           // Ensure minutes don't exceed 59
@@ -171,7 +171,7 @@ function EditExamInterface() {
         } else {
           minutes = '';
         }
-  
+
         cleaned = hours + (cleaned.includes(':') ? ':' : '') + minutes;
       } else {
         // If no colon, treat as either hours or minutes based on length
@@ -182,13 +182,13 @@ function EditExamInterface() {
           cleaned = `${hours}:${minutes}`;
         }
       }
-      
+
       setExamData(prevData => {
         const newData = {
           ...prevData,
           duration: cleaned
         };
-  
+
         // Only update end time if we have valid hours and minutes
         if (prevData.scheduledDate && cleaned.includes(':')) {
           const [hours, minutes] = cleaned.split(':').map(num => parseInt(num) || 0);
@@ -197,7 +197,7 @@ function EditExamInterface() {
           const endTime = moment(startDateTime).add(durationMinutes, 'minutes').format("HH:mm:ss");
           newData.endTime = endTime;
         }
-  
+
         return newData;
       });
     }
@@ -237,7 +237,7 @@ function EditExamInterface() {
         duration: examData.duration // Keep original duration format
       };
 
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formattedData),
@@ -270,150 +270,150 @@ function EditExamInterface() {
             <BackButton targetPath={`/exam-paper/${id}`} size={30} color="#106053" />
           </div>
           <div className="edit-exam-interface__container mt-5">
-      <h3 className="edit-exam-interface__header">Edit Exam Paper</h3>
-        <form onSubmit={handleSubmit}>
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">Title</label>
-            <input
-              type="text"
-              name="title"
-              value={examData.title}
-              onChange={handleChange}
-              className="edit-exam-interface__form-control"
-            />
+            <h3 className="edit-exam-interface__header">Edit Exam Paper</h3>
+            <form onSubmit={handleSubmit}>
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">Title</label>
+                <input
+                  type="text"
+                  name="title"
+                  value={examData.title}
+                  onChange={handleChange}
+                  className="edit-exam-interface__form-control"
+                />
+              </div>
+
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">Description</label>
+                <textarea
+                  name="description"
+                  value={examData.description}
+                  onChange={handleChange}
+                  className="edit-exam-interface__form-control"
+                ></textarea>
+              </div>
+
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">Select Course</label>
+                <select
+                  name="courseId"
+                  className="edit-exam-interface__form-control"
+                  value={examData.courseId}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select a course</option>
+                  {courses.map((course) => (
+                    <option key={course.id} value={course.id}>
+                      {course.courseName}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">Course Unit</label>
+                <select
+                  name="courseUnit"
+                  className="edit-exam-interface__form-control"
+                  value={examData.courseUnit}
+                  onChange={handleChange}
+                  required
+                  disabled={!examData.courseId}
+                >
+                  <option value="">Select a course unit</option>
+                  {Array.isArray(courseUnits) &&
+                    courseUnits.map((unit) => (
+                      <option key={unit.id} value={unit.unitName}>
+                        {unit.unitName}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">
+                  Course Unit Code
+                </label>
+                <input
+                  type="text"
+                  name="courseUnitCode"
+                  value={examData.courseUnitCode}
+                  onChange={handleChange}
+                  className="edit-exam-interface__form-control"
+                />
+              </div>
+
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">Scheduled Date</label>
+                <input
+                  type="datetime-local"
+                  name="scheduledDate"
+                  value={examData.scheduledDate}
+                  onChange={handleChange}
+                  className="edit-exam-interface__form-control"
+                />
+              </div>
+
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">
+                  Duration (HH:mm)
+                </label>
+                <input
+                  type="text"
+                  name="duration"
+                  value={examData.duration}
+                  onChange={handleChange}
+                  placeholder="HH:MM"
+                  className="edit-exam-interface__form-control"
+                  required
+                />
+                <small className="edit-exam-interface__form-text">
+                  Format: hours:minutes (e.g., 02:30 for 2 hours and 30 minutes)
+                </small>
+              </div>
+
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">
+                  Start Time
+                </label>
+                <input
+                  type="time"
+                  name="startTime"
+                  value={examData.startTime}
+                  className="edit-exam-interface__form-control"
+                  readOnly
+                />
+              </div>
+
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">
+                  End Time
+                </label>
+                <input
+                  type="time"
+                  name="endTime"
+                  value={examData.endTime}
+                  className="edit-exam-interface__form-control"
+                  readOnly
+                />
+              </div>
+              <div className="edit-exam-interface__form-group">
+                <label className="edit-exam-interface__label">Created By</label>
+                <input
+                  type="text"
+                  name="createdBy"
+                  value={examData.createdBy}
+                  onChange={handleChange}
+                  className="edit-exam-interface__form-control"
+                />
+              </div>
+
+              <button type="submit" className="edit-exam-interface__submit-button">
+                Update Exam Paper
+              </button>
+            </form>
           </div>
-
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">Description</label>
-            <textarea
-              name="description"
-              value={examData.description}
-              onChange={handleChange}
-              className="edit-exam-interface__form-control"
-            ></textarea>
-          </div>
-
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">Select Course</label>
-            <select
-              name="courseId"
-              className="edit-exam-interface__form-control"
-              value={examData.courseId}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select a course</option>
-              {courses.map((course) => (
-                <option key={course.id} value={course.id}>
-                  {course.courseName}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">Course Unit</label>
-            <select
-              name="courseUnit"
-              className="edit-exam-interface__form-control"
-              value={examData.courseUnit}
-              onChange={handleChange}
-              required
-              disabled={!examData.courseId}
-            >
-              <option value="">Select a course unit</option>
-              {Array.isArray(courseUnits) &&
-                courseUnits.map((unit) => (
-                  <option key={unit.id} value={unit.unitName}>
-                    {unit.unitName}
-                  </option>
-                ))}
-            </select>
-          </div>
-
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">
-              Course Unit Code
-            </label>
-            <input
-              type="text"
-              name="courseUnitCode"
-              value={examData.courseUnitCode}
-              onChange={handleChange}
-              className="edit-exam-interface__form-control"
-            />
-          </div>
-
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">Scheduled Date</label>
-            <input
-              type="datetime-local"
-              name="scheduledDate"
-              value={examData.scheduledDate}
-              onChange={handleChange}
-              className="edit-exam-interface__form-control"
-            />
-          </div>
-
-          <div className="edit-exam-interface__form-group">
-        <label className="edit-exam-interface__label">
-          Duration (HH:mm)
-        </label>
-        <input
-          type="text"
-          name="duration"
-          value={examData.duration}
-          onChange={handleChange}
-          placeholder="HH:MM"
-          className="edit-exam-interface__form-control"
-          required
-        />
-        <small className="edit-exam-interface__form-text">
-          Format: hours:minutes (e.g., 02:30 for 2 hours and 30 minutes)
-        </small>
-      </div>
-
-      <div className="edit-exam-interface__form-group">
-        <label className="edit-exam-interface__label">
-          Start Time
-        </label>
-        <input
-          type="time"
-          name="startTime"
-          value={examData.startTime}
-          className="edit-exam-interface__form-control"
-          readOnly
-        />
-      </div>
-
-      <div className="edit-exam-interface__form-group">
-        <label className="edit-exam-interface__label">
-          End Time
-        </label>
-        <input
-          type="time"
-          name="endTime"
-          value={examData.endTime}
-          className="edit-exam-interface__form-control"
-          readOnly
-        />
-      </div>
-          <div className="edit-exam-interface__form-group">
-            <label className="edit-exam-interface__label">Created By</label>
-            <input
-              type="text"
-              name="createdBy"
-              value={examData.createdBy}
-              onChange={handleChange}
-              className="edit-exam-interface__form-control"
-            />
-          </div>
-
-          <button type="submit" className="edit-exam-interface__submit-button">
-            Update Exam Paper
-          </button>
-        </form>
-      </div>
         </div>
       </div>
     </div>

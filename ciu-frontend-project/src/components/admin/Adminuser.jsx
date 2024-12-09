@@ -54,7 +54,7 @@ function UserList({ users, deleteUser, searchTerm }) {
           type="button"
           className="btn-secondary"
         >
-        <FaEdit className="icon-edit"   />
+          <FaEdit className="icon-edit" />
         </span>
         <span
           onClick={() => {
@@ -65,7 +65,7 @@ function UserList({ users, deleteUser, searchTerm }) {
           type="button"
           className="btn-danger"
         >
-            <FaTrash className="icon-trash" />
+          <FaTrash className="icon-trash" />
         </span>
       </td>
     </tr>
@@ -90,7 +90,7 @@ function Adminuser() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/adminReg");
+        const response = await fetch("https://c-i-u-backend.onrender.com/adminReg");
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -109,7 +109,7 @@ function Adminuser() {
 
   const deleteUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/adminReg/${id}`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/adminReg/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {

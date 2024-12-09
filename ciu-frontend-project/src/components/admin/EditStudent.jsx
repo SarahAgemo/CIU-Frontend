@@ -21,7 +21,7 @@
 //   useEffect(() => {
 //     const fetchStudentData = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:3000/students/${id}`);
+//         const response = await fetch(`https://c-i-u-backend.onrender.com/students/${id}`);
 //         const data = await response.json();
 //         setUser({
 //           firstName: data.first_name,
@@ -65,7 +65,7 @@
 //     };
 
 //     try {
-//       const response = await fetch(`http://localhost:3000/students/${id}`, {
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/students/${id}`, {
 //         method: 'PATCH',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -230,7 +230,7 @@ const EditStudent = ({ id, onClose, onUpdate }) => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/students/${id}`);
+        const response = await fetch(`https://c-i-u-backend.onrender.com/students/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch student data');
         }
@@ -264,7 +264,7 @@ const EditStudent = ({ id, onClose, onUpdate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3000/students/${id}`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/students/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

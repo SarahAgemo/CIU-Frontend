@@ -33,11 +33,11 @@ export default function Dashboard() {
   const [ongoingAssessmentsCount, setOngoingAssessmentsCount] = useState(0);
   const [upcomingAssessmentsCount, setUpcomingAssessmentsCount] = useState(0);
 
-    useEffect(() => {
+  useEffect(() => {
     // Function to fetch student count
     const fetchStudentCount = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/students/count/students');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/students/count/students');
         console.log("Student Count Response:", response);
         setStudentCount(response.data.count || 0);  // Ensure response is not undefined
       } catch (error) {
@@ -47,7 +47,7 @@ export default function Dashboard() {
 
     const fetchProgramCount = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/students/count/programs');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/students/count/programs');
         console.log("Program Count Response:", response);
         setProgramCount(response.data.count || 0);  // Ensure response is not undefined
       } catch (error) {
@@ -55,10 +55,10 @@ export default function Dashboard() {
       }
     };
 
-     // Fetch lecturer count
-     const fetchLecturerCount = async () => {
+    // Fetch lecturer count
+    const fetchLecturerCount = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/lecturerReg/count');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/lecturerReg/count');
         setLecturerCount(response.data);
       } catch (error) {
         console.error("Error fetching lecturer count:", error);
@@ -68,7 +68,7 @@ export default function Dashboard() {
     // Fetch course count
     const fetchCourseCount = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/coursesAdd/count');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/coursesAdd/count');
         setCourseCount(response.data);
       } catch (error) {
         console.error("Error fetching course count:", error);
@@ -78,7 +78,7 @@ export default function Dashboard() {
     // Fetch course unit count
     const fetchCourseUnitCount = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/coursesAdd/units/count');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/coursesAdd/units/count');
         setCourseUnitCount(response.data.count);
       } catch (error) {
         console.error("Error fetching course unit count:", error);
@@ -89,7 +89,7 @@ export default function Dashboard() {
     // Fetch ongoing assessments count
     const fetchOngoingAssessmentsCount = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/exam-paper/ongoing');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/exam-paper/ongoing');
         setOngoingAssessmentsCount(response.data);
       } catch (error) {
         console.error("Error fetching ongoing assessments count:", error);
@@ -99,7 +99,7 @@ export default function Dashboard() {
     // Fetch upcoming assessments count
     const fetchUpcomingAssessmentsCount = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/exam-paper/upcoming');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/exam-paper/upcoming');
         setUpcomingAssessmentsCount(response.data);
       } catch (error) {
         console.error("Error fetching upcoming assessments count:", error);
@@ -116,34 +116,34 @@ export default function Dashboard() {
     fetchProgramCount();
   }, []);
 
-return (
-  <div className={AdminDash["overall"]}>
-    <div className={`${AdminDash["dashboard"]} ${isMobileMenuOpen ? AdminDash["menu-open"] : ""}`}>
-      <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
-      <div className={AdminDash["dashboard-content"]}>
-        {!isMobile && <Sidebar />}
-        {isMobile && (
-          <>
-            <div 
-              className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
-              onClick={toggleMobileMenu}
-            ></div>
-            <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
-          </>
-        )}
-        <main className={`${AdminDash["main-content"]} ${isMobileMenuOpen ? AdminDash["dimmed"] : ""}`}>
-          <h2 className={AdminDash["dashboard-title"]}>Dashboard</h2>
-          <div className={AdminDash["dashboard-cards"]}>
-            <DashboardCard title="Registered Students" value={studentCount} icon="🎓" />
-            <DashboardCard title="Registered Lecturers" value={lecturerCount} icon="👨‍💻" />
-            <DashboardCard title="Registered Courses" value={courseCount} icon="📖" />
-            <DashboardCard title="Registered Course Units" value={courseUnitCount} icon="📖" />
-            <DashboardCard title="Ongoing Exams/Assessments" value={ongoingAssessmentsCount} icon="📝" />
-            <DashboardCard title="Upcoming Exams/Assessments" value={upcomingAssessmentsCount} icon="📝" />
-          </div>
-        </main>        
+  return (
+    <div className={AdminDash["overall"]}>
+      <div className={`${AdminDash["dashboard"]} ${isMobileMenuOpen ? AdminDash["menu-open"] : ""}`}>
+        <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+        <div className={AdminDash["dashboard-content"]}>
+          {!isMobile && <Sidebar />}
+          {isMobile && (
+            <>
+              <div
+                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`}
+                onClick={toggleMobileMenu}
+              ></div>
+              <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
+            </>
+          )}
+          <main className={`${AdminDash["main-content"]} ${isMobileMenuOpen ? AdminDash["dimmed"] : ""}`}>
+            <h2 className={AdminDash["dashboard-title"]}>Dashboard</h2>
+            <div className={AdminDash["dashboard-cards"]}>
+              <DashboardCard title="Registered Students" value={studentCount} icon="🎓" />
+              <DashboardCard title="Registered Lecturers" value={lecturerCount} icon="👨‍💻" />
+              <DashboardCard title="Registered Courses" value={courseCount} icon="📖" />
+              <DashboardCard title="Registered Course Units" value={courseUnitCount} icon="📖" />
+              <DashboardCard title="Ongoing Exams/Assessments" value={ongoingAssessmentsCount} icon="📝" />
+              <DashboardCard title="Upcoming Exams/Assessments" value={upcomingAssessmentsCount} icon="📝" />
+            </div>
+          </main>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }

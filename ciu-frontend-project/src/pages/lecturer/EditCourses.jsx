@@ -35,7 +35,7 @@ function EditCourse() {
   });
 
   useEffect(() => {
-    fetch(`http://localhost:3000/coursesAdd/${id}`)
+    fetch(`https://c-i-u-backend.onrender.com/coursesAdd/${id}`)
       .then((response) => response.json())
       .then((data) => setFormData(data))
       .catch((error) => console.error("Error fetching course data:", error));
@@ -51,7 +51,7 @@ function EditCourse() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:3000/coursesAdd/${id}`, {
+    fetch(`https://c-i-u-backend.onrender.com/coursesAdd/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -80,60 +80,60 @@ function EditCourse() {
               toggleMenu={toggleMobileMenu}
             />
           )}
-              <div className={styles.usersContent}>
-                <div className={styles.container}>
-                  <h2>Edit Course</h2>
-                  <form onSubmit={handleSubmit}>
-                    <div className={styles.formGroup}>
-                      <label>Faculty Name</label>
-                      <input
-                        type="text"
-                        name="facultyName"
-                        className={styles.formControl}
-                        value={formData.facultyName}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className={styles.formGroup}>
-                      <label>Course Name</label>
-                      <input
-                        type="text"
-                        name="courseName"
-                        className={styles.formControl}
-                        value={formData.courseName}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className={styles.formGroup}>
-                      <label>Course Units</label>
-                      <input
-                        type="text"
-                        name="courseUnits"
-                        className={styles.formControl}
-                        value={formData.courseUnits}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <div className={styles.formGroup}>
-                      <label>Course Unit Code</label>
-                      <input
-                        type="text"
-                        name="courseUnitCode"
-                        className={styles.formControl}
-                        value={formData.courseUnitCode}
-                        onChange={handleChange}
-                      />
-                    </div>
-                    <button type="submit" className={styles.btn}>
-                      Save Changes
-                    </button>
-                  </form>
+          <div className={styles.usersContent}>
+            <div className={styles.container}>
+              <h2>Edit Course</h2>
+              <form onSubmit={handleSubmit}>
+                <div className={styles.formGroup}>
+                  <label>Faculty Name</label>
+                  <input
+                    type="text"
+                    name="facultyName"
+                    className={styles.formControl}
+                    value={formData.facultyName}
+                    onChange={handleChange}
+                  />
                 </div>
-              </div>
+                <div className={styles.formGroup}>
+                  <label>Course Name</label>
+                  <input
+                    type="text"
+                    name="courseName"
+                    className={styles.formControl}
+                    value={formData.courseName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Course Units</label>
+                  <input
+                    type="text"
+                    name="courseUnits"
+                    className={styles.formControl}
+                    value={formData.courseUnits}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className={styles.formGroup}>
+                  <label>Course Unit Code</label>
+                  <input
+                    type="text"
+                    name="courseUnitCode"
+                    className={styles.formControl}
+                    value={formData.courseUnitCode}
+                    onChange={handleChange}
+                  />
+                </div>
+                <button type="submit" className={styles.btn}>
+                  Save Changes
+                </button>
+              </form>
             </div>
           </div>
         </div>
-     
+      </div>
+    </div>
+
   );
 }
 

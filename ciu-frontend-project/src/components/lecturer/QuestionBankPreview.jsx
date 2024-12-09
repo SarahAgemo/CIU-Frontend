@@ -30,7 +30,7 @@
 //   useEffect(() => {
 //     const fetchQuestions = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:3000/question-bank/${bankId}/questions`);
+//         const response = await fetch(`https://c-i-u-backend.onrender.com/question-bank/${bankId}/questions`);
 //         const data = await response.json();
 //         setQuestions(data);
 //         setLoading(false);
@@ -142,7 +142,7 @@ const QuestionBankPreview = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/question-bank/${bankId}/questions`);
+        const response = await fetch(`https://c-i-u-backend.onrender.com/question-bank/${bankId}/questions`);
         const data = await response.json();
         setQuestions(data);
         setLoading(false);
@@ -181,9 +181,8 @@ const QuestionBankPreview = () => {
             {questions.map((question, index) => (
               <div
                 key={question.id}
-                className={`question-preview__item ${
-                  hoveredQuestionId === question.id ? 'hovered' : ''
-                }`}
+                className={`question-preview__item ${hoveredQuestionId === question.id ? 'hovered' : ''
+                  }`}
                 onMouseEnter={() => setHoveredQuestionId(question.id)}
                 onMouseLeave={() => setHoveredQuestionId(null)}
               >

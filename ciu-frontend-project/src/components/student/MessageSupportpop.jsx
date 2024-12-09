@@ -18,7 +18,7 @@ function MessageSupport() {
     };
 
     try {
-      const response = await fetch("http://localhost:3000/students/report", {
+      const response = await fetch("https://c-i-u-backend.onrender.com/students/report", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

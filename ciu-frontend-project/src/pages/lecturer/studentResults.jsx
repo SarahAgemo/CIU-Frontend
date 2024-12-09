@@ -31,14 +31,14 @@ function ResultsTable({ assessmentId }) {
     async function fetchData() {
       try {
         const scoresResponse = await axios.get(
-          `http://localhost:3000/scores/${id}`
+          `https://c-i-u-backend.onrender.com/scores/${id}`
         );
         const scoresData = Array.isArray(scoresResponse.data)
           ? scoresResponse.data
           : [scoresResponse.data];
 
         const studentsResponse = await axios.get(
-          "http://localhost:3000/students"
+          "https://c-i-u-backend.onrender.com/students"
         );
         const studentsData = studentsResponse.data;
 

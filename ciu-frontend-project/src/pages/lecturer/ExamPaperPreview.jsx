@@ -68,7 +68,7 @@
 //   useEffect(() => {
 //     const fetchExamData = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+//         const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
 //         if (!response.ok) throw new Error("Failed to fetch exam paper");
 //         const data = await response.json();
 //         setExamData(data);
@@ -108,7 +108,7 @@
 
 //   const confirmDelete = async () => {
 //     try {
-//       const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`, {
 //         method: "DELETE",
 //       });
 //       if (!response.ok) {
@@ -125,7 +125,7 @@
 //   };
 
 //   const handlePublish = () => {
-   
+
 //     if (isDraft === false) {
 //       handleSnackbar("This exam is already published.", "warning");
 //       return;
@@ -139,7 +139,7 @@
 
 //   const confirmPublish = async () => {
 //     try {
-//       const response = await fetch(`http://localhost:3000/exam-paper/${id}/publish`, {
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}/publish`, {
 //         method: "PATCH",
 //       });
 //       if (!response.ok) {
@@ -167,7 +167,7 @@
 
 //   const confirmUnpublish = async () => {
 //     try {
-//       const response = await fetch(`http://localhost:3000/exam-paper/${id}/unpublish`, {
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}/unpublish`, {
 //         method: "PATCH",
 //       });
 //       if (!response.ok) {
@@ -194,7 +194,7 @@
 
 //   const confirmRequestApproval = async () => {
 //     try {
-//       const response = await fetch(`http://localhost:3000/exam-paper/${id}/request-approval`, {
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}/request-approval`, {
 //         method: "PATCH",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -453,22 +453,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import moment from 'moment';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableContainer, 
-  TableRow, 
-  Paper, 
-  Button, 
-  Snackbar, 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+  Button,
+  Snackbar,
   Alert,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  IconButton, 
+  IconButton,
   Tooltip
 } from '@mui/material';
 import { FaEye, FaEdit, FaTrash, FaCheck, FaPaperPlane, FaUndo } from "react-icons/fa";
@@ -491,7 +491,7 @@ function ExamPaperPreview({ id, onClose }) {
   useEffect(() => {
     const fetchExamData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
         if (!response.ok) throw new Error("Failed to fetch exam paper");
         const data = await response.json();
         setExamData(data);
@@ -540,7 +540,7 @@ function ExamPaperPreview({ id, onClose }) {
 
   const confirmDelete = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {
@@ -570,7 +570,7 @@ function ExamPaperPreview({ id, onClose }) {
 
   const confirmPublish = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}/publish`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}/publish`, {
         method: "PATCH",
       });
       if (!response.ok) {
@@ -598,7 +598,7 @@ function ExamPaperPreview({ id, onClose }) {
 
   const confirmUnpublish = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}/unpublish`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}/unpublish`, {
         method: "PATCH",
       });
       if (!response.ok) {
@@ -626,7 +626,7 @@ function ExamPaperPreview({ id, onClose }) {
 
   const confirmRequestApproval = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}/request-approval`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}/request-approval`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

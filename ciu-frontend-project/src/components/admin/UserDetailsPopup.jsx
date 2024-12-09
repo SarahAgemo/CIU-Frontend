@@ -29,7 +29,7 @@ export default function UserDetailsPopup({ children }) {
       }
 
       const { id } = user;
-      const response = await axios.get(`http://localhost:3000/adminReg/profile/${id}`, {
+      const response = await axios.get(`https://c-i-u-backend.onrender.com/adminReg/profile/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -75,10 +75,10 @@ export default function UserDetailsPopup({ children }) {
           ) : userData ? (
             <>
               <div className={User["user-info"]}>
-                <img 
+                <img
                   src={userData.profileImageSrc}
-                  alt="User profile" 
-                  className={User["user-avatar"]} 
+                  alt="User profile"
+                  className={User["user-avatar"]}
                 />
                 <h2 className={User["user-name"]}>{userData.name}</h2>
                 <p className={User["user-role"]}>{userData.role}</p>

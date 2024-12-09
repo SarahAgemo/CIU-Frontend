@@ -37,7 +37,7 @@
 //       try {
 //         console.log("Fetching questions for exam paper ID:", id);
 //         const response = await fetch(
-//           `http://localhost:3000/exam-paper/${id}/questions`
+//           `https://c-i-u-backend.onrender.com/exam-paper/${id}/questions`
 //         );
 //         if (!response.ok) throw new Error("Failed to fetch questions");
 
@@ -191,7 +191,7 @@ function AdminQuestionsPreview() {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3000/exam-paper/${id}/questions`
+          `https://c-i-u-backend.onrender.com/exam-paper/${id}/questions`
         );
         if (!response.ok) throw new Error("Failed to fetch questions");
 

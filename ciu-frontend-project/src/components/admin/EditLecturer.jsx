@@ -37,7 +37,7 @@
 //     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
 //     useEffect(() => {
-//         fetch(`http://localhost:3000/lecturerReg/${id}`)
+//         fetch(`https://c-i-u-backend.onrender.com/lecturerReg/${id}`)
 //             .then((response) => response.json())
 //             .then((data) => setFormData(data))
 //             .catch((error) => console.error('Error fetching user:', error));
@@ -50,7 +50,7 @@
 
 //     const handleSubmit = (e) => {
 //         e.preventDefault();
-//         fetch(`http://localhost:3000/lecturerReg/${id}`, {
+//         fetch(`https://c-i-u-backend.onrender.com/lecturerReg/${id}`, {
 //             method: 'PATCH',
 //             headers: {
 //                 'Content-Type': 'application/json',
@@ -80,9 +80,9 @@
 //             />
 //           )}
 //         <div className="edit-lecturer-layout-container">
-          
+
 //             <div className="edit-lecturer-main-content">
-               
+
 //                 <div className="edit-lecturer-users-content">
 //                    <div className="edit-lecturer-edit-user-container">   
 //                         <h2>Edit User</h2>
@@ -178,7 +178,7 @@ function EditLecturer({ id, onClose, onUpdate }) {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:3000/lecturerReg/${id}`)
+            fetch(`https://c-i-u-backend.onrender.com/lecturerReg/${id}`)
                 .then((response) => response.json())
                 .then((data) => setFormData(data))
                 .catch((error) => console.error('Error fetching user:', error));
@@ -192,7 +192,7 @@ function EditLecturer({ id, onClose, onUpdate }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`http://localhost:3000/lecturerReg/${id}`, {
+        fetch(`https://c-i-u-backend.onrender.com/lecturerReg/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

@@ -8,7 +8,7 @@
 
 // const RegCourse = () => {
 //   const navigate = useNavigate();
-  
+
 //   // Mobile responsiveness states
 //   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 //   const [isMobile, setIsMobile] = useState(false);
@@ -48,7 +48,7 @@
 //       ...prev,
 //       [name]: value,
 //     }));
-    
+
 //     // Clear specific errors when user starts typing
 //     if (specificError) {
 //       setSpecificError('');
@@ -58,7 +58,7 @@
 //   // Form validation
 //   const validate = () => {
 //     const newErrors = {};
-    
+
 //     // Trim and validate each field
 //     const requiredFields = [
 //       'facultyName', 
@@ -116,7 +116,7 @@
 //       };
 
 //       // Submit to backend
-//       const response = await fetch('http://localhost:3000/coursesAdd', {
+//       const response = await fetch('https://c-i-u-backend.onrender.com/coursesAdd', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -135,7 +135,7 @@
 //       } else {
 //         // Error handling
 //         const errorData = await response.json();
-        
+
 //         if (response.status === 409) {
 //           // Conflict error (duplicate course)
 //           setSpecificError(
@@ -173,7 +173,7 @@
 //           <div className={`${styles.mainContentWrapper} ${isMobileMenuOpen ? styles.dimmed : ''}`}>
 //             <div className={styles.formContainer}>
 //               <h2 className={styles.formTitle}>Register Course</h2>
-              
+
 //               {/* Specific Error Display */}
 //               {specificError && (
 //                 <div className={`${styles.error} ${styles.globalError}`}>
@@ -335,7 +335,7 @@ const RegCourse = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const endpoint = 'http://localhost:3000/coursesAdd';
+        const endpoint = 'https://c-i-u-backend.onrender.com/coursesAdd';
 
         const payload = {
           facultyName: formData.facultyName,
@@ -356,7 +356,7 @@ const RegCourse = () => {
           setSuccessMessage('Course successfully registered!');
           setFormData({ facultyName: '', courseName: '', courseUnits: '', courseUnitsCode: '' });
           setErrors({});
-          
+
           // Add a small delay before redirecting to ensure the success message is visible
           setTimeout(() => {
             navigate('/admin-courses');
@@ -382,74 +382,74 @@ const RegCourse = () => {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+              <div
+                className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`}
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
             </>
           )}
           <div className={`${styles.mainContentWrapper} ${isMobileMenuOpen ? styles.dimmed : ''}`}>
-          <div className={styles.formContainer}>
-            <h2 className={styles.formTitle}>Register Course</h2>
-            <form onSubmit={handleSubmit}>
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor='facultyName'>Faculty Name</label>
-                <input
-                  type="text"
-                  className={styles.formControl}
-                  placeholder='Enter Faculty Name'
-                  name='facultyName'
-                  value={formData.facultyName}
-                  onChange={handleInputChange}
-                />
-                {errors.facultyName && <span className={styles.error}>{errors.facultyName}</span>}
-              </div>
+            <div className={styles.formContainer}>
+              <h2 className={styles.formTitle}>Register Course</h2>
+              <form onSubmit={handleSubmit}>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor='facultyName'>Faculty Name</label>
+                  <input
+                    type="text"
+                    className={styles.formControl}
+                    placeholder='Enter Faculty Name'
+                    name='facultyName'
+                    value={formData.facultyName}
+                    onChange={handleInputChange}
+                  />
+                  {errors.facultyName && <span className={styles.error}>{errors.facultyName}</span>}
+                </div>
 
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor='courseName'>Course Name</label>
-                <input
-                  type="text"
-                  className={styles.formControl}
-                  placeholder='Enter Course Name'
-                  name='courseName'
-                  value={formData.courseName}
-                  onChange={handleInputChange}
-                />
-                {errors.courseName && <span className={styles.error}>{errors.courseName}</span>}
-              </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor='courseName'>Course Name</label>
+                  <input
+                    type="text"
+                    className={styles.formControl}
+                    placeholder='Enter Course Name'
+                    name='courseName'
+                    value={formData.courseName}
+                    onChange={handleInputChange}
+                  />
+                  {errors.courseName && <span className={styles.error}>{errors.courseName}</span>}
+                </div>
 
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor='courseUnits'>Course Units</label>
-                <input
-                  type="text"
-                  className={styles.formControl}
-                  placeholder='You can enter multiple course units separated by commas'
-                  name='courseUnits'
-                  value={formData.courseUnits}
-                  onChange={handleInputChange}
-                />
-                {errors.courseUnits && <span className={styles.error}>{errors.courseUnits}</span>}
-              </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor='courseUnits'>Course Units</label>
+                  <input
+                    type="text"
+                    className={styles.formControl}
+                    placeholder='You can enter multiple course units separated by commas'
+                    name='courseUnits'
+                    value={formData.courseUnits}
+                    onChange={handleInputChange}
+                  />
+                  {errors.courseUnits && <span className={styles.error}>{errors.courseUnits}</span>}
+                </div>
 
-              <div className={styles.formGroup}>
-                <label className={styles.label} htmlFor='courseUnitsCode'>Course Units Code</label>
-                <input
-                  type="text"
-                  className={styles.formControl}
-                  placeholder='You can enter multiple course unit codes separated by commas'
-                  name='courseUnitsCode'
-                  value={formData.courseUnitsCode}
-                  onChange={handleInputChange}
-                />
-                {errors.courseUnitsCode && <span className={styles.error}>{errors.courseUnitsCode}</span>}
-              </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor='courseUnitsCode'>Course Units Code</label>
+                  <input
+                    type="text"
+                    className={styles.formControl}
+                    placeholder='You can enter multiple course unit codes separated by commas'
+                    name='courseUnitsCode'
+                    value={formData.courseUnitsCode}
+                    onChange={handleInputChange}
+                  />
+                  {errors.courseUnitsCode && <span className={styles.error}>{errors.courseUnitsCode}</span>}
+                </div>
 
-              <div className={styles.buttonContainer}>
-                <button type='submit' className={styles.btnPrimary}>Submit</button>
-              </div>
-            </form>
-          </div>
+                <div className={styles.buttonContainer}>
+                  <button type='submit' className={styles.btnPrimary}>Submit</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>

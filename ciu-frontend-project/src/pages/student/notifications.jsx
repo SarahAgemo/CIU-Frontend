@@ -111,7 +111,7 @@
 //         }
 
 //         const student = JSON.parse(studentData);
-//         const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+//         const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
 
 //         if (!response.data || !response.data.courseId) {
 //           throw new Error('No course data found for this student.');
@@ -130,9 +130,9 @@
 //   useEffect(() => {
 //     const fetchNotifications = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:3000/notifications');
+//         const response = await axios.get('https://c-i-u-backend.onrender.com/notifications');
 
-//         const exams = await axios.get('http://localhost:3000/exam-paper?isDraft=false');
+//         const exams = await axios.get('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');
 //         const examNotifications = exams.data.map(exam => ({
 //           title: `Upcoming Exam: ${exam.title}`,
 //           message: `The exam for the course ${exam.courseUnit} is scheduled for ${new Date(exam.scheduledDate).toLocaleString()}.`,
@@ -224,13 +224,13 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { 
-  Typography, 
-  Box, 
-  List, 
-  ListItem, 
-  ListItemText, 
-  IconButton, 
+import {
+  Typography,
+  Box,
+  List,
+  ListItem,
+  ListItemText,
+  IconButton,
   Collapse,
   CircularProgress
 } from '@mui/material';
@@ -286,7 +286,7 @@ const Notifications = ({ onClose }) => {
         }
 
         const student = JSON.parse(studentData);
-        const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+        const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
 
         if (!response.data || !response.data.courseId) {
           throw new Error('No course data found for this student.');
@@ -305,9 +305,9 @@ const Notifications = ({ onClose }) => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/notifications');
+        const response = await axios.get('https://c-i-u-backend.onrender.com/notifications');
 
-        const exams = await axios.get('http://localhost:3000/exam-paper?isDraft=false');
+        const exams = await axios.get('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');
         const examNotifications = exams.data.map(exam => ({
           id: `exam-${exam.id}`,
           title: `Upcoming Exam: ${exam.title}`,

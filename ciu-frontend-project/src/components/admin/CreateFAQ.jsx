@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import FAQs from './CreateFAQ.module.css';
 
 function CreateFAQ() {
@@ -11,23 +11,23 @@ function CreateFAQ() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      
-      const response = await axios.post('http://localhost:3000/faqs/create', {
+
+      const response = await axios.post('https://c-i-u-backend.onrender.com/faqs/create', {
         question,
         answer,
       });
 
       setSuccessMessage('FAQ created successfully!');
-      setErrorMessage(''); 
+      setErrorMessage('');
       console.log('Submitted:', response.data);
 
-      
+
       setQuestion('');
       setAnswer('');
     } catch (error) {
-      
+
       setErrorMessage('Failed to create FAQ. Please try again.');
-      setSuccessMessage(''); 
+      setSuccessMessage('');
       console.error('Error submitting FAQ:', error);
     }
   };

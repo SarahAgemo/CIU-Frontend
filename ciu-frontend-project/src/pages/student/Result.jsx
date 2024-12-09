@@ -30,8 +30,8 @@
 //         }
 
 //         const [scoresResponse, examsResponse] = await Promise.all([
-//           axios.get(`http://localhost:3000/scores/user/${user.id}`),
-//           axios.get("http://localhost:3000/exam-paper?isDraft=false"),
+//           axios.get(`https://c-i-u-backend.onrender.com/scores/user/${user.id}`),
+//           axios.get("https://c-i-u-backend.onrender.com/exam-paper?isDraft=false"),
 //         ]);
 
 //         const scores = scoresResponse.data;
@@ -181,8 +181,8 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
         }
 
         const [scoresResponse, examsResponse] = await Promise.all([
-          axios.get(`http://localhost:3000/scores/user/${user.id}`),
-          axios.get("http://localhost:3000/exam-paper?isDraft=false"),
+          axios.get(`https://c-i-u-backend.onrender.com/scores/user/${user.id}`),
+          axios.get("https://c-i-u-backend.onrender.com/exam-paper?isDraft=false"),
         ]);
 
         const scores = scoresResponse.data;
@@ -264,11 +264,11 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
                   <table className={styles.table}>
                     <thead>
                       <tr>
-                      <th>Exam Title</th>
-                      <th>Course Unit</th>
-                      <th>Course Code</th>
-                      <th>Score</th>
-                      <th>Percentage</th>
+                        <th>Exam Title</th>
+                        <th>Course Unit</th>
+                        <th>Course Code</th>
+                        <th>Score</th>
+                        <th>Percentage</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -278,9 +278,8 @@ const ResultComponent = ({ toggleMobileMenu, isMobile, isMobileMenuOpen }) => {
                           <td>{result.courseUnit}</td>
                           <td>{result.courseUnitCode}</td>
                           <td>{result.score}</td>
-                          <td className={`${styles.percentage} ${
-                            result.percentage >= 50 ? styles.pass : styles.fail
-                          }`}>
+                          <td className={`${styles.percentage} ${result.percentage >= 50 ? styles.pass : styles.fail
+                            }`}>
                             {result.percentage}%
                           </td>
                           {/* <td>View</td> */}

@@ -37,7 +37,7 @@
 //   useEffect(() => {
 //     const fetchExamPapers = async () => {
 //       try {
-//         const response = await fetch("http://localhost:3000/exam-paper");
+//         const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper");
 //         if (!response.ok) throw new Error("Failed to fetch exam papers");
 //         const data = await response.json();
 //         setExamPapers(data);
@@ -296,7 +296,7 @@ function ExamList() {
   useEffect(() => {
     const fetchExamPapers = async () => {
       try {
-        const response = await fetch("http://localhost:3000/exam-paper");
+        const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper");
         if (!response.ok) throw new Error("Failed to fetch exam papers");
         const data = await response.json();
         setExamPapers(data);
@@ -329,7 +329,7 @@ function ExamList() {
     }
 
     const searchLower = searchTerm.toLowerCase();
-    const isValidStatusSearch = validStatusTerms.some(status => 
+    const isValidStatusSearch = validStatusTerms.some(status =>
       status.includes(searchLower)
     );
 
@@ -404,14 +404,14 @@ function ExamList() {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`} 
+              <div
+                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`}
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
             </>
           )}
-          
+
           <div className={`${Dash.mainContentWrapper} ${isMobileMenuOpen ? Dash.dimmed : ''}`}>
             <div className={Dash.backButtonContainer}>
               <BackButton targetPath="/exam-management" size={30} color="#106053" />
@@ -419,7 +419,7 @@ function ExamList() {
             <div className="E-exam-list-container">
               <div className="search-container">
                 <div style={searchContainerStyles}>
-                  <button 
+                  <button
                     style={searchButtonStyles}
                     onClick={() => navigate('/schedule-upload-exams/exam-list')}
                   >
@@ -451,15 +451,15 @@ function ExamList() {
               ) : (
                 <table className="E-glass-table">
                   <thead>
-                  <tr>
-                    <th>Course Unit</th>
-                    <th>Title</th>
-                    <th>Instructions</th>
-                    <th>Status</th>
-                    <th>Phase</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
+                    <tr>
+                      <th>Course Unit</th>
+                      <th>Title</th>
+                      <th>Instructions</th>
+                      <th>Status</th>
+                      <th>Phase</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
                   <tbody>
                     {filteredExamPapers.map((exam) => (
                       <tr key={exam.id}>
@@ -467,36 +467,34 @@ function ExamList() {
                         <td>{exam.title}</td>
                         <td>{exam.description}</td>
                         <td>
-                        <span
-                          className={`E-status-text ${
-                            exam.isDraft ? "draft" : "published"
-                          }`}
-                        >
-                          {exam.isDraft ? "Draft" : "Published"}
-                        </span>
-                      </td>
-                      <td>
-                        <span
-                          className={`E-status-text ${
-                            exam.status === "draft"
-                              ? "draft"
-                              : exam.status === "pending"
-                              ? "pending"
-                              : exam.status === "approved"
-                              ? "approved"
-                              : exam.status === "rejected"
-                              ? "rejected"
-                              : exam.status === "published"
-                              ? "published"
-                              : exam.status === "unpublished"
-                              ? "unpublished"
-                              : ""
-                          }`}
-                        >
-                          {exam.status}
-                        </span>
-                      </td>
-                      <td>
+                          <span
+                            className={`E-status-text ${exam.isDraft ? "draft" : "published"
+                              }`}
+                          >
+                            {exam.isDraft ? "Draft" : "Published"}
+                          </span>
+                        </td>
+                        <td>
+                          <span
+                            className={`E-status-text ${exam.status === "draft"
+                                ? "draft"
+                                : exam.status === "pending"
+                                  ? "pending"
+                                  : exam.status === "approved"
+                                    ? "approved"
+                                    : exam.status === "rejected"
+                                      ? "rejected"
+                                      : exam.status === "published"
+                                        ? "published"
+                                        : exam.status === "unpublished"
+                                          ? "unpublished"
+                                          : ""
+                              }`}
+                          >
+                            {exam.status}
+                          </span>
+                        </td>
+                        <td>
                           <button
                             className="E-preview-button"
                             onClick={() => handlePreview(exam.id)}
@@ -511,7 +509,7 @@ function ExamList() {
               )}
             </div>
           </div>
-          </div> 
+        </div>
       </div>
 
       <Dialog

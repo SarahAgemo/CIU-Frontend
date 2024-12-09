@@ -11,7 +11,7 @@
 //   const [isNotificationOpen, setIsNotificationOpen] = useState(false); 
 
 //   useEffect(() => {
-//     const socket = io('http://localhost:3000');  
+//     const socket = io('https://c-i-u-backend.onrender.com');  
 //     socket.emit('registerAdmin'); 
 
 //     socket.on('issueReported', (data) => {
@@ -23,14 +23,14 @@
 //     return () => {
 //       socket.disconnect();  // Disconnect when the component unmounts
 //     };
-    
+
 //   }, []);
 
 //   const handleNotificationClick = () => {
 //     setIsNotificationOpen(!isNotificationOpen); // Toggle notification pop-up
 //     setNewNotificationCount(0);  // Reset notification count when opened
 //   };
-  
+
 
 //   return (
 //     <header className={Head["header"]}>
@@ -114,17 +114,17 @@ import { Bell, Menu } from 'lucide-react';
 import Head from './Headerpop.module.css';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import UserDetailsPopup from './UserDetailsPopup';  
+import UserDetailsPopup from './UserDetailsPopup';
 
 export default function Header({ toggleMobileMenu, isMobile, profilePhotoUrl }) {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [notifications, setNotifications] = useState([]);
   const [newNotificationCount, setNewNotificationCount] = useState(0);
-  const [isNotificationOpen, setIsNotificationOpen] = useState(false); 
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   useEffect(() => {
-    const socket = io('http://localhost:3000');  
-    socket.emit('registerAdmin'); 
+    const socket = io('https://c-i-u-backend.onrender.com');
+    socket.emit('registerAdmin');
 
     socket.on('issueReported', (data) => {
       const notificationMessage = `New issue reported: ${data.regno} ${data.issueDescription}`;

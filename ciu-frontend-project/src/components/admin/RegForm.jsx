@@ -23,7 +23,7 @@
 //   useEffect(() => {
 //     const fetchCourses = async () => {
 //       try {
-//         const response = await fetch('http://localhost:3000/coursesAdd');
+//         const response = await fetch('https://c-i-u-backend.onrender.com/coursesAdd');
 //         if (!response.ok) {
 //           throw new Error('Failed to fetch courses');
 //         }
@@ -70,7 +70,7 @@
 //     };
 
 //     try {
-//       const response = await fetch('http://localhost:3000/students', {
+//       const response = await fetch('https://c-i-u-backend.onrender.com/students', {
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
@@ -329,7 +329,7 @@ const RegForm = ({ onClose, onSubmit }) => {
     registrationNo: '',
     role: 'student',
     dateTime: '',
-    courseId: '', 
+    courseId: '',
   });
 
   const [courses, setCourses] = useState([]);
@@ -342,7 +342,7 @@ const RegForm = ({ onClose, onSubmit }) => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch('http://localhost:3000/coursesAdd');
+        const response = await fetch('https://c-i-u-backend.onrender.com/coursesAdd');
         if (!response.ok) {
           throw new Error('Failed to fetch courses');
         }
@@ -401,7 +401,7 @@ const RegForm = ({ onClose, onSubmit }) => {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/students', {
+      const response = await fetch('https://c-i-u-backend.onrender.com/students', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -503,7 +503,7 @@ const RegForm = ({ onClose, onSubmit }) => {
               {courses.length > 0 ? (
                 courses.map((course) => (
                   <option key={course.id} value={course.id}>
-                    {course.courseName} 
+                    {course.courseName}
                   </option>
                 ))
               ) : (

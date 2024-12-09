@@ -125,7 +125,7 @@
 //   useEffect(() => {
 //     const fetchUsers = async () => {
 //       try {
-//         const response = await fetch("http://localhost:3000/adminReg");
+//         const response = await fetch("https://c-i-u-backend.onrender.com/adminReg");
 //         if (!response.ok) {
 //           throw new Error(`HTTP error! status: ${response.status}`);
 //         }
@@ -144,7 +144,7 @@
 
 //   const deleteUser = async (id) => {
 //     try {
-//       const response = await fetch(`http://localhost:3000/adminReg/${id}`, {
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/adminReg/${id}`, {
 //         method: "DELETE",
 //       });
 //       if (response.ok) {
@@ -229,11 +229,11 @@ import Sidebar from "./SideBarpop";
 import MobileMenu from "./MobileMenu";
 import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
-  DialogActions, 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
   Button,
   Snackbar,
   Alert
@@ -361,7 +361,7 @@ function Adminuser() {
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:3000/adminReg");
+      const response = await fetch("https://c-i-u-backend.onrender.com/adminReg");
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
@@ -375,7 +375,7 @@ function Adminuser() {
 
   const deleteUser = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/adminReg/${id}`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/adminReg/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -426,7 +426,7 @@ function Adminuser() {
     setUsers(prevUsers => {
       // Check if the new user already exists in the list
       const existingUserIndex = prevUsers.findIndex(user => user.id === newUser.id);
-      
+
       if (existingUserIndex !== -1) {
         // If the user exists, update their information
         const updatedUsers = [...prevUsers];
@@ -437,10 +437,10 @@ function Adminuser() {
         return [...prevUsers, newUser];
       }
     });
-    
+
     handleCloseRegisterModal();
     setAlertInfo({ open: true, message: 'User registered successfully', severity: 'success' });
-    
+
     // Reload the users list after a short delay
     setTimeout(() => {
       fetchUsers();
@@ -462,8 +462,8 @@ function Adminuser() {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${admin["overlay"]} ${isMobileMenuOpen ? admin["active"] : ""}`} 
+              <div
+                className={`${admin["overlay"]} ${isMobileMenuOpen ? admin["active"] : ""}`}
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
@@ -489,10 +489,10 @@ function Adminuser() {
                 />
               </div>
             </div>
-            <UserList 
-              users={users} 
-              deleteUser={deleteUser} 
-              searchTerm={searchTerm} 
+            <UserList
+              users={users}
+              deleteUser={deleteUser}
+              searchTerm={searchTerm}
               onEdit={handleEditUser}
             />
           </div>
@@ -502,7 +502,7 @@ function Adminuser() {
         <div className={admin["modal-overlay"]}>
           <div className={admin["modal-content"]}>
             <EditAdmin
-              id={editingUserId} 
+              id={editingUserId}
               onClose={handleCloseEditModal}
               onUpdate={handleUpdateUser}
             />
@@ -513,11 +513,11 @@ function Adminuser() {
       {isRegisterModalOpen && (
         <div className={admin["modal-overlay"]}>
           <div className={admin["modal-content"]}>
-          <AdminLecturerRegistration
-            onClose={handleCloseRegisterModal}
-            onRegister={handleRegisterUser}
-            initialRole="administrator"
-          />
+            <AdminLecturerRegistration
+              onClose={handleCloseRegisterModal}
+              onRegister={handleRegisterUser}
+              initialRole="administrator"
+            />
           </div>
         </div>
       )}

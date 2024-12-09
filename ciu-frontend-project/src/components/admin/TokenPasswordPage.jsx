@@ -22,7 +22,7 @@ export default function TokenPasswordPage() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/lecturerReg/set-password', {
+            const response = await fetch('https://c-i-u-backend.onrender.com/lecturerReg/set-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

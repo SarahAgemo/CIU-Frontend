@@ -122,7 +122,7 @@
 //   const fetchStudents = async (name = "") => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:3000/faqs/search?name=${name}`
+//         `https://c-i-u-backend.onrender.com/faqs/search?name=${name}`
 //       );
 //       if (!response.ok) {
 //         console.error(`Failed to fetch students. Status: ${response.status}`);
@@ -138,7 +138,7 @@
 //   // Delete a student
 //   const deleteStudent = async (id) => {
 //     try {
-//       const response = await fetch(`http://localhost:3000/students/${id}`, {
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/students/${id}`, {
 //         method: "DELETE",
 //       });
 //       if (!response.ok) {
@@ -229,12 +229,12 @@ import { FaUserEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import EditStudent from "./EditStudent";
 import RegForm from "./RegForm";
-import { 
-  Dialog, 
-  DialogTitle, 
-  DialogContent, 
-  DialogActions, 
-  Button, 
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
   Snackbar,
   Alert
 } from "@mui/material";
@@ -355,7 +355,7 @@ function Students() {
   const fetchStudents = async (name = "") => {
     try {
       const response = await fetch(
-        `http://localhost:3000/faqs/search?name=${name}`
+        `https://c-i-u-backend.onrender.com/faqs/search?name=${name}`
       );
       if (!response.ok) {
         throw new Error('Failed to fetch students');
@@ -369,7 +369,7 @@ function Students() {
 
   const deleteStudent = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/students/${id}`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/students/${id}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -422,7 +422,7 @@ function Students() {
     setStudents(prevStudents => {
       // Check if the new student already exists in the list
       const existingStudentIndex = prevStudents.findIndex(student => student.id === newStudent.id);
-      
+
       if (existingStudentIndex !== -1) {
         // If the student exists, update their information
         const updatedStudents = [...prevStudents];
@@ -433,10 +433,10 @@ function Students() {
         return [...prevStudents, newStudent];
       }
     });
-    
+
     handleCloseRegFormModal();
     setAlertInfo({ open: true, message: 'Student registered successfully.', severity: 'success' });
-    
+
     // Reload the students list after a short delay
     setTimeout(() => {
       fetchStudents();
@@ -451,8 +451,8 @@ function Students() {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${stud["overlay"]} ${isMobileMenuOpen ? stud["active"] : ""}`} 
+              <div
+                className={`${stud["overlay"]} ${isMobileMenuOpen ? stud["active"] : ""}`}
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
@@ -479,9 +479,9 @@ function Students() {
                 />
               </div>
             </div>
-            <StudentList 
-              students={students} 
-              deleteStudent={deleteStudent} 
+            <StudentList
+              students={students}
+              deleteStudent={deleteStudent}
               onEdit={handleEditStudent}
             />
           </div>
@@ -491,11 +491,11 @@ function Students() {
       {isEditModalOpen && (
         <div className={stud["modal-overlay"]}>
           <div className={stud["modal-content"]}>
-            <EditStudent 
-              id={editingStudentId} 
+            <EditStudent
+              id={editingStudentId}
               onClose={handleCloseEditModal}
               onUpdate={(updatedStudent) => {
-                setStudents(students.map(student => 
+                setStudents(students.map(student =>
                   student.id === updatedStudent.id ? updatedStudent : student
                 ));
                 handleCloseEditModal();
@@ -508,7 +508,7 @@ function Students() {
       {isRegFormModalOpen && (
         <div className={stud["modal-overlay"]}>
           <div className={stud["modal-content"]}>
-            <RegForm 
+            <RegForm
               onClose={handleCloseRegFormModal}
               onSubmit={handleRegFormSubmit}
             />

@@ -8,7 +8,7 @@ const RequestLecturerTokenForm = () => {
     confirmPassword: '',
   });
   const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +28,7 @@ const RequestLecturerTokenForm = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:3000/lecturer_auth/reset-pass', {
+      const response = await fetch('https://c-i-u-backend.onrender.com/lecturer_auth/reset-pass', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ const RequestLecturerTokenForm = () => {
       border: 'none',
       cursor: 'pointer',
       fontSize: '1.2rem',
-      transition: 'background-color 0.3s ease, color 0.3s ease', 
+      transition: 'background-color 0.3s ease, color 0.3s ease',
       marginTop: '20px',
     },
     buttonHover: {

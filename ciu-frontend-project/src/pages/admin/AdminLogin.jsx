@@ -19,7 +19,7 @@
 //     setErrorMessage('');
 //     setSuccessMessage('');
 
-//     const endpoint = "http://localhost:3000/adminauth/login";
+//     const endpoint = "https://c-i-u-backend.onrender.com/adminauth/login";
 //     const userPayload = { email: identifier, password };
 
 //     try {
@@ -153,39 +153,39 @@ const AdminLogin = () => {
     setErrorMessage('');
     setSuccessMessage('');
 
-    const endpoint = "http://localhost:3000/adminauth/login";
+    const endpoint = "https://c-i-u-backend.onrender.com/adminauth/login";
     const userPayload = { email: identifier, password };
 
-  try {
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userPayload),
-    });
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userPayload),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      setSuccessMessage('Admin login successful!');
+      if (response.ok) {
+        const data = await response.json();
+        setSuccessMessage('Admin login successful!');
 
-      // Store access token and admin data in localStorage
-      const accessToken = data.access_token || data.token?.access_token;
-      localStorage.setItem("token", accessToken);
-      localStorage.setItem("user", JSON.stringify(data.user));
+        // Store access token and admin data in localStorage
+        const accessToken = data.access_token || data.token?.access_token;
+        localStorage.setItem("token", accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
 
-      // Redirect to admin dashboard
-      navigate("/dashboard");
-    } else {
-      const data = await response.json();
-      setErrorMessage(data.message || 'Invalid credentials.');
+        // Redirect to admin dashboard
+        navigate("/dashboard");
+      } else {
+        const data = await response.json();
+        setErrorMessage(data.message || 'Invalid credentials.');
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred during login. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-  } catch (error) {
-    setErrorMessage('An error occurred during login. Please try again.');
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  };
 
   return (
     <div className={styles["admin-overall"]}>
@@ -255,10 +255,10 @@ const AdminLogin = () => {
         </div>
       </div>
 
-      <Dialog 
-        open={isResetPasswordModalOpen} 
-        onClose={() => setIsResetPasswordModalOpen(false)} 
-        maxWidth="sm" 
+      <Dialog
+        open={isResetPasswordModalOpen}
+        onClose={() => setIsResetPasswordModalOpen(false)}
+        maxWidth="sm"
         fullWidth
       >
         <DialogTitle>
@@ -280,10 +280,10 @@ const AdminLogin = () => {
         </DialogContent>
       </Dialog>
 
-      <Dialog 
-        open={isSetPasswordModalOpen} 
-        onClose={() => setIsSetPasswordModalOpen(false)} 
-        maxWidth="sm" 
+      <Dialog
+        open={isSetPasswordModalOpen}
+        onClose={() => setIsSetPasswordModalOpen(false)}
+        maxWidth="sm"
         fullWidth
       >
         <DialogTitle>

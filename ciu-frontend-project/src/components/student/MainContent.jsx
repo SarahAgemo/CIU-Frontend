@@ -6,7 +6,7 @@
 // // API call to fetch upcoming exams only
 // const fetchUpcomingExams = async () => {
 //   try {
-//     const response = await axios.get('http://localhost:3000/exam-paper?isDraft=false');  // Assuming this endpoint fetches only upcoming exams
+//     const response = await axios.get('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');  // Assuming this endpoint fetches only upcoming exams
 //     return response.data;  // Return the list of upcoming exams
 //   } catch (error) {
 //     console.error('Error fetching upcoming exams:', error);
@@ -90,7 +90,7 @@
 //         const student = JSON.parse(studentData);
 
 //         // Fetch student details to get the registered courses
-//         const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+//         const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
 //         const studentDetails = response.data;
 
 //         // Check if the student has registered courses
@@ -146,14 +146,14 @@
 //           onClick={() => handleCardClick('upcoming')}
 //           isActive={activeModal === 'upcoming'}
 //         />
-        
+
 //         {/* <DashboardCard
 //           icon={<ClipboardList size={48} />}
 //           title="Completed Exams"
 //           onClick={() => handleCardClick('completed')}
 //           isActive={activeModal === 'completed'}
 //         /> */}
-       
+
 //       </div>
 
 //       <Modal
@@ -175,7 +175,7 @@ import Main from './MainContent.module.css';
 
 const fetchUpcomingExams = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/exam-paper?isDraft=false');
+    const response = await axios.get('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');
     return response.data;
   } catch (error) {
     console.error('Error fetching upcoming exams:', error);
@@ -233,7 +233,7 @@ export default function MainContent() {
         }
 
         const student = JSON.parse(studentData);
-        const response = await axios.get(`http://localhost:3000/students/${student.id}`);
+        const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
         const studentDetails = response.data;
 
         if (!studentDetails.courseId) {

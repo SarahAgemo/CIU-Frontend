@@ -16,10 +16,10 @@
 
 //     try {
 //       // Make POST request to backend API
-//       const response = await axios.post('http://localhost:3000/adminauth/forgot-password', {
+//       const response = await axios.post('https://c-i-u-backend.onrender.com/adminauth/forgot-password', {
 //         email: studentNumber,
 //       });
-      
+
 //       // Handle successful response
 //       console.log('Token requested successfully:', response.data);
 //       setSuccessMessage('Token sent to your Admin email.');
@@ -126,13 +126,13 @@
 
 //       <div style={styles.formContainer}>
 //         <h2 style={styles.heading}>ENTER THE REGISTERED EMAIL AND A RESET TOKEN WILL BE SENT TO YOUR EMAIL TO RESET YOUR PASSWORD</h2>
-        
+
 //         {/* Display error message if it exists */}
 //         {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
-        
+
 //         {/* Display success message if it exists */}
 //         {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
-        
+
 //         <form onSubmit={handleSubmit}>
 //           <fieldset>
 //             <legend style={styles.legend}>Email</legend>
@@ -171,7 +171,7 @@ import axios from 'axios'; // Import axios for making HTTP requests
 
 const ResetAdminPassword = () => {
   const [studentNumber, setStudentNumber] = useState('');
-  const [isHovered, setIsHovered] = useState(false); 
+  const [isHovered, setIsHovered] = useState(false);
   const [errorMessage, setErrorMessage] = useState(''); // To handle any error messages
   const [successMessage, setSuccessMessage] = useState(''); // To display success message
 
@@ -182,10 +182,10 @@ const ResetAdminPassword = () => {
 
     try {
       // Make POST request to backend API
-      const response = await axios.post('http://localhost:3000/adminauth/forgot-password', {
+      const response = await axios.post('https://c-i-u-backend.onrender.com/adminauth/forgot-password', {
         email: studentNumber,
       });
-      
+
       // Handle successful response
       console.log('Token requested successfully:', response.data);
       setSuccessMessage('Token sent to your Admin email.');
@@ -249,7 +249,7 @@ const ResetAdminPassword = () => {
       border: 'none',
       cursor: 'pointer',
       fontSize: '1.2rem',
-      transition: 'background-color 0.3s ease, color 0.3s ease', 
+      transition: 'background-color 0.3s ease, color 0.3s ease',
       marginTop: '20px',
     },
     buttonHover: {
@@ -281,13 +281,13 @@ const ResetAdminPassword = () => {
       <h2 style={styles.first}>Reset Password</h2>
       <div style={styles.formContainer}>
         <h2 style={styles.heading}>ENTER THE REGISTERED EMAIL AND A RESET TOKEN WILL BE SENT TO YOUR EMAIL TO RESET YOUR PASSWORD</h2>
-        
+
         {/* Display error message if it exists */}
         {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
-        
+
         {/* Display success message if it exists */}
         {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
-        
+
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend style={styles.legend}>Email</legend>
@@ -310,7 +310,7 @@ const ResetAdminPassword = () => {
             onMouseOver={() => setIsHovered(true)}
             onMouseOut={() => setIsHovered(false)}
           >
-        Request Token
+            Request Token
           </button>
         </form>
       </div>

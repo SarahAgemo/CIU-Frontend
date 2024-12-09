@@ -22,18 +22,18 @@
 //   useEffect(() => {
 //     async function fetchCompletedAssessments() {
 //       try {
-//         const response = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
+//         const response = await axios.get("https://c-i-u-backend.onrender.com/exam-paper/completedAssessments");
 //         console.log("Fetched Assessments:", response.data); // Debug log
-        
+
 //         setCompletedAssessments(response.data);
 //       } catch (error) {
 //         console.error("Error fetching completed assessments:", error);
 //       }
 //     }
-  
+
 //     fetchCompletedAssessments();
 //   }, []);
-  
+
 
 //   const handlePreview = (id) => {
 //     navigate(`/student-results/${id}`);
@@ -42,16 +42,16 @@
 //   const handlePublish = async (id) => {
 //     try {
 //       console.log("Publishing results for ID:", id);
-//       const response = await axios.patch(`http://localhost:3000/exam-paper/${id}/publishResults`, {
+//       const response = await axios.patch(`https://c-i-u-backend.onrender.com/exam-paper/${id}/publishResults`, {
 //         isPublished: true,
 //       });
-  
+
 //       console.log("Response:", response.data);
-  
+
 //       // Refetch the completed assessments
-//       const updatedData = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
+//       const updatedData = await axios.get("https://c-i-u-backend.onrender.com/exam-paper/completedAssessments");
 //       setCompletedAssessments(updatedData.data);
-  
+
 //       // Update the state to reflect the published status locally (optional)
 //       setCompletedAssessments((prev) =>
 //         prev.map((assessment) =>
@@ -69,7 +69,7 @@
 //       }
 //     }
 //   };
-  
+
 //   return (
 //     <div className={Dash.overall}>
 //     <div className={Dash.dashboard}>
@@ -144,7 +144,7 @@ function CompletedAssessmentsTable() {
   const navigate = useNavigate();
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const {id} = useParams();
+  const { id } = useParams();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -153,14 +153,14 @@ function CompletedAssessmentsTable() {
   useEffect(() => {
     async function fetchCompletedAssessments() {
       try {
-        const response = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
+        const response = await axios.get("https://c-i-u-backend.onrender.com/exam-paper/completedAssessments");
         console.log("Fetched Assessments:", response.data); // Debug log
         setCompletedAssessments(response.data);
       } catch (error) {
         console.error("Error fetching completed assessments:", error);
       }
     }
-  
+
     fetchCompletedAssessments();
 
     const handleResize = () => {
@@ -180,16 +180,16 @@ function CompletedAssessmentsTable() {
   const handlePublish = async (id) => {
     try {
       console.log("Publishing results for ID:", id);
-      const response = await axios.patch(`http://localhost:3000/exam-paper/${id}/publishResults`, {
+      const response = await axios.patch(`https://c-i-u-backend.onrender.com/exam-paper/${id}/publishResults`, {
         isPublished: true,
       });
-  
+
       console.log("Response:", response.data);
-  
+
       // Refetch the completed assessments
-      const updatedData = await axios.get("http://localhost:3000/exam-paper/completedAssessments");
+      const updatedData = await axios.get("https://c-i-u-backend.onrender.com/exam-paper/completedAssessments");
       setCompletedAssessments(updatedData.data);
-  
+
       // Update the state to reflect the published status locally (optional)
       setCompletedAssessments((prev) =>
         prev.map((assessment) =>
@@ -208,11 +208,11 @@ function CompletedAssessmentsTable() {
       <div className={Dash.dashboard}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={Dash["dashboard-content"]}>
-        {!isMobile && <Sidebar />}
+          {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`} 
+              <div
+                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`}
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />

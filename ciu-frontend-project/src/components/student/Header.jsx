@@ -11,35 +11,35 @@ export default function Header() {
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        
-        const token = localStorage.getItem('token'); 
+
+        const token = localStorage.getItem('token');
 
         if (!token) {
           console.error('No token found');
-          setError('Please log in.'); 
-          return; 
+          setError('Please log in.');
+          return;
         }
 
-        
-        const response = await axios.get('http://localhost:3000/faqs/profile', {
+
+        const response = await axios.get('https://c-i-u-backend.onrender.com/faqs/profile', {
           headers: {
             Authorization: `Bearer ${token}`, // Use the token for authorization
           },
         });
 
-        
+
         const { first_name, last_name, role } = response.data;
 
-       
-        setUserInfo({ name: `${first_name} ${last_name}`, role: role || 'User' }); 
+
+        setUserInfo({ name: `${first_name} ${last_name}`, role: role || 'User' });
       } catch (error) {
         console.error('Error fetching user profile:', error);
-        setError('Failed to fetch user profile.'); 
+        setError('Failed to fetch user profile.');
       }
     };
 
-    fetchUserProfile(); 
-  }, []); 
+    fetchUserProfile();
+  }, []);
 
   return (
     <header className={Head["header"]}>
@@ -51,10 +51,10 @@ export default function Header() {
           <Settings size={24} />
         </button>
         <Link to="/notifications">
-      <button className={Head["icon-button"]}>
-    <Bell size={24} />
-     </button>
-      </Link>
+          <button className={Head["icon-button"]}>
+            <Bell size={24} />
+          </button>
+        </Link>
 
         <div className={Head["user-info"]}>
           <User size={24} />

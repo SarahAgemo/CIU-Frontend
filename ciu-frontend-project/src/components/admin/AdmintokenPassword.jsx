@@ -21,7 +21,7 @@
 //         }
 
 //         try {
-//             const response = await fetch('http://localhost:3000/adminReg/set-password', {
+//             const response = await fetch('https://c-i-u-backend.onrender.com/adminReg/set-password', {
 //                 method: 'POST',
 //                 headers: {
 //                     'Content-Type': 'application/json',
@@ -53,10 +53,10 @@
 //     return (
 //         <div className="token-password-container">
 //             <h2 className="token-password-heading">Reset Your Password</h2>
-            
+
 //             {errorMessage && <div className="token-password-error-message">{errorMessage}</div>}
 //             {successMessage && <div className="token-password-success-message">{successMessage}</div>}
-            
+
 //             <form className="token-password-form" onSubmit={handleSave}>
 //                 <div className="token-password-form-group">
 //                     <label className="token-password-label">Setup Token:</label>
@@ -126,7 +126,7 @@ export default function TokenPasswordPage() {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/adminReg/set-password', {
+            const response = await fetch('https://c-i-u-backend.onrender.com/adminReg/set-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -158,10 +158,10 @@ export default function TokenPasswordPage() {
     return (
         <div className="token-password-container">
             <h2 className="token-password-heading">Set Your Password</h2>
-            
+
             {errorMessage && <div className="token-password-error-message">{errorMessage}</div>}
             {successMessage && <div className="token-password-success-message">{successMessage}</div>}
-            
+
             <form className="token-password-form" onSubmit={handleSave}>
                 <div className="token-password-form-group">
                     <label className="token-password-label">Setup Token:</label>
@@ -180,18 +180,18 @@ export default function TokenPasswordPage() {
                     <div className="token-password-input-wrapper">
                         <input
                             className="token-password-input"
-                            type={showNewPassword ? 'text' : 'password' }
+                            type={showNewPassword ? 'text' : 'password'}
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             placeholder="Enter new password"
                             required
                         />
                         <button
-                                type="button"
-                                className="token-password-eye-icon"
-                                onClick={() => setShowNewPassword((prev) => !prev)}
-                            >
-                                {showNewPassword ? <FaEye /> : <FaEyeSlash />}
+                            type="button"
+                            className="token-password-eye-icon"
+                            onClick={() => setShowNewPassword((prev) => !prev)}
+                        >
+                            {showNewPassword ? <FaEye /> : <FaEyeSlash />}
                         </button>
                     </div>
                 </div>

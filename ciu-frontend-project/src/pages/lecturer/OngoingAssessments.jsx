@@ -37,7 +37,7 @@ function OngoingAssessments() {
     useEffect(() => {
         const fetchExamPapers = async () => {
             try {
-                const response = await fetch("http://localhost:3000/exam-paper");
+                const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper");
                 if (!response.ok) throw new Error("Failed to fetch exam papers");
                 const data = await response.json();
                 setExamPapers(data);

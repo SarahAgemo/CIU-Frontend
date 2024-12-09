@@ -16,10 +16,10 @@
 
 //     try {
 //       // Make POST request to backend API
-//       const response = await axios.post('http://localhost:3000/lecturer_auth/forgot-pass', {
+//       const response = await axios.post('https://c-i-u-backend.onrender.com/lecturer_auth/forgot-pass', {
 //         email: studentNumber,
 //       });
-      
+
 //       // Handle successful response
 //       console.log('Token requested successfully:', response.data);
 //       setSuccessMessage('Token sent to your Lecturer email.');
@@ -126,13 +126,13 @@
 
 //       <div style={styles.formContainer}>
 //         <h2 style={styles.heading}>ENTER THE REGISTERED EMAIL AND A RESET TOKEN WILL BE SENT TO YOUR EMAIL TO RESET YOUR PASSWORD</h2>
-        
+
 //         {/* Display error message if it exists */}
 //         {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
-        
+
 //         {/* Display success message if it exists */}
 //         {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
-        
+
 //         <form onSubmit={handleSubmit}>
 //           <fieldset>
 //             <legend style={styles.legend}>Email</legend>
@@ -170,9 +170,9 @@ import React, { useState } from 'react';
 import axios from 'axios'; // Import axios for making HTTP requests
 // import { useNavigate } from 'react-router-dom'; // Import useNavigate for redirection
 
-const ResetlecturerForm= () => {
+const ResetlecturerForm = () => {
   const [studentNumber, setStudentNumber] = useState('');
-  const [isHovered, setIsHovered] = useState(false); 
+  const [isHovered, setIsHovered] = useState(false);
   const [errorMessage, setErrorMessage] = useState(''); // To handle any error messages
   const [successMessage, setSuccessMessage] = useState(''); // To display success message
   // const navigate = useNavigate(); // Initialize useNavigate for redirection
@@ -184,15 +184,15 @@ const ResetlecturerForm= () => {
 
     try {
       // Make POST request to backend API
-      const response = await axios.post('http://localhost:3000/lecturer_auth/forgot-pass', {
+      const response = await axios.post('https://c-i-u-backend.onrender.com/lecturer_auth/forgot-pass', {
         email: studentNumber,
       });
-      
+
       // Handle successful response
       console.log('Token requested successfully:', response.data);
       setSuccessMessage('Token sent to your Lecturer email.');
 
-      
+
       // setTimeout(() => {
       //   navigate('/RequestLecturerToken'); 
       // }, 2000); 
@@ -256,7 +256,7 @@ const ResetlecturerForm= () => {
       border: 'none',
       cursor: 'pointer',
       fontSize: '1.2rem',
-      transition: 'background-color 0.3s ease, color 0.3s ease', 
+      transition: 'background-color 0.3s ease, color 0.3s ease',
       marginTop: '20px',
     },
     buttonHover: {
@@ -286,15 +286,15 @@ const ResetlecturerForm= () => {
   return (
     <div style={styles.container}>
       <div style={styles.formContainer}>
-      <h2 style={styles.first}>Reset Password</h2>
+        <h2 style={styles.first}>Reset Password</h2>
         <h2 style={styles.heading}>ENTER THE REGISTERED EMAIL AND A RESET TOKEN WILL BE SENT TO YOUR EMAIL TO RESET YOUR PASSWORD</h2>
-        
+
         {/* Display error message if it exists */}
         {errorMessage && <p style={styles.errorMessage}>{errorMessage}</p>}
-        
+
         {/* Display success message if it exists */}
         {successMessage && <p style={styles.successMessage}>{successMessage}</p>}
-        
+
         <form onSubmit={handleSubmit}>
           <fieldset>
             <legend style={styles.legend}>Email</legend>
@@ -317,7 +317,7 @@ const ResetlecturerForm= () => {
             onMouseOver={() => setIsHovered(true)}
             onMouseOut={() => setIsHovered(false)}
           >
-        Request Token
+            Request Token
           </button>
         </form>
       </div>

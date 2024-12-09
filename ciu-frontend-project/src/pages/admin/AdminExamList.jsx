@@ -32,7 +32,7 @@
 //     useEffect(() => {
 //         const fetchExamPapers = async () => {
 //             try {
-//                 const response = await fetch("http://localhost:3000/exam-paper");
+//                 const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper");
 //                 if (!response.ok) throw new Error("Failed to fetch exam papers");
 //                 const data = await response.json();
 //                 setExamPapers(data);
@@ -247,7 +247,7 @@ function AdminExamList() {
     useEffect(() => {
         const fetchExamPapers = async () => {
             try {
-                const response = await fetch("http://localhost:3000/exam-paper");
+                const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper");
                 if (!response.ok) throw new Error("Failed to fetch exam papers");
                 const data = await response.json();
                 setExamPapers(data);
@@ -324,8 +324,8 @@ function AdminExamList() {
                     {!isMobile && <Sidebar />}
                     {isMobile && (
                         <>
-                            <div 
-                                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`} 
+                            <div
+                                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`}
                                 onClick={toggleMobileMenu}
                             ></div>
                             <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />
@@ -343,7 +343,7 @@ function AdminExamList() {
                             ) : (
                                 <>
                                     <div style={searchContainerStyles}>
-                                        <button 
+                                        <button
                                             style={searchButtonStyles}
                                             onClick={() => navigate('#')}
                                         >
@@ -377,30 +377,28 @@ function AdminExamList() {
                                                     <td>{exam.description}</td>
                                                     <td>
                                                         <span
-                                                            className={`E-status-text ${
-                                                                exam.isDraft ? "draft" : "published"
-                                                            }`}
+                                                            className={`E-status-text ${exam.isDraft ? "draft" : "published"
+                                                                }`}
                                                         >
                                                             {exam.isDraft ? "Draft" : "Published"}
                                                         </span>
                                                     </td>
                                                     <td>
                                                         <span
-                                                            className={`E-status-text ${
-                                                                exam.status === "draft"
-                                                                ? "draft"
-                                                                : exam.status === "pending"
-                                                                ? "pending"
-                                                                : exam.status === "approved"
-                                                                ? "approved"
-                                                                : exam.status === "rejected"
-                                                                ? "rejected"
-                                                                : exam.status === "published"
-                                                                ? "published"
-                                                                : exam.status === "unpublished"
-                                                                ? "unpublished"
-                                                                : ""
-                                                            }`}
+                                                            className={`E-status-text ${exam.status === "draft"
+                                                                    ? "draft"
+                                                                    : exam.status === "pending"
+                                                                        ? "pending"
+                                                                        : exam.status === "approved"
+                                                                            ? "approved"
+                                                                            : exam.status === "rejected"
+                                                                                ? "rejected"
+                                                                                : exam.status === "published"
+                                                                                    ? "published"
+                                                                                    : exam.status === "unpublished"
+                                                                                        ? "unpublished"
+                                                                                        : ""
+                                                                }`}
                                                         >
                                                             {exam.status}
                                                         </span>

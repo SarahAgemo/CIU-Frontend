@@ -11,7 +11,7 @@
 // import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 // function EditExamInterface() {
-  
+
 //   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 //   const [isMobile, setIsMobile] = useState(false);
 
@@ -59,7 +59,7 @@
 //     const fetchCourses = async () => {
 //       try {
 //         const response = await fetch(
-//           "http://localhost:3000/exam-paper/courses"
+//           "https://c-i-u-backend.onrender.com/exam-paper/courses"
 //         );
 //         if (!response.ok) throw new Error("Failed to fetch courses");
 //         const data = await response.json();
@@ -77,7 +77,7 @@
 //       const fetchCourseUnits = async () => {
 //         try {
 //           const response = await fetch(
-//             `http://localhost:3000/exam-paper/courses/${examData.courseId}/units`
+//             `https://c-i-u-backend.onrender.com/exam-paper/courses/${examData.courseId}/units`
 //           );
 //           if (!response.ok) throw new Error("Failed to fetch course units");
 //           const data = await response.json();
@@ -96,7 +96,7 @@
 //   useEffect(() => {
 //     const fetchExamData = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+//         const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
 //         if (!response.ok) throw new Error("Failed to fetch exam paper");
 //         const data = await response.json();
 
@@ -141,7 +141,7 @@
 //         }));
 //       }
 //     }
-    
+
 //     if (name === 'scheduledDate') {
 //       const selectedDateTime = moment(value);
 //       const currentTime = moment();
@@ -192,7 +192,7 @@
 //                 endTime: moment(examData.endTime, 'HH:mm:ss'),
 //       };
 
-//       const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`, {
 //         method: "PUT",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify(formattedData),
@@ -208,7 +208,7 @@
 //   if (loading) return <div>Loading...</div>;
 //   if (error) return <div className="alert alert-danger">{error}</div>;
 
-  
+
 
 //   return (
 //     <div className={Dash.lecturerDashboard}>
@@ -438,7 +438,7 @@ function EditExamInterface({ id, onClose }) {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3000/exam-paper/courses");
+        const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper/courses");
         if (!response.ok) throw new Error("Failed to fetch courses");
         const data = await response.json();
         setCourses(data);
@@ -453,7 +453,7 @@ function EditExamInterface({ id, onClose }) {
     if (examData.courseId) {
       const fetchCourseUnits = async () => {
         try {
-          const response = await fetch(`http://localhost:3000/exam-paper/courses/${examData.courseId}/units`);
+          const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/courses/${examData.courseId}/units`);
           if (!response.ok) throw new Error("Failed to fetch course units");
           const data = await response.json();
           setCourseUnits(data.courseUnits || []);
@@ -470,7 +470,7 @@ function EditExamInterface({ id, onClose }) {
   useEffect(() => {
     const fetchExamData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
         if (!response.ok) throw new Error("Failed to fetch exam paper");
         const data = await response.json();
 
@@ -517,13 +517,13 @@ function EditExamInterface({ id, onClose }) {
       const currentTime = moment();
 
       if (selectedDateTime.isBefore(currentTime.add(24, 'hours'))) {
-          //handleSnackbar('Scheduled date and time must be at least 24 hours from the current time.', 'error');
-          return;
+        //handleSnackbar('Scheduled date and time must be at least 24 hours from the current time.', 'error');
+        return;
       }
       const startTime = selectedDateTime.format('HH:mm');
       setExamData((prevData) => ({
-          ...prevData,
-          startTime
+        ...prevData,
+        startTime
       }));
 
 
@@ -538,18 +538,18 @@ function EditExamInterface({ id, onClose }) {
           endTime
         }));
       }
-  } else if (name === 'duration' && examData.startTime) {
+    } else if (name === 'duration' && examData.startTime) {
       const startTimeMoment = moment(examData.scheduledDate);
       const [durationHours, durationMinutes] = value.split(':').map(Number);
       const endTime = startTimeMoment
-          .add(durationHours, 'hours')
-          .add(durationMinutes, 'minutes')
-          .format('HH:mm');
+        .add(durationHours, 'hours')
+        .add(durationMinutes, 'minutes')
+        .format('HH:mm');
       setExamData((prevData) => ({
-          ...prevData,
-          endTime
+        ...prevData,
+        endTime
       }));
-  }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -558,12 +558,12 @@ function EditExamInterface({ id, onClose }) {
       const formattedData = {
         ...examData,
         duration: examData.duration,
-          scheduledDate: moment(examData.scheduledDate).format("YYYY-MM-DD HH:mm:ss"),
-          startTime: moment(examData.startTime, "HH:mm").format("HH:mm:ss"),
-          endTime: moment(examData.endTime, "HH:mm").format("HH:mm:ss"),
+        scheduledDate: moment(examData.scheduledDate).format("YYYY-MM-DD HH:mm:ss"),
+        startTime: moment(examData.startTime, "HH:mm").format("HH:mm:ss"),
+        endTime: moment(examData.endTime, "HH:mm").format("HH:mm:ss"),
       };
 
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}`, {
+      const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formattedData),
@@ -711,14 +711,14 @@ function EditExamInterface({ id, onClose }) {
           </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'center', pb: 2 }}>
-          <Button 
-            type="submit" 
-            variant="contained" 
-            sx={{ 
-              backgroundColor: '#106053', 
-              '&:hover': { 
-                backgroundColor: '#0d4d42' 
-              } 
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              backgroundColor: '#106053',
+              '&:hover': {
+                backgroundColor: '#0d4d42'
+              }
             }}
           >
             Update Exam Paper

@@ -57,7 +57,7 @@
 //     const fetchCourses = async () => {
 //       try {
 //         const response = await fetch(
-//           "http://localhost:3000/exam-paper/courses"
+//           "https://c-i-u-backend.onrender.com/exam-paper/courses"
 //         );
 //         if (!response.ok) throw new Error("Failed to fetch courses");
 //         const data = await response.json();
@@ -76,7 +76,7 @@
 //       const fetchCourseUnits = async () => {
 //         try {
 //           const response = await fetch(
-//             `http://localhost:3000/exam-paper/courses/${examData.courseId}/units`
+//             `https://c-i-u-backend.onrender.com/exam-paper/courses/${examData.courseId}/units`
 //           );
 //           if (!response.ok) {
 //             throw new Error("Failed to fetch course units");
@@ -225,7 +225,7 @@
 //     setCsvFile(e.target.files[0]);
 //   };
 
-  
+
 //   const handleSubmit = async (event) => {
 //     event.preventDefault();
 
@@ -270,7 +270,7 @@
 //       formData.append(key, submissionData[key]);
 //     });
 //     try {
-//       const response = await fetch("http://localhost:3000/exam-paper/upload", {
+//       const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper/upload", {
 //         method: "POST",
 //         body: formData,
 //       });
@@ -545,7 +545,7 @@ export default function UploadExampaperModal({ onClose }) {
     createdBy: lecturerId,
     isDraft: false,
   });
-  
+
   const [courses, setCourses] = useState([]);
   const [courseUnits, setCourseUnits] = useState([]);
   const [csvFile, setCsvFile] = useState(null);
@@ -556,7 +556,7 @@ export default function UploadExampaperModal({ onClose }) {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await fetch("http://localhost:3000/exam-paper/courses");
+        const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper/courses");
         if (!response.ok) throw new Error("Failed to fetch courses");
         const data = await response.json();
         setCourses(data);
@@ -571,7 +571,7 @@ export default function UploadExampaperModal({ onClose }) {
     if (examData.courseId) {
       const fetchCourseUnits = async () => {
         try {
-          const response = await fetch(`http://localhost:3000/exam-paper/courses/${examData.courseId}/units`);
+          const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/courses/${examData.courseId}/units`);
           if (!response.ok) {
             throw new Error("Failed to fetch course units");
           }
@@ -597,7 +597,7 @@ export default function UploadExampaperModal({ onClose }) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    
+
     if (name === "scheduledDate") {
       const selectedDateTime = moment(value);
       const now = moment();
@@ -629,11 +629,11 @@ export default function UploadExampaperModal({ onClose }) {
     }
     else if (name === "duration") {
       let cleaned = value.replace(/[^\d:]/g, '');
-      
+
       if (cleaned.includes(':')) {
         let [hours, minutes] = cleaned.split(':');
         hours = hours || '';
-        
+
         if (minutes !== undefined) {
           if (minutes.length > 0) {
             const minutesNum = parseInt(minutes);
@@ -645,7 +645,7 @@ export default function UploadExampaperModal({ onClose }) {
         } else {
           minutes = '';
         }
-  
+
         cleaned = hours + (cleaned.includes(':') ? ':' : '') + minutes;
       } else {
         if (cleaned.length > 2) {
@@ -654,13 +654,13 @@ export default function UploadExampaperModal({ onClose }) {
           cleaned = `${hours}:${minutes}`;
         }
       }
-      
+
       setExamData(prevData => {
         const newData = {
           ...prevData,
           duration: cleaned
         };
-  
+
         if (prevData.scheduledDate && cleaned.includes(':')) {
           const [hours, minutes] = cleaned.split(':').map(num => parseInt(num) || 0);
           const durationMinutes = (hours * 60) + minutes;
@@ -668,7 +668,7 @@ export default function UploadExampaperModal({ onClose }) {
           const endTime = moment(startDateTime).add(durationMinutes, 'minutes').format("HH:mm:ss");
           newData.endTime = endTime;
         }
-  
+
         return newData;
       });
     } else if (name === "courseUnit") {
@@ -723,7 +723,7 @@ export default function UploadExampaperModal({ onClose }) {
     });
 
     try {
-      const response = await fetch("http://localhost:3000/exam-paper/upload", {
+      const response = await fetch("https://c-i-u-backend.onrender.com/exam-paper/upload", {
         method: "POST",
         body: formData,
       });

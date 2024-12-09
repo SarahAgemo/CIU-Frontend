@@ -44,7 +44,7 @@
 //   useEffect(() => {
 //     const fetchExamData = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+//         const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
 //         if (!response.ok) throw new Error("Failed to fetch exam paper");
 //         const data = await response.json();
 //         setExamData(data);
@@ -102,7 +102,7 @@
 //     setDialogOpen(false);
 //     try {
 //       const endpoint = dialogType === "approve" ? "/approve" : "/reject";
-//       const response = await fetch(`http://localhost:3000/exam-paper/${id}${endpoint}`, { method: "PATCH" });
+//       const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}${endpoint}`, { method: "PATCH" });
 
 //       if (!response.ok) {
 //         const errorData = await response.json();
@@ -270,7 +270,7 @@
 //                 backgroundColor: '#0b3f37'
 //               }
 //             }}
-           
+
 //            >
 //             Confirm
 //           </Button>
@@ -284,22 +284,22 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from 'moment';
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableContainer, 
-  TableRow, 
-  Paper, 
-  Button, 
-  Snackbar, 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Paper,
+  Button,
+  Snackbar,
   Alert,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  IconButton, 
+  IconButton,
   Tooltip
 } from '@mui/material';
 import { FaEye, FaCheck, FaTimesCircle } from "react-icons/fa";
@@ -316,7 +316,7 @@ function AdminExamPaperPreview({ id, onClose }) {
   useEffect(() => {
     const fetchExamData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/exam-paper/${id}`);
+        const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}`);
         if (!response.ok) throw new Error("Failed to fetch exam paper");
         const data = await response.json();
         setExamData(data);
@@ -372,7 +372,7 @@ function AdminExamPaperPreview({ id, onClose }) {
     setDialogOpen(false);
     try {
       const endpoint = dialogType === "approve" ? "/approve" : "/reject";
-      const response = await fetch(`http://localhost:3000/exam-paper/${id}${endpoint}`, { method: "PATCH" });
+      const response = await fetch(`https://c-i-u-backend.onrender.com/exam-paper/${id}${endpoint}`, { method: "PATCH" });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -494,7 +494,7 @@ function AdminExamPaperPreview({ id, onClose }) {
           <Button onClick={() => setDialogOpen(false)} color="primary">
             Cancel
           </Button>
-          <Button 
+          <Button
             onClick={confirmAction}
             variant="contained"
             color={dialogType === "approve" ? "primary" : "error"}

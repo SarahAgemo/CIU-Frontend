@@ -76,13 +76,13 @@
 
 //   const fetchQuestionBanks = async () => {
 //     try {
-//       const response = await fetch("http://localhost:3000/question-bank");
+//       const response = await fetch("https://c-i-u-backend.onrender.com/question-bank");
 //       const data = await response.json();
 
 //       const banksWithQuestions = await Promise.all(
 //         data.map(async (bank) => {
 //           const questionsResponse = await fetch(
-//             `http://localhost:3000/question-bank/${bank.id}/questions`
+//             `https://c-i-u-backend.onrender.com/question-bank/${bank.id}/questions`
 //           );
 //           const questions = await questionsResponse.json();
 //           return { ...bank, questions };
@@ -113,7 +113,7 @@
 
 //   const confirmDelete = async () => {
 //     try {
-//       await fetch(`http://localhost:3000/question-bank/${selectedBankId}`, {
+//       await fetch(`https://c-i-u-backend.onrender.com/question-bank/${selectedBankId}`, {
 //         method: "DELETE",
 //       });
 //       fetchQuestionBanks(); // Refresh the list
@@ -353,13 +353,13 @@ const QuestionBank = () => {
 
   const fetchQuestionBanks = async () => {
     try {
-      const response = await fetch("http://localhost:3000/question-bank");
+      const response = await fetch("https://c-i-u-backend.onrender.com/question-bank");
       const data = await response.json();
 
       const banksWithQuestions = await Promise.all(
         data.map(async (bank) => {
           const questionsResponse = await fetch(
-            `http://localhost:3000/question-bank/${bank.id}/questions`
+            `https://c-i-u-backend.onrender.com/question-bank/${bank.id}/questions`
           );
           const questions = await questionsResponse.json();
           return { ...bank, questions };
@@ -390,7 +390,7 @@ const QuestionBank = () => {
 
   const confirmDelete = async () => {
     try {
-      await fetch(`http://localhost:3000/question-bank/${selectedBankId}`, {
+      await fetch(`https://c-i-u-backend.onrender.com/question-bank/${selectedBankId}`, {
         method: "DELETE",
       });
       fetchQuestionBanks();
@@ -478,8 +478,8 @@ const QuestionBank = () => {
           {!isMobile && <Sidebar />}
           {isMobile && (
             <>
-              <div 
-                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`} 
+              <div
+                className={`${Dash["overlay"]} ${isMobileMenuOpen ? Dash["active"] : ""}`}
                 onClick={toggleMobileMenu}
               ></div>
               <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />

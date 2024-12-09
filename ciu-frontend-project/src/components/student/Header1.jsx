@@ -12,7 +12,7 @@ export default function Header() {
     const fetchUserProfile = async () => {
       try {
         // Retrieve the token from local storage
-        const token = localStorage.getItem('token'); 
+        const token = localStorage.getItem('token');
 
         if (!token) {
           console.error('No token found');
@@ -21,7 +21,7 @@ export default function Header() {
         }
 
         // Fetch the user profile
-        const response = await axios.get('http://localhost:3000/faqs/profile', {
+        const response = await axios.get('https://c-i-u-backend.onrender.com/faqs/profile', {
           headers: {
             Authorization: `Bearer ${token}`, // Use the token for authorization
           },
@@ -51,11 +51,11 @@ export default function Header() {
           <Settings size={24} />
         </button>
         <Link to={'/notifications'} aria-label="Notifications">
-            <button className={`${Head["icon-button"]} ${Head["notification-button"]}`} aria-label="Notifications">
-              <Bell className={Head["notification-icon"]} />
-              <span className={Head["notification-indicator"]} />
-            </button>
-          </Link>
+          <button className={`${Head["icon-button"]} ${Head["notification-button"]}`} aria-label="Notifications">
+            <Bell className={Head["notification-icon"]} />
+            <span className={Head["notification-indicator"]} />
+          </button>
+        </Link>
         <div className={Head["user-info"]}>
           <User size={24} />
           <div className={Head["user-details"]}>

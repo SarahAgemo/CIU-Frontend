@@ -42,13 +42,13 @@ export default function UserDetailsPopup({ children }) {
           return;
         }
 
-        const profileResponse = await axios.get("http://localhost:3000/faqs/profile", {
+        const profileResponse = await axios.get("https://c-i-u-backend.onrender.com/faqs/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
 
-        const historyResponse = await axios.get("http://localhost:3000/auth/login-history", {
+        const historyResponse = await axios.get("https://c-i-u-backend.onrender.com/auth/login-history", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -58,7 +58,7 @@ export default function UserDetailsPopup({ children }) {
         setUserData({
           name: `${first_name} ${last_name}`,
           role: role || "User",
-          profileImageSrc: profileImageSrc || "default-profile.png", 
+          profileImageSrc: profileImageSrc || "default-profile.png",
           first_name,
           last_name,
         });
@@ -85,7 +85,7 @@ export default function UserDetailsPopup({ children }) {
       }
 
       await axios.put(
-        "http://localhost:3000/auth/profile/update-name", 
+        "https://c-i-u-backend.onrender.com/auth/profile/update-name",
         {
           first_name: editedData.first_name,
           last_name: editedData.last_name,
@@ -116,7 +116,7 @@ export default function UserDetailsPopup({ children }) {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        await axios.post('http://localhost:3000/students/logout', {}, {
+        await axios.post('https://c-i-u-backend.onrender.com/students/logout', {}, {
           headers: { Authorization: `Bearer ${token}` },
         });
         localStorage.removeItem("token");

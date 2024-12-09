@@ -11,7 +11,7 @@
 //     const navigate = useNavigate();
 //     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 //     const [isMobile, setIsMobile] = useState(false);
-    
+
 //     // Form state
 //     const [formData, setFormData] = useState({
 //         first_name: '',
@@ -19,7 +19,7 @@
 //         email: '',
 //         role: ''
 //     });
-    
+
 //     // UI state
 //     const [loading, setLoading] = useState(true);
 //     const [error, setError] = useState(null);
@@ -47,7 +47,7 @@
 //         const fetchUserData = async () => {
 //             try {
 //                 console.log(`Fetching data for user ID: ${id}`);
-//                 const response = await fetch(`http://localhost:3000/adminReg/${id}`);
+//                 const response = await fetch(`https://c-i-u-backend.onrender.com/adminReg/${id}`);
 
 //                 if (!response.ok) {
 //                     throw new Error(`Failed to fetch user data. Status: ${response.status}`);
@@ -64,8 +64,8 @@
 //                     last_name: last_name || '',
 //                     email: email || '',
 //                     role: role || '',
-                    
-                    
+
+
 //                 });
 //             } catch (err) {
 //                 console.error("Error fetching user data:", err);
@@ -93,7 +93,7 @@
 //         console.log("Submitting updated form data:", formData);
 
 //         try {
-//             const response = await fetch(`http://localhost:3000/adminReg/${id}`, {
+//             const response = await fetch(`https://c-i-u-backend.onrender.com/adminReg/${id}`, {
 //                 method: 'PATCH',
 //                 headers: {
 //                     'Content-Type': 'application/json',
@@ -143,11 +143,11 @@
 //                             toggleMenu={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
 //                         />
 //                     )}
-                    
+
 //                     <div className="edit-admin-layout-container">
-            
+
 //             <div className="edit-admin-main-content">
-               
+
 //                 <div className="edit-admin-users-content">  
 //                     <div className="edit-admin-container ">
 //                         <h2>Edit Admin User</h2>
@@ -200,7 +200,7 @@
 //                                     required
 //                                 />
 //                             </div>
-                           
+
 //                             <button type="submit" className="edit-admin-save-button">
 //                                 Save Changes
 //                             </button>
@@ -234,7 +234,7 @@ function EditAdmin({ id, onClose, onUpdate }) {
 
     useEffect(() => {
         if (id) {
-            fetch(`http://localhost:3000/adminReg/${id}`)
+            fetch(`https://c-i-u-backend.onrender.com/adminReg/${id}`)
                 .then((response) => response.json())
                 .then((data) => setFormData(data))
                 .catch((error) => console.error('Error fetching user data:', error));
@@ -248,7 +248,7 @@ function EditAdmin({ id, onClose, onUpdate }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`http://localhost:3000/adminReg/${id}`, {
+        fetch(`https://c-i-u-backend.onrender.com/adminReg/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
