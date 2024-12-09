@@ -379,6 +379,7 @@ import SampleComponent from "./pages/student/Submit.jsx";
 import ResultComponent from "./pages/student/Result.jsx";
 
 
+
 import "./App.css";
 
 function App() {
@@ -590,6 +591,7 @@ function App() {
                 element={<MessageSupp />}
               />
               <Route path="/student/support/FAQ" element={<Questions />} />
+              
             </Routes>
           </SidebarProvider2>
         </SidebarProvider1>
