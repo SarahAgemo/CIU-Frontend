@@ -455,7 +455,7 @@ function Adminuser() {
   };
 
   return (
-    <div className={admin["admins-list-overal1"]}>
+    <div className={admin["admins-list-overall"]}>
       <div className={`${admin["layout-container"]} ${isMobileMenuOpen ? admin["menu-open"] : ""}`}>
         <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
         <div className={["main-content"]}>

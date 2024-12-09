@@ -672,7 +672,7 @@ function AdminCourses() {
       if (editingCourse) {
         // Update existing course
         response = await fetch(`http://localhost:3000/coursesAdd/${editingCourse.id}`, {
-          method: 'PUT',
+          method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
           },
