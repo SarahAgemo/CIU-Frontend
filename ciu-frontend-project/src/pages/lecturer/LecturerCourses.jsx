@@ -73,7 +73,9 @@ function UserList({ users }) {
     };
 
     return (
+      
         <div>
+           
             <div style={searchContainerStyles}>
                 <button 
                     style={searchButtonStyles}
@@ -89,7 +91,8 @@ function UserList({ users }) {
                     style={searchInputStyles}
                 />
             </div>
-
+          
+            <h2 style={{marginLeft: "2px"}}>List of Courses</h2>
             <Table>
                 <TableHead cols={cols} />
                 <TableBody>
@@ -174,7 +177,7 @@ function UserList({ users }) {
         >
           <span style={{
             position: "absolute",
-            left: "0",
+            left: "10px",
             marginRight: "8px",
             display: "inline-block",
             width: "12px"

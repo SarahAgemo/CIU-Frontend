@@ -530,7 +530,7 @@ import CloseIcon from '@mui/icons-material/Close';
 export default function UploadExampaperModal({ onClose }) {
   const navigate = useNavigate();
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const lecturerId = storedUser?.id;
+  const lecturerName = `${storedUser?.first_name} ${storedUser?.last_name}`;
 
   const [examData, setExamData] = useState({
     title: "",
@@ -542,7 +542,7 @@ export default function UploadExampaperModal({ onClose }) {
     duration: "",
     startTime: "",
     endTime: "",
-    createdBy: lecturerId,
+    createdBy: lecturerName,
     isDraft: false,
   });
   
