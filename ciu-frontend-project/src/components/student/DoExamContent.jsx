@@ -32,7 +32,7 @@ const ExamCard = ({ exam, onDoExam }) => {
         <div className={DoExam["exam-card"]}>
             <h3>{exam.title}</h3>
             <div className={DoExam["exam-details"]}>
-                <p><strong>Description:</strong> {exam.description}</p>
+                <p><strong>Exam Instruction:</strong> {exam.description}</p>
                 <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
                 <p><strong>Duration:</strong> {exam.duration}</p>
                 <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
