@@ -158,5 +158,6 @@
     flex: 1;
     transition: opacity 0.3s ease;
     padding: 20px;
+    overflow-y: scroll;
   }
  
