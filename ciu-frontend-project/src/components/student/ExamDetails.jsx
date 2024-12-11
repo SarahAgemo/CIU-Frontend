@@ -15,7 +15,7 @@ export const ExamDetails = () => {
     return (
         <div className="wrap-details">
             <h1>ONLINE EXAMINATION SYSTEM</h1>
-            <p><strong>Description:</strong> {exam.description}</p>
+            <p><strong>Exam Instruction:</strong> {exam.description}</p>
             <p><strong>Duration:</strong> {exam.duration} Hours</p>
         </div>
     );
