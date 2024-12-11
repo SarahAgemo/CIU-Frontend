@@ -445,7 +445,9 @@ export default function ManualCreateExamContent({ onClose }) {
   const navigate = useNavigate();
 
   const storedUser = JSON.parse(localStorage.getItem("user"));
-  const lecturerId = storedUser?.id;
+  const lecturerName = `${storedUser?.first_name} ${storedUser?.last_name}`;
+  
+
 
   const [formData, setFormData] = useState({
     title: "",
@@ -457,7 +459,7 @@ export default function ManualCreateExamContent({ onClose }) {
     scheduledDate: "",
     startTime: "",
     endTime: "",
-    createdBy: lecturerId,
+    createdBy: lecturerName,
     questions: [
       {
         content: "",
