@@ -1,5 +1,4 @@
-/* Dashboard.module.css */
-
+/* 
 .lecturerDashboard {
     display: flex;
     flex-direction: column;
@@ -17,11 +16,10 @@
   .dashboard-content {
     display: flex;
     flex: 1;
-    /* padding: 20px; */
     border-radius: 8px;
     overflow: scroll;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff; /* Light background color */
+    background-color: #ffffff; 
     
   }
 
@@ -53,12 +51,11 @@
 
   @media (max-width: 200px) {
     .sidebar {
-      padding: 4px; /* Further reduce padding */
+      padding: 4px; 
     }
   
     .main-content {
-      padding: 8px; /* Adjust padding for tiny screens */
-    }
+      padding: 8px; 
   
     .dashboard-cards {
       grid-template-columns: 1fr;
@@ -71,4 +68,96 @@
   }
   
   
+  */
+
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+  .lecturerDashboard {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    
+  }
+
+  .main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: #ffffff;
+  }
+
+  .backButtonContainer {
+    position: relative;
+    margin-top: 10px;
+    margin-left: 10px; 
+    z-index: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard-content {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      padding: 8px;
+    }
+  
+    .main-content {
+      padding: 16px;
+    }
+  
+    .dashboard-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .dashboardCards{
+    background-color: red;
+  }
+  
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 998;
+  }
+  
+  .overlay.active {
+    display: block;
+  }
+  
+  .menuOpen .mainContentWrapper {
+    pointer-events: none;
+  }
+  
+  .dimmed {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .mainContentWrapper {
+    flex: 1;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+    overflow-y: scroll;
+  }
  

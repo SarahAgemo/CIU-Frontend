@@ -34,7 +34,7 @@ export default function Lecturers() {
                     {isMobile && (
                     <>
                         <div 
-                        className={`${AdminDash["overlay"]} ${isMobileMenuOpen ? AdminDash["active"] : ""}`} 
+                        className={`${Manage["overlay"]} ${isMobileMenuOpen ? Manage["active"] : ""}`} 
                         onClick={toggleMobileMenu}
                         ></div>
                         <MobileMenu isOpen={isMobileMenuOpen} toggleMenu={toggleMobileMenu} />

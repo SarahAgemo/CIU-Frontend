@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import { Box, Paper, Typography, Alert } from '@mui/material';
 import './LiveProctoring.css';
+import Video from 'twilio-video';
+
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
 

@@ -1,0 +1,143 @@
+  @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+  .lecturerDashboard {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .dashboard {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .dashboard-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: #ffffff;
+  }
+  
+  /* Updated table styles to match the screenshot */
+  .completedAssessmentsTable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+  
+  .completedAssessmentsTable th {
+    background-color: #f5f5f5;
+    color: #106053;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 16px 20px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .completedAssessmentsTable td {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #333;
+    font-size: 14px;
+  }
+  
+  .completedAssessmentsTable tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .completedAssessmentsTable tr:hover {
+    background-color: #f8f8f8;
+  }
+  
+  /* Action buttons container */
+  .actionButtons {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+  
+  /* Individual action buttons */
+  .actionButton {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: #106053;
+    transition: color 0.2s ease;
+  }
+  
+  .actionButton:hover {
+    color: #0b4d43;
+  }
+  
+  .actionButton.delete {
+    color: #dc3545;
+  }
+  
+  .actionButton.delete:hover {
+    color: #c82333;
+  }
+  
+  /* Table header */
+  .tableHeader {
+    color: #106053;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .dashboard-content {
+      flex-direction: column;
+    }
+  
+    .main-content {
+      padding: 16px;
+    }
+  
+    .completedAssessmentsTable {
+      font-size: 14px;
+    }
+  
+    .completedAssessmentsTable th,
+    .completedAssessmentsTable td {
+      padding: 12px 16px;
+    }
+  
+    .actionButtons {
+      gap: 8px;
+    }
+  }
+
+  .overlay.active {
+    display: block;
+  }
+  
+  .menuOpen .mainContentWrapper {
+    pointer-events: none;
+  }
+  
+  .dimmed {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .mainContentWrapper {
+    flex: 1;
+    transition: opacity 0.3s ease;
+    padding: 20px;
+  }

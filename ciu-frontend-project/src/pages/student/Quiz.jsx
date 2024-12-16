@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import quiz from "./Quiz.module.css";
 
+
 const Quiz2 = () => {
   const [socket, setSocket] = useState(null);
 const mediaStreamRef = useRef(null);
@@ -27,9 +28,11 @@ const mediaStreamRef = useRef(null);
   const [awayFromCamera, setAwayFromCamera] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+
   const examId = localStorage.getItem("exam");
   const userId = localStorage.getItem("user");
   const token = localStorage.getItem("token");
+
 
   // Server communication functions
   const saveProgressToServer = async () => {
@@ -42,6 +45,7 @@ const mediaStreamRef = useRef(null);
         parsedUserId = parseInt(userId);
       }
 
+
       const progressData = {
         currentQuestion: questionIndex + 1,
         answers: selectedAnswers,
@@ -49,8 +53,9 @@ const mediaStreamRef = useRef(null);
         isCompleted: false,
         status: 'in-progress'
       };
-      
+     
       console.log('Saving progress:', progressData);
+
 
       await axios.post(
         `http://localhost:3000/exam-progress/${parsedUserId}/${examId}?isManual=false`,
@@ -66,6 +71,7 @@ const mediaStreamRef = useRef(null);
     }
   };
 
+
   const loadProgressFromServer = async () => {
     try {
       let parsedUserId;
@@ -76,7 +82,9 @@ const mediaStreamRef = useRef(null);
         parsedUserId = parseInt(userId);
       }
 
+
       console.log('Attempting to load progress for:', { parsedUserId, examId });
+
 
       const response = await axios.get(
         `http://localhost:3000/exam-progress/${parsedUserId}/${examId}?isManual=false`,
@@ -86,19 +94,21 @@ const mediaStreamRef = useRef(null);
           }
         }
       );
-      
+     
       if (response.data) {
         console.log('Found saved progress:', response.data);
-        
+       
         // Set exam state first
-        setExamState({ 
-          status: 'in_progress', 
-          lastSavedAt: response.data.updatedAt 
+        setExamState({
+          status: 'in_progress',
+          lastSavedAt: response.data.updatedAt
         });
+
 
         // Set question index and answers
         setQuestionIndex(response.data.currentQuestion - 1);
         setSelectedAnswers(response.data.answers || {});
+
 
         // Calculate and set remaining time
         const remainingTime = response.data.timeRemaining;
@@ -110,6 +120,7 @@ const mediaStreamRef = useRef(null);
           setTimeLeft(durationInSeconds);
         }
 
+
         return true;
       }
       return false;
@@ -118,6 +129,7 @@ const mediaStreamRef = useRef(null);
       return false;
     }
   };
+
 
   const completeExamOnServer = async () => {
     try {
@@ -135,6 +147,7 @@ const mediaStreamRef = useRef(null);
     }
   };
 
+
   // Save progress function
   const saveProgress = async () => {
     const progressData = {
@@ -146,7 +159,7 @@ const mediaStreamRef = useRef(null);
       examId,
       userId
     };
-    
+   
     localStorage.setItem('examProgress', JSON.stringify(progressData));
     await saveProgressToServer();
     console.log('Progress saved:', progressData);
@@ -158,9 +171,11 @@ const mediaStreamRef = useRef(null);
         await saveProgress();
       }, 5000); // Save every 5 seconds
 
+
       return () => clearInterval(saveInterval);
     }
   }, [questionIndex, selectedAnswers, timeLeft, examState.status]);
+
 
   const examQuestion = async () => {
     try {
@@ -173,14 +188,15 @@ const mediaStreamRef = useRef(null);
           }
         }
       );
-      
+     
       if (!response.data || !Array.isArray(response.data)) {
         throw new Error('Invalid question data received');
       }
-      
+     
       if (response.data.length === 0) {
         throw new Error('No questions found for this exam');
       }
+
 
       setQuestions(response.data);
       return response.data;
@@ -191,12 +207,14 @@ const mediaStreamRef = useRef(null);
     }
   };
 
+
   const parseDuration = (duration) => {
     if (!duration) return 0;
     const [hours, minutes] = duration.split(":").map(Number);
     const totalSeconds = (hours || 0) * 3600 + (minutes || 0) * 60;
     return totalSeconds;
   };
+
 
   const fetchExamDetails = async () => {
     try {
@@ -210,13 +228,15 @@ const mediaStreamRef = useRef(null);
         }
       );
 
+
       if (!response.data) {
         throw new Error('No exam data received');
       }
 
+
       console.log('Exam details received:', response.data);
       setExamDetails(response.data);
-      
+     
       const durationInSeconds = parseDuration(response.data.duration);
       if (!isNaN(durationInSeconds) && durationInSeconds > 0) {
         setTimeLeft(durationInSeconds);
@@ -224,7 +244,7 @@ const mediaStreamRef = useRef(null);
         console.warn('Invalid duration:', response.data.duration);
         setTimeLeft(3600);
       }
-      
+     
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data?.message || error.message;
@@ -232,6 +252,7 @@ const mediaStreamRef = useRef(null);
       throw new Error(`Failed to load exam details: ${errorMessage}`);
     }
   };
+
 
   // Initialize exam with resume capability
   useEffect(() => {
@@ -246,15 +267,18 @@ const mediaStreamRef = useRef(null);
           parsedUserId = parseInt(userId);
         }
 
+
         console.log('Starting exam initialization for:', { parsedUserId, examId });
+
 
         // First load exam details and questions
         await fetchExamDetails();
         await examQuestion();
 
+
         // Then try to load progress
         const hasServerProgress = await loadProgressFromServer();
-        
+       
         if (!hasServerProgress) {
           // Check local storage if no server progress
           const savedProgress = localStorage.getItem('examProgress');
@@ -265,9 +289,9 @@ const mediaStreamRef = useRef(null);
               setQuestionIndex(parsed.questionIndex);
               setSelectedAnswers(parsed.selectedAnswers);
               setTimeLeft(parsed.timeLeft);
-              setExamState({ 
-                status: 'in_progress', 
-                lastSavedAt: parsed.lastSavedAt 
+              setExamState({
+                status: 'in_progress',
+                lastSavedAt: parsed.lastSavedAt
               });
             } else {
               // Start new exam
@@ -279,6 +303,7 @@ const mediaStreamRef = useRef(null);
           }
         }
 
+
         await startRecording();
       } catch (error) {
         console.error('Initialization error:', error);
@@ -288,12 +313,15 @@ const mediaStreamRef = useRef(null);
       }
     };
 
+
     initializeExam();
   }, []);
+
 
   // Timer effect
   useEffect(() => {
     if (timeLeft === 0) return;
+
 
     const timer = setInterval(() => {
       setTimeLeft((prevTime) => {
@@ -306,6 +334,7 @@ const mediaStreamRef = useRef(null);
       });
     }, 1000);
 
+
     return () => clearInterval(timer);
   }, [timeLeft]);
   const formatTime = (seconds) => {
@@ -316,6 +345,7 @@ const mediaStreamRef = useRef(null);
     return `${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
   };
 
+
   const startRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -323,7 +353,9 @@ const mediaStreamRef = useRef(null);
         audio: true,
       });
 
+
       if (videoRef.current) videoRef.current.srcObject = stream;
+
 
       const mediaRecorder = new MediaRecorder(stream);
       mediaRecorder.ondataavailable = (event) => {
@@ -331,9 +363,11 @@ const mediaStreamRef = useRef(null);
       };
       mediaRecorder.start();
 
+
       mediaRecorderRef.current = mediaRecorder;
       setIsRecording(true);
       setRecordingStartTime(Date.now());
+
 
       const checkCameraInterval = setInterval(() => {
         if (stream.getVideoTracks()[0].readyState !== "live") {
@@ -344,26 +378,31 @@ const mediaStreamRef = useRef(null);
         }
       }, 5000);
 
+
       return () => clearInterval(checkCameraInterval);
     } catch (error) {
       console.error("Error accessing media devices.", error);
     }
   };
 
+
   const handleNextQuestion = async () => {
     setQuestionIndex((prevIndex) => prevIndex + 1);
     await saveProgress();
   };
+
 
   const handlePreviousQuestion = async () => {
     setQuestionIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : 0));
     await saveProgress();
   };
 
+
   const getRecordingDuration = () => {
     const duration = Math.floor((Date.now() - recordingStartTime) / 1000);
     return formatTime(duration);
   };
+
 
   const handleAnswerChange = async (questionId, option) => {
     setSelectedAnswers((prevAnswers) => ({
@@ -373,15 +412,18 @@ const mediaStreamRef = useRef(null);
     await saveProgress();
   };
 
+
   const handleSubmit = async () => {
     if (mediaRecorderRef.current) {
       try {
         mediaRecorderRef.current.stop();
         setIsRecording(false);
 
+
         const blob = new Blob(recordedChunks, { type: "video/webm" });
         const recordedVideoURL = URL.createObjectURL(blob);
         localStorage.setItem("recordedVideo", recordedVideoURL);
+
 
         let calculatedScore = 0;
         questions.forEach((question) => {
@@ -391,8 +433,10 @@ const mediaStreamRef = useRef(null);
         });
         setScore(calculatedScore);
 
+
         const percentageScore = ((calculatedScore / questions.length) * 100).toFixed(2);
         setPercentage(percentageScore);
+
 
         let parsedUserId;
         try {
@@ -402,6 +446,7 @@ const mediaStreamRef = useRef(null);
           parsedUserId = parseInt(userId);
         }
 
+
         const scoreData = {
           score: calculatedScore,
           percentage: parseFloat(percentageScore),
@@ -410,9 +455,10 @@ const mediaStreamRef = useRef(null);
           assessmentType: "add",
         };
 
+
         // Submit score
         const response = await axios.post(
-          "http://localhost:3000/scores", 
+          "http://localhost:3000/scores",
           scoreData,
           {
             headers: {
@@ -421,13 +467,14 @@ const mediaStreamRef = useRef(null);
           }
         );
 
+
         if (response.status === 200 || response.status === 201) {
           // Complete exam on server
           await completeExamOnServer();
           // Clear local storage
           localStorage.removeItem('examProgress');
           setExamState({ status: 'completed', lastSavedAt: null });
-          
+         
           alert("Your score has been submitted successfully!");
           navigate("/student");
         } else {
@@ -439,6 +486,7 @@ const mediaStreamRef = useRef(null);
       }
     }
   };
+
 
   const handleTabChange = () => {
     alert("Warning: You opened a new tab! The quiz will be auto-submitted.");
@@ -516,6 +564,7 @@ const mediaStreamRef = useRef(null);
       }
     };
 
+
     document.addEventListener("visibilitychange", handleVisibilityChange);
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
@@ -535,6 +584,7 @@ const mediaStreamRef = useRef(null);
               <p>Resuming from question {questionIndex + 1}</p>
             </div>
           )}
+
 
           <div className={quiz.sidebar}>
             <div className={quiz.logoContainer}>
@@ -562,10 +612,10 @@ const mediaStreamRef = useRef(null);
                     </span>
                   </div>
                   <div className={quiz.progressBar}>
-                    <div 
-                      className={quiz.progressFill} 
-                      style={{ 
-                        width: `${(Object.keys(selectedAnswers).length / questions.length) * 100}%` 
+                    <div
+                      className={quiz.progressFill}
+                      style={{
+                        width: `${(Object.keys(selectedAnswers).length / questions.length) * 100}%`
                       }}
                     ></div>
                   </div>
@@ -573,6 +623,7 @@ const mediaStreamRef = useRef(null);
               </div>
             </div>
           </div>
+
 
           <div className={quiz.mainContent}>
             <div className={quiz.header}>
@@ -587,6 +638,7 @@ const mediaStreamRef = useRef(null);
                 </div>
               </div>
             </div>
+
 
             <div className={quiz.quizContent}>
               <div className={quiz.questionCard}>
@@ -613,6 +665,7 @@ const mediaStreamRef = useRef(null);
                   ))}
                 </form>
               </div>
+
 
               <div className={quiz.navigationButtons}>
                 {questionIndex > 0 && (
@@ -641,6 +694,7 @@ const mediaStreamRef = useRef(null);
               </div>
             </div>
 
+
             <div className={quiz.mediaPreview}>
               <video ref={videoRef} autoPlay muted className={quiz.videoPreview}></video>
               <div className={quiz.recordingStatus}>
@@ -661,4 +715,8 @@ const mediaStreamRef = useRef(null);
   );
 };
 
+
 export default Quiz2;
+
+
+
