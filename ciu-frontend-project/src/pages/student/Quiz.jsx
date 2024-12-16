@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import quiz from "./Quiz.module.css";
+// import * as faceapi from "face-api.js";
 
 
 const Quiz2 = () => {
@@ -24,6 +25,8 @@ const Quiz2 = () => {
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [awayFromCamera, setAwayFromCamera] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  // const [warningCount, setWarningCount] = useState(0);
+  // const [isFaceDetected, setIsFaceDetected] = useState(false);
 
 
   const examId = localStorage.getItem("exam");
@@ -487,9 +490,8 @@ const Quiz2 = () => {
 
   const handleTabChange = () => {
     alert("Warning: You opened a new tab! The quiz will be auto-submitted.");
-    handleSubmit();
+    navigate("/");
   };
-
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -498,12 +500,13 @@ const Quiz2 = () => {
       }
     };
 
-
     document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-    };
-  }, []);
+};
+},[]);
+
   return (
     <div className={quiz.ExamPage}>
       {isLoading ? (
@@ -565,6 +568,10 @@ const Quiz2 = () => {
                 <span className={`${quiz.recordDot} ${isRecording ? quiz.recording : ''}`}></span>
                 REC {isRecording && getRecordingDuration()}
               </div>
+
+
+
+
               <h1 className={quiz.quizTitle}>QUIZ</h1>
               <div className={quiz.headerRight}>
                 <div className={quiz.timer}>
