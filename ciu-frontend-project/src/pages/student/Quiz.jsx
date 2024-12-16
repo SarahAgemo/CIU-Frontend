@@ -1,9 +1,12 @@
 import React, { useState, useEffect, useRef } from "react";
+import io from 'socket.io-client';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import quiz from "./Quiz.module.css";
 
 const Quiz2 = () => {
+  const [socket, setSocket] = useState(null);
+const mediaStreamRef = useRef(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -441,6 +444,70 @@ const Quiz2 = () => {
     alert("Warning: You opened a new tab! The quiz will be auto-submitted.");
     handleSubmit();
   };
+
+  // Add this useEffect for socket connection and video streaming
+  useEffect(() => {
+    const newSocket = io('http://localhost:3000/proctor', {
+      transports: ['websocket']
+    });
+
+    newSocket.emit('join-exam-room', {
+      examId,
+      studentId: userId,
+      role: 'student'
+    });
+
+    setSocket(newSocket);
+
+    // Get video stream
+  if (videoRef.current && !mediaStreamRef.current) {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        mediaStreamRef.current = stream;
+        videoRef.current.srcObject = stream;
+
+          // Set up stream sending
+          const sendVideoStream = () => {
+            if (videoRef.current && mediaStreamRef.current) {
+              const canvas = document.createElement('canvas');
+              const context = canvas.getContext('2d');
+              canvas.width = videoRef.current.videoWidth;
+              canvas.height = videoRef.current.videoHeight;
+              
+              context.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+              const imageData = canvas.toDataURL('image/jpeg', 0.5);
+              
+              const parsedUserId = typeof userId === 'string' ? JSON.parse(userId).id : userId;
+              newSocket.emit('stream-video', {
+                examId,
+                studentId: parsedUserId,
+                stream: imageData
+              });
+            }
+          };
+
+            // Send video frames every 100ms
+        const streamInterval = setInterval(sendVideoStream, 100);
+
+        return () => {
+          clearInterval(streamInterval);
+          stream.getTracks().forEach(track => track.stop());
+        };
+      })
+      .catch(err => console.error('Error accessing webcam:', err));
+  }
+
+  return () => {
+    if (newSocket) {
+      newSocket.disconnect();
+    }
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach(track => track.stop());
+    }
+  };
+}, [examId, userId]);
+  
+
 
   useEffect(() => {
     const handleVisibilityChange = () => {

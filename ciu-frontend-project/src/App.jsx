@@ -56,6 +56,8 @@ import QuestionBankPreview from "./components/lecturer/QuestionBankPreview.jsx";
 import LecLogin from "./pages/lecturer/LecturerLogin.jsx"
 import ResultsTable from "./pages/lecturer/studentResults.jsx"
 import AdmintokenPassword from "./components/admin/AdmintokenPassword.jsx";
+import ProctoringDashboard from "./components/lecturer/ProctoringDashboard";
+import LiveProctoring from "./pages/lecturer/LiveProctoring.jsx";
 
 
 // Student
@@ -233,7 +235,9 @@ function App() {
                 element={<CompletedAssessmentsTable />}
               />
 
-             
+              <Route path="/lecturer/exam-monitoring/:examId" element={<LiveProctoring />} />
+
+              <Route path="/lecturer/proctoring" element={<ProctoringDashboard />} />
 
               {/* Student - Protected route*/}
 
