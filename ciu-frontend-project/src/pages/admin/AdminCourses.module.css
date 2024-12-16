@@ -143,6 +143,7 @@ table {
   .main-content {
       display: flex;
       flex: 1;
+     
   }
   
   .sidebar {
@@ -156,6 +157,7 @@ table {
       flex: 1;
       padding: 20px;
       overflow-y: auto;
+      
   }
   
   .table {
