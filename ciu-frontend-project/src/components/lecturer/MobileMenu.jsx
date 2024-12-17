@@ -13,20 +13,8 @@ export default function MobileMenu({ isOpen, toggleMenu }) {
     { icon: LayoutDashboard, label: 'Dashboard', path: '/lecturerdashboard' },
     { icon: FileText, label: 'Courses', path: '/lect-courses' },
     { icon: HelpCircle, label: 'Question Bank', path: '/question-bank' },
-    { icon: Video, label: 'Proctoring', path: '' },
+    { icon: Video, label: 'Proctoring', path: '/lecturer/proctoring' },
     { icon: FileText, label: 'Exam Management', path: '/exam-management' },
-    // { 
-    //   icon: FileText, 
-    //   label: 'Exam Mgt', 
-    //   subItems: [
-    //     { icon: ClipboardCheck, label: 'Exam Management', path: '/exam-management' },
-    //     { icon: ClipboardCheck, label: 'Create Assessment', path: '/schedule-create-exams' },
-    //     { icon: ClipboardCheck, label: 'Upload Assessment', path: '/schedule-upload-exams' },
-    //     { icon: ClipboardCheck, label: 'View Exam List', path: '/schedule-upload-exams/exam-list' },
-    //     { icon: ClipboardCheck, label: 'Published Exams', path: '/published-exam-papers' },
-    //     { icon: ClipboardCheck, label: 'Completed Exams', path: '/completed-Assessments' },
-    //   ],
-    // },
     { icon: LogOut, label: 'Logout', path: '/' }
   ];
 

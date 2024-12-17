@@ -441,7 +441,7 @@ function ExamList() {
                   </div>
                 </div>
               </div>
-              <h2 style={{ marginRight: "850px" }}>Exam Papers</h2>
+              <h2 style={{ marginRight: "600px" }}>Exam Papers</h2>
               {isLoading ? (
                 <div className="E-spinner-container">
                   <div className="E-spinner"></div>
