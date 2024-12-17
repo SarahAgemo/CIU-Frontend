@@ -2,8 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import { Box, Paper, Typography, Alert } from '@mui/material';
 import './LiveProctoring.css';
-import Video from 'twilio-video';
-
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:3000';
 
@@ -16,41 +14,56 @@ const LiveProctoring = ({ examId }) => {
 
   useEffect(() => {
     try {
+      // Initialize the WebSocket connection
       socketRef.current = io(`${SOCKET_URL}/proctor`, {
-        transports: ['websocket']
+        transports: ['websocket', 'polling'], // Allow fallback to polling
+        reconnectionAttempts: 5, // Retry connection up to 5 times
       });
 
+      // Handle successful connection
       socketRef.current.on('connect', () => {
         console.log('Connected to socket server');
         setLoading(false);
+        setError(null); // Clear any previous error
       });
 
+      // Handle connection errors
       socketRef.current.on('connect_error', (error) => {
         console.error('Socket connection error:', error);
         setError('Failed to connect to server');
         setLoading(false);
       });
 
+      // Join the exam room as a proctor
       socketRef.current.emit('join-exam-room', {
         examId,
-        role: 'proctor'
+        role: 'proctor',
       });
 
+      // Handle incoming proctor-stream data
       socketRef.current.on('proctor-stream', (data) => {
         console.log('Received stream data:', data);
-        setStudents(prev => {
+        setStudents((prev) => {
           const newMap = new Map(prev);
           newMap.set(data.studentId, {
             stream: data.stream,
-            lastUpdate: new Date()
+            lastUpdate: new Date(),
           });
           return newMap;
         });
       });
 
+      // Handle disconnection
+      socketRef.current.on('disconnect', (reason) => {
+        console.log('Disconnected from server:', reason);
+        if (reason === 'io server disconnect') {
+          socketRef.current.connect(); // Reconnect manually if the server disconnects
+        }
+      });
+
       return () => {
         if (socketRef.current) {
-          socketRef.current.disconnect();
+          socketRef.current.disconnect(); // Cleanup on component unmount
         }
       };
     } catch (error) {
@@ -88,11 +101,11 @@ const LiveProctoring = ({ examId }) => {
             Alerts
           </Typography>
           {notifications.map((notification, index) => (
-            <Alert 
-              key={index} 
+            <Alert
+              key={index}
               severity={notification.type}
               sx={{ mb: 1 }}
-              onClose={() => setNotifications(prev => prev.filter((_, i) => i !== index))}
+              onClose={() => setNotifications((prev) => prev.filter((_, i) => i !== index))}
             >
               {notification.message}
             </Alert>
@@ -109,8 +122,8 @@ const LiveProctoring = ({ examId }) => {
           {Array.from(students).map(([studentId, data]) => (
             <Paper key={studentId} elevation={3} sx={{ p: 2 }}>
               <div className="student-stream">
-                <img 
-                  src={data.stream} 
+                <img
+                  src={data.stream}
                   alt={`Student ${studentId}`}
                   style={{ width: '100%', maxWidth: '320px', height: 'auto' }}
                 />

@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Paper, Typography, Button, Grid, CircularProgress, Alert } from '@mui/material';
 import LiveProctoring from '../../pages/lecturer/LiveProctoring';
+import Header from '../../components/lecturer/HeaderPop';
+import Sidebar from '../../components/lecturer/SideBarPop';
+import MobileMenu from "../../components/lecturer/MobileMenu";
+import Dash from '../../components/lecturer/LecturerDashboard.module.css';
 
 const ProctoringDashboard = () => {
     const [showLiveProctoring, setShowLiveProctoring] = useState(false);
@@ -9,23 +13,42 @@ const ProctoringDashboard = () => {
     const [activeExams, setActiveExams] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+      useEffect(() => {
+            const handleResize = () => {
+                setIsMobile(window.innerWidth <= 991);
+            };
+    
+            window.addEventListener("resize", handleResize);
+            handleResize();
+    
+            return () => window.removeEventListener("resize", handleResize);
+        }, []);
+    
+       
 
     useEffect(() => {
         const fetchActiveExams = async () => {
             try {
                 setLoading(true);
                 const response = await axios.get('http://localhost:3000/exams/active');
-                console.log('Active exams:', response.data); // Debug log
+                console.log('Active exams:', response.data); 
                 setActiveExams(response.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching active exams:', error);
-                setError('Failed to fetch active exams');
+                setError('There are no active exams');
                 setLoading(false);
             }
         };
         fetchActiveExams();
     }, []);
+
+    const toggleMobileMenu = () => {
+        setIsMobileMenuOpen(!isMobileMenuOpen);
+      };
 
     const handleStartMonitoring = (examId) => {
         console.log('Starting monitoring for exam:', examId); // Debug log
@@ -50,6 +73,17 @@ const ProctoringDashboard = () => {
     }
 
     return (
+         <div className={Dash["overall"]}>
+              <div className={Dash["dashboard"]}>
+                <Header toggleMobileMenu={toggleMobileMenu} isMobile={isMobile} />
+                <div className={Dash["dashboard-content"]}>
+                  {!isMobile && <Sidebar />}
+                  {isMobile && (
+                    <MobileMenu
+                      isOpen={isMobileMenuOpen}
+                      toggleMenu={toggleMobileMenu}
+                    />
+                  )}
         <Box sx={{ padding: 3 }}>
             {!showLiveProctoring ? (
                 <>
@@ -74,7 +108,7 @@ const ProctoringDashboard = () => {
                                             {exam.title || 'Untitled Exam'}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                                            Course: {exam.courseId || 'N/A'}
+                                            Course Unit: {exam.courseUnit || 'N/A'}
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                                             Students Taking: {exam.activeStudents || 0}
@@ -106,6 +140,9 @@ const ProctoringDashboard = () => {
                 </Box>
             )}
         </Box>
+        </div>
+      </div>
+    </div>
     );
 };
 

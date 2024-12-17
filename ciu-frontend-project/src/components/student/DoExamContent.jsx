@@ -46,7 +46,7 @@ const ExamCard = ({ exam, onDoExam }) => {
                     className={DoExam["do-exam-btn"]}
                     onClick={() => onDoExam(exam)}
                     // disabled={isButtonDisabled} // Disable the button if the exam is not yet available
-                    disabled={isButtonDisabled} 
+                    // disabled={isButtonDisabled} 
                     // Disable the button if the exam is not yet available
                 >
                     DO EXAM

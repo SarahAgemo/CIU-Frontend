@@ -548,7 +548,7 @@ export default function ManualCreateExamContent({ onClose }) {
       const selectedDateTime = moment(value);
       const currentTime = moment();
 
-      if (selectedDateTime.isBefore(currentTime.add(24, "hours"))) {
+      if (selectedDateTime.isBefore(currentTime)) {
         handleSnackbar(
           "Scheduled date and time must be at least 24 hours from the current time.",
           "error"
