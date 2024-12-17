@@ -237,7 +237,7 @@ const LecturerLogin = () => {
               <p className={styles["success-message"]}>{successMessage}</p>
             )}
             <div className={styles["forgot-password"]}>
-              <Link onClick={() => setIsResetPasswordModalOpen(true)} className={styles["forgot-password-link"]}>
+              <Link to="/lecturerPassword" className={styles["forgot-password-link"]}>
                 Forgot Password?
               </Link>
               <span>   or   </span>

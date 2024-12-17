@@ -1,126 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import { Clock } from 'lucide-react';
-// import { useNavigate } from 'react-router-dom';
-// import DoExam from './DoExamContent.module.css';
-// import axios from 'axios';
-
-// const fetchAvailableExams = async () => {
-//     const response = await fetch('https://c-i-u-backend.onrender.com/exam-paper?isDraft=false');
-//     if (!response.ok) {
-//         throw new Error('Failed to fetch exams');
-//     }
-//     return await response.json();
-// };
-
-// const ExamCard = ({ exam, onDoExam }) => {
-//     const now = new Date();
-//     const scheduledDate = new Date(exam.scheduledDate);
-//     const startTime = new Date(exam.startTime);
-
-//     // Check if the button should be enabled
-//     // const isButtonDisabled = !(now >= scheduledDate && now >= startTime);
-
-//     return (
-//         <div className={DoExam["exam-card"]}>
-//             <h3>{exam.title}</h3>
-//             <div className={DoExam["exam-details"]}>
-//                 <p><strong>Description:</strong> {exam.description}</p>
-//                 <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
-//                 <p><strong>Duration:</strong> {exam.duration}</p>
-//                 <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
-//                 <p><strong>Course Unit:</strong> {exam.courseUnit}</p>
-//                 <p><strong>Course Unit Code:</strong> {exam.courseUnitCode}</p>
-//                 <p><strong>Course Name:</strong> {exam.courseName}</p>
-//             </div>
-//             <div className={DoExam["exam-actions"]}>
-//                 <button
-//                     className={DoExam["do-exam-btn"]}
-//                     onClick={() => onDoExam(exam)}
-//                     // disabled={isButtonDisabled} 
-//                     // Disable the button if the exam is not yet available
-//                 >
-//                     DO EXAM
-//                 </button>
-//                 <a href="#" className={DoExam["schedule-reminder"]}>
-//                     Schedule Reminder <Clock size={16} />
-//                 </a>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default function AvailableExams() {
-//     const [availableExams, setAvailableExams] = useState([]);
-//     const [loading, setLoading] = useState(true);
-//     const [error, setError] = useState(null);
-//     const navigate = useNavigate();
-
-//     useEffect(() => {
-//         const loadExams = async () => {
-//             try {
-//                 const exams = await fetchAvailableExams();
-//                 const studentData = localStorage.getItem("user");
-//                 if (!studentData) {
-//                     throw new Error("No student data found in localStorage.");
-//                 }
-
-//                 const student = JSON.parse(studentData);
-//                 const response = await axios.get(`https://c-i-u-backend.onrender.com/students/${student.id}`);
-//                 const studentDetails = response.data;
-
-//                 if (!studentDetails.courseId) {
-//                     throw new Error("No courseId found in student data.");
-//                 }
-
-//                 const courses = await axios.get(`https://c-i-u-backend.onrender.com/coursesAdd`);
-//                 const returncourses = courses.data;
-
-//                 const filteredExams = exams.filter(exam => exam.courseId === studentDetails.courseId);
-//                 const finalStudentExams = filteredExams.map(studentExam => {
-//                     const exam = returncourses.find(course => course.id === studentExam.courseId);
-
-//                     return {
-//                         ...studentExam,
-//                         courseName: exam.courseName
-//                     };
-//                 });
-
-//                 setAvailableExams(finalStudentExams);
-//             } catch (err) {
-//                 setError(err.message);
-//                 console.error(err);
-//             } finally {
-//                 setLoading(false);
-//             }
-//         };
-
-//         loadExams();
-//     }, []);
-
-//     const handleDoExam = (exam) => {
-//         console.log(exam);
-//         localStorage.setItem('exam', exam.id);
-//         navigate("/proctoring", { state: { exam } });
-//     };
-
-//     if (loading) return <p>Loading exams...</p>;
-//     if (error) return <p>Error: {error}</p>;
-
-//     return (
-//         <main className={DoExam["main-content"]}>
-//             <h2 className={DoExam["page-title"]}>AVAILABLE EXAMS</h2>
-//             <div className={DoExam["exam-list"]}>
-//                 {availableExams.length > 0 ? (
-//                     availableExams.map(exam => (
-//                         <ExamCard key={exam.id} exam={exam} onDoExam={handleDoExam} />
-//                     ))
-//                 ) : (
-//                     <p>No published exams available to attempt.</p>
-//                 )}
-//             </div>
-//         </main>
-//     );
-// }
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -155,7 +32,7 @@ const ExamCard = ({ exam, onDoExam }) => {
         <div className={DoExam["exam-card"]}>
             <h3>{exam.title}</h3>
             <div className={DoExam["exam-details"]}>
-                <p><strong>Description:</strong> {exam.description}</p>
+                <p><strong>Exam Instruction:</strong> {exam.description}</p>
                 <p><strong>Scheduled Date:</strong> {scheduledDate.toLocaleDateString()}</p>
                 <p><strong>Duration:</strong> {exam.duration}</p>
                 <p><strong>Start Time:</strong> {startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
@@ -165,10 +42,11 @@ const ExamCard = ({ exam, onDoExam }) => {
                 <p><strong>Course Name:</strong> {exam.courseName}</p>
             </div>
             <div className={DoExam["exam-actions"]}>
-                <button className={DoExam["do-exam-btn"]}
+                <button
+                    className={DoExam["do-exam-btn"]}
                     onClick={() => onDoExam(exam)}
-                    disabled={isButtonDisabled}
-                // Disable the button if the exam is not yet available
+                    disabled={isButtonDisabled} 
+                    // Disable the button if the exam is not yet available
                 >
                     DO EXAM
                 </button>
@@ -252,12 +130,15 @@ export default function AvailableExams() {
         const student = JSON.parse(studentData);
 
         // Update submitted exams for this student in localStorage
-        const submittedExamsByStudent = JSON.parse(localStorage.getItem('submittedExams')) || {};
-        if (!submittedExamsByStudent[student.id]) {
-            submittedExamsByStudent[student.id] = [];
-        }
-        submittedExamsByStudent[student.id].push(exam.id);
-        localStorage.setItem('submittedExams', JSON.stringify(submittedExamsByStudent));
+        // const submittedExamsByStudent = JSON.parse(localStorage.getItem('submittedExams')) || {};
+        // if (!submittedExamsByStudent[student.id]) {
+        //     submittedExamsByStudent[student.id] = [];
+        // }
+        // submittedExamsByStudent[student.id].push(exam.id);
+        // localStorage.setItem('submittedExams', JSON.stringify(submittedExamsByStudent));
+
+
+
 
         // Navigate to the proctoring page
         localStorage.setItem('exam', JSON.stringify(exam.id));

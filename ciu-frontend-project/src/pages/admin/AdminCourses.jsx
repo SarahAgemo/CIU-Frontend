@@ -723,9 +723,9 @@ function AdminCourses() {
             />
           )}
           <div className="users-content">
-            <div className="admin-actions-row">
-              <h2 className="admins-heading">Lists of Courses</h2>
-              <div>
+            <div className="admin-action-row">
+              
+              <div style={{marginLeft:"350px"}}>
                 <button
                   onClick={handleOpenModal}
                   type="button"
@@ -741,6 +741,7 @@ function AdminCourses() {
                   className="admin-search-input"
                 />
               </div>
+              <h2 className="admins-heading"style={{marginRight:"600px"}}>Lists of Courses</h2>
             </div>
             <UserList
               users={users}

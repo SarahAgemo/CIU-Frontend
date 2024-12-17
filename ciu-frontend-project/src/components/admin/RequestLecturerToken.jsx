@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const RequestLecturerTokenForm = () => {
+  const location = useLocation();
+  const navigate = useNavigate(); 
+  
   const [formData, setFormData] = useState({
     token: '',
     newPassword: '',
     confirmPassword: '',
   });
   const [isHovered, setIsHovered] = useState(false);
-  const navigate = useNavigate();
+
+  // Effect to pre-fill token from URL query parameter
+  useEffect(() => {
+    // Parse query parameters from the URL
+    const searchParams = new URLSearchParams(location.search);
+    const tokenFromUrl = searchParams.get('token');
+    
+    if (tokenFromUrl) {
+      setFormData(prevData => ({
+        ...prevData,
+        token: tokenFromUrl
+      }));
+    }
+  }, [location]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,7 +50,7 @@ const RequestLecturerTokenForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          token: formData.token,
+          setupToken: formData.token,
           newPassword: formData.newPassword,
           confirmPassword: formData.confirmPassword,
         }),
@@ -126,6 +142,7 @@ const RequestLecturerTokenForm = () => {
     },
   };
 
+ 
   return (
     <div style={styles.container}>
       {/* Logo */}

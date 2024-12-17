@@ -891,7 +891,7 @@ import {
 const Proctoring = () => {
   const [videoEnabled, setVideoEnabled] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
-  const [secureBrowser, setSecureBrowser] = useState(false);
+  // const [secureBrowser, setSecureBrowser] = useState(false);
   const [consentGiven, setConsentGiven] = useState(false);
   const [beginExamEnabled, setBeginExamEnabled] = useState(false);
   const [warnings, setWarnings] = useState(0);
