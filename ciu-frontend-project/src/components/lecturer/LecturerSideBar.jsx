@@ -16,6 +16,11 @@ export default function Sidebar() {
         { icon: <FileText size={20} />, text: 'Reports', path: '/student/calendar' },
         { icon: <HelpCircle size={20} />, text: 'Question Bank', path: '/student/support' },
         { icon: <Video size={20} />, text: 'Proctoring', path: '/student/support' },
+        {
+            text: 'Exam Proctoring',
+            path: '/lecturer/proctoring',
+            icon: <MonitorIcon />
+        },
     ];
 
     return (
