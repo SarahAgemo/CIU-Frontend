@@ -5,15 +5,15 @@ import React from 'react';
 
 // Authentication
 // import Login from "./pages/loginoriginal.jsx";
-import ResetPassword from "./components/admin/ResetPassword.jsx";
-import RequestToken from "./components/admin/RequestToken.jsx";
+import ResetPassword from "./components/admin/ResetStudentPassword.jsx";
+import RequestToken from "./components/admin/RequestStudentToken.jsx";
 // import ProtectedRoute from './components/student/ProtectedRoute.jsx';
 
 // Admin
-import RegForm from "./components/admin/RegForm.jsx";
+import RegForm from "./components/admin/StudentRegForm.jsx";
 import Registration from "./pages/admin/Admin-LecturerRegistration.jsx";
 import Dashboard from "./pages/admin/AdminDashboard.jsx";
-import ManageUsers from "./pages/admin/ManageUsers.jsx";
+// import ManageUsers from "./pages/admin/ManageUsers.jsx";
 import Users from "./components/admin/UsersContent.jsx";
 import EditUser from "./components/admin/EditLecturer.jsx";
 import Layout from "./components/admin/Layout.jsx";
@@ -28,8 +28,8 @@ import RequestLecturerToken from "./components/admin/RequestLecturerToken.jsx";
 import RegCourse from "./pages/lecturer/CourseRegistration.jsx";
 import AdminCourses from "./pages/admin/AdminCourses.jsx";
 import EditCourse from "./pages/lecturer/EditCourses.jsx";
-import Lecturers from "./pages/admin/LecturerManagement.jsx";
-import StudentsManage from "./pages/admin/StudentManagement.jsx";
+// import Lecturers from "./pages/admin/LecturerManagement.jsx";
+// import StudentsManage from "./pages/admin/StudentManagement.jsx";
 import Create from "./pages/admin/CreateFAQPg.jsx";
 import { SidebarProvider1 } from "./components/admin/SidebarContext.jsx";
 import TokenPasswordPage from "./components/admin/TokenPasswordPage";
@@ -113,12 +113,12 @@ function App() {
               <Route path="/admin-exam-paper/:id/questions" element={<AdminQuestionsPreview />}/>
               <Route path="/admin-exam-paper/:id" element={<AdminExamPaperPreview/>} />
               <Route path="/registers" element={<Registration />} />
-              <Route path="/manage" element={<ManageUsers />} />
+              {/* <Route path="/manage" element={<ManageUsers />} /> */}
               <Route path="/register" element={<RegForm />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/admin" element={<Dashboard />} />
-              <Route path="/admin/manage-users" element={<ManageUsers />} />
-              <Route path="/manage" element={<ManageUsers />} />
+              {/* <Route path="/admin/manage-users" element={<ManageUsers />} /> */}
+              {/* <Route path="/manage" element={<ManageUsers />} /> */}
               <Route path="/users" element={<Users />} />
               <Route path="/edit/:id" element={<EditUser />} />
               <Route path="/layout" element={<Layout />} />
@@ -144,14 +144,6 @@ function App() {
               <Route path="/regCourse" element={<RegCourse />} />
               <Route path="/lect-courses" element={<LectCourses />} />
               <Route path="/editcourse/:id" element={<EditCourse />} />
-              <Route
-                path="/admin/manage-users/lecturers"
-                element={<Lecturers />}
-              />
-              <Route
-                path="/admin/manage-users/students"
-                element={<StudentsManage />}
-              />
               <Route path="/admin/create-faqs" element={<Create />} />
               <Route
                 path="/token-password-reset"

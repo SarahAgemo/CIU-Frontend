@@ -102,114 +102,114 @@ function UserList({ users }) {
                             <td>{user.facultyName}</td>
                             <td>{user.courseName}</td>
                             <td>
-  <ul style={{ 
-    listStyle: "none", 
-    padding: 0,
-    margin: 0 
-  }}>
-    {Array.isArray(user.courseUnits) ? (
-      user.courseUnits.map((unit, i) => (
-        <li 
-          key={i} 
-          style={{
-            position: "relative",
-            paddingLeft: "16px",
-            margin: "4px 0",
-            lineHeight: "1.4",
-            display: "flex",
-            alignItems: "center"
-          }}
-        >
-          <span style={{
-            position: "absolute",
-            left: "0",
-            marginRight: "8px",
-            display: "inline-block",
-            width: "12px"
-          }}>•</span>
-          <span style={{
-            marginLeft: "12px"
-          }}>{unit}</span>
-        </li>
-      ))
-    ) : (
-      <li style={{
-        position: "relative",
-        paddingLeft: "16px",
-        margin: "4px 0",
-        lineHeight: "1.4",
-        display: "flex",
-        alignItems: "center"
-      }}>
-        <span style={{
-          position: "absolute",
-          left: "0",
-          marginRight: "8px",
-          display: "inline-block",
-          width: "12px"
-        }}>•</span>
-        <span style={{
-          marginLeft: "12px"
-        }}>{user.courseUnits}</span>
-      </li>
-    )}
-  </ul>
-</td>
-<td>
-  <ul style={{ 
-    listStyle: "none", 
-    padding: 0,
-    margin: 0 
-  }}>
-    {Array.isArray(user.courseUnitCode) ? (
-      user.courseUnitCode.map((code, i) => (
-        <li 
-          key={i} 
-          style={{
-            position: "relative",
-            paddingLeft: "16px",
-            margin: "4px 0",
-            marginLeft: "-110px",  // Pull items towards left
-            lineHeight: "1.4",
-            display: "flex",
-            alignItems: "center"
-          }}
-        >
-          <span style={{
-            position: "absolute",
-            left: "10px",
-            marginRight: "8px",
-            display: "inline-block",
-            width: "12px"
-          }}>•</span>
-          <span style={{
-            marginLeft: "12px"
-          }}>{code}</span>
-        </li>
-      ))
-    ) : (
-      <li style={{
-        position: "relative",
-        paddingLeft: "16px",
-        margin: "4px 0",
-        lineHeight: "1.4",
-        display: "flex",
-        alignItems: "center"
-      }}>
-        <span style={{
-          position: "absolute",
-          left: "0",
-          marginRight: "8px",
-          display: "inline-block",
-          width: "12px"
-        }}>•</span>
-        <span style={{
-          marginLeft: "12px"
-        }}>{user.courseUnitCode}</span>
-      </li>
-    )}
-  </ul>
-</td>
+                              <ul style={{ 
+                                listStyle: "none", 
+                                padding: 0,
+                                margin: 0 
+                              }}>
+                                {Array.isArray(user.courseUnits) ? (
+                                  user.courseUnits.map((unit, i) => (
+                                    <li 
+                                      key={i} 
+                                      style={{
+                                        position: "relative",
+                                        paddingLeft: "16px",
+                                        margin: "4px 0",
+                                        lineHeight: "1.4",
+                                        display: "flex",
+                                        alignItems: "center"
+                                      }}
+                                    >
+                                      <span style={{
+                                        position: "absolute",
+                                        left: "0",
+                                        marginRight: "8px",
+                                        display: "inline-block",
+                                        width: "12px"
+                                      }}>•</span>
+                                      <span style={{
+                                        marginLeft: "12px"
+                                      }}>{unit}</span>
+                                    </li>
+                                  ))
+                                ) : (
+                                  <li style={{
+                                    position: "relative",
+                                    paddingLeft: "16px",
+                                    margin: "4px 0",
+                                    lineHeight: "1.4",
+                                    display: "flex",
+                                    alignItems: "center"
+                                  }}>
+                                    <span style={{
+                                      position: "absolute",
+                                      left: "0",
+                                      marginRight: "8px",
+                                      display: "inline-block",
+                                      width: "12px"
+                                    }}>•</span>
+                                    <span style={{
+                                      marginLeft: "12px"
+                                    }}>{user.courseUnits}</span>
+                                  </li>
+                                )}
+                              </ul>
+                            </td>
+                            <td>
+                              <ul style={{ 
+                                listStyle: "none", 
+                                padding: 0,
+                                margin: 0 
+                              }}>
+                                {Array.isArray(user.courseUnitCode) ? (
+                                  user.courseUnitCode.map((code, i) => (
+                                    <li 
+                                      key={i} 
+                                      style={{
+                                        position: "relative",
+                                        paddingLeft: "16px",
+                                        margin: "4px 0",
+                                        marginLeft: "-110px",  // Pull items towards left
+                                        lineHeight: "1.4",
+                                        display: "flex",
+                                        alignItems: "center"
+                                      }}
+                                    >
+                                      <span style={{
+                                        position: "absolute",
+                                        left: "10px",
+                                        marginRight: "8px",
+                                        display: "inline-block",
+                                        width: "12px"
+                                      }}>•</span>
+                                      <span style={{
+                                        marginLeft: "12px"
+                                      }}>{code}</span>
+                                    </li>
+                                  ))
+                                ) : (
+                                  <li style={{
+                                    position: "relative",
+                                    paddingLeft: "16px",
+                                    margin: "4px 0",
+                                    lineHeight: "1.4",
+                                    display: "flex",
+                                    alignItems: "center"
+                                  }}>
+                                    <span style={{
+                                      position: "absolute",
+                                      left: "0",
+                                      marginRight: "8px",
+                                      display: "inline-block",
+                                      width: "12px"
+                                    }}>•</span>
+                                    <span style={{
+                                      marginLeft: "12px"
+                                    }}>{user.courseUnitCode}</span>
+                                  </li>
+                                )}
+                              </ul>
+                            </td>
                         </tr>
                     ))}
                 </TableBody>
