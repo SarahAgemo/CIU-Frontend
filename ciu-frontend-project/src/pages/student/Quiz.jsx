@@ -3,11 +3,12 @@ import io from 'socket.io-client';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import quiz from "./Quiz.module.css";
-
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 const Quiz2 = () => {
   const [socket, setSocket] = useState(null);
-const mediaStreamRef = useRef(null);
+  const mediaStreamRef = useRef(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -554,8 +555,6 @@ const mediaStreamRef = useRef(null);
   };
 }, [examId, userId]);
   
-
-
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.hidden) {
@@ -578,10 +577,11 @@ const mediaStreamRef = useRef(null);
       ) : (
         <>
           {examState.lastSavedAt && (
-            <div className={quiz.resumeNotice}>
-              <p>You have a saved exam from {new Date(examState.lastSavedAt).toLocaleString()}</p>
-              <p>Resuming from question {questionIndex + 1}</p>
-            </div>
+            <Alert severity="info" sx={{ mb: 2 }}>
+              <AlertTitle>Exam Resumed</AlertTitle>
+              You have a saved exam from {new Date(examState.lastSavedAt).toLocaleString()}<br />
+              Resuming from question {questionIndex + 1}
+          </Alert>
           )}
 
 

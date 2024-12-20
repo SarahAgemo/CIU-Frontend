@@ -1,33 +1,3 @@
-// import React from 'react';
-// import ManageCard from './ManageCard.jsx'
-// import Manage from './ManagementCard.module.css';
-
-// export default function ManagementCard({ onOpenCreateExamModal, onOpenUploadExamModal }) {
-//   const cards = [
-//     { title: 'Create Assessment', action: onOpenCreateExamModal },
-//     { title: 'Upload Assessment', action: onOpenUploadExamModal },
-//     { title: 'View Exam List', path: '/schedule-upload-exams/exam-list' },
-//     { title: 'Published Exams', path: '/published-exam-papers' },
-//     { title: 'Completed Exams', path: '/completed-Assessments' }
-//   ];
-
-//   return (
-//     <div className={Manage.container}>
-//       <h1 className={Manage.title}>MANAGE EXAMS</h1>
-//       <div className={Manage.grid}>
-//         {cards.map((card, index) => (
-//           <ManageCard
-//             key={index}
-//             title={card.title}
-//             to={card.path}
-//             onClick={card.action}
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   )
-// }
-
 import React from 'react';
 import ManageCard from './ManageCard.jsx'
 import Manage from './ManagementCard.module.css';

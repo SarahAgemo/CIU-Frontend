@@ -90,6 +90,7 @@ function UserList({ users }) {
         />
       </div>
 
+      <h2 style={{marginLeft: "2px"}}>List of Courses</h2>
       <Table>
         <TableHead cols={cols} />
         <TableBody>

@@ -399,26 +399,6 @@ form .forgot-password {
 }
 
 
-/* Styles for the Dialog component */
-/* .MuiDialog-paper {
-  border-radius: 10px !important;
-  overflow: hidden !important;
-}
-
-.MuiDialogTitle-root {
-  background-color: #106053;
-  color: white;
-  padding: 16px 24px !important;
-}
-
-.MuiDialogContent-root {
-  padding: 24px !important;
-}
-
-.MuiIconButton-root {
-  color: white !important;
-} */
-
 @media (max-width: 480px) {
   .modal-form {
     padding: 15px;

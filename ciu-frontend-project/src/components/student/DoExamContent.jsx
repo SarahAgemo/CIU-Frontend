@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DoExam from './DoExamContent.module.css';
@@ -26,7 +25,7 @@ const ExamCard = ({ exam, onDoExam }) => {
     const endTime = new Date(exam.endTime);
 
     // Check if the button should be enabled
-    // const isButtonDisabled = !(now >= scheduledDate && now >= startTime);
+    const isButtonDisabled = !(now >= scheduledDate && now >= startTime);
 
     return (
         <div className={DoExam["exam-card"]}>
@@ -45,8 +44,7 @@ const ExamCard = ({ exam, onDoExam }) => {
                 <button
                     className={DoExam["do-exam-btn"]}
                     onClick={() => onDoExam(exam)}
-                    // disabled={isButtonDisabled} // Disable the button if the exam is not yet available
-                    // disabled={isButtonDisabled} 
+                    disabled={isButtonDisabled} 
                     // Disable the button if the exam is not yet available
                 >
                     DO EXAM
@@ -55,7 +53,6 @@ const ExamCard = ({ exam, onDoExam }) => {
                     Schedule Reminder <Clock size={16} />
                 </a> */}
             </div>
-            
         </div>
     );
 };

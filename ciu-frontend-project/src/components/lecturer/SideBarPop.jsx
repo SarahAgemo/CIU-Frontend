@@ -13,7 +13,7 @@ export default function Sidebar() {
     { icon: <LayoutDashboard size={20} />, text: 'Dashboard', path: '/lecturerdashboard' },
     { icon: <FileText size={20} />, text: 'Courses', path: '/lect-courses' },
     { icon: <HelpCircle size={20} />, text: 'Question Bank', path: '/question-bank' },
-    { icon: <Video size={20} />, text: 'Proctoring', path: '/lecturer/proctoring' },
+    { icon: <Video size={20} />, text: 'Exam Proctoring', path: '/lecturer/proctoring' },
     { icon: <FileText size={20} />, text: 'Exam Management', path: '/exam-management' },
     { icon: <LogOut size={20} />, text: 'Logout', path: '/' }
   ];
