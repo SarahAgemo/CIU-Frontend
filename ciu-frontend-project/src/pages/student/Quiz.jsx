@@ -3,11 +3,13 @@ import io from 'socket.io-client';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import quiz from "./Quiz.module.css";
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 
 const Quiz2 = () => {
   const [socket, setSocket] = useState(null);
-const mediaStreamRef = useRef(null);
+  const mediaStreamRef = useRef(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
@@ -397,7 +399,6 @@ const mediaStreamRef = useRef(null);
     await saveProgress();
   };
 
-
   const getRecordingDuration = () => {
     const duration = Math.floor((Date.now() - recordingStartTime) / 1000);
     return formatTime(duration);
@@ -493,8 +494,8 @@ const mediaStreamRef = useRef(null);
     handleSubmit();
   };
 
-  // Add this useEffect for socket connection and video streaming
-  useEffect(() => {
+   // Add this useEffect for socket connection and video streaming
+   useEffect(() => {
     const newSocket = io('http://localhost:3000/proctor', {
       transports: ['websocket']
     });
@@ -553,9 +554,7 @@ const mediaStreamRef = useRef(null);
       mediaStreamRef.current.getTracks().forEach(track => track.stop());
     }
   };
-}, [examId, userId]);
-  
-
+  }, [examId, userId]);
 
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -579,10 +578,11 @@ const mediaStreamRef = useRef(null);
       ) : (
         <>
           {examState.lastSavedAt && (
-            <div className={quiz.resumeNotice}>
-              <p>You have a saved exam from {new Date(examState.lastSavedAt).toLocaleString()}</p>
-              <p>Resuming from question {questionIndex + 1}</p>
-            </div>
+            <Alert severity="info" sx={{ mb: 2 }}>
+              <AlertTitle>Exam Resumed</AlertTitle>
+              You have a saved exam from {new Date(examState.lastSavedAt).toLocaleString()}<br />
+              Resuming from question {questionIndex + 1}
+            </Alert>
           )}
 
 
@@ -717,6 +717,5 @@ const mediaStreamRef = useRef(null);
 
 
 export default Quiz2;
-
 
 

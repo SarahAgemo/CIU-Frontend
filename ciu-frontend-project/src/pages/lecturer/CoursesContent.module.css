@@ -67,32 +67,6 @@ th{
 }
 
 
-/* td:last-child {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-button.btn-secondary:hover {
-  background-color: #0B3F37;
-} */
-
-/* .course__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.1s;
-}
-
-.course__btn--danger {
-  background-color: #c41010;
-} */
-
 /* Responsive styling for mobile */
 @media (max-width: 768px) {
   table {

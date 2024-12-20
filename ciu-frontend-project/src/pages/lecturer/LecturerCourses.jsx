@@ -73,24 +73,22 @@ function UserList({ users }) {
     };
 
     return (
-      
         <div>
-           
-            <div style={searchContainerStyles}>
-                <button 
-                    style={searchButtonStyles}
-                    onClick={() => navigate('/lect-courses')}
-                >
-                    Search Courses
-                </button>
-                <input
-                    type="text"
-                    placeholder="Search by course name"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    style={searchInputStyles}
-                />
-            </div>
+          <div style={searchContainerStyles}>
+              <button 
+                  style={searchButtonStyles}
+                  onClick={() => navigate('/lect-courses')}
+              >
+                  Search Courses
+              </button>
+              <input
+                  type="text"
+                  placeholder="Search by course name"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  style={searchInputStyles}
+              />
+          </div>
           
             <h2 style={{marginLeft: "2px"}}>List of Courses</h2>
             <Table>

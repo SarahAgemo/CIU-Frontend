@@ -153,18 +153,6 @@ const EditStudent = ({ id, onClose, onUpdate }) => {
             required
           />
         </div>
-        {/* <div className={editStudent["form-group"]}>
-          <label htmlFor="role">Role</label>
-          <input
-            type="text"
-            id="role"
-            name="role"
-            className={editStudent["form-control"]}
-            value={formData.role}
-            onChange={handleChange}
-            required
-          />
-        </div> */}
         <div className={editStudent["form-group"]}>
           <label htmlFor="courseId">Course ID</label>
           <input

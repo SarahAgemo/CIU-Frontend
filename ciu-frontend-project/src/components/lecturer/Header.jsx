@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Settings, Bell, User } from 'lucide-react';
-import { lecturerAuth } from './lecturerAuth' // For use when integrating the backend with the frontend to ensure user's detaisl are displayed
+import { lecturerAuth } from './lecturerAuth' // For use when integrating the backend with the frontend to ensure user's details are displayed
 import LecturerHeader from './Header.module.css'
 import axios from 'axios';
 

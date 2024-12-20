@@ -102,26 +102,6 @@ function EditLecturer({ id, onClose, onUpdate }) {
                         onChange={handleChange}
                     />
                 </div>
-                {/* <div className={editLecturer["form-group password-group"]}>
-                    <label htmlFor="password">Password</label>
-                    <div className={editLecturer["password-input"]}>
-                        <input
-                            type={showPassword ? 'text' : 'password'}
-                            id="password"
-                            name="password"
-                            className={editLecturer["form-control"]}
-                            value={formData.password}
-                            onChange={handleChange}
-                        />
-                        <button
-                            type="button"
-                            className={editLecturer["toggle-password"]}
-                            onClick={() => setShowPassword(!showPassword)}
-                        >
-                            {showPassword ? '🙈' : '👁️'}
-                        </button>
-                    </div>
-                </div> */}
                 <div className={editLecturer["form-actions"]}>
                     <button type="submit" className={editLecturer["form-button"]}>
                         Save Changes

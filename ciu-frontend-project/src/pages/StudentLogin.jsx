@@ -1,8 +1,6 @@
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-// import { BiSolidUserRectangle } from "react-icons/bi";
 import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Dialog, DialogContent, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
