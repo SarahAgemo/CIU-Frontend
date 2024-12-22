@@ -1,5 +1,5 @@
 import React from 'react';
-import Dash from './Dashboard.module.css'
+import Dash from './AdminDashboardCard.module.css'
 
 export default function DashboardCard({ title, value, icon }) {
   return (

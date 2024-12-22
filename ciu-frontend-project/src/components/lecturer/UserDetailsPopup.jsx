@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Settings, LogOut, X } from "lucide-react"
-import User from "./UserDetailsPop.module.css"
+import User from "./UserDetailsPopup.module.css"
 import axios from 'axios';
 
 

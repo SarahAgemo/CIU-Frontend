@@ -3,7 +3,7 @@ import Header from '../../components/admin/Headerpop';
 import Sidebar from '../../components/admin/SideBarpop';
 import MobileMenu from "../../components/admin/MobileMenu"
 import axios from 'axios';
-import DashboardCard from '../../components/admin/DashboardCard.jsx';
+import DashboardCard from '../../components/admin/AdminDashboardCard.jsx';
 import AdminDash from './AdminDashboard.module.css';
 
 export default function Dashboard() {
